@@ -27,10 +27,11 @@
 <body>
   <main>
     <h1>Limupy VPN</h1>
-    <p id="intro">VPN-подписка.</p>
+    <p id="intro">Подключение через защищённый API.</p>
 
     <div class="status" id="status" aria-live="polite">
       <div class="row"><span class="label">Статус</span><span class="value" id="statusText">Готово</span></div>
+      <div class="row"><span class="label">Подписка</span><span class="value" id="subscriptionName">—</span></div>
       <div class="row"><span class="label">Протоколы</span><span class="value" id="protocols">—</span></div>
       <div class="row"><span class="label">Задержка</span><span class="value" id="latency">—</span></div>
       <div class="row"><span class="label">Срок</span><span class="value" id="expire">—</span></div>
@@ -40,7 +41,7 @@
     <small id="note">Ключ берётся только из #key=... и не отправляется в URL API.</small>
   </main>
 
-  <script src="./app.js" defer></script>
+  <script src="./app.js?v=2" defer></script>
   <script>
     'use strict';
 
@@ -50,6 +51,7 @@
       const protocols = document.getElementById('protocols');
       const latency = document.getElementById('latency');
       const expire = document.getElementById('expire');
+      const subscriptionName = document.getElementById('subscriptionName');
       const note = document.getElementById('note');
 
       let payload = null;
@@ -65,6 +67,10 @@
         return Number.isNaN(date.getTime()) ? 'неизвестно' : date.toLocaleString('ru-RU');
       }
 
+      function hasKey() {
+        return Boolean(new URLSearchParams(location.hash.replace(/^#/, '')).get('key'));
+      }
+
       async function prepare() {
         button.disabled = true;
         setStatus('Проверка...');
@@ -72,6 +78,8 @@
 
         try {
           payload = await window.Limupy.collect();
+
+          subscriptionName.textContent = payload?.subscription_name || '—';
 
           const list = Array.isArray(payload?.subscription?.protocols)
             ? payload.subscription.protocols
@@ -96,6 +104,20 @@
       button.addEventListener('click', () => {
         if (!payload?.launch_url) return;
         window.location.href = payload.launch_url;
+      });
+
+      window.addEventListener('hashchange', () => {
+        payload = null;
+        protocols.textContent = '—';
+        latency.textContent = '—';
+        expire.textContent = '—';
+        subscriptionName.textContent = '—';
+        button.disabled = true;
+        if (hasKey()) prepare();
+        else {
+          setStatus('Готово');
+          note.textContent = 'Ключ подписки не найден.';
+        }
       });
 
       prepare();
