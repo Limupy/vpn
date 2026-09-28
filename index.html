@@ -12,6 +12,11 @@
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0b1020">
 
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'"
+  >
+
   <link
     rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236ea8fe'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='38' font-weight='800' fill='white'%3EL%3C/text%3E%3C/svg%3E"
@@ -129,10 +134,6 @@
       backdrop-filter: blur(16px);
     }
 
-    /*
-      Компактный статус
-    */
-
     .hero {
       padding: 11px 18px;
       border-bottom: 1px solid var(--line);
@@ -156,27 +157,20 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-
       padding: 5px 9px;
       min-height: 24px;
-
       border-radius: 999px;
-
       font-size: 12px;
       line-height: 1;
       font-weight: 700;
-
       background: rgba(255,255,255,.06);
     }
 
     .status::before {
       content: "";
-
       width: 6px;
       height: 6px;
-
       flex: 0 0 6px;
-
       border-radius: 50%;
       background: currentColor;
     }
@@ -201,17 +195,12 @@
 
     .row {
       display: grid;
-
       grid-template-columns:
         minmax(120px, 1fr)
         minmax(0, 1.5fr);
-
       gap: 18px;
-
       align-items: center;
-
       min-height: 62px;
-
       border-bottom: 1px solid var(--line);
     }
 
@@ -235,20 +224,13 @@
     .protocol {
       padding: 6px 9px;
       border-radius: 9px;
-
       border: 1px solid rgba(110,168,254,.22);
       background: rgba(110,168,254,.10);
-
       color: #dce9ff;
-
       font-size: 12px;
       font-weight: 700;
       letter-spacing: .01em;
     }
-
-    /*
-      VPN connections
-    */
 
     .connections {
       display: flex;
@@ -272,17 +254,12 @@
     .ip {
       display: inline-flex;
       align-items: center;
-
       min-height: 25px;
       padding: 4px 8px;
-
       border-radius: 8px;
-
       background: rgba(65,211,146,.08);
       border: 1px solid rgba(65,211,146,.18);
-
       color: #c9f6df;
-
       font-family:
         ui-monospace,
         SFMono-Regular,
@@ -291,7 +268,6 @@
         Consolas,
         "Liberation Mono",
         monospace;
-
       font-size: 11px;
       font-weight: 650;
       white-space: nowrap;
@@ -313,25 +289,17 @@
     .btn {
       appearance: none;
       border: 0;
-
       cursor: pointer;
-
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
       gap: 8px;
-
       min-height: 46px;
       padding: 0 16px;
-
       border-radius: 13px;
-
       text-decoration: none;
-
       font-weight: 750;
       font-size: 14px;
-
       transition:
         transform .15s ease,
         opacity .15s ease,
@@ -348,7 +316,6 @@
 
     .btn.primary {
       color: #07101f;
-
       background:
         linear-gradient(
           135deg,
@@ -359,9 +326,7 @@
 
     .btn.secondary {
       color: var(--text);
-
       background: rgba(255,255,255,.07);
-
       border: 1px solid var(--line);
     }
 
@@ -371,9 +336,7 @@
 
     .footer-note {
       margin-top: 13px;
-
       color: var(--muted);
-
       font-size: 12px;
       text-align: center;
     }
@@ -381,17 +344,12 @@
     .error {
       margin-top: 14px;
       padding: 12px 14px;
-
       border-radius: 12px;
-
       background: rgba(255,101,122,.08);
       border: 1px solid rgba(255,101,122,.18);
-
       color: #ffd7dd;
-
       font-size: 13px;
       line-height: 1.45;
-
       white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
@@ -401,14 +359,10 @@
     }
 
     @media (max-width: 560px) {
-
       .row {
         grid-template-columns: 1fr;
-
         gap: 6px;
-
         padding: 13px 0;
-
         min-height: auto;
       }
 
@@ -440,50 +394,25 @@
 </head>
 
 <body>
-
   <main class="wrap">
-
     <div class="header">
-
       <div class="brand">
-
-        <div class="logo">
-          L
-        </div>
+        <div class="logo">L</div>
 
         <div>
-
-          <h1>
-            Limupy VPN
-          </h1>
-
-          <div class="subtitle">
-            VPN-подписка
-          </div>
-
+          <h1>Limupy VPN</h1>
+          <div class="subtitle">VPN-подписка</div>
         </div>
-
       </div>
-
     </div>
-
 
     <section
       class="card"
       aria-live="polite"
     >
-
-      <!--
-        КОМПАКТНЫЙ СТАТУС
-      -->
-
       <div class="hero">
-
         <div class="status-row">
-
-          <span class="label">
-            Статус
-          </span>
+          <span class="label">Статус</span>
 
           <span
             id="status"
@@ -491,21 +420,12 @@
           >
             Проверка…
           </span>
-
         </div>
-
       </div>
 
-
       <div class="rows">
-
-        <!-- ПОДПИСКА -->
-
         <div class="row">
-
-          <div class="label">
-            Подписка
-          </div>
+          <div class="label">Подписка</div>
 
           <div
             id="subscription"
@@ -513,17 +433,10 @@
           >
             —
           </div>
-
         </div>
 
-
-        <!-- ПОДКЛЮЧЕНИЯ VPN -->
-
         <div class="row">
-
-          <div class="label">
-            Подключено к VPN
-          </div>
+          <div class="label">Подключено к VPN</div>
 
           <div
             id="devicesCount"
@@ -531,17 +444,10 @@
           >
             —
           </div>
-
         </div>
 
-
-        <!-- ПРОТОКОЛЫ -->
-
         <div class="row">
-
-          <div class="label">
-            Протоколы
-          </div>
+          <div class="label">Протоколы</div>
 
           <div
             id="protocols"
@@ -549,17 +455,10 @@
           >
             —
           </div>
-
         </div>
 
-
-        <!-- ТРАФИК -->
-
         <div class="row">
-
-          <div class="label">
-            Трафик
-          </div>
+          <div class="label">Трафик</div>
 
           <div
             id="traffic"
@@ -567,17 +466,10 @@
           >
             —
           </div>
-
         </div>
 
-
-        <!-- СРОК -->
-
         <div class="row">
-
-          <div class="label">
-            Срок действия
-          </div>
+          <div class="label">Срок действия</div>
 
           <div
             id="expire"
@@ -585,17 +477,10 @@
           >
             —
           </div>
-
         </div>
 
-
-        <!-- ЗАДЕРЖКА -->
-
         <div class="row">
-
-          <div class="label">
-            Задержка
-          </div>
+          <div class="label">Задержка</div>
 
           <div
             id="latency"
@@ -603,18 +488,13 @@
           >
             —
           </div>
-
         </div>
-
       </div>
 
-
       <div class="actions">
-
         <a
           id="happDownload"
           class="btn secondary"
-
           href="https://happ.info/"
           target="_blank"
           rel="noopener noreferrer"
@@ -622,23 +502,17 @@
           Скачать Happ
         </a>
 
-
         <a
           id="happConnect"
           class="btn primary"
-
           href="#"
-          rel="noopener"
-
+          rel="noopener noreferrer"
           hidden
         >
           Открыть в Happ
         </a>
-
       </div>
-
     </section>
-
 
     <div
       id="error"
@@ -646,242 +520,92 @@
       hidden
     ></div>
 
-
     <div class="footer-note">
-
-      Задержка измеряется непосредственно
-      с вашего устройства до API Limupy.
-
+      Задержка измеряется непосредственно с вашего устройства до API Limupy.
     </div>
-
   </main>
-
 
   <script>
     'use strict';
 
+    const API_URL = 'https://78.17.112.158/api.php';
+    const HAPP_DOWNLOAD_URL = 'https://happ.info/';
+    const REQUEST_TIMEOUT_MS = 10000;
+    const DEVICE_STORAGE_KEY = 'limupy_device_id_v2';
 
-    /* ==================================================
-       CONFIG
-       ================================================== */
-
-    const API_URL =
-      'https://78.17.112.158/api.php';
-
-    const HAPP_DOWNLOAD_URL =
-      'https://happ.info/';
-
-    const REQUEST_TIMEOUT_MS =
-      10000;
-
-    const DEVICE_STORAGE_KEY =
-      'limupy_device_id_v2';
-
-
-    const $ =
-      id =>
-        document.getElementById(id);
-
-
-    /* ==================================================
-       TOKEN
-       ================================================== */
+    const $ = id => document.getElementById(id);
 
     function getToken() {
-
-      const hash =
-        window.location.hash.replace(
-          /^#/,
-          ''
-        );
-
-      const params =
-        new URLSearchParams(hash);
-
-      return (
-        params.get('key') || ''
-      ).trim();
-
+      const hash = window.location.hash.replace(/^#/, '');
+      const params = new URLSearchParams(hash);
+      return (params.get('key') || '').trim();
     }
 
-
-    /* ==================================================
-       DEVICE ID
-       ================================================== */
-
     function base64Url(bytes) {
-
       let binary = '';
 
-      for (
-        const byte of bytes
-      ) {
-
-        binary +=
-          String.fromCharCode(
-            byte
-          );
-
+      for (const byte of bytes) {
+        binary += String.fromCharCode(byte);
       }
 
       return btoa(binary)
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=+$/g, '');
-
     }
-
 
     function makeDeviceId() {
-
-      const bytes =
-        new Uint8Array(32);
-
-      crypto.getRandomValues(
-        bytes
-      );
-
-      return base64Url(
-        bytes
-      );
-
+      const bytes = new Uint8Array(32);
+      crypto.getRandomValues(bytes);
+      return base64Url(bytes);
     }
 
-
     function getDeviceId() {
+      let value = localStorage.getItem(DEVICE_STORAGE_KEY);
 
-      let value =
-        localStorage.getItem(
-          DEVICE_STORAGE_KEY
-        );
-
-      if (
-        !value ||
-        !/^[A-Za-z0-9._~-]{43}$/.test(
-          value
-        )
-      ) {
-
-        value =
-          makeDeviceId();
-
-        localStorage.setItem(
-          DEVICE_STORAGE_KEY,
-          value
-        );
-
+      if (!value || !/^[A-Za-z0-9._~-]{43}$/.test(value)) {
+        value = makeDeviceId();
+        localStorage.setItem(DEVICE_STORAGE_KEY, value);
       }
 
       return value;
-
     }
 
+    function setStatus(active, text) {
+      const el = $('status');
 
-    /* ==================================================
-       STATUS
-       ================================================== */
-
-    function setStatus(
-      active,
-      text
-    ) {
-
-      const el =
-        $('status');
-
-      el.className =
-        'status ' +
-        (
-          active
-            ? 'ok'
-            : 'bad'
-        );
-
-      el.textContent =
-        text;
-
+      el.className = 'status ' + (active ? 'ok' : 'bad');
+      el.textContent = text;
     }
-
-
-    /* ==================================================
-       RESET
-       ================================================== */
 
     function resetFields() {
+      $('subscription').textContent = '—';
+      $('devicesCount').textContent = '—';
+      $('protocols').textContent = '—';
+      $('traffic').textContent = '—';
+      $('expire').textContent = '—';
+      $('latency').textContent = '—';
 
-      $('subscription').textContent =
-        '—';
-
-      $('devicesCount').textContent =
-        '—';
-
-      $('protocols').textContent =
-        '—';
-
-      $('traffic').textContent =
-        '—';
-
-      $('expire').textContent =
-        '—';
-
-      $('latency').textContent =
-        '—';
-
-      $('happConnect').hidden =
-        true;
-
-      $('happConnect')
-        .removeAttribute(
-          'href'
-        );
-
+      $('happConnect').hidden = true;
+      $('happConnect').removeAttribute('href');
     }
 
-
-    /* ==================================================
-       BYTES
-       ================================================== */
-
     function bytes(value) {
+      const n = Number(value || 0);
 
-      const n =
-        Number(
-          value || 0
-        );
-
-      if (
-        !Number.isFinite(n) ||
-        n <= 0
-      ) {
-
+      if (!Number.isFinite(n) || n <= 0) {
         return '0 Б';
-
       }
 
-
-      const units = [
-        'Б',
-        'КБ',
-        'МБ',
-        'ГБ',
-        'ТБ'
-      ];
-
+      const units = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ'];
 
       let x = n;
       let i = 0;
 
-
-      while (
-        x >= 1024 &&
-        i < units.length - 1
-      ) {
-
+      while (x >= 1024 && i < units.length - 1) {
         x /= 1024;
         i++;
-
       }
-
 
       const digits =
         x >= 100
@@ -890,171 +614,99 @@
             ? 1
             : 2;
 
-
-      return (
-        `${x.toFixed(digits)} ${units[i]}`
-      );
-
+      return `${x.toFixed(digits)} ${units[i]}`;
     }
-
-
-    /* ==================================================
-       TRAFFIC
-       ================================================== */
 
     function trafficText(sub) {
-
-      const total =
-        Number(
-          sub.total_bytes || 0
-        );
-
-      const used =
-        Number(
-          sub.used_bytes || 0
-        );
-
+      const total = Number(sub.total_bytes || 0);
+      const used = Number(sub.used_bytes || 0);
 
       if (!total) {
-
-        return (
-          `Использовано ${bytes(used)} · без лимита`
-        );
-
+        return `Использовано ${bytes(used)} · без лимита`;
       }
 
-
-      return (
-        `${bytes(used)} из ${bytes(total)}`
-      );
-
+      return `${bytes(used)} из ${bytes(total)}`;
     }
-
-
-    /* ==================================================
-       EXPIRE
-       ================================================== */
 
     function expireText(timestamp) {
-
-      const ts =
-        Number(
-          timestamp || 0
-        );
-
+      const ts = Number(timestamp || 0);
 
       if (!ts) {
-
         return 'Бессрочно';
-
       }
 
-
-      const d =
-        new Date(
-          ts > 1e12
-            ? ts
-            : ts * 1000
-        );
-
-
-      if (
-        Number.isNaN(
-          d.getTime()
-        )
-      ) {
-
-        return '—';
-
-      }
-
-
-      return d.toLocaleDateString(
-        'ru-RU',
-        {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        }
+      const d = new Date(
+        ts > 1e12
+          ? ts
+          : ts * 1000
       );
 
+      if (Number.isNaN(d.getTime())) {
+        return '—';
+      }
+
+      return d.toLocaleDateString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
     }
 
-
-    /* ==================================================
-       IP VALIDATION
-       ================================================== */
-
     function isIPv4(value) {
-
-      const parts =
-        String(value)
-          .trim()
-          .split('.');
-
+      const parts = String(value).trim().split('.');
 
       if (parts.length !== 4) {
         return false;
       }
 
-
       return parts.every(part => {
-
         if (!/^\d+$/.test(part)) {
           return false;
         }
 
-        const n =
-          Number(part);
+        const n = Number(part);
 
-        return (
-          n >= 0 &&
-          n <= 255
-        );
-
+        return n >= 0 && n <= 255;
       });
-
     }
-
 
     function isIPv6(value) {
+      const text = String(value).trim();
 
       return (
-        /^[0-9a-fA-F:]+$/.test(
-          String(value).trim()
-        ) &&
-        String(value).includes(':')
+        text.includes(':') &&
+        /^[0-9a-fA-F:.]+$/.test(text)
       );
-
     }
-
 
     function isValidIp(value) {
-
-      return (
-        isIPv4(value) ||
-        isIPv6(value)
-      );
-
+      return isIPv4(value) || isIPv6(value);
     }
 
-
-    /* ==================================================
-       EXTRACT IP FROM OBJECT
-       ================================================== */
-
-    function getIpFromObject(obj) {
-
-      if (
-        !obj ||
-        typeof obj !== 'object'
-      ) {
+    function normalizeIp(value) {
+      if (typeof value !== 'string') {
         return null;
       }
 
+      let ip = value.trim();
+
+      const suffixMatch = ip.match(
+        /^([0-9a-fA-F:.]+)(?:\s|\(|$)/
+      );
+
+      if (suffixMatch) {
+        ip = suffixMatch[1];
+      }
+
+      return isValidIp(ip) ? ip : null;
+    }
+
+    function getIpFromObject(obj) {
+      if (!obj || typeof obj !== 'object') {
+        return null;
+      }
 
       const candidates = [
-
         obj.ip,
         obj.IP,
         obj.address,
@@ -1066,391 +718,255 @@
         obj.remote_ip,
         obj.remoteIp,
         obj.remote_address,
-        obj.remoteAddress
-
+        obj.remoteAddress,
+        obj.last_ip,
+        obj.lastIp
       ];
 
+      for (const value of candidates) {
+        const ip = normalizeIp(value);
 
-      for (
-        const value of candidates
-      ) {
-
-        if (
-          typeof value === 'string' &&
-          isValidIp(value)
-        ) {
-
-          return value.trim();
-
+        if (ip) {
+          return ip;
         }
-
       }
 
-
       return null;
-
     }
 
-
-    /* ==================================================
-       EXTRACT CONNECTIONS
-       ================================================== */
-
     function extractConnections(data) {
+      const result = new Set();
 
-      const result = [];
+      const addIp = value => {
+        const ip = normalizeIp(value);
 
-      const pushIp =
-        value => {
+        if (ip) {
+          result.add(ip);
+        }
+      };
 
-          if (
-            typeof value !== 'string'
-          ) {
-            return;
-          }
+      const walk = value => {
+        if (value == null) {
+          return;
+        }
 
-          let ip =
-            value.trim();
+        if (typeof value === 'string') {
+          addIp(value);
+          return;
+        }
 
-          /*
-            Убираем возможный суффикс:
-            1.2.3.4 (timestamp)
-          */
+        if (typeof value !== 'object') {
+          return;
+        }
 
-          const match =
-            ip.match(
-              /^([0-9a-fA-F:.]+)(?:\s|\()/
-            );
+        if (Array.isArray(value)) {
+          for (const item of value) {
+            if (typeof item === 'string') {
+              addIp(item);
+            } else if (item && typeof item === 'object') {
+              const directIp = getIpFromObject(item);
 
-          if (match) {
-            ip =
-              match[1];
-          }
-
-          if (
-            isValidIp(ip)
-          ) {
-            result.push(ip);
-          }
-
-        };
-
-
-      const walk =
-        value => {
-
-          if (
-            value == null
-          ) {
-            return;
-          }
-
-
-          if (
-            typeof value === 'string'
-          ) {
-
-            pushIp(value);
-            return;
-
-          }
-
-
-          if (
-            typeof value === 'number'
-          ) {
-            return;
-          }
-
-
-          if (
-            Array.isArray(value)
-          ) {
-
-            for (
-              const item of value
-            ) {
-
-              if (
-                typeof item === 'string'
-              ) {
-
-                pushIp(item);
-
-              } else if (
-                item &&
-                typeof item === 'object'
-              ) {
-
-                const directIp =
-                  getIpFromObject(
-                    item
-                  );
-
-                if (directIp) {
-                  pushIp(
-                    directIp
-                  );
-                }
-
-                /*
-                  Поддержка:
-                  { ips: [...] }
-                  { connections: [...] }
-                  { addresses: [...] }
-                */
-
-                if (
-                  item.ips != null
-                ) {
-                  walk(
-                    item.ips
-                  );
-                }
-
-                if (
-                  item.connections != null
-                ) {
-                  walk(
-                    item.connections
-                  );
-                }
-
-                if (
-                  item.addresses != null
-                ) {
-                  walk(
-                    item.addresses
-                  );
-
-                }
-
+              if (directIp) {
+                addIp(directIp);
               }
 
+              walkObjectFields(item);
             }
-
-            return;
-
           }
 
+          return;
+        }
 
-          if (
-            typeof value === 'object'
-          ) {
+        walkObjectFields(value);
+      };
 
-            const directIp =
-              getIpFromObject(
-                value
-              );
+      const walkObjectFields = obj => {
+        const directIp = getIpFromObject(obj);
 
-            if (directIp) {
-              pushIp(
-                directIp
-              );
-            }
+        if (directIp) {
+          addIp(directIp);
+        }
 
+        const nestedKeys = [
+          'ips',
+          'ip_addresses',
+          'ipAddresses',
+          'connected_ips',
+          'connectedIPs',
+          'online_ips',
+          'onlineIPs',
+          'active_ips',
+          'activeIPs',
+          'connections',
+          'online_connections',
+          'onlineConnections',
+          'vpn_connections',
+          'vpnConnections',
+          'connected_devices',
+          'connectedDevices',
+          'vpn_devices',
+          'vpnDevices',
+          'connected_clients',
+          'connectedClients',
+          'online_clients',
+          'onlineClients',
+          'clients',
+          'sessions',
+          'peers',
+          'addresses'
+        ];
 
-            const nestedKeys = [
-
-              'ips',
-              'ip_addresses',
-              'ipAddresses',
-
-              'connections',
-              'online_connections',
-              'onlineConnections',
-
-              'vpn_connections',
-              'vpnConnections',
-
-              'connected_clients',
-              'connectedClients',
-
-              'online_clients',
-              'onlineClients',
-
-              'addresses'
-
-            ];
-
-
-            for (
-              const key of nestedKeys
-            ) {
-
-              if (
-                value[key] != null
-              ) {
-
-                walk(
-                  value[key]
-                );
-
-              }
-
-            }
-
+        for (const key of nestedKeys) {
+          if (obj[key] != null) {
+            walk(obj[key]);
           }
-
-        };
-
-
-      /*
-        Основные возможные поля API.
-      */
+        }
+      };
 
       const candidates = [
-
         data.vpn_connections,
         data.vpnConnections,
-
         data.connected_ips,
         data.connectedIPs,
-
         data.online_ips,
         data.onlineIPs,
-
         data.active_ips,
         data.activeIPs,
-
         data.connections,
         data.online_connections,
         data.onlineConnections,
-
+        data.connected_devices,
+        data.connectedDevices,
+        data.vpn_devices,
+        data.vpnDevices,
         data.connected_clients,
         data.connectedClients,
-
         data.online_clients,
         data.onlineClients,
-
+        data.sessions,
         data.subscription?.vpn_connections,
         data.subscription?.connections,
         data.subscription?.connected_ips,
         data.subscription?.online_ips,
-
+        data.subscription?.connected_devices,
+        data.subscription?.vpn_devices,
+        data.subscription?.sessions,
         data.connection?.vpn_connections,
         data.connection?.connections,
         data.connection?.connected_ips,
-        data.connection?.online_ips
-
+        data.connection?.online_ips,
+        data.connection?.connected_devices,
+        data.connection?.sessions,
+        data.device?.connections,
+        data.device?.connected_devices,
+        data.device?.sessions,
+        data.device?.ips,
+        data.devices
       ];
 
-
-      for (
-        const candidate
-        of candidates
-      ) {
-
+      for (const candidate of candidates) {
         walk(candidate);
-
       }
 
-
-      /*
-        Убираем дубликаты.
-      */
-
-      return [
-        ...new Set(
-          result
-        )
-      ];
-
+      return [...result];
     }
 
-
-    /* ==================================================
-       GET COUNT
-       ================================================== */
-
     function getExplicitConnectionCount(data) {
-
       const candidates = [
-
         data.vpn_connected_devices_count,
         data.connected_vpn_devices_count,
         data.vpn_devices_count,
         data.active_vpn_devices_count,
         data.vpn_connections_count,
-
-        data.connected_count,
+        data.connected_devices_count,
+        data.connectedDevicesCount,
+        data.active_devices_count,
+        data.activeDevicesCount,
+        data.connections_count,
+        data.connectionsCount,
         data.online_count,
-
+        data.connected_count,
+        data.device_count,
+        data.devices_count,
         data.subscription?.vpn_connected_devices_count,
         data.subscription?.connected_vpn_devices_count,
         data.subscription?.vpn_devices_count,
         data.subscription?.active_vpn_devices_count,
         data.subscription?.vpn_connections_count,
-
+        data.subscription?.connected_devices_count,
+        data.subscription?.active_devices_count,
+        data.subscription?.connections_count,
+        data.subscription?.online_count,
         data.connection?.vpn_connected_devices_count,
         data.connection?.connected_devices_count,
-        data.connection?.active_devices_count
-
+        data.connection?.active_devices_count,
+        data.connection?.connections_count,
+        data.connection?.online_count,
+        data.device?.connected_devices_count,
+        data.device?.active_devices_count,
+        data.device?.connections_count,
+        data.device?.online_count
       ];
 
-
-      for (
-        const value of candidates
-      ) {
-
+      for (const value of candidates) {
         if (
           typeof value === 'number' &&
           Number.isFinite(value) &&
           value >= 0
         ) {
-
           return Math.floor(value);
-
         }
-
 
         if (
           typeof value === 'string' &&
           value.trim() !== '' &&
-          Number.isFinite(
-            Number(value)
-          )
+          Number.isFinite(Number(value))
         ) {
-
           return Math.max(
             0,
-            Math.floor(
-              Number(value)
-            )
+            Math.floor(Number(value))
           );
-
         }
-
       }
 
-
       return null;
-
     }
 
+    function getConnectionArrayCount(data) {
+      const candidates = [
+        data.connected_devices,
+        data.connectedDevices,
+        data.vpn_devices,
+        data.vpnDevices,
+        data.sessions,
+        data.subscription?.connected_devices,
+        data.subscription?.vpn_devices,
+        data.subscription?.sessions,
+        data.connection?.connected_devices,
+        data.connection?.sessions,
+        data.device?.connections,
+        data.device?.sessions
+      ];
 
-    /* ==================================================
-       CONNECTIONS TEXT
-       ================================================== */
+      for (const value of candidates) {
+        if (Array.isArray(value)) {
+          return value.length;
+        }
+      }
+
+      return null;
+    }
 
     function pluralizeDevices(count) {
-
-      const mod10 =
-        count % 10;
-
-      const mod100 =
-        count % 100;
-
+      const mod10 = count % 10;
+      const mod100 = count % 100;
 
       if (
         mod10 === 1 &&
         mod100 !== 11
       ) {
-
         return 'устройство';
-
       }
-
 
       if (
         mod10 >= 2 &&
@@ -1460,484 +976,240 @@
           mod100 >= 20
         )
       ) {
-
         return 'устройства';
-
       }
-
 
       return 'устройств';
-
     }
 
+    function clearChildren(el) {
+      while (el.firstChild) {
+        el.removeChild(el.firstChild);
+      }
+    }
 
     function renderConnections(data) {
+      const ips = extractConnections(data);
 
-      const ips =
-        extractConnections(
-          data
-        );
+      let count = getExplicitConnectionCount(data);
 
-
-      const explicitCount =
-        getExplicitConnectionCount(
-          data
-        );
-
-
-      let count =
-        explicitCount;
-
-
-      /*
-        Если API дал IP, считаем
-        уникальные IP подключения.
-      */
-
-      if (
-        count === null &&
-        ips.length
-      ) {
-
-        count =
-          ips.length;
-
+      if (count === null) {
+        count = getConnectionArrayCount(data);
       }
 
+      if (count === null && ips.length > 0) {
+        count = ips.length;
+      }
 
-      /*
-        Ничего о подключениях API
-        не передал.
-      */
+      clearChildren($('devicesCount'));
 
-      if (
-        count === null
-      ) {
-
-        $('devicesCount').textContent =
-          '—';
-
+      if (count === null) {
+        $('devicesCount').textContent = '—';
         return;
-
       }
 
+      const wrapper = document.createElement('div');
+      wrapper.className = 'connections';
 
-      /*
-        Основной текст.
-      */
+      const countEl = document.createElement('div');
+      countEl.className = 'connections-count';
+      countEl.textContent =
+        `${count} ${pluralizeDevices(count)}`;
 
-      let html =
-        `<div class="connections">`;
+      wrapper.appendChild(countEl);
 
-      html +=
-        `<div class="connections-count">` +
-        `${count} ${pluralizeDevices(count)}` +
-        `</div>`;
+      if (ips.length > 0) {
+        const ipList = document.createElement('div');
+        ipList.className = 'ip-list';
 
+        const visible = ips.slice(0, 8);
 
-      /*
-        IP адреса.
-      */
-
-      if (
-        ips.length
-      ) {
-
-        html +=
-          `<div class="ip-list">`;
-
-
-        const visible =
-          ips.slice(
-            0,
-            8
-          );
-
-
-        for (
-          const ip of visible
-        ) {
-
-          html +=
-            `<span class="ip">${escapeHtml(ip)}</span>`;
-
+        for (const ip of visible) {
+          const ipEl = document.createElement('span');
+          ipEl.className = 'ip';
+          ipEl.textContent = ip;
+          ipList.appendChild(ipEl);
         }
 
-
-        if (
-          ips.length > 8
-        ) {
-
-          html +=
-            `<span class="ip-more">` +
-            `+${ips.length - 8}` +
-            `</span>`;
-
+        if (ips.length > 8) {
+          const moreEl = document.createElement('span');
+          moreEl.className = 'ip-more';
+          moreEl.textContent = `+${ips.length - 8}`;
+          ipList.appendChild(moreEl);
         }
 
-
-        html +=
-          `</div>`;
-
+        wrapper.appendChild(ipList);
       }
 
-
-      html +=
-        `</div>`;
-
-
-      $('devicesCount').innerHTML =
-        html;
-
+      $('devicesCount').appendChild(wrapper);
     }
 
+    function renderProtocols(protocols) {
+      const arr = Array.isArray(protocols)
+        ? protocols
+        : String(protocols || '')
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
 
-    /* ==================================================
-       HTML ESCAPE
-       ================================================== */
+      clearChildren($('protocols'));
 
-    function escapeHtml(value) {
+      if (!arr.length) {
+        $('protocols').textContent = '—';
+        return;
+      }
 
-      return String(value).replace(
-        /[&<>'"]/g,
-        ch =>
-          ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            "'": '&#39;',
-            '"': '&quot;'
-          }[ch])
+      const wrapper = document.createElement('div');
+      wrapper.className = 'protocols';
+
+      for (const protocol of arr) {
+        const item = document.createElement('span');
+        item.className = 'protocol';
+        item.textContent = String(protocol);
+        wrapper.appendChild(item);
+      }
+
+      $('protocols').appendChild(wrapper);
+    }
+
+    function isAllowedHappUrl(value) {
+      try {
+        const url = new URL(value);
+
+        return (
+          url.protocol === 'https:' ||
+          url.protocol === 'happ:'
+        );
+      } catch (_) {
+        return false;
+      }
+    }
+
+    async function postApi(token) {
+      const controller = new AbortController();
+
+      const timeout = setTimeout(
+        () => controller.abort(),
+        REQUEST_TIMEOUT_MS
       );
 
-    }
-
-
-    /* ==================================================
-       PROTOCOLS
-       ================================================== */
-
-    function renderProtocols(
-      protocols
-    ) {
-
-      const arr =
-        Array.isArray(protocols)
-
-          ? protocols
-
-          : String(
-              protocols || ''
-            )
-              .split(',')
-              .map(
-                s => s.trim()
-              )
-              .filter(Boolean);
-
-
-      if (
-        !arr.length
-      ) {
-
-        $('protocols').textContent =
-          '—';
-
-        return;
-
-      }
-
-
-      $('protocols').innerHTML =
-        '<div class="protocols">' +
-
-        arr
-          .map(
-            p =>
-              `<span class="protocol">${escapeHtml(p)}</span>`
-          )
-          .join('') +
-
-        '</div>';
-
-    }
-
-
-    /* ==================================================
-       API POST
-       ================================================== */
-
-    async function postApi(
-      token
-    ) {
-
-      const controller =
-        new AbortController();
-
-
-      const timeout =
-        setTimeout(
-          () =>
-            controller.abort(),
-          REQUEST_TIMEOUT_MS
-        );
-
-
       try {
-
         return await fetch(
           API_URL,
           {
             method: 'POST',
-
             mode: 'cors',
-
             cache: 'no-store',
-
             credentials: 'omit',
-
             redirect: 'error',
-
             signal: controller.signal,
-
             headers: {
-
-              'Authorization':
-                `Bearer ${token}`,
-
-              'Accept':
-                'application/json',
-
-              'Content-Type':
-                'application/json'
-
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
             },
-
-            body:
-              JSON.stringify(
-                {
-                  device_id:
-                    getDeviceId()
-                }
-              )
-
+            body: JSON.stringify({
+              device_id: getDeviceId()
+            })
           }
         );
-
       } finally {
-
-        clearTimeout(
-          timeout
-        );
-
+        clearTimeout(timeout);
       }
-
     }
 
-
-    /* ==================================================
-       FETCH SUBSCRIPTION
-       ================================================== */
-
-    async function fetchSubscription(
-      token
-    ) {
-
-      const res =
-        await postApi(
-          token
-        );
-
+    async function fetchSubscription(token) {
+      const res = await postApi(token);
 
       let data = null;
 
-
       try {
-
-        data =
-          await res.json();
-
+        data = await res.json();
       } catch (_) {
-
         data = null;
-
       }
-
 
       return {
         res,
         data
       };
-
     }
 
-
-    /* ==================================================
-       BROWSER LATENCY
-       ================================================== */
-
-    async function measureBrowserLatency(
-      token
-    ) {
-
+    async function measureBrowserLatency(token) {
       const samples = [];
 
-
-      for (
-        let i = 0;
-        i < 3;
-        i++
-      ) {
-
-        const start =
-          performance.now();
-
+      for (let i = 0; i < 3; i++) {
+        const start = performance.now();
 
         try {
-
-          const res =
-            await postApi(
-              token
-            );
-
+          const res = await postApi(token);
 
           await res.arrayBuffer();
 
-
-          if (
-            res.ok
-          ) {
-
+          if (res.ok) {
             samples.push(
-              performance.now() -
-              start
+              performance.now() - start
             );
-
           }
-
-        } catch (_) {
-
-          // ignore
-
-        }
-
+        } catch (_) {}
       }
 
-
-      if (
-        !samples.length
-      ) {
-
+      if (!samples.length) {
         return null;
-
       }
 
-
-      samples.sort(
-        (a, b) => a - b
-      );
-
+      samples.sort((a, b) => a - b);
 
       return samples[
-        Math.floor(
-          samples.length / 2
-        )
+        Math.floor(samples.length / 2)
       ];
-
     }
 
-
-    /* ==================================================
-       ERROR TEXT
-       ================================================== */
-
-    function showApiError(
-      status,
-      data
-    ) {
-
-      $('error').hidden =
-        false;
-
+    function showApiError(status, data) {
+      $('error').hidden = false;
 
       if (
         data &&
         typeof data.error === 'string'
       ) {
-
-        $('error').textContent =
-          data.error;
-
+        $('error').textContent = data.error;
         return;
-
       }
 
-
-      switch (
-        status
-      ) {
-
+      switch (status) {
         case 400:
-
           $('error').textContent =
             'API отклонил запрос: проверьте формат данных и идентификатор устройства.';
-
           break;
-
 
         case 401:
-
           $('error').textContent =
             'Подписка отключена или ключ больше не действителен.';
-
           break;
-
 
         case 403:
-
           $('error').textContent =
             'Запрос отклонён сервером по политике доступа.';
-
           break;
-
 
         case 405:
-
           $('error').textContent =
             'Ошибка метода API: сервер ожидает POST-запрос.';
-
           break;
-
 
         case 415:
-
           $('error').textContent =
             'API отклонил формат запроса. Ожидается JSON.';
-
           break;
 
-
         default:
-
           $('error').textContent =
             `Не удалось получить данные подписки. HTTP ${status}.`;
-
       }
-
     }
 
-
-    /* ==================================================
-       RENDER ACTIVE
-       ================================================== */
-
-    function renderActive(
-      data
-    ) {
-
-      const sub =
-        data.subscription || {};
-
+    function renderActive(data) {
+      const sub = data.subscription || {};
 
       const subscriptionName =
         data.subscription_name ||
@@ -1945,27 +1217,10 @@
         data.name ||
         'VPN-подписка';
 
-
-      /*
-        Название подписки.
-      */
-
       $('subscription').textContent =
         subscriptionName;
 
-
-      /*
-        Реальные VPN подключения.
-      */
-
-      renderConnections(
-        data
-      );
-
-
-      /*
-        Протоколы.
-      */
+      renderConnections(data);
 
       renderProtocols(
         sub.protocols ||
@@ -1973,130 +1228,66 @@
         []
       );
 
-
-      /*
-        Трафик.
-      */
-
       $('traffic').textContent =
-        trafficText(
-          sub
-        );
-
-
-      /*
-        Срок.
-      */
+        trafficText(sub);
 
       $('expire').textContent =
-        expireText(
-          sub.expire
-        );
-
-
-      /*
-        Happ.
-      */
+        expireText(sub.expire);
 
       if (
-        data.launch_url
+        typeof data.launch_url === 'string' &&
+        isAllowedHappUrl(data.launch_url)
       ) {
-
         $('happConnect').href =
           data.launch_url;
 
-        $('happConnect').hidden =
-          false;
-
+        $('happConnect').hidden = false;
       }
-
     }
 
-
-    /* ==================================================
-       LOAD
-       ================================================== */
-
     async function load() {
-
-      $('error').hidden =
-        true;
-
-      $('error').textContent =
-        '';
-
+      $('error').hidden = true;
+      $('error').textContent = '';
 
       resetFields();
-
 
       $('status').className =
         'status wait';
 
-
       $('status').textContent =
         'Проверка…';
 
+      const token = getToken();
 
-      const token =
-        getToken();
+      if (!token) {
+        setStatus(false, 'Не активно');
 
-
-      if (
-        !token
-      ) {
-
-        setStatus(
-          false,
-          'Не активно'
-        );
-
-
-        $('error').hidden =
-          false;
-
+        $('error').hidden = false;
 
         $('error').textContent =
           'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.';
 
-
         return;
-
       }
 
-
       try {
-
-        const {
-          res,
-          data
-        } =
-          await fetchSubscription(
-            token
-          );
-
+        const { res, data } =
+          await fetchSubscription(token);
 
         if (
           !res.ok ||
           !data ||
           data.ok === false
         ) {
-
-          setStatus(
-            false,
-            'Не активно'
-          );
-
+          setStatus(false, 'Не активно');
 
           showApiError(
             res.status,
             data
           );
 
-
           return;
-
         }
-
 
         if (
           data.subscription &&
@@ -2105,119 +1296,62 @@
             data.subscription.active === false
           )
         ) {
+          setStatus(false, 'Не активно');
 
-          setStatus(
-            false,
-            'Не активно'
-          );
-
-
-          $('error').hidden =
-            false;
-
+          $('error').hidden = false;
 
           $('error').textContent =
             'Эта VPN-подписка отключена.';
 
-
           return;
-
         }
 
+        setStatus(true, 'Активно');
 
-        setStatus(
-          true,
-          'Активно'
-        );
-
-
-        renderActive(
-          data
-        );
-
-
-        /*
-          Задержка.
-        */
+        renderActive(data);
 
         const latency =
-          await measureBrowserLatency(
-            token
-          );
-
+          await measureBrowserLatency(token);
 
         $('latency').textContent =
           latency == null
             ? '—'
             : `${Math.max(
                 1,
-                Math.round(
-                  latency
-                )
+                Math.round(latency)
               )} мс`;
+      } catch (error) {
+        setStatus(false, 'Не активно');
 
-      } catch (
-        error
-      ) {
-
-        setStatus(
-          false,
-          'Не активно'
-        );
-
-
-        $('error').hidden =
-          false;
-
+        $('error').hidden = false;
 
         if (
           error &&
           error.name === 'AbortError'
         ) {
-
           $('error').textContent =
             'Сервер не ответил вовремя. Попробуйте обновить страницу.';
-
         } else {
-
           $('error').textContent =
             'Нет связи с сервером подписки. Проверьте соединение и попробуйте обновить страницу.';
-
         }
-
       }
-
     }
-
-
-    /* ==================================================
-       HASH CHANGE
-       ================================================== */
 
     window.addEventListener(
       'hashchange',
       load
     );
 
-
-    /* ==================================================
-       START
-       ================================================== */
-
     window.addEventListener(
       'load',
       () => {
-
         $('happDownload').href =
           HAPP_DOWNLOAD_URL;
 
-
         load();
-
       }
     );
-
   </script>
-
 </body>
 </html>
