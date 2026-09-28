@@ -5,7 +5,7 @@
 
     <meta
         name="viewport"
-        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,viewport-fit=cover"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
     >
 
     <meta
@@ -63,7 +63,6 @@
             width: 100%;
             min-width: 100%;
             min-height: 100vh;
-            min-height: 100dvh;
             margin: 0;
             padding:
                 max(16px, env(safe-area-inset-top))
@@ -558,9 +557,7 @@
             "78.17.112.158";
 
         const params =
-            new URLSearchParams(
-                location.search
-            );
+            new URLSearchParams(location.search);
 
         const key =
             params.get("key");
@@ -570,14 +567,10 @@
 
         const elements = {
             status:
-                document.getElementById(
-                    "status"
-                ),
+                document.getElementById("status"),
 
             open:
-                document.getElementById(
-                    "open"
-                ),
+                document.getElementById("open"),
 
             subscriptionKey:
                 document.getElementById(
@@ -605,19 +598,13 @@
                 ),
 
             used:
-                document.getElementById(
-                    "used"
-                ),
+                document.getElementById("used"),
 
             expire:
-                document.getElementById(
-                    "expire"
-                ),
+                document.getElementById("expire"),
 
             devices:
-                document.getElementById(
-                    "devices"
-                )
+                document.getElementById("devices")
         };
 
         let happUrl = "";
@@ -793,8 +780,7 @@
         }
 
         function renderDevices(list) {
-            elements.devices.innerHTML =
-                "";
+            elements.devices.innerHTML = "";
 
             if (
                 !list ||
