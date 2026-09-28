@@ -845,35 +845,12 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return 'устройств';
     }
 
-    function normalizeCount(value) {
-      if (
-        typeof value === 'number' &&
-        Number.isFinite(value) &&
-        value >= 0
-      ) {
-        return Math.floor(value);
-      }
-
-      if (
-        typeof value === 'string' &&
-        value.trim() !== '' &&
-        Number.isFinite(Number(value))
-      ) {
-        return Math.max(
-          0,
-          Math.floor(Number(value))
-        );
-      }
-
-      return null;
-    }
-
     function getConnectionCount(data) {
-      const directValues = [
-        data?.connected_devices_count,
+      const direct = [
         data?.vpn_connections_count,
         data?.vpn_connected_devices_count,
         data?.connected_vpn_devices_count,
+        data?.connected_devices_count,
         data?.active_devices_count,
         data?.connections_count,
         data?.online_count,
@@ -881,85 +858,88 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         data?.device_count,
         data?.devices_count,
         data?.connection_count,
-
         data?.subscription?.connected_devices_count,
-        data?.subscription?.vpn_connections_count,
-        data?.subscription?.vpn_connected_devices_count,
-        data?.subscription?.connected_vpn_devices_count,
         data?.subscription?.active_devices_count,
         data?.subscription?.connections_count,
         data?.subscription?.online_count,
-        data?.subscription?.connected_count,
-        data?.subscription?.device_count,
-        data?.subscription?.devices_count,
-        data?.subscription?.connection_count,
-
         data?.device?.connected_devices_count,
-        data?.device?.vpn_connections_count,
-        data?.device?.vpn_connected_devices_count,
-        data?.device?.connected_vpn_devices_count,
         data?.device?.active_devices_count,
         data?.device?.connections_count,
         data?.device?.online_count,
-        data?.device?.connected_count,
-        data?.device?.connection_count
+        data?.connections?.count
       ];
 
-      for (const value of directValues) {
-        const count =
-          normalizeCount(value);
+      for (const value of direct) {
+        if (
+          typeof value === 'number' &&
+          Number.isFinite(value) &&
+          value >= 0
+        ) {
+          return Math.floor(value);
+        }
 
-        if (count !== null) {
-          return count;
+        if (
+          typeof value === 'string' &&
+          value.trim() !== '' &&
+          Number.isFinite(Number(value))
+        ) {
+          return Math.max(
+            0,
+            Math.floor(Number(value))
+          );
         }
       }
 
-      const booleanOnlineValues = [
-        data?.online,
-        data?.connected,
-        data?.is_online,
-        data?.is_connected,
-        data?.device?.online,
-        data?.device?.connected,
-        data?.device?.is_online,
-        data?.device?.is_connected,
-        data?.subscription?.online,
-        data?.subscription?.connected,
-        data?.subscription?.is_online,
-        data?.subscription?.is_connected
+      const ipSources = [
+        data?.connected_ips,
+        data?.connectedIPs,
+        data?.vpn_ips,
+        data?.online_ips,
+        data?.ips,
+        data?.subscription?.connected_ips,
+        data?.subscription?.connectedIPs,
+        data?.subscription?.vpn_ips,
+        data?.subscription?.online_ips,
+        data?.subscription?.ips,
+        data?.connection?.ips,
+        data?.connections?.ips,
+        data?.device?.ips
       ];
 
-      for (const value of booleanOnlineValues) {
-        if (value === true) {
-          return 1;
+      for (const value of ipSources) {
+        if (!Array.isArray(value)) {
+          continue;
         }
 
-        if (value === false) {
-          return 0;
-        }
+        const uniqueIps = new Set();
 
-        if (typeof value === 'string') {
-          const normalized =
-            value.trim().toLowerCase();
+        for (const item of value) {
+          if (typeof item === 'string') {
+            const ip = item.trim();
 
-          if (
-            normalized === 'true' ||
-            normalized === 'yes' ||
-            normalized === 'online' ||
-            normalized === 'connected'
-          ) {
-            return 1;
+            if (ip) {
+              uniqueIps.add(ip);
+            }
+
+            continue;
           }
 
-          if (
-            normalized === 'false' ||
-            normalized === 'no' ||
-            normalized === 'offline' ||
-            normalized === 'disconnected'
-          ) {
-            return 0;
+          if (item && typeof item === 'object') {
+            const ip = String(
+              item.ip ??
+              item.address ??
+              item.client_ip ??
+              item.clientIp ??
+              ''
+            ).trim();
+
+            if (ip) {
+              uniqueIps.add(ip);
+            }
           }
         }
+
+        return uniqueIps.size;
       }
 
       const arrays = [
@@ -973,7 +953,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         data?.online_clients,
         data?.subscription?.connections,
         data?.subscription?.connected_devices,
-        data?.subscription?.connectedDevices,
         data?.subscription?.sessions,
         data?.connection?.connections,
         data?.connection?.sessions,
