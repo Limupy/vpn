@@ -202,7 +202,9 @@
         .row {
             min-height: 38px;
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(0, 1.7fr);
             align-items: center;
             gap: 12px;
             padding: 9px 0;
@@ -251,14 +253,24 @@
             overflow-wrap: anywhere;
         }
 
-        .server-details {
-            max-width: 100%;
-            color: #707886;
+        .protocols {
+            min-width: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .protocol {
+            padding: 4px 7px;
+            border: 1px solid #343a45;
+            border-radius: 7px;
+            background: #11141a;
+            color: #dce1e8;
             font-size: 10px;
-            font-weight: 400;
-            line-height: 1.3;
-            text-align: right;
-            overflow-wrap: anywhere;
+            font-weight: 600;
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
         .devices {
@@ -268,6 +280,7 @@
         }
 
         .device {
+            position: relative;
             padding: 12px;
             border: 1px solid transparent;
             border-radius: 11px;
@@ -278,7 +291,23 @@
             border-color: #3b414c;
         }
 
+        .device-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 7px;
+            border: 1px solid #363c47;
+            border-radius: 7px;
+            background: #252a33;
+            color: #c5cbd4;
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: .1px;
+        }
+
         .device-name {
+            padding-right: 70px;
             color: #fff;
             font-size: 13px;
             font-weight: 600;
@@ -396,7 +425,9 @@
             }
 
             .row {
-                grid-template-columns: minmax(80px, .9fr) minmax(0, 1.6fr);
+                grid-template-columns:
+                    minmax(80px, .9fr)
+                    minmax(0, 1.6fr);
                 align-items: center;
                 gap: 10px;
             }
@@ -419,14 +450,13 @@
                 text-align: right;
             }
 
-            .server-main,
-            .server-details {
+            .server-main {
                 max-width: 100%;
                 text-align: right;
             }
 
-            .server-main {
-                white-space: normal;
+            .protocols {
+                justify-content: flex-end;
             }
 
             .device {
@@ -434,6 +464,7 @@
             }
 
             .device-name {
+                padding-right: 68px;
                 font-size: 12px;
             }
 
@@ -464,7 +495,9 @@
             }
 
             .row {
-                grid-template-columns: minmax(72px, .8fr) minmax(0, 1.5fr);
+                grid-template-columns:
+                    minmax(72px, .8fr)
+                    minmax(0, 1.5fr);
                 gap: 8px;
             }
 
@@ -476,6 +509,15 @@
             .subscription-key {
                 max-width: 55%;
                 font-size: 9px;
+            }
+
+            .device-badge {
+                top: 8px;
+                right: 8px;
+            }
+
+            .device-name {
+                padding-right: 64px;
             }
         }
 
@@ -550,11 +592,21 @@
                             <div class="server-main">
                                 Проверка...
                             </div>
+                        </div>
+                    </div>
 
-                            <div
-                                class="server-details"
-                                id="serverDetails"
-                            ></div>
+                    <div class="row">
+                        <div class="label">
+                            Конфигурация
+                        </div>
+
+                        <div
+                            class="value protocols"
+                            id="protocols"
+                        >
+                            <span class="protocol">
+                                Проверка...
+                            </span>
                         </div>
                     </div>
 
@@ -678,19 +730,14 @@
                     "subscriptionKey"
                 ),
 
-            serverStatus:
-                document.getElementById(
-                    "serverStatus"
-                ),
-
             serverMain:
                 document.querySelector(
                     ".server-main"
                 ),
 
-            serverDetails:
+            protocols:
                 document.getElementById(
-                    "serverDetails"
+                    "protocols"
                 ),
 
             remaining:
@@ -886,6 +933,49 @@
             );
         }
 
+        function renderProtocols(list) {
+            elements.protocols.innerHTML = "";
+
+            if (
+                !Array.isArray(list) ||
+                !list.length
+            ) {
+                const item =
+                    document.createElement(
+                        "span"
+                    );
+
+                item.className =
+                    "protocol";
+
+                item.textContent =
+                    "Нет данных";
+
+                elements.protocols.appendChild(
+                    item
+                );
+
+                return;
+            }
+
+            list.forEach(protocol => {
+                const item =
+                    document.createElement(
+                        "span"
+                    );
+
+                item.className =
+                    "protocol";
+
+                item.textContent =
+                    protocol;
+
+                elements.protocols.appendChild(
+                    item
+                );
+            });
+        }
+
         function renderDevices(list) {
             elements.devices.innerHTML = "";
 
@@ -935,16 +1025,28 @@
                             : ""
                     );
 
+                if (device.current) {
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
+
+                    badge.className =
+                        "device-badge";
+
+                    badge.textContent =
+                        "Текущее";
+
+                    item.appendChild(
+                        badge
+                    );
+                }
+
                 name.className =
                     "device-name";
 
                 name.textContent =
-                    device.name +
-                    (
-                        device.current
-                            ? " · текущее"
-                            : ""
-                    );
+                    device.name;
 
                 time.className =
                     "device-time";
@@ -998,6 +1100,10 @@
                         info.expire
                     )
                     : "Нет данных";
+
+            renderProtocols(
+                info.protocols
+            );
         }
 
         async function createPingMeasurement() {
@@ -1117,10 +1223,7 @@
 
             if (!reachable.length) {
                 elements.serverMain.textContent =
-                    "Недоступен";
-
-                elements.serverDetails.textContent =
-                    "";
+                    "Finland · Недоступен";
 
                 return;
             }
@@ -1149,19 +1252,13 @@
 
             elements.serverMain.textContent =
                 average !== null
-                    ? `Доступен · ${average.toFixed(1)} мс`
-                    : "Доступен";
-
-            elements.serverDetails.textContent =
-                "";
+                    ? `Finland · Доступен · ${average.toFixed(1)} мс`
+                    : "Finland · Доступен";
         }
 
         async function checkExternalPing() {
             elements.serverMain.textContent =
-                "Проверка...";
-
-            elements.serverDetails.textContent =
-                "";
+                "Finland · Проверка...";
 
             try {
                 const created =
@@ -1177,10 +1274,7 @@
                 );
             } catch (error) {
                 elements.serverMain.textContent =
-                    "Проверка недоступна";
-
-                elements.serverDetails.textContent =
-                    "";
+                    "Finland · Проверка недоступна";
             }
         }
 
@@ -1214,17 +1308,11 @@
                 SERVER +
                 "?mode=collect" +
                 "&key=" +
-                encodeURIComponent(
-                    key
-                ) +
+                encodeURIComponent(key) +
                 "&device_id=" +
-                encodeURIComponent(
-                    deviceId
-                ) +
+                encodeURIComponent(deviceId) +
                 "&device_name=" +
-                encodeURIComponent(
-                    deviceName
-                ) +
+                encodeURIComponent(deviceName) +
                 "&return=" +
                 encodeURIComponent(
                     returnUrl.toString()
