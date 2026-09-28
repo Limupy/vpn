@@ -24,72 +24,48 @@
             align-items: center;
             justify-content: center;
 
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Arial,
-                sans-serif;
+            font-family: Arial, sans-serif;
 
             background: #0f1115;
-            color: #ffffff;
+            color: #fff;
         }
 
         .box {
             width: min(90%, 420px);
 
-            padding: 40px 25px;
+            padding: 35px 25px;
 
             text-align: center;
 
             background: #191c22;
 
-            border-radius: 20px;
-
-            box-shadow:
-                0 15px 50px rgba(0, 0, 0, 0.35);
+            border-radius: 18px;
         }
 
-        .logo {
-            font-size: 32px;
-            font-weight: 700;
-
-            margin-bottom: 10px;
+        h1 {
+            margin: 0 0 12px;
         }
 
-        .subtitle {
-            margin-bottom: 25px;
-
+        p {
             color: #aeb4c0;
-
             line-height: 1.5;
         }
 
-        .status {
-            color: #ffffff;
-
-            line-height: 1.5;
-        }
-
-        .button {
+        a {
             display: inline-block;
 
-            margin-top: 18px;
+            margin-top: 15px;
 
-            padding: 13px 24px;
+            padding: 13px 22px;
 
             border-radius: 10px;
 
-            background: #ffffff;
-            color: #111111;
+            background: #fff;
+            color: #111;
 
             text-decoration: none;
 
-            font-weight: 600;
-        }
-
-        .error {
-            color: #ff8f8f;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -98,26 +74,16 @@
 
 <div class="box">
 
-    <div class="logo">
-        Limupy VPN
-    </div>
+    <h1>Limupy VPN</h1>
 
-    <div class="subtitle">
-        Защищённое подключение
-    </div>
-
-    <div
-        id="status"
-        class="status"
-    >
-        Проверяем ссылку...
-    </div>
+    <p id="status">
+        Открываем приложение...
+    </p>
 
     <a
-        id="download"
-        class="button"
+        id="fallback"
         href="https://happ.info/"
-        style="display: none;"
+        style="display:none;"
     >
         Скачать HAPP
     </a>
@@ -128,43 +94,28 @@
 <script>
 
     /*
-     * =====================================================
-     * LIMUPY VPN
-     *
-     * СПИСОК КЛЮЧЕЙ И ПОДПИСОК
-     * =====================================================
+     * ==========================================
+     * КЛЮЧИ И ИХ ПОДПИСКИ
+     * ==========================================
      *
      * Формат:
      *
-     * "КЛЮЧ": "ССЫЛКА_НА_ПОДПИСКУ"
+     * "ключ": "ссылка на подписку"
      *
-     * Можно добавлять сколько угодно ключей.
+     * Добавляй сюда новых пользователей.
      */
 
 
     const subscriptions = {
 
-        /*
-         * Пользователь №1
-         */
         "7fK3mP9xQ2vL":
             "http://78.17.112.158:444/DisstVpn/dplgn7904o4cd4cp",
 
 
-        /*
-         * Пользователь №2
-         *
-         * ЗАМЕНИ ссылку на настоящую
-         */
         "Ab92KlmP7xQ":
             "http://example.com/subscription2",
 
 
-        /*
-         * Пользователь №3
-         *
-         * ЗАМЕНИ ссылку на настоящую
-         */
         "X8nP4sL2Qa":
             "http://example.com/subscription3"
 
@@ -172,9 +123,9 @@
 
 
     /*
-     * =====================================================
-     * ПОЛУЧАЕМ ?key= ИЗ URL
-     * =====================================================
+     * ==========================================
+     * ПОЛУЧАЕМ КЛЮЧ ИЗ ?key=
+     * ==========================================
      */
 
     const params =
@@ -188,9 +139,9 @@
 
 
     /*
-     * =====================================================
+     * ==========================================
      * ИЩЕМ ПОДПИСКУ
-     * =====================================================
+     * ==========================================
      */
 
     const subscription =
@@ -201,40 +152,29 @@
         document.getElementById("status");
 
 
-    const download =
-        document.getElementById("download");
+    const fallback =
+        document.getElementById("fallback");
 
 
     /*
-     * =====================================================
-     * ПРОВЕРКА КЛЮЧА
-     * =====================================================
+     * ==========================================
+     * ПРОВЕРЯЕМ КЛЮЧ
+     * ==========================================
      */
 
     if (!subscription) {
 
         status.textContent =
-            "Недействительная ссылка.";
-
-        status.classList.add("error");
-
+            "Страница не найдена.";
 
     } else {
 
         /*
-         * Формируем HAPP Deeplink
+         * Формируем ссылку HAPP
          */
 
         const happUrl =
             "happ://add/" + subscription;
-
-
-        /*
-         * Показываем сообщение
-         */
-
-        status.textContent =
-            "Открываем HAPP...";
 
 
         /*
@@ -246,21 +186,19 @@
 
 
         /*
-         * Если HAPP не установлен
-         * или браузер не открыл приложение,
-         * показываем кнопку скачивания.
+         * Если HAPP не установлен,
+         * показываем кнопку скачивания
          */
 
         setTimeout(function () {
 
             status.textContent =
-                "HAPP не установлен или не удалось открыть приложение.";
+                "Если приложение не открылось автоматически:";
 
-
-            download.style.display =
+            fallback.style.display =
                 "inline-block";
 
-        }, 2000);
+        }, 1800);
 
     }
 
