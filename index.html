@@ -187,17 +187,18 @@
         }
 
         .row:last-child {
-            border-bottom: 0;
             padding-bottom: 0;
+            border-bottom: 0;
         }
 
         .label {
             color: #8f97a5;
             font-size: 13px;
+            flex: 0 0 auto;
         }
 
         .value {
-            max-width: 65%;
+            max-width: 72%;
             color: #fff;
             font-size: 13px;
             font-weight: 500;
@@ -211,13 +212,6 @@
 
         .bad {
             color: #ff8c8c;
-        }
-
-        .ping-details {
-            margin-top: 5px;
-            color: #707886;
-            font-size: 11px;
-            font-weight: 400;
         }
 
         .devices {
@@ -327,7 +321,8 @@
                 padding: 13px;
             }
 
-            .section-header {
+            .section-header,
+            .row {
                 align-items: flex-start;
                 flex-direction: column;
             }
@@ -335,12 +330,6 @@
             .subscription-key {
                 max-width: 100%;
                 width: 100%;
-            }
-
-            .row {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 4px;
             }
 
             .value {
@@ -405,19 +394,6 @@
                         <div
                             class="value"
                             id="serverStatus"
-                        >
-                            Проверка...
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="label">
-                            Внешний ping
-                        </div>
-
-                        <div
-                            class="value"
-                            id="pingStatus"
                         >
                             Проверка...
                         </div>
@@ -552,11 +528,6 @@
             serverStatus:
                 document.getElementById(
                     "serverStatus"
-                ),
-
-            pingStatus:
-                document.getElementById(
-                    "pingStatus"
                 ),
 
             remaining:
@@ -895,7 +866,6 @@
                                 }
                             ],
                             limit: 3,
-                            inProgressUpdates: true,
                             measurementOptions: {
                                 packets: 4
                             }
@@ -905,8 +875,7 @@
 
             if (!response.ok) {
                 throw new Error(
-                    "Globalping HTTP " +
-                    response.status
+                    `Globalping HTTP ${response.status}`
                 );
             }
 
@@ -924,8 +893,7 @@
 
             if (!response.ok) {
                 throw new Error(
-                    "Globalping result HTTP " +
-                    response.status
+                    `Globalping result HTTP ${response.status}`
                 );
             }
 
@@ -1001,43 +969,33 @@
                 elements.serverStatus.className =
                     "value bad";
 
-                elements.pingStatus.textContent =
-                    "Нет ответа";
-
-                elements.pingStatus.className =
-                    "value bad";
-
                 return;
             }
 
             const averages =
                 reachable
-                    .map(
-                        result =>
-                            Number(
-                                result.result.stats.avg
-                            )
+                    .map(result =>
+                        Number(
+                            result.result.stats.avg
+                        )
                     )
-                    .filter(
-                        value =>
-                            Number.isFinite(
-                                value
-                            )
+                    .filter(value =>
+                        Number.isFinite(
+                            value
+                        )
                     );
 
             const losses =
                 reachable
-                    .map(
-                        result =>
-                            Number(
-                                result.result.stats.loss
-                            )
+                    .map(result =>
+                        Number(
+                            result.result.stats.loss
+                        )
                     )
-                    .filter(
-                        value =>
-                            Number.isFinite(
-                                value
-                            )
+                    .filter(value =>
+                        Number.isFinite(
+                            value
+                        )
                     );
 
             const average =
@@ -1046,7 +1004,8 @@
                         (sum, value) =>
                             sum + value,
                         0
-                    ) / averages.length
+                    ) /
+                    averages.length
                     : null;
 
             const loss =
@@ -1055,51 +1014,58 @@
                         (sum, value) =>
                             sum + value,
                         0
-                    ) / losses.length
+                    ) /
+                    losses.length
                     : null;
 
             const fastest =
-                Math.min(
-                    ...averages
-                );
+                averages.length
+                    ? Math.min(
+                        ...averages
+                    )
+                    : null;
 
             const slowest =
-                Math.max(
-                    ...averages
-                );
+                averages.length
+                    ? Math.max(
+                        ...averages
+                    )
+                    : null;
+
+            let text =
+                "Доступен";
+
+            if (average !== null) {
+                text +=
+                    ` · ${average.toFixed(1)} мс`;
+            }
+
+            if (loss !== null) {
+                text +=
+                    ` · потери ${loss.toFixed(1)}%`;
+            }
+
+            if (
+                fastest !== null &&
+                slowest !== null
+            ) {
+                text +=
+                    ` · ${fastest.toFixed(1)}–${slowest.toFixed(1)} мс`;
+            }
 
             elements.serverStatus.textContent =
-                `Доступен · ${reachable.length}/${results.length} проб`;
+                text;
 
             elements.serverStatus.className =
                 "value good";
-
-            if (average !== null) {
-                elements.pingStatus.innerHTML =
-                    `${average.toFixed(1)} мс` +
-                    (
-                        loss !== null
-                            ? `<div class="ping-details">потери ${loss.toFixed(1)}% · ${fastest.toFixed(1)}–${slowest.toFixed(1)} мс</div>`
-                            : ""
-                    );
-
-                elements.pingStatus.className =
-                    "value good";
-            } else {
-                elements.pingStatus.textContent =
-                    "Нет данных";
-
-                elements.pingStatus.className =
-                    "value bad";
-            }
         }
 
         async function checkExternalPing() {
             elements.serverStatus.textContent =
-                "Внешняя проверка...";
+                "Проверка...";
 
-            elements.pingStatus.textContent =
-                "Внешняя проверка...";
+            elements.serverStatus.className =
+                "value";
 
             try {
                 const created =
@@ -1115,17 +1081,10 @@
                 );
             } catch (error) {
                 elements.serverStatus.textContent =
-                    "Не удалось проверить";
+                    "Проверка недоступна";
 
                 elements.serverStatus.className =
                     "value";
-
-                elements.pingStatus.textContent =
-                    "Нет результата";
-
-                elements.pingStatus.className =
-                    "value";
-
             }
         }
 
@@ -1157,13 +1116,9 @@
                 SERVER +
                 "?mode=collect" +
                 "&key=" +
-                encodeURIComponent(
-                    key
-                ) +
+                encodeURIComponent(key) +
                 "&device_id=" +
-                encodeURIComponent(
-                    deviceId
-                ) +
+                encodeURIComponent(deviceId) +
                 "&device_name=" +
                 encodeURIComponent(
                     deviceName
