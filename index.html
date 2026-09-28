@@ -4,7 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0b1020">
+
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236ea8fe'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='38' font-weight='800' fill='white'%3EL%3C/text%3E%3C/svg%3E"
+  >
+
   <title>Limupy VPN</title>
+
   <style>
     :root {
       --bg: #0b1020;
@@ -21,19 +28,47 @@
       --radius: 22px;
     }
 
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
       background:
-        radial-gradient(900px 500px at 10% -10%, rgba(110,168,254,.16), transparent 55%),
-        radial-gradient(700px 450px at 100% 0%, rgba(139,124,255,.13), transparent 50%),
+        radial-gradient(
+          900px 500px at 10% -10%,
+          rgba(110,168,254,.16),
+          transparent 55%
+        ),
+        radial-gradient(
+          700px 450px at 100% 0%,
+          rgba(139,124,255,.13),
+          transparent 50%
+        ),
         var(--bg);
+
       color: var(--text);
       padding: 28px 16px 42px;
     }
 
-    .wrap { width: min(720px, 100%); margin: 0 auto; }
+    .wrap {
+      width: min(720px, 100%);
+      margin: 0 auto;
+    }
 
     .header {
       display: flex;
@@ -43,16 +78,35 @@
       margin-bottom: 18px;
     }
 
-    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .logo {
-      width: 44px; height: 44px; border-radius: 14px;
-      display: grid; place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: white; font-weight: 800;
+      color: white;
+      font-weight: 800;
       box-shadow: 0 10px 30px rgba(110,168,254,.24);
     }
-    h1 { margin: 0; font-size: 24px; line-height: 1.1; }
-    .subtitle { margin-top: 4px; color: var(--muted); font-size: 13px; }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
 
     .card {
       background: var(--card);
@@ -63,29 +117,73 @@
       backdrop-filter: blur(16px);
     }
 
-    .hero { padding: 22px; border-bottom: 1px solid var(--line); }
+    .hero {
+      padding: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
     .status-row {
-      display: flex; justify-content: space-between; align-items: center; gap: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
       margin-bottom: 10px;
     }
-    .label { color: var(--muted); font-size: 13px; }
+
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .status {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 12px; border-radius: 999px;
-      font-size: 13px; font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
       background: rgba(255,255,255,.06);
     }
+
     .status::before {
-      content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor;
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
     }
-    .status.ok { color: var(--ok); background: rgba(65,211,146,.10); }
-    .status.bad { color: var(--bad); background: rgba(255,101,122,.10); }
-    .status.wait { color: #c5cde0; }
 
-    .name { font-size: 22px; font-weight: 750; margin-top: 8px; }
-    .device { color: var(--muted); font-size: 13px; margin-top: 6px; }
+    .status.ok {
+      color: var(--ok);
+      background: rgba(65,211,146,.10);
+    }
 
-    .rows { padding: 6px 22px 14px; }
+    .status.bad {
+      color: var(--bad);
+      background: rgba(255,101,122,.10);
+    }
+
+    .status.wait {
+      color: #c5cde0;
+    }
+
+    .name {
+      font-size: 22px;
+      font-weight: 750;
+      margin-top: 8px;
+    }
+
+    .device {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .rows {
+      padding: 6px 22px 14px;
+    }
+
     .row {
       display: grid;
       grid-template-columns: minmax(120px, 1fr) minmax(0, 1.5fr);
@@ -94,12 +192,24 @@
       min-height: 62px;
       border-bottom: 1px solid var(--line);
     }
-    .row:last-child { border-bottom: 0; }
-    .value { text-align: right; font-weight: 650; overflow-wrap: anywhere; }
+
+    .row:last-child {
+      border-bottom: 0;
+    }
+
+    .value {
+      text-align: right;
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
 
     .protocols {
-      display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 7px;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 7px;
     }
+
     .protocol {
       padding: 6px 9px;
       border-radius: 9px;
@@ -111,43 +221,112 @@
       letter-spacing: .01em;
     }
 
-    .actions { display: flex; gap: 10px; flex-wrap: wrap; padding: 18px 22px 22px; }
-    .btn {
-      appearance: none; border: 0; cursor: pointer;
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      min-height: 46px; padding: 0 16px; border-radius: 13px;
-      text-decoration: none; font-weight: 750; font-size: 14px;
-      transition: transform .15s ease, opacity .15s ease, background .15s ease;
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 18px 22px 22px;
     }
-    .btn:hover { transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
-    .btn.primary { color: #07101f; background: linear-gradient(135deg, #86b8ff, #8f84ff); }
-    .btn.secondary { color: var(--text); background: rgba(255,255,255,.07); border: 1px solid var(--line); }
-    .btn[hidden] { display: none; }
 
-    .footer-note { margin-top: 13px; color: var(--muted); font-size: 12px; text-align: center; }
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 13px;
+      text-decoration: none;
+      font-weight: 750;
+      font-size: 14px;
+      transition:
+        transform .15s ease,
+        opacity .15s ease,
+        background .15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn.primary {
+      color: #07101f;
+      background: linear-gradient(135deg, #86b8ff, #8f84ff);
+    }
+
+    .btn.secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+    }
+
+    .btn[hidden] {
+      display: none;
+    }
+
+    .footer-note {
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
 
     .error {
-      margin-top: 14px; padding: 12px 14px; border-radius: 12px;
-      background: rgba(255,101,122,.08); border: 1px solid rgba(255,101,122,.18);
-      color: #ffd7dd; font-size: 13px; line-height: 1.45;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,101,122,.08);
+      border: 1px solid rgba(255,101,122,.18);
+      color: #ffd7dd;
+      font-size: 13px;
+      line-height: 1.45;
     }
-    .error[hidden] { display: none; }
+
+    .error[hidden] {
+      display: none;
+    }
 
     @media (max-width: 560px) {
-      .row { grid-template-columns: 1fr; gap: 6px; padding: 13px 0; min-height: auto; }
-      .value { text-align: left; }
-      .protocols { justify-content: flex-start; }
-      .header { align-items: flex-start; }
-      .actions .btn { width: 100%; }
+      .row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 13px 0;
+        min-height: auto;
+      }
+
+      .value {
+        text-align: left;
+      }
+
+      .protocols {
+        justify-content: flex-start;
+      }
+
+      .header {
+        align-items: flex-start;
+      }
+
+      .actions .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="wrap">
+
     <div class="header">
       <div class="brand">
         <div class="logo">L</div>
+
         <div>
           <h1>Limupy VPN</h1>
           <div class="subtitle">VPN-подписка</div>
@@ -156,55 +335,84 @@
     </div>
 
     <section class="card" aria-live="polite">
+
       <div class="hero">
         <div class="status-row">
           <span class="label">Статус</span>
           <span id="status" class="status wait">Проверка…</span>
         </div>
+
         <div id="name" class="name">—</div>
         <div id="device" class="device">—</div>
       </div>
 
       <div class="rows">
+
         <div class="row">
           <div class="label">VPN-подписка</div>
           <div id="subscription" class="value">—</div>
         </div>
+
         <div class="row">
           <div class="label">Протоколы</div>
           <div id="protocols" class="value">—</div>
         </div>
+
         <div class="row">
           <div class="label">Трафик</div>
           <div id="traffic" class="value">—</div>
         </div>
+
         <div class="row">
           <div class="label">Срок действия</div>
           <div id="expire" class="value">—</div>
         </div>
+
         <div class="row">
           <div class="label">Задержка</div>
           <div id="latency" class="value">—</div>
         </div>
+
       </div>
 
       <div class="actions">
-        <a id="happDownload" class="btn secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer">
+
+        <a
+          id="happDownload"
+          class="btn secondary"
+          href="https://happ.info/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Скачать Happ
         </a>
-        <a id="happConnect" class="btn primary" href="#" rel="noopener" hidden>
+
+        <a
+          id="happConnect"
+          class="btn primary"
+          href="#"
+          rel="noopener"
+          hidden
+        >
           Открыть в Happ
         </a>
+
       </div>
+
     </section>
 
     <div id="error" class="error" hidden></div>
-    <div class="footer-note">Задержка измеряется непосредственно с вашего устройства до API Limupy.</div>
+
+    <div class="footer-note">
+      Задержка измеряется непосредственно с вашего устройства до API Limupy.
+    </div>
+
   </main>
 
   <script>
     const API_URL = 'https://78.17.112.158/api.php';
     const HAPP_DOWNLOAD_URL = 'https://happ.info/';
+    const REQUEST_TIMEOUT_MS = 10000;
 
     const $ = (id) => document.getElementById(id);
 
@@ -216,166 +424,390 @@
 
     function setStatus(active, text) {
       const el = $('status');
-      el.className = 'status ' + (active ? 'ok' : 'bad');
+
+      el.className = 'status ' + (
+        active ? 'ok' : 'bad'
+      );
+
       el.textContent = text;
     }
 
     function resetFields() {
-      ['name', 'device', 'subscription', 'protocols', 'traffic', 'expire', 'latency'].forEach(id => {
+      [
+        'name',
+        'device',
+        'subscription',
+        'protocols',
+        'traffic',
+        'expire',
+        'latency'
+      ].forEach(id => {
         $(id).textContent = '—';
       });
+
       $('happConnect').hidden = true;
       $('happConnect').removeAttribute('href');
     }
 
     function bytes(value) {
       const n = Number(value || 0);
-      if (!Number.isFinite(n) || n <= 0) return '0 Б';
+
+      if (!Number.isFinite(n) || n <= 0) {
+        return '0 Б';
+      }
+
       const units = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ'];
-      let x = n, i = 0;
-      while (x >= 1024 && i < units.length - 1) { x /= 1024; i++; }
-      const digits = x >= 100 ? 0 : x >= 10 ? 1 : 2;
+
+      let x = n;
+      let i = 0;
+
+      while (
+        x >= 1024 &&
+        i < units.length - 1
+      ) {
+        x /= 1024;
+        i++;
+      }
+
+      const digits =
+        x >= 100 ? 0 :
+        x >= 10 ? 1 :
+        2;
+
       return `${x.toFixed(digits)} ${units[i]}`;
     }
 
     function trafficText(sub) {
       const total = Number(sub.total_bytes || 0);
       const used = Number(sub.used_bytes || 0);
-      if (!total) return `Использовано ${bytes(used)} · без лимита`;
+
+      if (!total) {
+        return `Использовано ${bytes(used)} · без лимита`;
+      }
+
       return `${bytes(used)} из ${bytes(total)}`;
     }
 
     function expireText(timestamp) {
       const ts = Number(timestamp || 0);
-      if (!ts) return 'Бессрочно';
-      const d = new Date(ts > 1e12 ? ts : ts * 1000);
-      if (Number.isNaN(d.getTime())) return '—';
-      return d.toLocaleDateString('ru-RU', {
-        day: '2-digit', month: '2-digit', year: 'numeric'
-      });
+
+      if (!ts) {
+        return 'Бессрочно';
+      }
+
+      const d = new Date(
+        ts > 1e12
+          ? ts
+          : ts * 1000
+      );
+
+      if (Number.isNaN(d.getTime())) {
+        return '—';
+      }
+
+      return d.toLocaleDateString(
+        'ru-RU',
+        {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        }
+      );
     }
 
     function renderProtocols(protocols) {
       const arr = Array.isArray(protocols)
         ? protocols
-        : String(protocols || '').split(',').map(s => s.trim()).filter(Boolean);
-      if (!arr.length) return '—';
-      $('protocols').innerHTML = '<div class="protocols">' +
-        arr.map(p => `<span class="protocol">${escapeHtml(p)}</span>`).join('') +
+        : String(protocols || '')
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
+
+      if (!arr.length) {
+        $('protocols').textContent = '—';
+        return;
+      }
+
+      $('protocols').innerHTML =
+        '<div class="protocols">' +
+        arr
+          .map(
+            p =>
+              `<span class="protocol">${escapeHtml(p)}</span>`
+          )
+          .join('') +
         '</div>';
     }
 
     function escapeHtml(value) {
-      return String(value).replace(/[&<>'"]/g, ch => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-      }[ch]));
+      return String(value).replace(
+        /[&<>'"]/g,
+        ch => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[ch])
+      );
+    }
+
+    async function postApi(token, extraHeaders = {}) {
+      const controller = new AbortController();
+
+      const timeout = setTimeout(
+        () => controller.abort(),
+        REQUEST_TIMEOUT_MS
+      );
+
+      try {
+        return await fetch(API_URL, {
+          method: 'POST',
+
+          cache: 'no-store',
+
+          credentials: 'omit',
+
+          redirect: 'error',
+
+          signal: controller.signal,
+
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+            ...extraHeaders
+          }
+        });
+      } finally {
+        clearTimeout(timeout);
+      }
     }
 
     async function fetchSubscription(token) {
-      const res = await fetch(API_URL, {
-        method: 'GET',
-        cache: 'no-store',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json'
-        }
-      });
+      const res = await postApi(token);
+
       let data = null;
-      try { data = await res.json(); } catch (_) {}
-      return { res, data };
+
+      try {
+        data = await res.json();
+      } catch (_) {
+        data = null;
+      }
+
+      return {
+        res,
+        data
+      };
     }
 
     async function measureBrowserLatency(token) {
       const samples = [];
+
       for (let i = 0; i < 3; i++) {
         const start = performance.now();
+
         try {
-          const res = await fetch(API_URL, {
-            method: 'GET',
-            cache: 'no-store',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Accept': 'application/json',
+          const res = await postApi(
+            token,
+            {
               'X-Limupy-Latency-Test': '1'
             }
-          });
+          );
+
           await res.arrayBuffer();
-          if (res.ok) samples.push(performance.now() - start);
-        } catch (_) {}
+
+          if (res.ok) {
+            samples.push(
+              performance.now() - start
+            );
+          }
+        } catch (_) {
+          // Один неудачный замер не ломает всю страницу.
+        }
       }
-      if (!samples.length) return null;
-      samples.sort((a, b) => a - b);
-      return samples[Math.floor(samples.length / 2)];
+
+      if (!samples.length) {
+        return null;
+      }
+
+      samples.sort(
+        (a, b) => a - b
+      );
+
+      return samples[
+        Math.floor(samples.length / 2)
+      ];
     }
 
     function renderActive(data) {
       const sub = data.subscription || {};
       const dev = data.device || {};
 
-      $('name').textContent = data.subscription_name || sub.name || data.name || 'VPN-подписка';
-      $('device').textContent = dev.name || dev.label || 'Устройство';
-      $('subscription').textContent = 'Активна';
-      renderProtocols(sub.protocols || data.protocols || []);
-      $('traffic').textContent = trafficText(sub);
-      $('expire').textContent = expireText(sub.expire);
+      $('name').textContent =
+        data.subscription_name ||
+        sub.name ||
+        data.name ||
+        'VPN-подписка';
+
+      $('device').textContent =
+        dev.name ||
+        dev.label ||
+        'Устройство';
+
+      $('subscription').textContent =
+        'Активна';
+
+      renderProtocols(
+        sub.protocols ||
+        data.protocols ||
+        []
+      );
+
+      $('traffic').textContent =
+        trafficText(sub);
+
+      $('expire').textContent =
+        expireText(sub.expire);
 
       if (data.launch_url) {
-        $('happConnect').href = data.launch_url;
+        $('happConnect').href =
+          data.launch_url;
+
         $('happConnect').hidden = false;
       }
     }
 
     async function load() {
       $('error').hidden = true;
+
       resetFields();
-      $('status').className = 'status wait';
-      $('status').textContent = 'Проверка…';
+
+      $('status').className =
+        'status wait';
+
+      $('status').textContent =
+        'Проверка…';
 
       const token = getToken();
+
       if (!token) {
-        setStatus(false, 'Не активно');
+        setStatus(
+          false,
+          'Не активно'
+        );
+
         $('error').hidden = false;
-        $('error').textContent = 'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.';
+
+        $('error').textContent =
+          'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.';
+
         return;
       }
 
       try {
-        const { res, data } = await fetchSubscription(token);
+        const {
+          res,
+          data
+        } = await fetchSubscription(token);
 
-        if (!res.ok || !data || data.ok === false) {
-          setStatus(false, 'Не активно');
+        if (
+          !res.ok ||
+          !data ||
+          data.ok === false
+        ) {
+          setStatus(
+            false,
+            'Не активно'
+          );
+
+          $('error').hidden = false;
+
           if (res.status === 401) {
-            $('error').hidden = false;
-            $('error').textContent = 'Подписка отключена или ключ больше не действителен.';
+            $('error').textContent =
+              'Подписка отключена или ключ больше не действителен.';
+          } else if (res.status === 405) {
+            $('error').textContent =
+              'Ошибка метода API: сервер ожидает POST-запрос.';
+          } else if (res.status === 403) {
+            $('error').textContent =
+              'Запрос отклонён сервером по политике доступа.';
           } else {
-            $('error').hidden = false;
-            $('error').textContent = 'Не удалось получить данные подписки.';
+            $('error').textContent =
+              `Не удалось получить данные подписки. HTTP ${res.status}.`;
           }
+
           return;
         }
 
-        if (data.subscription && (data.subscription.enabled === false || data.subscription.active === false)) {
-          setStatus(false, 'Не активно');
+        if (
+          data.subscription &&
+          (
+            data.subscription.enabled === false ||
+            data.subscription.active === false
+          )
+        ) {
+          setStatus(
+            false,
+            'Не активно'
+          );
+
+          $('error').hidden = false;
+          $('error').textContent =
+            'Эта VPN-подписка отключена.';
+
           return;
         }
 
-        setStatus(true, 'Активно');
+        setStatus(
+          true,
+          'Активно'
+        );
+
         renderActive(data);
 
-        const latency = await measureBrowserLatency(token);
-        $('latency').textContent = latency == null ? '—' : `${Math.max(1, Math.round(latency))} мс`;
+        const latency =
+          await measureBrowserLatency(token);
+
+        $('latency').textContent =
+          latency == null
+            ? '—'
+            : `${Math.max(
+                1,
+                Math.round(latency)
+              )} мс`;
+
       } catch (error) {
-        setStatus(false, 'Не активно');
+        setStatus(
+          false,
+          'Не активно'
+        );
+
         $('error').hidden = false;
-        $('error').textContent = 'Нет связи с сервером подписки. Попробуйте обновить страницу.';
+
+        if (error && error.name === 'AbortError') {
+          $('error').textContent =
+            'Сервер не ответил вовремя. Попробуйте обновить страницу.';
+        } else {
+          $('error').textContent =
+            'Нет связи с сервером подписки. Проверьте соединение и попробуйте обновить страницу.';
+        }
       }
     }
 
-    window.addEventListener('hashchange', load);
-    window.addEventListener('load', () => {
-      $('happDownload').href = HAPP_DOWNLOAD_URL;
-      load();
-    });
+    window.addEventListener(
+      'hashchange',
+      load
+    );
+
+    window.addEventListener(
+      'load',
+      () => {
+        $('happDownload').href =
+          HAPP_DOWNLOAD_URL;
+
+        load();
+      }
+    );
   </script>
 </body>
 </html>
