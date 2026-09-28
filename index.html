@@ -9,6 +9,10 @@
   <meta property="og:title" content="Limupy VPN">
   <meta property="og:description" content="VPN-подписка для HAPP">
   <meta name="theme-color" content="#0b0c0f">
+  <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <title>Limupy VPN</title>
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f1115'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-size='42' font-weight='700' fill='white'%3EL%3C/text%3E%3C/svg%3E">
@@ -317,7 +321,7 @@
       font-size: 13px;
       font-weight: 650;
       cursor: pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      transition: transform .12s ease, background .12s ease;
     }
 
     .button:active {
@@ -328,10 +332,6 @@
       background: #f0f1f3;
       color: #101216;
       border-color: transparent;
-    }
-
-    .button.primary:active {
-      background: #dfe1e5;
     }
 
     .empty {
@@ -424,6 +424,7 @@
     }
   </style>
 </head>
+
 <body>
   <main class="page">
     <header class="header">
@@ -576,42 +577,56 @@
           .replace(/-/g, "+")
           .replace(/_/g, "/");
 
-        const padding = "=".repeat((4 - normalized.length % 4) % 4);
-        const binary = atob(normalized + padding);
-        const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
-        const text = new TextDecoder().decode(bytes);
+        const padding = "=".repeat(
+          (4 - normalized.length % 4) % 4
+        );
 
-        return JSON.parse(text);
+        const binary = atob(normalized + padding);
+        const bytes = Uint8Array.from(
+          binary,
+          char => char.charCodeAt(0)
+        );
+
+        return JSON.parse(
+          new TextDecoder().decode(bytes)
+        );
       } catch {
         return null;
       }
     }
 
     function getKey() {
-      const params = new URLSearchParams(location.search);
+      const params = new URLSearchParams(
+        window.location.search
+      );
+
       const queryKey = params.get("key");
 
-      if (queryKey) {
+      if (
+        queryKey &&
+        queryKey.trim() &&
+        queryKey.trim() !== "vpn"
+      ) {
         return queryKey.trim();
       }
 
-      const path = location.pathname.replace(/^\/+|\/+$/g, "");
-      const parts = path.split("/").filter(Boolean);
-
-      return parts.length
-        ? parts[parts.length - 1].trim()
-        : "";
+      return "";
     }
 
     function requestData(key) {
-      const returnUrl = new URL(location.href);
+      const returnUrl = new URL(
+        window.location.href
+      );
+
       returnUrl.hash = "";
 
       const url =
         SERVER +
         "?mode=collect" +
         "&key=" + encodeURIComponent(key) +
-        "&return=" + encodeURIComponent(returnUrl.toString());
+        "&return=" + encodeURIComponent(
+          returnUrl.toString()
+        );
 
       window.location.replace(url);
     }
@@ -619,23 +634,35 @@
     function launchHapp() {
       const key = getKey();
 
-      if (!key) {
-        return;
-      }
+      const returnUrl = new URL(
+        window.location.href
+      );
+
+      returnUrl.hash = "";
 
       const url =
         SERVER +
         "?mode=launch" +
-        "&key=" + encodeURIComponent(key);
+        "&key=" + encodeURIComponent(key) +
+        "&return=" + encodeURIComponent(
+          returnUrl.toString()
+        );
 
       window.location.assign(url);
     }
 
     function renderSubscription(info) {
-      const remaining = document.getElementById("remaining");
-      const used = document.getElementById("used");
-      const expire = document.getElementById("expire");
-      const configText = document.getElementById("configText");
+      const remaining =
+        document.getElementById("remaining");
+
+      const used =
+        document.getElementById("used");
+
+      const expire =
+        document.getElementById("expire");
+
+      const configText =
+        document.getElementById("configText");
 
       if (!info) {
         remaining.textContent = "Нет данных";
@@ -645,31 +672,45 @@
         return;
       }
 
-      const total = Number(info.total_bytes || 0);
-      const usedBytes = Number(info.used_bytes || 0);
-      const remainingBytes = Number(info.remaining_bytes || 0);
+      const total = Number(
+        info.total_bytes || 0
+      );
 
-      remaining.textContent = total > 0
-        ? formatBytes(remainingBytes)
-        : "Безлимит";
+      const usedBytes = Number(
+        info.used_bytes || 0
+      );
 
-      used.textContent = formatBytes(usedBytes);
+      const remainingBytes = Number(
+        info.remaining_bytes || 0
+      );
 
-      expire.textContent = Number(info.expire || 0) > 0
-        ? formatDate(info.expire)
-        : "Без ограничения";
+      remaining.textContent =
+        total > 0
+          ? formatBytes(remainingBytes)
+          : "Безлимит";
 
-      const protocols = Array.isArray(info.protocols)
-        ? info.protocols.filter(Boolean)
-        : [];
+      used.textContent =
+        formatBytes(usedBytes);
 
-      configText.textContent = protocols.length
-        ? protocols.join(" · ")
-        : "Нет данных";
+      expire.textContent =
+        Number(info.expire || 0) > 0
+          ? formatDate(info.expire)
+          : "Без ограничения";
+
+      const protocols =
+        Array.isArray(info.protocols)
+          ? info.protocols.filter(Boolean)
+          : [];
+
+      configText.textContent =
+        protocols.length
+          ? protocols.join(" · ")
+          : "Нет данных";
     }
 
     function renderPing(ping) {
-      const serverMain = document.getElementById("serverMain");
+      const serverMain =
+        document.getElementById("serverMain");
 
       if (
         ping &&
@@ -681,44 +722,75 @@
           Number(ping.rtt).toFixed(1) +
           " мс";
       } else {
-        serverMain.textContent = "Finland · Недоступен";
+        serverMain.textContent =
+          "Finland · Недоступен";
       }
     }
 
-    function renderDevices(devices, currentDeviceId) {
-      const list = document.getElementById("deviceList");
+    function renderDevices(
+      devices,
+      currentDeviceId
+    ) {
+      const list =
+        document.getElementById("deviceList");
 
       list.innerHTML = "";
 
-      if (!Array.isArray(devices) || !devices.length) {
-        const empty = document.createElement("div");
+      if (
+        !Array.isArray(devices) ||
+        !devices.length
+      ) {
+        const empty =
+          document.createElement("div");
+
         empty.className = "empty";
-        empty.textContent = "Устройства пока не зарегистрированы";
+        empty.textContent =
+          "Устройства пока не зарегистрированы";
+
         list.appendChild(empty);
         return;
       }
 
       devices.forEach(device => {
-        const item = document.createElement("div");
+        const item =
+          document.createElement("div");
+
         item.className = "device";
 
-        const name = document.createElement("div");
-        name.className = "device-name";
-        name.textContent = device.name || "Неизвестное устройство";
+        const name =
+          document.createElement("div");
 
-        const date = document.createElement("div");
+        name.className = "device-name";
+        name.textContent =
+          device.name ||
+          "Неизвестное устройство";
+
+        const date =
+          document.createElement("div");
+
         date.className = "device-date";
         date.textContent =
           "Последний вход: " +
-          formatDate(device.last_seen || device.first_seen);
+          formatDate(
+            device.last_seen ||
+            device.first_seen
+          );
 
         item.appendChild(name);
         item.appendChild(date);
 
-        if (device.id === currentDeviceId) {
-          const badge = document.createElement("div");
-          badge.className = "device-badge";
-          badge.textContent = "Текущее";
+        if (
+          device.id === currentDeviceId
+        ) {
+          const badge =
+            document.createElement("div");
+
+          badge.className =
+            "device-badge";
+
+          badge.textContent =
+            "Текущее";
+
           item.appendChild(badge);
         }
 
@@ -727,24 +799,63 @@
     }
 
     function renderState(state, key) {
-      document.getElementById("keyView").textContent = key || "Не указан";
+      document.getElementById(
+        "keyView"
+      ).textContent =
+        key || "Не указан";
 
       if (!state) {
-        setStatus("Не удалось получить данные", "error");
-        document.getElementById("serverMain").textContent = "Finland · Недоступен";
-        document.getElementById("configText").textContent = "Нет данных";
-        document.getElementById("remaining").textContent = "Нет данных";
-        document.getElementById("used").textContent = "Нет данных";
-        document.getElementById("expire").textContent = "Нет данных";
-        document.getElementById("deviceList").innerHTML =
+        setStatus(
+          "Не удалось получить данные",
+          "error"
+        );
+
+        document.getElementById(
+          "serverMain"
+        ).textContent =
+          "Finland · Недоступен";
+
+        document.getElementById(
+          "configText"
+        ).textContent =
+          "Нет данных";
+
+        document.getElementById(
+          "remaining"
+        ).textContent =
+          "Нет данных";
+
+        document.getElementById(
+          "used"
+        ).textContent =
+          "Нет данных";
+
+        document.getElementById(
+          "expire"
+        ).textContent =
+          "Нет данных";
+
+        document.getElementById(
+          "deviceList"
+        ).innerHTML =
           '<div class="empty">Данные недоступны</div>';
+
         return;
       }
 
-      setStatus("Подписка активна", "ok");
+      setStatus(
+        "Подписка активна",
+        "ok"
+      );
 
-      renderSubscription(state.subscription);
-      renderPing(state.ping);
+      renderSubscription(
+        state.subscription
+      );
+
+      renderPing(
+        state.ping
+      );
+
       renderDevices(
         state.devices || [],
         state.current_device_id || ""
@@ -753,7 +864,8 @@
       history.replaceState(
         null,
         "",
-        location.pathname + location.search
+        window.location.pathname +
+        window.location.search
       );
     }
 
@@ -767,32 +879,53 @@
       const key = getKey();
 
       if (!key) {
-        setStatus("Ключ не указан", "error");
-        document.getElementById("keyView").textContent = "Нет ключа";
+        setStatus(
+          "Ключ не указан",
+          "error"
+        );
+
+        document.getElementById(
+          "keyView"
+        ).textContent =
+          "Нет ключа";
+
         setReady();
         return;
       }
 
-      const hashParams = new URLSearchParams(
-        location.hash.replace(/^#/, "")
-      );
+      const hashParams =
+        new URLSearchParams(
+          window.location.hash.replace(
+            /^#/,
+            ""
+          )
+        );
 
-      const encodedState = hashParams.get("state");
+      const encodedState =
+        hashParams.get("state");
 
       if (!encodedState) {
         requestData(key);
         return;
       }
 
-      const state = decodeState(encodedState);
+      const state =
+        decodeState(encodedState);
 
-      renderState(state, key);
+      renderState(
+        state,
+        key
+      );
+
       setReady();
     }
 
     document
       .getElementById("openButton")
-      .addEventListener("click", launchHapp);
+      .addEventListener(
+        "click",
+        launchHapp
+      );
 
     initialize();
   </script>
