@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="ru">
 <head>
@@ -20,9 +21,21 @@ a{display:inline-block;margin-top:15px;padding:13px 22px;border-radius:10px;back
 <a id="fallback" href="https://happ.info/" style="display:none">Скачать HAPP</a>
 </div>
 <script>
-const s={"7fK3mP9xQ2vL":"http://78.17.112.158:444/DisstVpn/dplgn7904o4cd4cp","Ab92KlmP7xQ":"http://example.com/subscription2","X8nP4sL2Qa":"http://example.com/subscription3"},p=new URLSearchParams(location.search),u=s[p.get("key")],t=document.getElementById("status"),f=document.getElementById("fallback");
-if(u){location.href="happ://add/"+u;setTimeout(()=>{t.textContent="Если приложение не открылось автоматически:";f.style.display="inline-block"},1800)}
-else t.textContent="Страница не найдена.";
+const p=new URLSearchParams(location.search);
+const key=p.get("key");
+const t=document.getElementById("status");
+const f=document.getElementById("fallback");
+
+if(key){
+    location.href="http://78.17.112.158/open.php?key="+encodeURIComponent(key);
+    setTimeout(()=>{
+        t.textContent="Если приложение не открылось автоматически:";
+        f.style.display="inline-block";
+    },1800);
+}else{
+    t.textContent="Страница не найдена.";
+}
 </script>
 </body>
 </html>
+```
