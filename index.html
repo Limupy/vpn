@@ -1,10 +1,19 @@
+```html
 <!doctype html>
-
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1020">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,viewport-fit=cover"
+  >
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="dark light">
+
+  <meta
+    name="theme-color"
+    content="#0b1020"
+  >
 
   <link
     rel="icon"
@@ -90,10 +99,16 @@
       border-radius: 14px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      background:
+        linear-gradient(
+          135deg,
+          var(--accent),
+          var(--accent-2)
+        );
       color: white;
       font-weight: 800;
-      box-shadow: 0 10px 30px rgba(110,168,254,.24);
+      box-shadow:
+        0 10px 30px rgba(110,168,254,.24);
     }
 
     h1 {
@@ -186,7 +201,10 @@
 
     .row {
       display: grid;
-      grid-template-columns: minmax(120px, 1fr) minmax(0, 1.5fr);
+      grid-template-columns:
+        minmax(120px, 1fr)
+        minmax(0, 1.5fr);
+
       gap: 18px;
       align-items: center;
       min-height: 62px;
@@ -242,6 +260,7 @@
       text-decoration: none;
       font-weight: 750;
       font-size: 14px;
+
       transition:
         transform .15s ease,
         opacity .15s ease,
@@ -258,7 +277,12 @@
 
     .btn.primary {
       color: #07101f;
-      background: linear-gradient(135deg, #86b8ff, #8f84ff);
+      background:
+        linear-gradient(
+          135deg,
+          #86b8ff,
+          #8f84ff
+        );
     }
 
     .btn.secondary {
@@ -287,6 +311,8 @@
       color: #ffd7dd;
       font-size: 13px;
       line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
     .error[hidden] {
@@ -318,122 +344,290 @@
       }
     }
   </style>
-
 </head>
 
 <body>
   <main class="wrap">
 
-```
-<div class="header">
-  <div class="brand">
-    <div class="logo">L</div>
+    <div class="header">
+      <div class="brand">
+        <div class="logo">L</div>
 
-    <div>
-      <h1>Limupy VPN</h1>
-      <div class="subtitle">VPN-подписка</div>
-    </div>
-  </div>
-</div>
-
-<section class="card" aria-live="polite">
-
-  <div class="hero">
-    <div class="status-row">
-      <span class="label">Статус</span>
-      <span id="status" class="status wait">Проверка…</span>
+        <div>
+          <h1>Limupy VPN</h1>
+          <div class="subtitle">
+            VPN-подписка
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="name" class="name">—</div>
-    <div id="device" class="device">—</div>
-  </div>
-
-  <div class="rows">
-
-    <div class="row">
-      <div class="label">VPN-подписка</div>
-      <div id="subscription" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Протоколы</div>
-      <div id="protocols" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Трафик</div>
-      <div id="traffic" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Срок действия</div>
-      <div id="expire" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Задержка</div>
-      <div id="latency" class="value">—</div>
-    </div>
-
-  </div>
-
-  <div class="actions">
-
-    <a
-      id="happDownload"
-      class="btn secondary"
-      href="https://happ.info/"
-      target="_blank"
-      rel="noopener noreferrer"
+    <section
+      class="card"
+      aria-live="polite"
     >
-      Скачать Happ
-    </a>
 
-    <a
-      id="happConnect"
-      class="btn primary"
-      href="#"
-      rel="noopener"
+      <div class="hero">
+
+        <div class="status-row">
+          <span class="label">
+            Статус
+          </span>
+
+          <span
+            id="status"
+            class="status wait"
+          >
+            Проверка…
+          </span>
+        </div>
+
+        <div
+          id="name"
+          class="name"
+        >
+          —
+        </div>
+
+        <div
+          id="device"
+          class="device"
+        >
+          —
+        </div>
+
+      </div>
+
+      <div class="rows">
+
+        <div class="row">
+          <div class="label">
+            VPN-подписка
+          </div>
+
+          <div
+            id="subscription"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Протоколы
+          </div>
+
+          <div
+            id="protocols"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Трафик
+          </div>
+
+          <div
+            id="traffic"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Срок действия
+          </div>
+
+          <div
+            id="expire"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Задержка
+          </div>
+
+          <div
+            id="latency"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <a
+          id="happDownload"
+          class="btn secondary"
+          href="https://happ.info/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Скачать Happ
+        </a>
+
+        <a
+          id="happConnect"
+          class="btn primary"
+          href="#"
+          rel="noopener"
+          hidden
+        >
+          Открыть в Happ
+        </a>
+
+      </div>
+
+    </section>
+
+    <div
+      id="error"
+      class="error"
       hidden
-    >
-      Открыть в Happ
-    </a>
+    ></div>
 
-  </div>
-
-</section>
-
-<div id="error" class="error" hidden></div>
-
-<div class="footer-note">
-  Задержка измеряется непосредственно с вашего устройства до API Limupy.
-</div>
-```
+    <div class="footer-note">
+      Задержка измеряется непосредственно
+      с вашего устройства до API Limupy.
+    </div>
 
   </main>
 
   <script>
-    const API_URL = 'https://78.17.112.158/api.php';
-    const HAPP_DOWNLOAD_URL = 'https://happ.info/';
-    const REQUEST_TIMEOUT_MS = 10000;
+    'use strict';
 
-    const $ = (id) => document.getElementById(id);
+    const API_URL =
+      'https://78.17.112.158/api.php';
+
+    const HAPP_DOWNLOAD_URL =
+      'https://happ.info/';
+
+    const REQUEST_TIMEOUT_MS =
+      10000;
+
+    const DEVICE_STORAGE_KEY =
+      'limupy_device_id_v2';
+
+    const $ = (id) =>
+      document.getElementById(id);
+
+
+    /* ==================================================
+       TOKEN
+       ================================================== */
 
     function getToken() {
-      const hash = window.location.hash.replace(/^#/, '');
-      const params = new URLSearchParams(hash);
-      return params.get('key') || '';
+      const hash =
+        window.location.hash.replace(
+          /^#/,
+          ''
+        );
+
+      const params =
+        new URLSearchParams(hash);
+
+      return (
+        params.get('key') || ''
+      ).trim();
     }
 
-    function setStatus(active, text) {
-      const el = $('status');
 
-      el.className = 'status ' + (
-        active ? 'ok' : 'bad'
-      );
+    /* ==================================================
+       DEVICE ID
+       API ожидает device_id
+       ================================================== */
 
-      el.textContent = text;
+    function base64Url(bytes) {
+      let binary = '';
+
+      for (const byte of bytes) {
+        binary += String.fromCharCode(
+          byte
+        );
+      }
+
+      return btoa(binary)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/g, '');
     }
+
+
+    function makeDeviceId() {
+      const bytes =
+        new Uint8Array(32);
+
+      crypto.getRandomValues(bytes);
+
+      return base64Url(bytes);
+    }
+
+
+    function getDeviceId() {
+      let value =
+        localStorage.getItem(
+          DEVICE_STORAGE_KEY
+        );
+
+      if (
+        !value ||
+        !/^[A-Za-z0-9._~-]{43}$/.test(
+          value
+        )
+      ) {
+        value =
+          makeDeviceId();
+
+        localStorage.setItem(
+          DEVICE_STORAGE_KEY,
+          value
+        );
+      }
+
+      return value;
+    }
+
+
+    /* ==================================================
+       STATUS
+       ================================================== */
+
+    function setStatus(
+      active,
+      text
+    ) {
+      const el =
+        $('status');
+
+      el.className =
+        'status ' +
+        (
+          active
+            ? 'ok'
+            : 'bad'
+        );
+
+      el.textContent =
+        text;
+    }
+
+
+    /* ==================================================
+       RESET
+       ================================================== */
 
     function resetFields() {
       [
@@ -445,66 +639,122 @@
         'expire',
         'latency'
       ].forEach(id => {
-        $(id).textContent = '—';
+        $(id).textContent =
+          '—';
       });
 
-      $('happConnect').hidden = true;
-      $('happConnect').removeAttribute('href');
+      $('happConnect').hidden =
+        true;
+
+      $('happConnect').removeAttribute(
+        'href'
+      );
     }
 
-    function bytes(value) {
-      const n = Number(value || 0);
 
-      if (!Number.isFinite(n) || n <= 0) {
+    /* ==================================================
+       BYTES
+       ================================================== */
+
+    function bytes(value) {
+      const n =
+        Number(
+          value || 0
+        );
+
+      if (
+        !Number.isFinite(n) ||
+        n <= 0
+      ) {
         return '0 Б';
       }
 
-      const units = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ'];
+      const units = [
+        'Б',
+        'КБ',
+        'МБ',
+        'ГБ',
+        'ТБ'
+      ];
 
       let x = n;
       let i = 0;
 
       while (
         x >= 1024 &&
-        i < units.length - 1
+        i <
+          units.length - 1
       ) {
         x /= 1024;
         i++;
       }
 
       const digits =
-        x >= 100 ? 0 :
-        x >= 10 ? 1 :
-        2;
+        x >= 100
+          ? 0
+          : x >= 10
+            ? 1
+            : 2;
 
-      return `${x.toFixed(digits)} ${units[i]}`;
+      return (
+        `${x.toFixed(digits)} ${units[i]}`
+      );
     }
+
+
+    /* ==================================================
+       TRAFFIC
+       ================================================== */
 
     function trafficText(sub) {
-      const total = Number(sub.total_bytes || 0);
-      const used = Number(sub.used_bytes || 0);
+      const total =
+        Number(
+          sub.total_bytes || 0
+        );
+
+      const used =
+        Number(
+          sub.used_bytes || 0
+        );
 
       if (!total) {
-        return `Использовано ${bytes(used)} · без лимита`;
+        return (
+          `Использовано ${bytes(used)} · без лимита`
+        );
       }
 
-      return `${bytes(used)} из ${bytes(total)}`;
+      return (
+        `${bytes(used)} из ${bytes(total)}`
+      );
     }
 
+
+    /* ==================================================
+       EXPIRE
+       ================================================== */
+
     function expireText(timestamp) {
-      const ts = Number(timestamp || 0);
+      const ts =
+        Number(
+          timestamp || 0
+        );
 
       if (!ts) {
         return 'Бессрочно';
       }
 
-      const d = new Date(
-        ts > 1e12
-          ? ts
-          : ts * 1000
-      );
+      const d =
+        new Date(
+          ts > 1e12
+            ? ts
+            : ts * 1000
+        );
 
-      if (Number.isNaN(d.getTime())) {
+      if (
+        Number.isNaN(
+          d.getTime()
+        )
+      ) {
         return '—';
       }
 
@@ -518,16 +768,58 @@
       );
     }
 
-    function renderProtocols(protocols) {
-      const arr = Array.isArray(protocols)
-        ? protocols
-        : String(protocols || '')
-            .split(',')
-            .map(s => s.trim())
-            .filter(Boolean);
+
+    /* ==================================================
+       HTML ESCAPE
+       ================================================== */
+
+    function escapeHtml(value) {
+      return String(value).replace(
+        /[&<>'"]/g,
+        ch => ({
+          '&':
+            '&amp;',
+
+          '<':
+            '&lt;',
+
+          '>':
+            '&gt;',
+
+          "'":
+            '&#39;',
+
+          '"':
+            '&quot;'
+        }[ch])
+      );
+    }
+
+
+    /* ==================================================
+       PROTOCOLS
+       ================================================== */
+
+    function renderProtocols(
+      protocols
+    ) {
+      const arr =
+        Array.isArray(protocols)
+          ? protocols
+          : String(
+              protocols || ''
+            )
+              .split(',')
+              .map(
+                s =>
+                  s.trim()
+              )
+              .filter(Boolean);
 
       if (!arr.length) {
-        $('protocols').textContent = '—';
+        $('protocols').textContent =
+          '—';
+
         return;
       }
 
@@ -542,62 +834,93 @@
         '</div>';
     }
 
-    function escapeHtml(value) {
-      return String(value).replace(
-        /[&<>'"]/g,
-        ch => ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-        }[ch])
-      );
-    }
 
-    async function postApi(token, extraHeaders = {}) {
-      const controller = new AbortController();
+    /* ==================================================
+       API POST
+       ВАЖНО:
+       отправляем device_id
+       ================================================== */
 
-      const timeout = setTimeout(
-        () => controller.abort(),
-        REQUEST_TIMEOUT_MS
-      );
+    async function postApi(token) {
+      const controller =
+        new AbortController();
+
+      const timeout =
+        setTimeout(
+          () =>
+            controller.abort(),
+          REQUEST_TIMEOUT_MS
+        );
 
       try {
-        return await fetch(API_URL, {
-          method: 'POST',
+        return await fetch(
+          API_URL,
+          {
+            method: 'POST',
 
-          cache: 'no-store',
+            mode: 'cors',
 
-          credentials: 'omit',
+            cache: 'no-store',
 
-          redirect: 'error',
+            credentials: 'omit',
 
-          signal: controller.signal,
+            redirect: 'error',
 
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            ...extraHeaders
-          },
+            signal: controller.signal,
 
-          body: JSON.stringify({})
-        });
+            headers: {
+              'Authorization':
+                `Bearer ${token}`,
+
+              'Accept':
+                'application/json',
+
+              'Content-Type':
+                'application/json'
+            },
+
+            /*
+             * Раньше здесь было:
+             *
+             * body: JSON.stringify({})
+             *
+             * API требует device_id.
+             */
+            body: JSON.stringify({
+              device_id:
+                getDeviceId()
+            })
+          }
+        );
       } finally {
-        clearTimeout(timeout);
+        clearTimeout(
+          timeout
+        );
       }
     }
 
-    async function fetchSubscription(token) {
-      const res = await postApi(token);
 
-      let data = null;
+    /* ==================================================
+       FETCH SUBSCRIPTION
+       ================================================== */
+
+    async function fetchSubscription(
+      token
+    ) {
+      const res =
+        await postApi(
+          token
+        );
+
+      let data =
+        null;
 
       try {
-        data = await res.json();
+        data =
+          await res.json();
       } catch (_) {
-        data = null;
+        data =
+          null;
       }
 
       return {
@@ -606,29 +929,43 @@
       };
     }
 
-    async function measureBrowserLatency(token) {
-      const samples = [];
 
-      for (let i = 0; i < 3; i++) {
-        const start = performance.now();
+    /* ==================================================
+       BROWSER LATENCY
+       Используем тот же POST,
+       без дополнительного CORS-заголовка
+       ================================================== */
+
+    async function measureBrowserLatency(
+      token
+    ) {
+      const samples =
+        [];
+
+      for (
+        let i = 0;
+        i < 3;
+        i++
+      ) {
+        const start =
+          performance.now();
 
         try {
-          const res = await postApi(
-            token,
-            {
-              'X-Limupy-Latency-Test': '1'
-            }
-          );
+          const res =
+            await postApi(
+              token
+            );
 
           await res.arrayBuffer();
 
           if (res.ok) {
             samples.push(
-              performance.now() - start
+              performance.now() -
+              start
             );
           }
         } catch (_) {
-         
+          // ignore
         }
       }
 
@@ -637,17 +974,87 @@
       }
 
       samples.sort(
-        (a, b) => a - b
+        (a, b) =>
+          a - b
       );
 
       return samples[
-        Math.floor(samples.length / 2)
+        Math.floor(
+          samples.length / 2
+        )
       ];
     }
 
-    function renderActive(data) {
-      const sub = data.subscription || {};
-      const dev = data.device || {};
+
+    /* ==================================================
+       ERROR TEXT
+       ================================================== */
+
+    function showApiError(
+      status,
+      data
+    ) {
+      $('error').hidden =
+        false;
+
+      if (
+        data &&
+        typeof data.error ===
+          'string'
+      ) {
+        $('error').textContent =
+          data.error;
+
+        return;
+      }
+
+      switch (status) {
+        case 400:
+          $('error').textContent =
+            'API отклонил запрос: проверьте формат данных и идентификатор устройства.';
+          break;
+
+        case 401:
+          $('error').textContent =
+            'Подписка отключена или ключ больше не действителен.';
+          break;
+
+        case 403:
+          $('error').textContent =
+            'Запрос отклонён сервером по политике доступа.';
+          break;
+
+        case 405:
+          $('error').textContent =
+            'Ошибка метода API: сервер ожидает POST-запрос.';
+          break;
+
+        case 415:
+          $('error').textContent =
+            'API отклонил формат запроса. Ожидается JSON.';
+          break;
+
+        default:
+          $('error').textContent =
+            `Не удалось получить данные подписки. HTTP ${status}.`;
+      }
+    }
+
+
+    /* ==================================================
+       RENDER ACTIVE
+       ================================================== */
+
+    function renderActive(
+      data
+    ) {
+      const sub =
+        data.subscription ||
+        {};
+
+      const dev =
+        data.device ||
+        {};
 
       $('name').textContent =
         data.subscription_name ||
@@ -670,21 +1077,37 @@
       );
 
       $('traffic').textContent =
-        trafficText(sub);
+        trafficText(
+          sub
+        );
 
       $('expire').textContent =
-        expireText(sub.expire);
+        expireText(
+          sub.expire
+        );
 
-      if (data.launch_url) {
+      if (
+        data.launch_url
+      ) {
         $('happConnect').href =
           data.launch_url;
 
-        $('happConnect').hidden = false;
+        $('happConnect').hidden =
+          false;
       }
     }
 
+
+    /* ==================================================
+       LOAD
+       ================================================== */
+
     async function load() {
-      $('error').hidden = true;
+      $('error').hidden =
+        true;
+
+      $('error').textContent =
+        '';
 
       resetFields();
 
@@ -694,7 +1117,8 @@
       $('status').textContent =
         'Проверка…';
 
-      const token = getToken();
+      const token =
+        getToken();
 
       if (!token) {
         setStatus(
@@ -702,7 +1126,8 @@
           'Не активно'
         );
 
-        $('error').hidden = false;
+        $('error').hidden =
+          false;
 
         $('error').textContent =
           'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.';
@@ -714,7 +1139,10 @@
         const {
           res,
           data
-        } = await fetchSubscription(token);
+        } =
+          await fetchSubscription(
+            token
+          );
 
         if (
           !res.ok ||
@@ -726,24 +1154,10 @@
             'Не активно'
           );
 
-          $('error').hidden = false;
-
-          if (res.status === 401) {
-            $('error').textContent =
-              'Подписка отключена или ключ больше не действителен.';
-          } else if (res.status === 405) {
-            $('error').textContent =
-              'Ошибка метода API: сервер ожидает POST-запрос.';
-          } else if (res.status === 415) {
-            $('error').textContent =
-              'API отклонил формат запроса. Ожидается JSON.';
-          } else if (res.status === 403) {
-            $('error').textContent =
-              'Запрос отклонён сервером по политике доступа.';
-          } else {
-            $('error').textContent =
-              `Не удалось получить данные подписки. HTTP ${res.status}.`;
-          }
+          showApiError(
+            res.status,
+            data
+          );
 
           return;
         }
@@ -751,8 +1165,11 @@
         if (
           data.subscription &&
           (
-            data.subscription.enabled === false ||
-            data.subscription.active === false
+            data.subscription.enabled ===
+              false ||
+
+            data.subscription.active ===
+              false
           )
         ) {
           setStatus(
@@ -760,7 +1177,9 @@
             'Не активно'
           );
 
-          $('error').hidden = false;
+          $('error').hidden =
+            false;
+
           $('error').textContent =
             'Эта VPN-подписка отключена.';
 
@@ -772,17 +1191,23 @@
           'Активно'
         );
 
-        renderActive(data);
+        renderActive(
+          data
+        );
 
         const latency =
-          await measureBrowserLatency(token);
+          await measureBrowserLatency(
+            token
+          );
 
         $('latency').textContent =
           latency == null
             ? '—'
             : `${Math.max(
                 1,
-                Math.round(latency)
+                Math.round(
+                  latency
+                )
               )} мс`;
 
       } catch (error) {
@@ -791,9 +1216,14 @@
           'Не активно'
         );
 
-        $('error').hidden = false;
+        $('error').hidden =
+          false;
 
-        if (error && error.name === 'AbortError') {
+        if (
+          error &&
+          error.name ===
+            'AbortError'
+        ) {
           $('error').textContent =
             'Сервер не ответил вовремя. Попробуйте обновить страницу.';
         } else {
@@ -803,10 +1233,20 @@
       }
     }
 
+
+    /* ==================================================
+       HASH CHANGE
+       ================================================== */
+
     window.addEventListener(
       'hashchange',
       load
     );
+
+
+    /* ==================================================
+       START
+       ================================================== */
 
     window.addEventListener(
       'load',
@@ -821,3 +1261,4 @@
 
 </body>
 </html>
+```
