@@ -1,933 +1,1049 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-  <meta name="referrer" content="no-referrer">
-  <meta name="description" content="VPN-подписка Limupy VPN для HAPP">
-  <meta property="og:title" content="Limupy VPN">
-  <meta property="og:description" content="VPN-подписка для HAPP">
-  <meta name="theme-color" content="#0b0c0f">
-  <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
 
-  <title>Limupy VPN</title>
+    <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    >
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f1115'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-size='42' font-weight='700' fill='white'%3EL%3C/text%3E%3C/svg%3E">
+    <meta
+        name="referrer"
+        content="no-referrer"
+    >
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta
+        name="format-detection"
+        content="telephone=no"
+    >
 
-    html {
-      background: #0b0c0f;
-    }
+    <title>Limupy VPN</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,.045), transparent 34%),
-        #0b0c0f;
-      color: #f3f4f6;
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      -webkit-font-smoothing: antialiased;
-      opacity: 0;
-      transition: opacity .15s ease;
-    }
+    <meta
+        name="description"
+        content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на этот сайт третьим лицам."
+    >
 
-    body.ready {
-      opacity: 1;
-    }
+    <meta
+        property="og:title"
+        content="Limupy VPN — VPN-подписка"
+    >
 
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
+    <meta
+        property="og:description"
+        content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на этот сайт третьим лицам."
+    >
 
-    .page {
-      width: 100%;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 28px 18px 42px;
-    }
+    <meta
+        property="og:type"
+        content="website"
+    >
 
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
+    <link
+        rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f1115'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial,sans-serif' font-size='38' font-weight='700' fill='white'%3EL%3C/text%3E%3C/svg%3E"
+    >
 
-    .logo {
-      width: 58px;
-      height: 58px;
-      flex: 0 0 58px;
-      border-radius: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #101216;
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 10px 30px rgba(0,0,0,.28);
-      font-size: 38px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -2px;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .brand {
-      min-width: 0;
-    }
+        html {
+            width: 100%;
+            min-width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #0f1115;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .title {
-      margin: 0;
-      font-size: 25px;
-      line-height: 1.1;
-      font-weight: 750;
-      letter-spacing: -.5px;
-    }
+        body {
+            width: 100%;
+            min-width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            padding:
+                max(16px, env(safe-area-inset-top))
+                max(16px, env(safe-area-inset-right))
+                max(16px, env(safe-area-inset-bottom))
+                max(16px, env(safe-area-inset-left));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+            background: #0f1115;
+            color: #fff;
+        }
 
-    .subtitle {
-      margin-top: 5px;
-      color: #8f96a3;
-      font-size: 14px;
-      line-height: 1.3;
-    }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
 
-    .card {
-      background: rgba(18,20,24,.92);
-      border: 1px solid rgba(255,255,255,.065);
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 0 16px 50px rgba(0,0,0,.28);
-      backdrop-filter: blur(12px);
-    }
+        .card {
+            width: 100%;
+            padding: 22px;
+            overflow: hidden;
+            background: #191c22;
+            border: 1px solid #252a33;
+            border-radius: 22px;
+            box-shadow: 0 16px 45px rgba(0,0,0,.28);
+        }
 
-    .card-head {
-      padding: 20px 20px 17px;
-      border-bottom: 1px solid rgba(255,255,255,.055);
-    }
+        .header {
+            text-align: center;
+        }
 
-    .section-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #f4f5f7;
-    }
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 17px;
+            background: #0f1115;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 700;
+        }
 
-    .key-wrap {
-      margin-top: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.15;
+        }
 
-    .key-label {
-      color: #7f8793;
-      font-size: 13px;
-      flex: 0 0 auto;
-    }
+        .subtitle {
+            margin-top: 7px;
+            color: #8f97a5;
+            font-size: 14px;
+        }
 
-    .key {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      padding: 7px 10px;
-      border-radius: 10px;
-      background: #0e1014;
-      border: 1px solid rgba(255,255,255,.06);
-      color: #cdd2da;
-      font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-      font-size: 12px;
-    }
+        .status {
+            margin-top: 20px;
+            padding: 14px 15px;
+            border-radius: 13px;
+            background: #11141a;
+            color: #dce1e8;
+            font-size: 14px;
+            line-height: 1.45;
+            text-align: center;
+        }
 
-    .status {
-      margin-top: 13px;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      min-height: 28px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #0e1014;
-      border: 1px solid rgba(255,255,255,.06);
-      color: #9fa6b2;
-      font-size: 12px;
-    }
+        .section {
+            margin-top: 12px;
+            padding: 15px;
+            border-radius: 15px;
+            background: #20242c;
+        }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #737984;
-      flex: 0 0 7px;
-    }
+        .section-header {
+            min-width: 0;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
 
-    .status.ok {
-      color: #d8dbe0;
-    }
+        .section-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+        }
 
-    .status.ok .status-dot {
-      background: #c9ced6;
-    }
+        .subscription-key {
+            min-width: 0;
+            max-width: 58%;
+            padding: 6px 8px;
+            overflow: hidden;
+            border: 1px solid #343a45;
+            border-radius: 8px;
+            background: #11141a;
+            color: #9ca4b2;
+            font-family: monospace;
+            font-size: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-    .status.error {
-      color: #d7a2a2;
-    }
+        .rows {
+            display: flex;
+            flex-direction: column;
+        }
 
-    .status.error .status-dot {
-      background: #b86767;
-    }
+        .row {
+            min-height: 38px;
+            display: grid;
+            grid-template-columns:
+                minmax(0,1fr)
+                minmax(0,1.7fr);
+            align-items: center;
+            gap: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid #2d323b;
+        }
 
-    .rows {
-      padding: 5px 20px;
-    }
+        .row:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
 
-    .row {
-      display: grid;
-      grid-template-columns: minmax(0,1fr) minmax(0,1.7fr);
-      gap: 18px;
-      align-items: center;
-      min-height: 60px;
-      border-bottom: 1px solid rgba(255,255,255,.045);
-    }
+        .label {
+            min-width: 0;
+            color: #8f97a5;
+            font-size: 13px;
+        }
 
-    .row:last-child {
-      border-bottom: 0;
-    }
+        .value {
+            min-width: 0;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+            text-align: right;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
 
-    .label {
-      min-width: 0;
-      color: #7f8793;
-      font-size: 13px;
-      line-height: 1.35;
-    }
+        .server-value {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 3px;
+        }
 
-    .value {
-      min-width: 0;
-      color: #eceef1;
-      font-size: 14px;
-      line-height: 1.4;
-      text-align: right;
-      overflow-wrap: anywhere;
-      word-break: break-word;
-    }
+        .server-main {
+            color: #fff;
+            font-size: 13px;
+            line-height: 1.35;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
 
-    .server-value {
-      display: flex;
-      justify-content: flex-end;
-    }
+        .config-text {
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.4;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
 
-    .server-main {
-      max-width: 100%;
-      text-align: right;
-      color: #e6e8ec;
-    }
+        .devices {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
 
-    .config-text {
-      max-width: 100%;
-      text-align: right;
-      color: #d9dce2;
-    }
+        .device {
+            position: relative;
+            padding: 12px;
+            border: 1px solid transparent;
+            border-radius: 11px;
+            background: #11141a;
+        }
 
-    .devices {
-      padding: 20px;
-      border-top: 1px solid rgba(255,255,255,.055);
-    }
+        .device.current {
+            border-color: #3b414c;
+        }
 
-    .devices-title {
-      margin-bottom: 12px;
-      font-size: 15px;
-      font-weight: 700;
-    }
+        .device-badge {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            padding: 4px 7px;
+            border: 1px solid #3a404b;
+            border-radius: 7px;
+            background: #262b34;
+            color: #c5cad3;
+            font-size: 9px;
+            font-weight: 700;
+        }
 
-    .device-list {
-      display: grid;
-      gap: 9px;
-    }
+        .device-name {
+            padding-right: 72px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
 
-    .device {
-      position: relative;
-      padding: 13px 72px 13px 14px;
-      border-radius: 13px;
-      background: #0e1014;
-      border: 1px solid rgba(255,255,255,.055);
-      min-width: 0;
-    }
+        .device-time {
+            margin-top: 6px;
+            color: #707886;
+            font-size: 11px;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
 
-    .device-name {
-      color: #e5e7eb;
-      font-size: 13px;
-      line-height: 1.35;
-      overflow-wrap: anywhere;
-    }
+        .empty {
+            padding: 12px;
+            border-radius: 11px;
+            background: #11141a;
+            color: #707886;
+            font-size: 13px;
+        }
 
-    .device-date {
-      margin-top: 4px;
-      color: #737a86;
-      font-size: 11px;
-      line-height: 1.3;
-    }
+        .warning {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 13px;
+            background: #2a2420;
+            color: #d8c8bb;
+            font-size: 13px;
+            line-height: 1.5;
+        }
 
-    .device-badge {
-      position: absolute;
-      top: 9px;
-      right: 9px;
-      padding: 4px 7px;
-      border-radius: 8px;
-      background: #1a1d22;
-      border: 1px solid rgba(255,255,255,.06);
-      color: #aab0b9;
-      font-size: 10px;
-      line-height: 1;
-    }
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            margin-top: 14px;
+        }
 
-    .warning {
-      margin: 0 20px 20px;
-      padding: 12px 13px;
-      border-radius: 12px;
-      background: #0e1014;
-      border: 1px solid rgba(255,255,255,.055);
-      color: #858c98;
-      font-size: 12px;
-      line-height: 1.45;
-      text-align: center;
-    }
+        .button {
+            width: 100%;
+            min-height: 50px;
+            padding: 13px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
 
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding: 0 20px 20px;
-    }
+        .primary {
+            background: #fff;
+            color: #111;
+        }
 
-    .button {
-      min-height: 48px;
-      border-radius: 13px;
-      border: 1px solid rgba(255,255,255,.07);
-      background: #1a1d22;
-      color: #f2f3f5;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 12px 15px;
-      font-size: 13px;
-      font-weight: 650;
-      cursor: pointer;
-      transition: transform .12s ease, background .12s ease;
-    }
+        .secondary {
+            background: #2a2f38;
+            color: #fff;
+        }
 
-    .button:active {
-      transform: scale(.985);
-    }
+        @media (max-width: 767px) {
+            body {
+                align-items: flex-start;
+                padding:
+                    max(12px, env(safe-area-inset-top))
+                    max(12px, env(safe-area-inset-right))
+                    max(12px, env(safe-area-inset-bottom))
+                    max(12px, env(safe-area-inset-left));
+            }
 
-    .button.primary {
-      background: #f0f1f3;
-      color: #101216;
-      border-color: transparent;
-    }
+            .container {
+                max-width: 100%;
+            }
 
-    .empty {
-      color: #737a86;
-      font-size: 13px;
-      padding: 5px 0;
-    }
+            .card {
+                padding: 18px;
+                border-radius: 19px;
+            }
 
-    @media (max-width: 767px) {
-      .page {
-        padding:
-          calc(20px + env(safe-area-inset-top))
-          12px
-          calc(28px + env(safe-area-inset-bottom));
-      }
+            .logo {
+                width: 54px;
+                height: 54px;
+                font-size: 23px;
+            }
 
-      .header {
-        gap: 12px;
-        margin-bottom: 17px;
-      }
+            h1 {
+                font-size: 25px;
+            }
 
-      .logo {
-        width: 52px;
-        height: 52px;
-        flex-basis: 52px;
-        border-radius: 15px;
-        font-size: 34px;
-      }
+            .section {
+                padding: 13px;
+            }
 
-      .title {
-        font-size: 22px;
-      }
+            .row {
+                grid-template-columns:
+                    minmax(78px,.9fr)
+                    minmax(0,1.6fr);
+                gap: 10px;
+            }
 
-      .subtitle {
-        font-size: 13px;
-      }
+            .label {
+                font-size: 12px;
+            }
 
-      .card {
-        border-radius: 18px;
-      }
+            .value,
+            .config-text {
+                font-size: 12px;
+                text-align: right;
+            }
 
-      .card-head {
-        padding: 17px 15px 15px;
-      }
+            .server-main {
+                font-size: 12px;
+            }
 
-      .rows {
-        padding: 4px 15px;
-      }
+            .device-name {
+                font-size: 12px;
+            }
 
-      .row {
-        grid-template-columns: minmax(78px,.9fr) minmax(0,1.6fr);
-        gap: 10px;
-        min-height: 57px;
-      }
+            .device-time {
+                font-size: 10px;
+            }
 
-      .label {
-        font-size: 12px;
-      }
+            .button {
+                min-height: 52px;
+            }
+        }
 
-      .value {
-        font-size: 13px;
-      }
+        @media (max-width: 360px) {
+            .card {
+                padding: 16px;
+            }
 
-      .devices {
-        padding: 16px 15px;
-      }
+            .section {
+                padding: 12px;
+            }
 
-      .warning {
-        margin: 0 15px 15px;
-      }
+            .row {
+                grid-template-columns:
+                    minmax(70px,.8fr)
+                    minmax(0,1.5fr);
+                gap: 8px;
+            }
 
-      .actions {
-        padding: 0 15px 15px;
-      }
+            .label,
+            .value,
+            .config-text {
+                font-size: 11px;
+            }
 
-      .button {
-        min-height: 46px;
-      }
-    }
+            .subscription-key {
+                max-width: 55%;
+                font-size: 9px;
+            }
+        }
 
-    @media (max-width: 390px) {
-      .row {
-        grid-template-columns: minmax(72px,.86fr) minmax(0,1.55fr);
-        gap: 8px;
-      }
-
-      .actions {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        @media (min-width: 768px) {
+            .card {
+                padding: 28px 24px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <main class="page">
-    <header class="header">
-      <div class="logo">L</div>
-
-      <div class="brand">
-        <h1 class="title">Limupy VPN</h1>
-        <div class="subtitle">VPN-подписка</div>
-      </div>
-    </header>
-
-    <section class="card">
-      <div class="card-head">
-        <div class="section-title">Подписка</div>
-
-        <div class="key-wrap">
-          <div class="key-label">Ключ</div>
-          <div class="key" id="keyView">Проверка...</div>
-        </div>
-
-        <div class="status" id="status">
-          <span class="status-dot"></span>
-          <span id="statusText">Проверка подписки...</span>
-        </div>
-      </div>
-
-      <div class="rows">
-        <div class="row">
-          <div class="label">Клиент</div>
-          <div class="value">HAPP</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Сервер</div>
-          <div class="value server-value">
-            <div class="server-main" id="serverMain">Проверка...</div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="label">Конфигурация</div>
-          <div class="value">
-            <div class="config-text" id="configText">Проверка...</div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="label">Осталось</div>
-          <div class="value" id="remaining">Проверка...</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Использовано</div>
-          <div class="value" id="used">Проверка...</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Действует до</div>
-          <div class="value" id="expire">Проверка...</div>
-        </div>
-      </div>
-
-      <div class="devices">
-        <div class="devices-title">Устройства</div>
-        <div class="device-list" id="deviceList"></div>
-      </div>
-
-      <div class="warning">
-        Не передавайте ссылку на этот сайт третьим лицам.
-      </div>
-
-      <div class="actions">
-        <button class="button primary" id="openButton" type="button">
-          Открыть HAPP
-        </button>
-
-        <a class="button" href="https://happ.info/" target="_blank" rel="noopener noreferrer">
-          Скачать HAPP
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const SERVER = "http://78.17.112.158/open.php";
-    let initialized = false;
-
-    function setReady() {
-      requestAnimationFrame(() => {
-        document.body.classList.add("ready");
-      });
-    }
-
-    function setStatus(text, type = "") {
-      const status = document.getElementById("status");
-      const statusText = document.getElementById("statusText");
-
-      status.className = "status" + (type ? " " + type : "");
-      statusText.textContent = text;
-    }
-
-    function formatBytes(bytes) {
-      const value = Number(bytes || 0);
-
-      if (!Number.isFinite(value) || value <= 0) {
-        return "0 Б";
-      }
-
-      const units = ["Б", "КБ", "МБ", "ГБ", "ТБ"];
-      let size = value;
-      let index = 0;
-
-      while (size >= 1024 && index < units.length - 1) {
-        size /= 1024;
-        index++;
-      }
-
-      const rounded = size >= 10 || index === 0
-        ? Math.round(size)
-        : Math.round(size * 10) / 10;
-
-      return rounded + " " + units[index];
-    }
-
-    function formatDate(timestamp) {
-      const value = Number(timestamp || 0);
-
-      if (!value) {
-        return "Не указано";
-      }
-
-      const date = new Date(value * 1000);
-
-      if (Number.isNaN(date.getTime())) {
-        return "Не указано";
-      }
-
-      return date.toLocaleString("ru-RU", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      });
-    }
-
-    function decodeState(value) {
-      try {
-        const normalized = value
-          .replace(/-/g, "+")
-          .replace(/_/g, "/");
-
-        const padding = "=".repeat(
-          (4 - normalized.length % 4) % 4
-        );
-
-        const binary = atob(normalized + padding);
-        const bytes = Uint8Array.from(
-          binary,
-          char => char.charCodeAt(0)
-        );
-
-        return JSON.parse(
-          new TextDecoder().decode(bytes)
-        );
-      } catch {
-        return null;
-      }
-    }
-
-    function getKey() {
-      const params = new URLSearchParams(
-        window.location.search
-      );
-
-      const queryKey = params.get("key");
-
-      if (
-        queryKey &&
-        queryKey.trim() &&
-        queryKey.trim() !== "vpn"
-      ) {
-        return queryKey.trim();
-      }
-
-      return "";
-    }
-
-    function requestData(key) {
-      const returnUrl = new URL(
-        window.location.href
-      );
-
-      returnUrl.hash = "";
-
-      const url =
-        SERVER +
-        "?mode=collect" +
-        "&key=" + encodeURIComponent(key) +
-        "&return=" + encodeURIComponent(
-          returnUrl.toString()
-        );
-
-      window.location.replace(url);
-    }
-
-    function launchHapp() {
-      const key = getKey();
-
-      const returnUrl = new URL(
-        window.location.href
-      );
-
-      returnUrl.hash = "";
-
-      const url =
-        SERVER +
-        "?mode=launch" +
-        "&key=" + encodeURIComponent(key) +
-        "&return=" + encodeURIComponent(
-          returnUrl.toString()
-        );
-
-      window.location.assign(url);
-    }
-
-    function renderSubscription(info) {
-      const remaining =
-        document.getElementById("remaining");
-
-      const used =
-        document.getElementById("used");
-
-      const expire =
-        document.getElementById("expire");
-
-      const configText =
-        document.getElementById("configText");
-
-      if (!info) {
-        remaining.textContent = "Нет данных";
-        used.textContent = "Нет данных";
-        expire.textContent = "Нет данных";
-        configText.textContent = "Нет данных";
-        return;
-      }
-
-      const total = Number(
-        info.total_bytes || 0
-      );
-
-      const usedBytes = Number(
-        info.used_bytes || 0
-      );
-
-      const remainingBytes = Number(
-        info.remaining_bytes || 0
-      );
-
-      remaining.textContent =
-        total > 0
-          ? formatBytes(remainingBytes)
-          : "Безлимит";
-
-      used.textContent =
-        formatBytes(usedBytes);
-
-      expire.textContent =
-        Number(info.expire || 0) > 0
-          ? formatDate(info.expire)
-          : "Без ограничения";
-
-      const protocols =
-        Array.isArray(info.protocols)
-          ? info.protocols.filter(Boolean)
-          : [];
-
-      configText.textContent =
-        protocols.length
-          ? protocols.join(" · ")
-          : "Нет данных";
-    }
-
-    function renderPing(ping) {
-      const serverMain =
-        document.getElementById("serverMain");
-
-      if (
-        ping &&
-        ping.available &&
-        Number.isFinite(Number(ping.rtt))
-      ) {
-        serverMain.textContent =
-          "Finland · Доступен · " +
-          Number(ping.rtt).toFixed(1) +
-          " мс";
-      } else {
-        serverMain.textContent =
-          "Finland · Недоступен";
-      }
-    }
-
-    function renderDevices(
-      devices,
-      currentDeviceId
-    ) {
-      const list =
-        document.getElementById("deviceList");
-
-      list.innerHTML = "";
-
-      if (
-        !Array.isArray(devices) ||
-        !devices.length
-      ) {
-        const empty =
-          document.createElement("div");
-
-        empty.className = "empty";
-        empty.textContent =
-          "Устройства пока не зарегистрированы";
-
-        list.appendChild(empty);
-        return;
-      }
-
-      devices.forEach(device => {
-        const item =
-          document.createElement("div");
-
-        item.className = "device";
-
-        const name =
-          document.createElement("div");
-
-        name.className = "device-name";
-        name.textContent =
-          device.name ||
-          "Неизвестное устройство";
-
-        const date =
-          document.createElement("div");
-
-        date.className = "device-date";
-        date.textContent =
-          "Последний вход: " +
-          formatDate(
-            device.last_seen ||
-            device.first_seen
-          );
-
-        item.appendChild(name);
-        item.appendChild(date);
-
-        if (
-          device.id === currentDeviceId
-        ) {
-          const badge =
-            document.createElement("div");
-
-          badge.className =
-            "device-badge";
-
-          badge.textContent =
-            "Текущее";
-
-          item.appendChild(badge);
+    <main class="container">
+        <section class="card">
+
+            <header class="header">
+                <div class="logo">L</div>
+
+                <h1>Limupy VPN</h1>
+
+                <div class="subtitle">
+                    VPN-подписка
+                </div>
+            </header>
+
+            <div
+                class="status"
+                id="status"
+            >
+                Получаем информацию о подписке...
+            </div>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        Подписка
+                    </div>
+
+                    <div
+                        class="subscription-key"
+                        id="subscriptionKey"
+                    >
+                        —
+                    </div>
+                </div>
+
+                <div class="rows">
+
+                    <div class="row">
+                        <div class="label">
+                            Клиент
+                        </div>
+
+                        <div class="value">
+                            HAPP
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Сервер
+                        </div>
+
+                        <div class="value server-value">
+                            <div
+                                class="server-main"
+                                id="serverMain"
+                            >
+                                Проверка...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Конфигурация
+                        </div>
+
+                        <div
+                            class="config-text"
+                            id="configText"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Осталось
+                        </div>
+
+                        <div
+                            class="value"
+                            id="remaining"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Использовано
+                        </div>
+
+                        <div
+                            class="value"
+                            id="used"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Действует до
+                        </div>
+
+                        <div
+                            class="value"
+                            id="expire"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        Устройства
+                    </div>
+                </div>
+
+                <div
+                    class="devices"
+                    id="devices"
+                >
+                    <div class="empty">
+                        Получаем список устройств...
+                    </div>
+                </div>
+            </section>
+
+            <div class="warning">
+                Не передавайте ссылку на этот сайт третьим лицам.
+            </div>
+
+            <nav class="actions">
+                <a
+                    class="button primary"
+                    id="open"
+                    href="#"
+                >
+                    Открыть HAPP
+                </a>
+
+                <a
+                    class="button secondary"
+                    href="https://happ.info/"
+                >
+                    Скачать HAPP
+                </a>
+            </nav>
+
+        </section>
+    </main>
+
+    <script>
+        const SERVER =
+            "http://78.17.112.158/open.php";
+
+        const params =
+            new URLSearchParams(
+                location.search
+            );
+
+        const key =
+            params.get("key");
+
+        const hash =
+            location.hash;
+
+        const elements = {
+            status:
+                document.getElementById(
+                    "status"
+                ),
+
+            open:
+                document.getElementById(
+                    "open"
+                ),
+
+            subscriptionKey:
+                document.getElementById(
+                    "subscriptionKey"
+                ),
+
+            serverMain:
+                document.getElementById(
+                    "serverMain"
+                ),
+
+            configText:
+                document.getElementById(
+                    "configText"
+                ),
+
+            remaining:
+                document.getElementById(
+                    "remaining"
+                ),
+
+            used:
+                document.getElementById(
+                    "used"
+                ),
+
+            expire:
+                document.getElementById(
+                    "expire"
+                ),
+
+            devices:
+                document.getElementById(
+                    "devices"
+                )
+        };
+
+        function decodeState(value) {
+            const raw =
+                value
+                    .replace(
+                        /^#state=/,
+                        ""
+                    )
+                    .replace(
+                        /-/g,
+                        "+"
+                    )
+                    .replace(
+                        /_/g,
+                        "/"
+                    );
+
+            const padded =
+                raw +
+                "=".repeat(
+                    (4 -
+                        raw.length % 4) %
+                        4
+                );
+
+            const binary =
+                atob(padded);
+
+            const bytes =
+                new Uint8Array(
+                    binary.length
+                );
+
+            for (
+                let i = 0;
+                i < binary.length;
+                i++
+            ) {
+                bytes[i] =
+                    binary.charCodeAt(i);
+            }
+
+            return JSON.parse(
+                new TextDecoder().decode(
+                    bytes
+                )
+            );
         }
 
-        list.appendChild(item);
-      });
-    }
+        function formatBytes(bytes) {
+            if (
+                bytes === null ||
+                bytes === undefined
+            ) {
+                return "Нет данных";
+            }
 
-    function renderState(state, key) {
-      document.getElementById(
-        "keyView"
-      ).textContent =
-        key || "Не указан";
+            if (bytes === 0) {
+                return "0 Б";
+            }
 
-      if (!state) {
-        setStatus(
-          "Не удалось получить данные",
-          "error"
-        );
+            const units = [
+                "Б",
+                "КБ",
+                "МБ",
+                "ГБ",
+                "ТБ"
+            ];
 
-        document.getElementById(
-          "serverMain"
-        ).textContent =
-          "Finland · Недоступен";
+            const index =
+                Math.min(
+                    Math.floor(
+                        Math.log(bytes) /
+                        Math.log(1024)
+                    ),
+                    units.length - 1
+                );
 
-        document.getElementById(
-          "configText"
-        ).textContent =
-          "Нет данных";
+            return (
+                bytes /
+                Math.pow(
+                    1024,
+                    index
+                )
+            ).toFixed(
+                index > 2
+                    ? 2
+                    : 1
+            ) +
+            " " +
+            units[index];
+        }
 
-        document.getElementById(
-          "remaining"
-        ).textContent =
-          "Нет данных";
+        function formatDate(timestamp) {
+            if (!timestamp) {
+                return "Нет данных";
+            }
 
-        document.getElementById(
-          "used"
-        ).textContent =
-          "Нет данных";
+            return new Date(
+                timestamp * 1000
+            ).toLocaleString(
+                "ru-RU"
+            );
+        }
 
-        document.getElementById(
-          "expire"
-        ).textContent =
-          "Нет данных";
+        function renderDevices(list) {
+            elements.devices.innerHTML =
+                "";
 
-        document.getElementById(
-          "deviceList"
-        ).innerHTML =
-          '<div class="empty">Данные недоступны</div>';
+            if (
+                !Array.isArray(list) ||
+                !list.length
+            ) {
+                const empty =
+                    document.createElement(
+                        "div"
+                    );
 
-        return;
-      }
+                empty.className =
+                    "empty";
 
-      setStatus(
-        "Подписка активна",
-        "ok"
-      );
+                empty.textContent =
+                    "Пока никто не посещал эту ссылку.";
 
-      renderSubscription(
-        state.subscription
-      );
+                elements.devices.appendChild(
+                    empty
+                );
 
-      renderPing(
-        state.ping
-      );
+                return;
+            }
 
-      renderDevices(
-        state.devices || [],
-        state.current_device_id || ""
-      );
+            list.forEach(device => {
+                const item =
+                    document.createElement(
+                        "div"
+                    );
 
-      history.replaceState(
-        null,
-        "",
-        window.location.pathname +
-        window.location.search
-      );
-    }
+                const name =
+                    document.createElement(
+                        "div"
+                    );
 
-    function initialize() {
-      if (initialized) {
-        return;
-      }
+                const time =
+                    document.createElement(
+                        "div"
+                    );
 
-      initialized = true;
+                item.className =
+                    "device" +
+                    (
+                        device.current
+                            ? " current"
+                            : ""
+                    );
 
-      const key = getKey();
+                if (device.current) {
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
 
-      if (!key) {
-        setStatus(
-          "Ключ не указан",
-          "error"
-        );
+                    badge.className =
+                        "device-badge";
 
-        document.getElementById(
-          "keyView"
-        ).textContent =
-          "Нет ключа";
+                    badge.textContent =
+                        "Текущее";
 
-        setReady();
-        return;
-      }
+                    item.appendChild(
+                        badge
+                    );
+                }
 
-      const hashParams =
-        new URLSearchParams(
-          window.location.hash.replace(
-            /^#/,
-            ""
-          )
-        );
+                name.className =
+                    "device-name";
 
-      const encodedState =
-        hashParams.get("state");
+                name.textContent =
+                    device.name;
 
-      if (!encodedState) {
-        requestData(key);
-        return;
-      }
+                time.className =
+                    "device-time";
 
-      const state =
-        decodeState(encodedState);
+                time.textContent =
+                    "Последний визит: " +
+                    formatDate(
+                        device.last_seen
+                    ) +
+                    "\nПервый визит: " +
+                    formatDate(
+                        device.first_seen
+                    );
 
-      renderState(
-        state,
-        key
-      );
+                item.appendChild(
+                    name
+                );
 
-      setReady();
-    }
+                item.appendChild(
+                    time
+                );
 
-    document
-      .getElementById("openButton")
-      .addEventListener(
-        "click",
-        launchHapp
-      );
+                elements.devices.appendChild(
+                    item
+                );
+            });
+        }
 
-    initialize();
-  </script>
+        function renderSubscription(info) {
+            if (!info) {
+                return;
+            }
+
+            if (
+                info.total_bytes !== null &&
+                Number(
+                    info.total_bytes
+                ) === 0
+            ) {
+                elements.remaining.textContent =
+                    "Безлимит";
+            } else {
+                elements.remaining.textContent =
+                    formatBytes(
+                        info.remaining_bytes
+                    );
+            }
+
+            elements.used.textContent =
+                formatBytes(
+                    info.used_bytes
+                );
+
+            elements.expire.textContent =
+                info.expire
+                    ? formatDate(
+                        info.expire
+                    )
+                    : "Нет данных";
+
+            const protocols =
+                Array.isArray(
+                    info.protocols
+                )
+                    ? info.protocols
+                    : [];
+
+            elements.configText.textContent =
+                protocols.length
+                    ? protocols.join(
+                        " · "
+                    )
+                    : "Нет данных";
+        }
+
+        function renderPing(ping) {
+            if (
+                !ping ||
+                !ping.available
+            ) {
+                elements.serverMain.textContent =
+                    "Finland · Недоступен";
+
+                return;
+            }
+
+            const average =
+                Number(
+                    ping.avg
+                );
+
+            elements.serverMain.textContent =
+                Number.isFinite(
+                    average
+                )
+                    ? "Finland · Доступен · " +
+                      average.toFixed(1) +
+                      " мс"
+                    : "Finland · Доступен";
+        }
+
+        function requestData() {
+            const returnUrl =
+                new URL(
+                    location.href
+                );
+
+            returnUrl.hash =
+                "";
+
+            location.replace(
+                SERVER +
+                "?mode=collect" +
+                "&key=" +
+                encodeURIComponent(
+                    key
+                ) +
+                "&return=" +
+                encodeURIComponent(
+                    returnUrl.toString()
+                )
+            );
+        }
+
+        function launchHapp() {
+            location.href =
+                SERVER +
+                "?mode=launch&key=" +
+                encodeURIComponent(
+                    key
+                );
+        }
+
+        function initialize() {
+            if (!key) {
+                elements.status.textContent =
+                    "Страница не найдена.";
+
+                return;
+            }
+
+            elements.subscriptionKey.textContent =
+                key;
+
+            if (!hash) {
+                requestData();
+                return;
+            }
+
+            let state;
+
+            try {
+                state =
+                    decodeState(
+                        hash
+                    );
+            } catch (error) {
+                elements.status.textContent =
+                    "Не удалось получить данные.";
+
+                return;
+            }
+
+            history.replaceState(
+                {},
+                document.title,
+                location.pathname +
+                location.search
+            );
+
+            renderDevices(
+                state.devices
+            );
+
+            renderSubscription(
+                state.subscription
+            );
+
+            renderPing(
+                state.ping
+            );
+
+            elements.status.textContent =
+                "Подписка готова.";
+
+            elements.open.href =
+                SERVER +
+                "?mode=launch&key=" +
+                encodeURIComponent(
+                    key
+                );
+
+            elements.open.onclick =
+                event => {
+                    event.preventDefault();
+                    launchHapp();
+                };
+
+            setTimeout(
+                launchHapp,
+                500
+            );
+        }
+
+        initialize();
+    </script>
 </body>
 </html>
