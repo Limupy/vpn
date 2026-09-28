@@ -192,9 +192,9 @@
         }
 
         .label {
+            flex: 0 0 auto;
             color: #8f97a5;
             font-size: 13px;
-            flex: 0 0 auto;
         }
 
         .value {
@@ -376,6 +376,7 @@
                 </div>
 
                 <div class="rows">
+
                     <div class="row">
                         <div class="label">
                             Клиент
@@ -427,19 +428,6 @@
 
                     <div class="row">
                         <div class="label">
-                            Лимит
-                        </div>
-
-                        <div
-                            class="value"
-                            id="total"
-                        >
-                            Проверка...
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="label">
                             Действует до
                         </div>
 
@@ -450,6 +438,7 @@
                             Проверка...
                         </div>
                     </div>
+
                 </div>
             </section>
 
@@ -537,9 +526,6 @@
 
             used:
                 document.getElementById("used"),
-
-            total:
-                document.getElementById("total"),
 
             expire:
                 document.getElementById(
@@ -725,8 +711,7 @@
         }
 
         function renderDevices(list) {
-            elements.devices.innerHTML =
-                "";
+            elements.devices.innerHTML = "";
 
             if (
                 !list ||
@@ -817,17 +802,9 @@
                 Number(info.total_bytes) === 0;
 
             if (unlimited) {
-                elements.total.textContent =
-                    "Безлимит";
-
                 elements.remaining.textContent =
                     "Безлимит";
             } else {
-                elements.total.textContent =
-                    formatBytes(
-                        info.total_bytes
-                    );
-
                 elements.remaining.textContent =
                     formatBytes(
                         info.remaining_bytes
@@ -1004,8 +981,7 @@
                         (sum, value) =>
                             sum + value,
                         0
-                    ) /
-                    averages.length
+                    ) / averages.length
                     : null;
 
             const loss =
@@ -1014,22 +990,17 @@
                         (sum, value) =>
                             sum + value,
                         0
-                    ) /
-                    losses.length
+                    ) / losses.length
                     : null;
 
             const fastest =
                 averages.length
-                    ? Math.min(
-                        ...averages
-                    )
+                    ? Math.min(...averages)
                     : null;
 
             const slowest =
                 averages.length
-                    ? Math.max(
-                        ...averages
-                    )
+                    ? Math.max(...averages)
                     : null;
 
             let text =
