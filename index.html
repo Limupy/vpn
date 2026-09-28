@@ -1,4 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -7,10 +8,11 @@
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0b1020">
 
-  <meta
-    http-equiv="Content-Security-Policy"
-    content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'"
-  >
+<meta
+http-equiv="Content-Security-Policy"
+content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'"
+
+>
 
   <link
     rel="icon"
@@ -361,141 +363,253 @@
       }
     }
   </style>
+
 </head>
 
 <body>
   <main class="wrap">
-
     <div class="header">
       <div class="brand">
         <div class="logo">L</div>
 
-        <div>
-          <h1>Limupy VPN</h1>
-          <div class="subtitle">VPN-подписка</div>
-        </div>
+```
+    <div>
+      <h1>Limupy VPN</h1>
+      <div class="subtitle">VPN-подписка</div>
+    </div>
+  </div>
+</div>
+
+<section class="card" aria-live="polite">
+  <div class="hero">
+    <div class="status-row">
+      <span class="label">
+        Статус
+      </span>
+
+      <span
+        id="status"
+        class="status wait"
+      >
+        Проверка…
+      </span>
+    </div>
+  </div>
+
+  <div class="rows">
+    <div class="row">
+      <div class="label">
+        Подписка
+      </div>
+
+      <div
+        id="subscription"
+        class="value"
+      >
+        —
       </div>
     </div>
 
-    <section class="card" aria-live="polite">
-
-      <div class="hero">
-        <div class="status-row">
-          <span class="label">Статус</span>
-
-          <span id="status" class="status wait">
-            Проверка…
-          </span>
-        </div>
+    <div class="row">
+      <div class="label">
+        Сервер
       </div>
 
-      <div class="rows">
-
-        <div class="row">
-          <div class="label">Подписка</div>
-          <div id="subscription" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Сервер</div>
-          <div id="server" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Подключено к VPN</div>
-          <div id="devicesCount" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Протоколы</div>
-          <div id="protocols" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Трафик</div>
-          <div id="traffic" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Срок действия</div>
-          <div id="expire" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Задержка</div>
-          <div id="latency" class="value">—</div>
-        </div>
-
+      <div
+        id="server"
+        class="value"
+      >
+        —
       </div>
-
-      <div class="actions">
-
-        <a
-          id="happDownload"
-          class="btn secondary"
-          href="https://happ.info/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Скачать Happ
-        </a>
-
-        <a
-          id="happConnect"
-          class="btn primary"
-          href="#"
-          rel="noopener noreferrer"
-          hidden
-        >
-          Добавить подписку в Happ
-        </a>
-
-      </div>
-
-    </section>
-
-    <div id="error" class="error" hidden></div>
-
-    <div class="footer-note">
-      Задержка измеряется непосредственно с вашего устройства до API Limupy.
     </div>
+
+    <div class="row">
+      <div class="label">
+        Подключено к VPN
+      </div>
+
+      <div
+        id="devicesCount"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        Протоколы
+      </div>
+
+      <div
+        id="protocols"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        Трафик
+      </div>
+
+      <div
+        id="traffic"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        Срок действия
+      </div>
+
+      <div
+        id="expire"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        Задержка
+      </div>
+
+      <div
+        id="latency"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a
+      id="happDownload"
+      class="btn secondary"
+      href="https://happ.info/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Скачать Happ
+    </a>
+
+    <a
+      id="happConnect"
+      class="btn primary"
+      href="#"
+      rel="noopener noreferrer"
+      hidden
+    >
+      Открыть в Happ
+    </a>
+  </div>
+</section>
+
+<div
+  id="error"
+  class="error"
+  hidden
+></div>
+
+<div class="footer-note">
+  Задержка измеряется непосредственно с вашего устройства до API Limupy.
+</div>
+```
 
   </main>
 
   <script>
     'use strict';
 
-    const API_URL = 'https://78.17.112.158/api.php';
+    const API_URL =
+      'https://78.17.112.158/api.php';
+
     const REQUEST_TIMEOUT_MS = 10000;
     const HASH_CHANGE_DELAY_MS = 150;
+    const HISTORY_TOKEN_KEY = '__limupy_subscription_token';
 
     let activeToken = '';
     let deviceId = '';
     let activeLoadPromise = null;
     let hashTimer = null;
 
-    const $ = id => document.getElementById(id);
+    const $ = id =>
+      document.getElementById(id);
 
-    function getTokenFromUrl() {
-      const hashParams = new URLSearchParams(
-        window.location.hash.replace(/^#/, '')
-      );
+    function getUrlToken() {
+      const hashParams =
+        new URLSearchParams(
+          window.location.hash.replace(/^#/, '')
+        );
 
-      const searchParams = new URLSearchParams(
-        window.location.search
-      );
+      const searchParams =
+        new URLSearchParams(
+          window.location.search
+        );
 
-      const hashToken = hashParams.get('key');
-      const queryToken = searchParams.get('key');
-
-      return String(
-        hashToken ||
-        queryToken ||
+      return (
+        hashParams.get('key') ||
+        searchParams.get('key') ||
         ''
       ).trim();
     }
 
-    function cleanUrl() {
+    function getHistoryToken() {
+      const state =
+        window.history &&
+        window.history.state;
+
+      if (
+        !state ||
+        typeof state !== 'object'
+      ) {
+        return '';
+      }
+
+      const token =
+        state[HISTORY_TOKEN_KEY];
+
+      return typeof token === 'string'
+        ? token.trim()
+        : '';
+    }
+
+    function saveTokenToHistory(token) {
+      if (
+        !window.history ||
+        typeof window.history.replaceState !== 'function'
+      ) {
+        return false;
+      }
+
+      const currentState =
+        window.history.state &&
+        typeof window.history.state === 'object'
+          ? window.history.state
+          : {};
+
+      const nextState = {
+        ...currentState,
+        [HISTORY_TOKEN_KEY]: token
+      };
+
+      window.history.replaceState(
+        nextState,
+        '',
+        window.location.pathname
+      );
+
+      return true;
+    }
+
+    function clearUrlKeepHistoryState() {
       if (
         !window.history ||
         typeof window.history.replaceState !== 'function'
@@ -503,11 +617,43 @@
         return;
       }
 
+      const currentState =
+        window.history.state &&
+        typeof window.history.state === 'object'
+          ? window.history.state
+          : null;
+
       window.history.replaceState(
-        null,
+        currentState,
         '',
         window.location.pathname
       );
+    }
+
+    function adoptToken() {
+      const urlToken =
+        getUrlToken();
+
+      if (urlToken) {
+        activeToken =
+          urlToken;
+
+        saveTokenToHistory(
+          activeToken
+        );
+
+        return activeToken;
+      }
+
+      const historyToken =
+        getHistoryToken();
+
+      activeToken =
+        historyToken;
+
+      clearUrlKeepHistoryState();
+
+      return activeToken;
     }
 
     function base64Url(bytes) {
@@ -528,11 +674,13 @@
         return deviceId;
       }
 
-      const bytes = new Uint8Array(32);
+      const bytes =
+        new Uint8Array(32);
 
       crypto.getRandomValues(bytes);
 
-      deviceId = base64Url(bytes);
+      deviceId =
+        base64Url(bytes);
 
       return deviceId;
     }
@@ -540,8 +688,11 @@
     function setStatus(type, text) {
       const el = $('status');
 
-      el.className = 'status ' + type;
-      el.textContent = text;
+      el.className =
+        'status ' + type;
+
+      el.textContent =
+        text;
     }
 
     function resetFields() {
@@ -554,32 +705,50 @@
       $('latency').textContent = '—';
 
       $('happConnect').hidden = true;
-      $('happConnect').href = '#';
+      $('happConnect').removeAttribute('href');
     }
 
-    function showError(message, warning = false) {
-      const el = $('error');
+    function showError(
+      message,
+      warning = false
+    ) {
+      const el =
+        $('error');
 
-      el.hidden = false;
-      el.className = warning
-        ? 'error warning'
-        : 'error';
+      el.hidden =
+        false;
 
-      el.textContent = message;
+      el.className =
+        warning
+          ? 'error warning'
+          : 'error';
+
+      el.textContent =
+        message;
     }
 
     function hideError() {
-      const el = $('error');
+      const el =
+        $('error');
 
-      el.hidden = true;
-      el.textContent = '';
-      el.className = 'error';
+      el.hidden =
+        true;
+
+      el.textContent =
+        '';
+
+      el.className =
+        'error';
     }
 
     function bytes(value) {
-      const n = Number(value || 0);
+      const n =
+        Number(value || 0);
 
-      if (!Number.isFinite(n) || n <= 0) {
+      if (
+        !Number.isFinite(n) ||
+        n <= 0
+      ) {
         return '0 Б';
       }
 
@@ -613,22 +782,28 @@
     }
 
     function trafficText(sub) {
-      const total = Number(
-        sub.total_bytes || 0
-      );
+      const total =
+        Number(
+          sub.total_bytes || 0
+        );
 
-      const used = Number(
-        sub.used_bytes || 0
-      );
+      const used =
+        Number(
+          sub.used_bytes || 0
+        );
 
       if (!total) {
         return `Использовано ${bytes(used)} · без лимита`;
       }
 
-      const remaining = Number(
-        sub.remaining_bytes ??
-        Math.max(0, total - used)
-      );
+      const remaining =
+        Number(
+          sub.remaining_bytes ??
+          Math.max(
+            0,
+            total - used
+          )
+        );
 
       return (
         `${bytes(used)} из ${bytes(total)} · осталось ${bytes(remaining)}`
@@ -636,19 +811,27 @@
     }
 
     function expireText(timestamp) {
-      const ts = Number(timestamp || 0);
+      const ts =
+        Number(
+          timestamp || 0
+        );
 
       if (!ts) {
         return 'Бессрочно';
       }
 
-      const d = new Date(
-        ts > 1e12
-          ? ts
-          : ts * 1000
-      );
+      const d =
+        new Date(
+          ts > 1e12
+            ? ts
+            : ts * 1000
+        );
 
-      if (Number.isNaN(d.getTime())) {
+      if (
+        Number.isNaN(
+          d.getTime()
+        )
+      ) {
         return '—';
       }
 
@@ -664,18 +847,39 @@
 
     function isAllowedHappUrl(value) {
       try {
-        const url = new URL(value);
+        const url =
+          new URL(value);
 
-        return (
-          url.protocol === 'https:' ||
+        if (
           url.protocol === 'happ:'
-        );
+        ) {
+          return (
+            url.hostname === 'add' &&
+            url.pathname.startsWith(
+              '/https://78.17.112.158/'
+            )
+          );
+        }
+
+        if (
+          url.protocol === 'https:'
+        ) {
+          return (
+            url.origin ===
+              'https://78.17.112.158' &&
+            url.pathname.startsWith(
+              '/DisstVpn/'
+            )
+          );
+        }
+
+        return false;
       } catch (_) {
         return false;
       }
     }
 
-    async function postApi(token) {
+    async function postApi() {
       const controller =
         new AbortController();
 
@@ -697,46 +901,58 @@
             signal: controller.signal,
             headers: {
               'Authorization':
-                `Bearer ${token}`,
+                `Bearer ${activeToken}`,
               'Accept':
                 'application/json',
               'Content-Type':
                 'application/json'
             },
             body: JSON.stringify({
-              device_id: getDeviceId()
+              device_id:
+                getDeviceId()
             })
           }
         );
       } finally {
-        clearTimeout(timeout);
+        clearTimeout(
+          timeout
+        );
       }
     }
 
-    async function fetchSubscription(token) {
-      const started = performance.now();
+    async function fetchSubscription() {
+      const started =
+        performance.now();
 
-      const res = await postApi(token);
+      const res =
+        await postApi();
 
-      let data = null;
+      let data =
+        null;
 
       try {
-        data = await res.json();
+        data =
+          await res.json();
       } catch (_) {
-        data = null;
+        data =
+          null;
       }
 
       return {
         res,
         data,
         elapsed:
-          performance.now() - started
+          performance.now() -
+          started
       };
     }
 
     function pluralizeDevices(count) {
-      const mod10 = count % 10;
-      const mod100 = count % 100;
+      const mod10 =
+        count % 10;
+
+      const mod100 =
+        count % 100;
 
       if (
         mod10 === 1 &&
@@ -789,17 +1005,23 @@
           Number.isFinite(value) &&
           value >= 0
         ) {
-          return Math.floor(value);
+          return Math.floor(
+            value
+          );
         }
 
         if (
           typeof value === 'string' &&
           value.trim() !== '' &&
-          Number.isFinite(Number(value))
+          Number.isFinite(
+            Number(value)
+          )
         ) {
           return Math.max(
             0,
-            Math.floor(Number(value))
+            Math.floor(
+              Number(value)
+            )
           );
         }
       }
@@ -820,16 +1042,26 @@
         data?.device?.ips
       ];
 
-      for (const value of ipSources) {
-        if (!Array.isArray(value)) {
+      for (
+        const value of ipSources
+      ) {
+        if (
+          !Array.isArray(value)
+        ) {
           continue;
         }
 
-        const uniqueIps = new Set();
+        const uniqueIps =
+          new Set();
 
-        for (const item of value) {
-          if (typeof item === 'string') {
-            const ip = item.trim();
+        for (
+          const item of value
+        ) {
+          if (
+            typeof item === 'string'
+          ) {
+            const ip =
+              item.trim();
 
             if (ip) {
               uniqueIps.add(ip);
@@ -842,13 +1074,14 @@
             item &&
             typeof item === 'object'
           ) {
-            const ip = String(
-              item.ip ??
-              item.address ??
-              item.client_ip ??
-              item.clientIp ??
-              ''
-            ).trim();
+            const ip =
+              String(
+                item.ip ??
+                item.address ??
+                item.client_ip ??
+                item.clientIp ??
+                ''
+              ).trim();
 
             if (ip) {
               uniqueIps.add(ip);
@@ -877,8 +1110,12 @@
         data?.device?.sessions
       ];
 
-      for (const value of arrays) {
-        if (Array.isArray(value)) {
+      for (
+        const value of arrays
+      ) {
+        if (
+          Array.isArray(value)
+        ) {
           return value.length;
         }
       }
@@ -888,27 +1125,37 @@
 
     function renderConnections(data) {
       const count =
-        getConnectionCount(data);
+        getConnectionCount(
+          data
+        );
 
       const el =
         $('devicesCount');
 
-      el.textContent = '';
+      el.textContent =
+        '';
 
-      if (count === null) {
+      if (
+        count === null
+      ) {
         el.textContent =
           'Данные недоступны';
+
         return;
       }
 
       const wrapper =
-        document.createElement('div');
+        document.createElement(
+          'div'
+        );
 
       wrapper.className =
         'connections';
 
       const countEl =
-        document.createElement('div');
+        document.createElement(
+          'div'
+        );
 
       countEl.className =
         'connections-count';
@@ -920,9 +1167,13 @@
         countEl
       );
 
-      if (count === 0) {
+      if (
+        count === 0
+      ) {
         const stateEl =
-          document.createElement('div');
+          document.createElement(
+            'div'
+          );
 
         stateEl.className =
           'connections-state';
@@ -944,35 +1195,53 @@
       const arr =
         Array.isArray(protocols)
           ? protocols
-          : String(protocols || '')
+          : String(
+              protocols || ''
+            )
               .split(',')
-              .map(s => s.trim())
+              .map(
+                s => s.trim()
+              )
               .filter(Boolean);
 
-      const el = $('protocols');
+      const el =
+        $('protocols');
 
-      el.textContent = '';
+      el.textContent =
+        '';
 
-      if (!arr.length) {
-        el.textContent = '—';
+      if (
+        !arr.length
+      ) {
+        el.textContent =
+          '—';
+
         return;
       }
 
       const wrapper =
-        document.createElement('div');
+        document.createElement(
+          'div'
+        );
 
       wrapper.className =
         'protocols';
 
-      for (const protocol of arr) {
+      for (
+        const protocol of arr
+      ) {
         const item =
-          document.createElement('span');
+          document.createElement(
+            'span'
+          );
 
         item.className =
           'protocol';
 
         item.textContent =
-          String(protocol);
+          String(
+            protocol
+          );
 
         wrapper.appendChild(
           item
@@ -988,23 +1257,31 @@
       status,
       retryAfter
     ) {
-      if (status === 401) {
+      if (
+        status === 401
+      ) {
         showError(
           'Подписка недействительна.'
         );
         return;
       }
 
-      if (status === 403) {
+      if (
+        status === 403
+      ) {
         showError(
           'Доступ запрещён.'
         );
         return;
       }
 
-      if (status === 429) {
+      if (
+        status === 429
+      ) {
         const seconds =
-          Number(retryAfter);
+          Number(
+            retryAfter
+          );
 
         showError(
           Number.isFinite(seconds) &&
@@ -1025,6 +1302,7 @@
         showError(
           'Сервер временно недоступен.'
         );
+
         return;
       }
 
@@ -1035,7 +1313,8 @@
 
     function isSubscriptionActive(data) {
       const sub =
-        data?.subscription || {};
+        data?.subscription ||
+        {};
 
       return !(
         sub.enabled === false ||
@@ -1045,46 +1324,13 @@
       );
     }
 
-    function setHappLink(value) {
-      const button =
-        $('happConnect');
-
-      if (
-        typeof value !== 'string' ||
-        !isAllowedHappUrl(value)
-      ) {
-        button.hidden = true;
-        button.href = '#';
-        return;
-      }
-
-      button.href = value;
-      button.hidden = false;
-
-      button.onclick = event => {
-        event.preventDefault();
-
-        const url =
-          button.getAttribute('href');
-
-        if (!url || url === '#') {
-          return;
-        }
-
-        try {
-          window.location.assign(url);
-        } catch (_) {
-          window.location.href = url;
-        }
-      };
-    }
-
     function renderActive(
       data,
       elapsed
     ) {
       const sub =
-        data?.subscription || {};
+        data?.subscription ||
+        {};
 
       $('subscription').textContent =
         String(
@@ -1108,25 +1354,34 @@
       );
 
       $('traffic').textContent =
-        trafficText(sub);
+        trafficText(
+          sub
+        );
 
       $('expire').textContent =
-        expireText(sub.expire);
+        expireText(
+          sub.expire
+        );
 
       $('latency').textContent =
-        `${Math.max(
-          1,
-          Math.round(elapsed)
-        )} мс`;
+        `${Math.max(1, Math.round(elapsed))} мс`;
 
-      setHappLink(
-        data.launch_url
-      );
+      if (
+        typeof data.launch_url ===
+          'string' &&
+        isAllowedHappUrl(
+          data.launch_url
+        )
+      ) {
+        $('happConnect').href =
+          data.launch_url;
+
+        $('happConnect').hidden =
+          false;
+      }
     }
 
-    async function loadInternal(
-      token
-    ) {
+    async function loadInternal() {
       hideError();
       resetFields();
 
@@ -1135,7 +1390,9 @@
         'Проверка…'
       );
 
-      if (!token) {
+      if (
+        !activeToken
+      ) {
         setStatus(
           'bad',
           'Не активно'
@@ -1153,11 +1410,12 @@
           res,
           data,
           elapsed
-        } = await fetchSubscription(
-          token
-        );
+        } =
+          await fetchSubscription();
 
-        if (res.status === 429) {
+        if (
+          res.status === 429
+        ) {
           setStatus(
             'warn',
             'Ограничение'
@@ -1228,53 +1486,80 @@
         resetFields();
 
         showError(
-          error?.name === 'AbortError'
+          error?.name ===
+            'AbortError'
             ? 'Сервер не ответил вовремя.'
             : 'Нет связи с сервером подписки.'
         );
-      } finally {
-        activeToken = '';
       }
     }
 
     function load() {
-      if (activeLoadPromise) {
+      if (
+        activeLoadPromise
+      ) {
         return activeLoadPromise;
       }
 
-      const token =
-        activeToken;
-
       activeLoadPromise =
-        loadInternal(
-          token
-        ).finally(() => {
-          activeLoadPromise = null;
-        });
+        loadInternal().finally(
+          () => {
+            activeLoadPromise =
+              null;
+          }
+        );
 
       return activeLoadPromise;
     }
 
-    function acceptTokenFromCurrentUrl() {
-      activeToken =
-        getTokenFromUrl();
+    $('happConnect').addEventListener(
+      'click',
+      event => {
+        const href =
+          $('happConnect').getAttribute(
+            'href'
+          );
 
-      cleanUrl();
+        if (
+          !href ||
+          !isAllowedHappUrl(
+            href
+          )
+        ) {
+          event.preventDefault();
+          return;
+        }
 
-      load();
-    }
+        event.currentTarget.href =
+          href;
+      }
+    );
 
     window.addEventListener(
       'hashchange',
       () => {
+        const urlToken =
+          getUrlToken();
+
+        if (
+          urlToken
+        ) {
+          activeToken =
+            urlToken;
+
+          saveTokenToHistory(
+            activeToken
+          );
+        } else {
+          activeToken =
+            getHistoryToken();
+
+          clearUrlKeepHistoryState();
+        }
+
         clearTimeout(
           hashTimer
         );
-
-        activeToken =
-          getTokenFromUrl();
-
-        cleanUrl();
 
         hashTimer =
           setTimeout(
@@ -1285,14 +1570,29 @@
     );
 
     window.addEventListener(
+      'popstate',
+      () => {
+        activeToken =
+          getHistoryToken();
+
+        clearUrlKeepHistoryState();
+
+        load();
+      }
+    );
+
+    window.addEventListener(
       'load',
       () => {
+        adoptToken();
+
         $('happDownload').href =
           'https://happ.info/';
 
-        acceptTokenFromCurrentUrl();
+        load();
       }
     );
   </script>
+
 </body>
 </html>
