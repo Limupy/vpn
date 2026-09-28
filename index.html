@@ -3,18 +3,559 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Limupy VPN</title>
+
+<meta name="description" content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на этот сайт третьим лицам.">
+<meta property="og:title" content="Limupy VPN — VPN-подписка">
+<meta property="og:description" content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на этот сайт третьим лицам.">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f1115'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial,sans-serif' font-size='38' font-weight='700' fill='white'%3EL%3C/text%3E%3C/svg%3E">
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+    font-family:Arial,sans-serif;
+    background:#0f1115;
+    color:#fff;
+}
+
+.container{
+    width:100%;
+    max-width:460px;
+    margin:auto;
+}
+
+.card{
+    padding:30px 22px;
+    background:#191c22;
+    border:1px solid #252a33;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.header{
+    text-align:center;
+}
+
+.logo{
+    width:58px;
+    height:58px;
+    margin:0 auto 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:16px;
+    background:#0f1115;
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
+}
+
+h1{
+    margin:0;
+    font-size:26px;
+}
+
+.subtitle{
+    margin:8px 0 24px;
+    color:#8f97a5;
+    font-size:14px;
+}
+
+.status{
+    padding:14px;
+    margin-bottom:18px;
+    border-radius:12px;
+    background:#11141a;
+    color:#dce1e8;
+    font-size:14px;
+    line-height:1.5;
+    text-align:center;
+}
+
+.section{
+    margin-top:14px;
+    padding:16px;
+    background:#20242c;
+    border-radius:14px;
+}
+
+.section-title{
+    margin-bottom:14px;
+    font-size:14px;
+    font-weight:700;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:10px 0;
+    border-bottom:1px solid #2d323b;
+}
+
+.row:last-child{
+    border-bottom:0;
+    padding-bottom:0;
+}
+
+.label{
+    color:#8f97a5;
+    font-size:13px;
+}
+
+.value{
+    text-align:right;
+    color:#fff;
+    font-size:13px;
+}
+
+.value.good{
+    color:#8ee28e;
+}
+
+.value.bad{
+    color:#ff8c8c;
+}
+
+.devices{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.device{
+    padding:12px;
+    border-radius:10px;
+    background:#11141a;
+}
+
+.device-name{
+    color:#fff;
+    font-size:13px;
+    font-weight:600;
+}
+
+.device-time{
+    margin-top:5px;
+    color:#707886;
+    font-size:11px;
+    line-height:1.4;
+}
+
+.device.current{
+    border:1px solid #3b414c;
+}
+
+.empty{
+    padding:12px;
+    border-radius:10px;
+    background:#11141a;
+    color:#707886;
+    font-size:13px;
+}
+
+.warning{
+    margin-top:14px;
+    padding:14px;
+    border-radius:12px;
+    background:#2a2420;
+    color:#d8c8bb;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:18px;
+}
+
+.button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:12px 16px;
+    border-radius:12px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:700;
+}
+
+.button.primary{
+    background:#fff;
+    color:#111;
+}
+
+.button.secondary{
+    background:#2a2f38;
+    color:#fff;
+}
+
+@media(max-width:400px){
+    .card{
+        padding:26px 18px;
+    }
+
+    .row{
+        flex-direction:column;
+        gap:5px;
+    }
+
+    .value{
+        text-align:left;
+    }
+}
+</style>
 </head>
+
 <body>
+
+<div class="container">
+<div class="card">
+
+<div class="header">
+    <div class="logo">L</div>
+    <h1>Limupy VPN</h1>
+    <div class="subtitle">VPN-подписка</div>
+</div>
+
+<div class="status" id="status">
+    Получаем информацию о подписке...
+</div>
+
+<div class="section">
+    <div class="section-title">Подписка</div>
+
+    <div class="row">
+        <div class="label">Клиент</div>
+        <div class="value">HAPP</div>
+    </div>
+
+    <div class="row">
+        <div class="label">Сервер</div>
+        <div class="value" id="serverStatus">Проверка...</div>
+    </div>
+
+    <div class="row">
+        <div class="label">Осталось</div>
+        <div class="value" id="remaining">Проверка...</div>
+    </div>
+
+    <div class="row">
+        <div class="label">Использовано</div>
+        <div class="value" id="used">Проверка...</div>
+    </div>
+
+    <div class="row">
+        <div class="label">Лимит</div>
+        <div class="value" id="total">Проверка...</div>
+    </div>
+
+    <div class="row">
+        <div class="label">Действует до</div>
+        <div class="value" id="expire">Проверка...</div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Устройства</div>
+    <div class="devices" id="devices">
+        <div class="empty">Получаем список устройств...</div>
+    </div>
+</div>
+
+<div class="warning">
+    Не передавайте ссылку на этот сайт третьим лицам.
+</div>
+
+<div class="actions">
+    <a class="button primary" id="open" href="#">
+        Открыть HAPP
+    </a>
+
+    <a class="button secondary" href="https://happ.info/">
+        Скачать HAPP
+    </a>
+</div>
+
+</div>
+</div>
+
 <script>
+const SERVER="http://78.17.112.158/open.php";
+
 const params=new URLSearchParams(location.search);
 const key=params.get("key");
+const state=params.get("state");
 
-if(key){
-    location.href="http://78.17.112.158/open.php?key="+encodeURIComponent(key);
-}else{
-    document.body.textContent="Страница не найдена.";
+const status=document.getElementById("status");
+const open=document.getElementById("open");
+
+const serverStatus=document.getElementById("serverStatus");
+const remaining=document.getElementById("remaining");
+const used=document.getElementById("used");
+const total=document.getElementById("total");
+const expire=document.getElementById("expire");
+const devices=document.getElementById("devices");
+
+function makeId(){
+    if(window.crypto && crypto.randomUUID){
+        return crypto.randomUUID();
+    }
+
+    return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2);
 }
+
+function getDeviceId(){
+    let id=localStorage.getItem("limupy_device_id");
+
+    if(!id){
+        id=makeId();
+
+        try{
+            localStorage.setItem("limupy_device_id",id);
+        }catch(e){}
+    }
+
+    return id;
+}
+
+function getDeviceName(){
+    const ua=navigator.userAgent;
+
+    let browser="Браузер";
+
+    if(/Edg\//i.test(ua)){
+        browser="Microsoft Edge";
+    }else if(/OPR\//i.test(ua)){
+        browser="Opera";
+    }else if(/Chrome\//i.test(ua)){
+        browser="Google Chrome";
+    }else if(/Firefox\//i.test(ua)){
+        browser="Firefox";
+    }else if(/Safari\//i.test(ua) && !/Chrome\//i.test(ua)){
+        browser="Safari";
+    }
+
+    let os="Устройство";
+
+    if(/Android/i.test(ua)){
+        os="Android";
+    }else if(/iPhone/i.test(ua)){
+        os="iPhone";
+    }else if(/iPad/i.test(ua)){
+        os="iPad";
+    }else if(/Windows/i.test(ua)){
+        os="Windows";
+    }else if(/Mac OS X/i.test(ua)){
+        os="macOS";
+    }else if(/Linux/i.test(ua)){
+        os="Linux";
+    }
+
+    return os+" · "+browser;
+}
+
+function formatBytes(bytes){
+    if(bytes===null || bytes===undefined){
+        return "Нет данных";
+    }
+
+    if(bytes<=0){
+        return "0 Б";
+    }
+
+    const units=["Б","КБ","МБ","ГБ","ТБ"];
+    const index=Math.floor(Math.log(bytes)/Math.log(1024));
+
+    return (bytes/Math.pow(1024,index)).toFixed(index>2 ? 2 : 1)+" "+units[index];
+}
+
+function formatDate(timestamp){
+    if(!timestamp){
+        return "Нет данных";
+    }
+
+    return new Date(timestamp*1000).toLocaleString("ru-RU");
+}
+
+function decodeState(value){
+    const normalized=value
+        .replace(/-/g,"+")
+        .replace(/_/g,"/");
+
+    const padded=normalized+"=".repeat(
+        (4-normalized.length%4)%4
+    );
+
+    const binary=atob(padded);
+
+    const bytes=new Uint8Array(binary.length);
+
+    for(let i=0;i<binary.length;i++){
+        bytes[i]=binary.charCodeAt(i);
+    }
+
+    return JSON.parse(
+        new TextDecoder().decode(bytes)
+    );
+}
+
+function renderDevices(list){
+    devices.innerHTML="";
+
+    if(!list || !list.length){
+        const empty=document.createElement("div");
+        empty.className="empty";
+        empty.textContent="Пока никто не посещал эту ссылку.";
+        devices.appendChild(empty);
+        return;
+    }
+
+    list.forEach(device=>{
+        const item=document.createElement("div");
+
+        item.className="device"+(
+            device.current ? " current":""
+        );
+
+        const name=document.createElement("div");
+        name.className="device-name";
+        name.textContent=
+            device.name+
+            (device.current ? " · текущее":"");
+
+        const time=document.createElement("div");
+        time.className="device-time";
+        time.textContent=
+            "Последний визит: "+
+            formatDate(device.last_seen)+
+            "\nПервый визит: "+
+            formatDate(device.first_seen);
+
+        item.appendChild(name);
+        item.appendChild(time);
+
+        devices.appendChild(item);
+    });
+}
+
+function renderSubscription(info){
+    if(!info){
+        return;
+    }
+
+    if(info.available){
+        serverStatus.textContent=
+            "Доступен"+
+            (info.latency_ms !== null
+                ? " · "+info.latency_ms+" мс"
+                : "");
+
+        serverStatus.className="value good";
+    }else{
+        serverStatus.textContent="Недоступен";
+        serverStatus.className="value bad";
+    }
+
+    remaining.textContent=
+        formatBytes(info.remaining_bytes);
+
+    used.textContent=
+        formatBytes(info.used_bytes);
+
+    total.textContent=
+        formatBytes(info.total_bytes);
+
+    expire.textContent=
+        info.expire
+            ? formatDate(info.expire)
+            : "Нет данных";
+}
+
+function start(){
+    if(!key){
+        status.textContent="Страница не найдена.";
+        return;
+    }
+
+    open.href=
+        SERVER+
+        "?key="+
+        encodeURIComponent(key);
+
+    if(state){
+        let data;
+
+        try{
+            data=decodeState(state);
+        }catch(e){
+            status.textContent="Не удалось получить данные.";
+            return;
+        }
+
+        renderDevices(data.devices);
+        renderSubscription(data.subscription);
+
+        status.textContent=
+            "Подписка готова. Открываем HAPP...";
+
+        const cleanUrl=new URL(location.href);
+
+        cleanUrl.searchParams.delete("state");
+
+        history.replaceState(
+            {},
+            "",
+            cleanUrl.toString()
+        );
+
+        setTimeout(()=>{
+            location.href=
+                SERVER+
+                "?key="+
+                encodeURIComponent(key);
+        },1800);
+
+        return;
+    }
+
+    const deviceId=getDeviceId();
+    const deviceName=getDeviceName();
+
+    const returnUrl=new URL(location.href);
+
+    returnUrl.searchParams.delete("state");
+
+    const collectUrl=
+        SERVER+
+        "?mode=collect"+
+        "&key="+encodeURIComponent(key)+
+        "&device_id="+encodeURIComponent(deviceId)+
+        "&device_name="+encodeURIComponent(deviceName)+
+        "&return="+encodeURIComponent(returnUrl.toString());
+
+    status.textContent=
+        "Сохраняем устройство и получаем информацию...";
+
+    location.href=collectUrl;
+}
+
+start();
 </script>
+
 </body>
 </html>
