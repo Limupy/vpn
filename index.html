@@ -188,12 +188,7 @@ content="#0b1020"
       font-size: 22px;
       font-weight: 750;
       margin-top: 8px;
-    }
-
-    .device {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 6px;
+      min-height: 26px;
     }
 
     .rows {
@@ -388,20 +383,24 @@ content="#0b1020"
     <div
       id="name"
       class="name"
-    >
-      —
-    </div>
-
-    <div
-      id="device"
-      class="device"
-    >
-      Подписка
-    </div>
+    ></div>
 
   </div>
 
   <div class="rows">
+
+    <div class="row">
+      <div class="label">
+        Подписка
+      </div>
+
+      <div
+        id="subscription"
+        class="value"
+      >
+        —
+      </div>
+    </div>
 
     <div class="row">
       <div class="label">
@@ -551,7 +550,6 @@ content="#0b1020"
 
     /* ==================================================
        DEVICE ID
-       API ожидает device_id
        ================================================== */
 
     function base64Url(bytes) {
@@ -634,28 +632,16 @@ content="#0b1020"
        ================================================== */
 
     function resetFields() {
-      [
-        'name',
-        'subscription',
-        'devicesCount',
-        'protocols',
-        'traffic',
-        'expire',
-        'latency'
-      ].forEach(id => {
-        $(id).textContent =
-          '—';
-      });
+      $('name').textContent = '';
+      $('subscription').textContent = '—';
+      $('devicesCount').textContent = '—';
+      $('protocols').textContent = '—';
+      $('traffic').textContent = '—';
+      $('expire').textContent = '—';
+      $('latency').textContent = '—';
 
-      $('device').textContent =
-        'Подписка';
-
-      $('happConnect').hidden =
-        true;
-
-      $('happConnect').removeAttribute(
-        'href'
-      );
+      $('happConnect').hidden = true;
+      $('happConnect').removeAttribute('href');
     }
 
 
@@ -877,20 +863,11 @@ content="#0b1020"
       return String(value).replace(
         /[&<>'"]/g,
         ch => ({
-          '&':
-            '&amp;',
-
-          '<':
-            '&lt;',
-
-          '>':
-            '&gt;',
-
-          "'":
-            '&#39;',
-
-          '"':
-            '&quot;'
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
         }[ch])
       );
     }
@@ -955,15 +932,10 @@ content="#0b1020"
           API_URL,
           {
             method: 'POST',
-
             mode: 'cors',
-
             cache: 'no-store',
-
             credentials: 'omit',
-
             redirect: 'error',
-
             signal: controller.signal,
 
             headers: {
@@ -1146,9 +1118,6 @@ content="#0b1020"
         sub.name ||
         data.name ||
         'VPN-подписка';
-
-      $('device').textContent =
-        'Подписка';
 
       $('subscription').textContent =
         'Активна';
