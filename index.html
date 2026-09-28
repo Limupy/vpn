@@ -417,8 +417,7 @@
                             <div
                                 class="server-details"
                                 id="serverDetails"
-                            >
-                            </div>
+                            ></div>
                         </div>
                     </div>
 
@@ -743,8 +742,7 @@
         }
 
         function renderDevices(list) {
-            elements.devices.innerHTML =
-                "";
+            elements.devices.innerHTML = "";
 
             if (
                 !list ||
@@ -995,19 +993,6 @@
                         )
                     );
 
-            const losses =
-                reachable
-                    .map(result =>
-                        Number(
-                            result.result.stats.loss
-                        )
-                    )
-                    .filter(value =>
-                        Number.isFinite(
-                            value
-                        )
-                    );
-
             const average =
                 averages.length
                     ? averages.reduce(
@@ -1017,49 +1002,13 @@
                     ) / averages.length
                     : null;
 
-            const loss =
-                losses.length
-                    ? losses.reduce(
-                        (sum, value) =>
-                            sum + value,
-                        0
-                    ) / losses.length
-                    : null;
-
-            const fastest =
-                averages.length
-                    ? Math.min(...averages)
-                    : null;
-
-            const slowest =
-                averages.length
-                    ? Math.max(...averages)
-                    : null;
-
             elements.serverMain.textContent =
                 average !== null
                     ? `Доступен · ${average.toFixed(1)} мс`
                     : "Доступен";
 
-            const details = [];
-
-            if (loss !== null) {
-                details.push(
-                    `потери ${loss.toFixed(1)}%`
-                );
-            }
-
-            if (
-                fastest !== null &&
-                slowest !== null
-            ) {
-                details.push(
-                    `${fastest.toFixed(1)}–${slowest.toFixed(1)} мс`
-                );
-            }
-
             elements.serverDetails.textContent =
-                details.join(" · ");
+                "";
         }
 
         async function checkExternalPing() {
