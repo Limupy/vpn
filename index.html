@@ -200,6 +200,1066 @@
         }
 
         .row:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        .label {
+            min-width: 0;
+            color: #8f97a5;
+            font-size: 13px;
+        }
+
+        .value {
+            min-width: 0;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .server-value {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 3px;
+        }
+
+        .server-main {
+            color: #fff;
+            font-size: 13px;
+            line-height: 1.35;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .config-text {
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.4;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .devices {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .device {
+            position: relative;
+            padding: 12px;
+            border: 1px solid transparent;
+            border-radius: 11px;
+            background: #11141a;
+        }
+
+        .device.current {
+            border-color: #3b414c;
+        }
+
+        .device-badge {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            padding: 4px 7px;
+            border: 1px solid #3a404b;
+            border-radius: 7px;
+            background: #262b34;
+            color: #c5cad3;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .device-name {
+            padding-right: 72px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+
+        .device-time {
+            margin-top: 6px;
+            color: #707886;
+            font-size: 11px;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+        .empty {
+            padding: 12px;
+            border-radius: 11px;
+            background: #11141a;
+            color: #707886;
+            font-size: 13px;
+        }
+
+        .warning {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 13px;
+            background: #2a2420;
+            color: #d8c8bb;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .button {
+            width: 100%;
+            min-height: 50px;
+            padding: 13px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .primary {
+            background: #fff;
+            color: #111;
+        }
+
+        .secondary {
+            background: #2a2f38;
+            color: #fff;
+        }
+
+        @media (max-width: 767px) {
+            body {
+                align-items: flex-start;
+                padding:
+                    max(12px, env(safe-area-inset-top))
+                    max(12px, env(safe-area-inset-right))
+                    max(12px, env(safe-area-inset-bottom))
+                    max(12px, env(safe-area-inset-left));
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .card {
+                padding: 18px;
+                border-radius: 19px;
+            }
+
+            .logo {
+                width: 54px;
+                height: 54px;
+                font-size: 23px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .section {
+                padding: 13px;
+            }
+
+            .row {
+                grid-template-columns:
+                    minmax(78px,.9fr)
+                    minmax(0,1.6fr);
+                gap: 10px;
+            }
+
+            .label {
+                font-size: 12px;
+            }
+
+            .value,
+            .config-text {
+                font-size: 12px;
+                text-align: right;
+            }
+
+            .server-main {
+                font-size: 12px;
+            }
+
+            .device-name {
+                font-size: 12px;
+            }
+
+            .device-time {
+                font-size: 10px;
+            }
+
+            .button {
+                min-height: 52px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .card {
+                padding: 16px;
+            }
+
+            .section {
+                padding: 12px;
+            }
+
+            .row {
+                grid-template-columns:
+                    minmax(70px,.8fr)
+                    minmax(0,1.5fr);
+                gap: 8px;
+            }
+
+            .label,
+            .value,
+            .config-text {
+                font-size: 11px;
+            }
+
+            .subscription-key {
+                max-width: 55%;
+                font-size: 9px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .card {
+                padding: 28px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <section class="card">
+
+            <header class="header">
+                <div class="logo">L</div>
+
+                <h1>Limupy VPN</h1>
+
+                <div class="subtitle">
+                    VPN-подписка
+                </div>
+            </header>
+
+            <div
+                class="status"
+                id="status"
+            >
+                Получаем информацию о подписке...
+            </div>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        Подписка
+                    </div>
+
+                    <div
+                        class="subscription-key"
+                        id="subscriptionKey"
+                    >
+                        —
+                    </div>
+                </div>
+
+                <div class="rows">
+
+                    <div class="row">
+                        <div class="label">
+                            Клиент
+                        </div>
+
+                        <div class="value">
+                            HAPP
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Сервер
+                        </div>
+
+                        <div class="value server-value">
+                            <div
+                                class="server-main"
+                                id="serverMain"
+                            >
+                                Проверка...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Конфигурация
+                        </div>
+
+                        <div
+                            class="config-text"
+                            id="configText"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Осталось
+                        </div>
+
+                        <div
+                            class="value"
+                            id="remaining"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Использовано
+                        </div>
+
+                        <div
+                            class="value"
+                            id="used"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Действует до
+                        </div>
+
+                        <div
+                            class="value"
+                            id="expire"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        Устройства
+                    </div>
+                </div>
+
+                <div
+                    class="devices"
+                    id="devices"
+                >
+                    <div class="empty">
+                        Получаем список устройств...
+                    </div>
+                </div>
+            </section>
+
+            <div class="warning">
+                Не передавайте ссылку на этот сайт третьим лицам.
+            </div>
+
+            <nav class="actions">
+                <a
+                    class="button primary"
+                    id="open"
+                    href="#"
+                >
+                    Открыть HAPP
+                </a>
+
+                <a
+                    class="button secondary"
+                    href="https://happ.info/"
+                >
+                    Скачать HAPP
+                </a>
+            </nav>
+
+        </section>
+    </main>
+
+    <script>
+        const SERVER =
+            "http://78.17.112.158/open.php";
+
+        const params =
+            new URLSearchParams(
+                location.search
+            );
+
+        const key =
+            params.get("key");
+
+        const hash =
+            location.hash;
+
+        const elements = {
+            status:
+                document.getElementById(
+                    "status"
+                ),
+
+            open:
+                document.getElementById(
+                    "open"
+                ),
+
+            subscriptionKey:
+                document.getElementById(
+                    "subscriptionKey"
+                ),
+
+            serverMain:
+                document.getElementById(
+                    "serverMain"
+                ),
+
+            configText:
+                document.getElementById(
+                    "configText"
+                ),
+
+            remaining:
+                document.getElementById(
+                    "remaining"
+                ),
+
+            used:
+                document.getElementById(
+                    "used"
+                ),
+
+            expire:
+                document.getElementById(
+                    "expire"
+                ),
+
+            devices:
+                document.getElementById(
+                    "devices"
+                )
+        };
+
+        function decodeState(value) {
+            const raw =
+                value
+                    .replace(
+                        /^#state=/,
+                        ""
+                    )
+                    .replace(
+                        /-/g,
+                        "+"
+                    )
+                    .replace(
+                        /_/g,
+                        "/"
+                    );
+
+            const padded =
+                raw +
+                "=".repeat(
+                    (4 -
+                        raw.length % 4) %
+                        4
+                );
+
+            const binary =
+                atob(padded);
+
+            const bytes =
+                new Uint8Array(
+                    binary.length
+                );
+
+            for (
+                let i = 0;
+                i < binary.length;
+                i++
+            ) {
+                bytes[i] =
+                    binary.charCodeAt(i);
+            }
+
+            return JSON.parse(
+                new TextDecoder().decode(
+                    bytes
+                )
+            );
+        }
+
+        function formatBytes(bytes) {
+            if (
+                bytes === null ||
+                bytes === undefined
+            ) {
+                return "Нет данных";
+            }
+
+            if (bytes === 0) {
+                return "0 Б";
+            }
+
+            const units = [
+                "Б",
+                "КБ",
+                "МБ",
+                "ГБ",
+                "ТБ"
+            ];
+
+            const index =
+                Math.min(
+                    Math.floor(
+                        Math.log(bytes) /
+                        Math.log(1024)
+                    ),
+                    units.length - 1
+                );
+
+            return (
+                bytes /
+                Math.pow(
+                    1024,
+                    index
+                )
+            ).toFixed(
+                index > 2
+                    ? 2
+                    : 1
+            ) +
+            " " +
+            units[index];
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) {
+                return "Нет данных";
+            }
+
+            return new Date(
+                timestamp * 1000
+            ).toLocaleString(
+                "ru-RU"
+            );
+        }
+
+        function renderDevices(list) {
+            elements.devices.innerHTML =
+                "";
+
+            if (
+                !Array.isArray(list) ||
+                !list.length
+            ) {
+                const empty =
+                    document.createElement(
+                        "div"
+                    );
+
+                empty.className =
+                    "empty";
+
+                empty.textContent =
+                    "Пока никто не посещал эту ссылку.";
+
+                elements.devices.appendChild(
+                    empty
+                );
+
+                return;
+            }
+
+            list.forEach(device => {
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                const name =
+                    document.createElement(
+                        "div"
+                    );
+
+                const time =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "device" +
+                    (
+                        device.current
+                            ? " current"
+                            : ""
+                    );
+
+                if (device.current) {
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
+
+                    badge.className =
+                        "device-badge";
+
+                    badge.textContent =
+                        "Текущее";
+
+                    item.appendChild(
+                        badge
+                    );
+                }
+
+                name.className =
+                    "device-name";
+
+                name.textContent =
+                    device.name;
+
+                time.className =
+                    "device-time";
+
+                time.textContent =
+                    "Последний визит: " +
+                    formatDate(
+                        device.last_seen
+                    ) +
+                    "\nПервый визит: " +
+                    formatDate(
+                        device.first_seen
+                    );
+
+                item.appendChild(
+                    name
+                );
+
+                item.appendChild(
+                    time
+                );
+
+                elements.devices.appendChild(
+                    item
+                );
+            });
+        }
+
+        function renderSubscription(info) {
+            if (!info) {
+                return;
+            }
+
+            if (
+                info.total_bytes !== null &&
+                Number(
+                    info.total_bytes
+                ) === 0
+            ) {
+                elements.remaining.textContent =
+                    "Безлимит";
+            } else {
+                elements.remaining.textContent =
+                    formatBytes(
+                        info.remaining_bytes
+                    );
+            }
+
+            elements.used.textContent =
+                formatBytes(
+                    info.used_bytes
+                );
+
+            elements.expire.textContent =
+                info.expire
+                    ? formatDate(
+                        info.expire
+                    )
+                    : "Нет данных";
+
+            const protocols =
+                Array.isArray(
+                    info.protocols
+                )
+                    ? info.protocols
+                    : [];
+
+            elements.configText.textContent =
+                protocols.length
+                    ? protocols.join(
+                        " · "
+                    )
+                    : "Нет данных";
+        }
+
+        function renderPing(ping) {
+            if (
+                !ping ||
+                !ping.available
+            ) {
+                elements.serverMain.textContent =
+                    "Finland · Недоступен";
+
+                return;
+            }
+
+            const average =
+                Number(
+                    ping.avg
+                );
+
+            elements.serverMain.textContent =
+                Number.isFinite(
+                    average
+                )
+                    ? "Finland · Доступен · " +
+                      average.toFixed(1) +
+                      " мс"
+                    : "Finland · Доступен";
+        }
+
+        function launchHapp() {
+            const url =
+                SERVER +
+                "?mode=launch&key=" +
+                encodeURIComponent(
+                    key
+                );
+
+            window.location.assign(
+                url
+            );
+        }
+
+        function requestData() {
+            const returnUrl =
+                new URL(
+                    location.href
+                );
+
+            returnUrl.hash = "";
+
+            const url =
+                SERVER +
+                "?mode=collect" +
+                "&key=" +
+                encodeURIComponent(
+                    key
+                ) +
+                "&return=" +
+                encodeURIComponent(
+                    returnUrl.toString()
+                );
+
+            location.replace(
+                url
+            );
+        }
+
+        function initialize() {
+            if (!key) {
+                elements.status.textContent =
+                    "Страница не найдена.";
+
+                return;
+            }
+
+            elements.subscriptionKey.textContent =
+                key;
+
+            if (!hash) {
+                elements.status.textContent =
+                    "Получаем данные...";
+
+                requestData();
+
+                return;
+            }
+
+            let state;
+
+            try {
+                state =
+                    decodeState(
+                        hash
+                    );
+            } catch (error) {
+                elements.status.textContent =
+                    "Не удалось получить данные.";
+
+                return;
+            }
+
+            renderDevices(
+                state.devices
+            );
+
+            renderSubscription(
+                state.subscription
+            );
+
+            renderPing(
+                state.ping
+            );
+
+            elements.status.textContent =
+                "Подписка готова.";
+
+            elements.open.href =
+                SERVER +
+                "?mode=launch&key=" +
+                encodeURIComponent(
+                    key
+                );
+
+            elements.open.onclick =
+                event => {
+                    event.preventDefault();
+
+                    launchHapp();
+                };
+
+            history.replaceState(
+                {},
+                document.title,
+                location.pathname +
+                location.search
+            );
+
+            setTimeout(
+                launchHapp,
+                500
+            );
+        }
+
+        initialize();
+    </script>
+</body>
+</html>
+```
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    >
+
+    <meta
+        name="referrer"
+        content="no-referrer"
+    >
+
+    <meta
+        name="format-detection"
+        content="telephone=no"
+    >
+
+    <title>Limupy VPN</title>
+
+    <meta
+        name="description"
+        content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на этот сайт третьим лицам."
+    >
+
+    <meta
+        property="og:title"
+        content="Limupy VPN — VPN-подписка"
+    >
+
+    <meta
+        property="og:description"
+        content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на этот сайт третьим лицам."
+    >
+
+    <meta
+        property="og:type"
+        content="website"
+    >
+
+    <link
+        rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f1115'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial,sans-serif' font-size='38' font-weight='700' fill='white'%3EL%3C/text%3E%3C/svg%3E"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            width: 100%;
+            min-width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #0f1115;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            width: 100%;
+            min-width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            padding:
+                max(16px, env(safe-area-inset-top))
+                max(16px, env(safe-area-inset-right))
+                max(16px, env(safe-area-inset-bottom))
+                max(16px, env(safe-area-inset-left));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+            background: #0f1115;
+            color: #fff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .card {
+            width: 100%;
+            padding: 22px;
+            overflow: hidden;
+            background: #191c22;
+            border: 1px solid #252a33;
+            border-radius: 22px;
+            box-shadow: 0 16px 45px rgba(0,0,0,.28);
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 17px;
+            background: #0f1115;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.15;
+        }
+
+        .subtitle {
+            margin-top: 7px;
+            color: #8f97a5;
+            font-size: 14px;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 14px 15px;
+            border-radius: 13px;
+            background: #11141a;
+            color: #dce1e8;
+            font-size: 14px;
+            line-height: 1.45;
+            text-align: center;
+        }
+
+        .section {
+            margin-top: 12px;
+            padding: 15px;
+            border-radius: 15px;
+            background: #20242c;
+        }
+
+        .section-header {
+            min-width: 0;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .section-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .subscription-key {
+            min-width: 0;
+            max-width: 58%;
+            padding: 6px 8px;
+            overflow: hidden;
+            border: 1px solid #343a45;
+            border-radius: 8px;
+            background: #11141a;
+            color: #9ca4b2;
+            font-family: monospace;
+            font-size: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .rows {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row {
+            min-height: 38px;
+            display: grid;
+            grid-template-columns:
+                minmax(0,1fr)
+                minmax(0,1.7fr);
+            align-items: center;
+            gap: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid #2d323b;
+        }
+
+        .row:last-child {
             border-bottom: 0;
             padding-bottom: 0;
         }
