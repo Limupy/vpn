@@ -1,4 +1,4 @@
-name: Deploy HAPP page
+name: Deploy
 
 on:
   push:
