@@ -3,13 +3,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover"
-
->
-
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="referrer" content="no-referrer">
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0b1020">
@@ -427,8 +421,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         Сервер
       </div>
 
-      <div class="value">
-        Финляндия
+      <div
+        id="server"
+        class="value"
+      >
+        —
       </div>
     </div>
 
@@ -544,100 +541,53 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     const API_URL =
       'https://78.17.112.158/api.php';
 
-    const HAPP_DOWNLOAD_URL =
-      'https://happ.info/';
+    const REQUEST_TIMEOUT_MS = 10000;
+    const HASH_CHANGE_DELAY_MS = 150;
 
-    const REQUEST_TIMEOUT_MS =
-      10000;
-
-    const DEVICE_STORAGE_KEY =
-      'limupy_device_id_v2';
-
-    const TOKEN_STORAGE_KEY =
-      'limupy_subscription_key_v1';
-
-    const HASH_CHANGE_DELAY_MS =
-      150;
-
-    const $ =
-      id => document.getElementById(id);
-
+    let activeToken = '';
+    let deviceId = '';
     let activeLoadPromise = null;
+    let hashTimer = null;
 
-    function hideTokenFromUrl() {
-      const cleanUrl =
-        window.location.pathname +
-        window.location.search.replace(
-          /([?&])key=[^&]*/i,
-          (match, separator) =>
-            separator === '?'
-              ? ''
-              : ''
-        ).replace(
-          /^&/,
-          ''
-        );
+    const $ = id =>
+      document.getElementById(id);
 
-      const finalUrl =
-        cleanUrl.endsWith('?')
-          ? cleanUrl.slice(0, -1)
-          : cleanUrl;
-
-      window.history.replaceState(
-        null,
-        '',
-        finalUrl
-      );
-    }
-
-    function getToken() {
-      const hash =
-        window.location.hash.replace(
-          /^#/,
-          ''
-        );
-
+    function getTokenFromUrl() {
       const hashParams =
-        new URLSearchParams(hash);
+        new URLSearchParams(
+          window.location.hash.replace(/^#/, '')
+        );
 
       const searchParams =
         new URLSearchParams(
           window.location.search
         );
 
-      const urlToken =
-        (
-          hashParams.get('key') ||
-          searchParams.get('key') ||
-          ''
-        ).trim();
-
-      if (urlToken) {
-        localStorage.setItem(
-          TOKEN_STORAGE_KEY,
-          urlToken
-        );
-
-        hideTokenFromUrl();
-
-        return urlToken;
-      }
-
       return (
-        localStorage.getItem(
-          TOKEN_STORAGE_KEY
-        ) ||
+        hashParams.get('key') ||
+        searchParams.get('key') ||
         ''
       ).trim();
+    }
+
+    function cleanUrl() {
+      if (
+        window.history &&
+        typeof window.history.replaceState === 'function'
+      ) {
+        window.history.replaceState(
+          null,
+          '',
+          window.location.pathname
+        );
+      }
     }
 
     function base64Url(bytes) {
       let binary = '';
 
       for (const byte of bytes) {
-        binary += String.fromCharCode(
-          byte
-        );
+        binary += String.fromCharCode(byte);
       }
 
       return btoa(binary)
@@ -646,102 +596,57 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         .replace(/=+$/g, '');
     }
 
-    function makeDeviceId() {
+    function getDeviceId() {
+      if (deviceId) {
+        return deviceId;
+      }
+
       const bytes =
         new Uint8Array(32);
 
       crypto.getRandomValues(bytes);
 
-      return base64Url(bytes);
+      deviceId = base64Url(bytes);
+
+      return deviceId;
     }
 
-    function getDeviceId() {
-      let value =
-        localStorage.getItem(
-          DEVICE_STORAGE_KEY
-        );
-
-      if (
-        !value ||
-        !/^[A-Za-z0-9._~-]{43}$/.test(
-          value
-        )
-      ) {
-        value =
-          makeDeviceId();
-
-        localStorage.setItem(
-          DEVICE_STORAGE_KEY,
-          value
-        );
-      }
-
-      return value;
-    }
-
-    function setStatus(
-      type,
-      text
-    ) {
-      const el =
-        $('status');
+    function setStatus(type, text) {
+      const el = $('status');
 
       el.className =
         'status ' + type;
 
-      el.textContent =
-        text;
+      el.textContent = text;
     }
 
     function resetFields() {
-      $('subscription')
-        .textContent = '—';
+      $('subscription').textContent = '—';
+      $('server').textContent = '—';
+      $('devicesCount').textContent = '—';
+      $('protocols').textContent = '—';
+      $('traffic').textContent = '—';
+      $('expire').textContent = '—';
+      $('latency').textContent = '—';
 
-      $('devicesCount')
-        .textContent = '—';
-
-      $('protocols')
-        .textContent = '—';
-
-      $('traffic')
-        .textContent = '—';
-
-      $('expire')
-        .textContent = '—';
-
-      $('latency')
-        .textContent = '—';
-
-      $('happConnect')
-        .hidden = true;
-
-      $('happConnect')
-        .removeAttribute(
-          'href'
-        );
+      $('happConnect').hidden = true;
+      $('happConnect').removeAttribute('href');
     }
 
-    function showError(
-      message,
-      warning = false
-    ) {
-      const el =
-        $('error');
+    function showError(message, warning = false) {
+      const el = $('error');
 
       el.hidden = false;
-
       el.className =
         warning
           ? 'error warning'
           : 'error';
 
-      el.textContent =
-        message;
+      el.textContent = message;
     }
 
     function hideError() {
-      const el =
-        $('error');
+      const el = $('error');
 
       el.hidden = true;
       el.textContent = '';
@@ -785,36 +690,24 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             ? 1
             : 2;
 
-      return (
-        `${x.toFixed(digits)} ${units[i]}`
-      );
+      return `${x.toFixed(digits)} ${units[i]}`;
     }
 
     function trafficText(sub) {
       const total =
-        Number(
-          sub.total_bytes || 0
-        );
+        Number(sub.total_bytes || 0);
 
       const used =
-        Number(
-          sub.used_bytes || 0
-        );
+        Number(sub.used_bytes || 0);
 
       if (!total) {
-        return (
-          `Использовано ${bytes(used)} · без лимита`
-        );
+        return `Использовано ${bytes(used)} · без лимита`;
       }
 
       const remaining =
         Number(
-          sub.remaining_bytes ?? (
-            Math.max(
-              0,
-              total - used
-            )
-          )
+          sub.remaining_bytes ??
+          Math.max(0, total - used)
         );
 
       return (
@@ -822,13 +715,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-    function expireText(
-      timestamp
-    ) {
+    function expireText(timestamp) {
       const ts =
-        Number(
-          timestamp || 0
-        );
+        Number(timestamp || 0);
 
       if (!ts) {
         return 'Бессрочно';
@@ -841,11 +730,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             : ts * 1000
         );
 
-      if (
-        Number.isNaN(
-          d.getTime()
-        )
-      ) {
+      if (Number.isNaN(d.getTime())) {
         return '—';
       }
 
@@ -859,9 +744,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-    function isAllowedHappUrl(
-      value
-    ) {
+    function isAllowedHappUrl(value) {
       try {
         const url =
           new URL(value);
@@ -875,9 +758,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     }
 
-    async function postApi(
-      token
-    ) {
+    async function postApi() {
       const controller =
         new AbortController();
 
@@ -899,15 +780,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             signal: controller.signal,
             headers: {
               'Authorization':
-                `Bearer ${token}`,
+                `Bearer ${activeToken}`,
               'Accept':
                 'application/json',
               'Content-Type':
                 'application/json'
             },
             body: JSON.stringify({
-              device_id:
-                getDeviceId()
+              device_id: getDeviceId()
             })
           }
         );
@@ -916,50 +796,30 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     }
 
-    async function fetchSubscription(
-      token
-    ) {
+    async function fetchSubscription() {
       const started =
         performance.now();
 
-      let res;
-
-      try {
-        res =
-          await postApi(
-            token
-          );
-      } catch (error) {
-        error.requestTimeMs =
-          performance.now() -
-          started;
-
-        throw error;
-      }
+      const res =
+        await postApi();
 
       let data = null;
 
       try {
-        data =
-          await res.json();
+        data = await res.json();
       } catch (_) {
         data = null;
       }
 
-      const elapsed =
-        performance.now() -
-        started;
-
       return {
         res,
         data,
-        elapsed
+        elapsed:
+          performance.now() - started
       };
     }
 
-    function pluralizeDevices(
-      count
-    ) {
+    function pluralizeDevices(count) {
       const mod10 =
         count % 10;
 
@@ -987,75 +847,47 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return 'устройств';
     }
 
-    function getConnectionCount(
-      data
-    ) {
-      const candidates = [
+    function getConnectionCount(data) {
+      const direct = [
         data?.vpn_connections_count,
         data?.vpn_connected_devices_count,
         data?.connected_vpn_devices_count,
-        data?.vpn_devices_count,
-        data?.active_vpn_devices_count,
         data?.connected_devices_count,
-        data?.connectedDevicesCount,
         data?.active_devices_count,
-        data?.activeDevicesCount,
         data?.connections_count,
-        data?.connectionsCount,
         data?.online_count,
         data?.connected_count,
         data?.device_count,
         data?.devices_count,
         data?.connection_count,
-        data?.connectionCount,
-        data?.subscription?.vpn_connections_count,
-        data?.subscription?.vpn_connected_devices_count,
-        data?.subscription?.connected_vpn_devices_count,
-        data?.subscription?.vpn_devices_count,
-        data?.subscription?.active_vpn_devices_count,
         data?.subscription?.connected_devices_count,
         data?.subscription?.active_devices_count,
         data?.subscription?.connections_count,
         data?.subscription?.online_count,
-        data?.connection?.vpn_connected_devices_count,
-        data?.connection?.connected_devices_count,
-        data?.connection?.active_devices_count,
-        data?.connection?.connections_count,
-        data?.connection?.online_count,
-        data?.connection?.count,
         data?.device?.connected_devices_count,
         data?.device?.active_devices_count,
         data?.device?.connections_count,
         data?.device?.online_count,
-        data?.device?.connections,
         data?.connections?.count
       ];
 
-      for (
-        const value of candidates
-      ) {
+      for (const value of direct) {
         if (
           typeof value === 'number' &&
           Number.isFinite(value) &&
           value >= 0
         ) {
-          return Math.floor(
-            value
-          );
+          return Math.floor(value);
         }
 
         if (
           typeof value === 'string' &&
           value.trim() !== '' &&
-          Number.isFinite(
-            Number(value)
-          )
+          Number.isFinite(Number(value))
         ) {
           return Math.max(
             0,
-            Math.floor(
-              Number(value)
-            )
+            Math.floor(Number(value))
           );
         }
       }
@@ -1066,12 +898,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         data?.connected_devices,
         data?.connectedDevices,
         data?.vpn_devices,
-        data?.vpnDevices,
         data?.sessions,
         data?.connected_clients,
-        data?.connectedClients,
         data?.online_clients,
-        data?.onlineClients,
         data?.subscription?.connections,
         data?.subscription?.connected_devices,
         data?.subscription?.sessions,
@@ -1081,12 +910,8 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         data?.device?.sessions
       ];
 
-      for (
-        const value of arrays
-      ) {
-        if (
-          Array.isArray(value)
-        ) {
+      for (const value of arrays) {
+        if (Array.isArray(value)) {
           return value.length;
         }
       }
@@ -1094,64 +919,28 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return null;
     }
 
-    function renderConnections(
-      data
-    ) {
+    function renderConnections(data) {
       const count =
-        getConnectionCount(
-          data
-        );
+        getConnectionCount(data);
 
       const el =
         $('devicesCount');
 
       el.textContent = '';
 
-      if (
-        count === null
-      ) {
-        const wrapper =
-          document.createElement(
-            'div'
-          );
-
-        wrapper.className =
-          'connections';
-
-        const countEl =
-          document.createElement(
-            'div'
-          );
-
-        countEl.className =
-          'connections-count';
-
-        countEl.textContent =
-          'Данные недоступны';
-
-        wrapper.appendChild(
-          countEl
-        );
-
-        el.appendChild(
-          wrapper
-        );
-
+      if (count === null) {
+        el.textContent = 'Данные недоступны';
         return;
       }
 
       const wrapper =
-        document.createElement(
-          'div'
-        );
+        document.createElement('div');
 
       wrapper.className =
         'connections';
 
       const countEl =
-        document.createElement(
-          'div'
-        );
+        document.createElement('div');
 
       countEl.className =
         'connections-count';
@@ -1159,15 +948,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       countEl.textContent =
         `${count} ${pluralizeDevices(count)}`;
 
-      wrapper.appendChild(
-        countEl
-      );
+      wrapper.appendChild(countEl);
 
       if (count === 0) {
         const stateEl =
-          document.createElement(
-            'div'
-          );
+          document.createElement('div');
 
         stateEl.className =
           'connections-state';
@@ -1175,32 +960,20 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         stateEl.textContent =
           'сейчас нет активных подключений';
 
-        wrapper.appendChild(
-          stateEl
-        );
+        wrapper.appendChild(stateEl);
       }
 
-      el.appendChild(
-        wrapper
-      );
+      el.appendChild(wrapper);
     }
 
-    function renderProtocols(
-      protocols
-    ) {
+    function renderProtocols(protocols) {
       const arr =
         Array.isArray(protocols)
           ? protocols
-          : String(
-              protocols || ''
-            )
+          : String(protocols || '')
               .split(',')
-              .map(
-                s => s.trim()
-              )
-              .filter(
-                Boolean
-              );
+              .map(s => s.trim())
+              .filter(Boolean);
 
       const el =
         $('protocols');
@@ -1213,20 +986,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
 
       const wrapper =
-        document.createElement(
-          'div'
-        );
+        document.createElement('div');
 
       wrapper.className =
         'protocols';
 
-      for (
-        const protocol of arr
-      ) {
+      for (const protocol of arr) {
         const item =
-          document.createElement(
-            'span'
-          );
+          document.createElement('span');
 
         item.className =
           'protocol';
@@ -1234,160 +1001,77 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         item.textContent =
           String(protocol);
 
-        wrapper.appendChild(
-          item
+        wrapper.appendChild(item);
+      }
+
+      el.appendChild(wrapper);
+    }
+
+    function showApiError(status, retryAfter) {
+      if (status === 401) {
+        showError('Подписка недействительна.');
+        return;
+      }
+
+      if (status === 403) {
+        showError('Доступ запрещён.');
+        return;
+      }
+
+      if (status === 429) {
+        const seconds =
+          Number(retryAfter);
+
+        showError(
+          Number.isFinite(seconds) && seconds > 0
+            ? `Слишком много запросов. Повторите через ${Math.ceil(seconds)} сек.`
+            : 'Слишком много запросов. Попробуйте позже.',
+          true
         );
+
+        return;
       }
 
-      el.appendChild(
-        wrapper
-      );
-    }
-
-    function showApiError(
-      status,
-      data,
-      retryAfter
-    ) {
-      switch (status) {
-        case 400:
-          showError(
-            'API отклонил запрос: проверьте формат данных и идентификатор устройства.'
-          );
-          break;
-
-        case 401:
-          showError(
-            'Подписка отключена или ключ больше не действителен.'
-          );
-          break;
-
-        case 403:
-          showError(
-            'Запрос отклонён сервером по политике доступа.'
-          );
-          break;
-
-        case 405:
-          showError(
-            'Ошибка метода API: сервер ожидает POST-запрос.'
-          );
-          break;
-
-        case 415:
-          showError(
-            'API отклонил формат запроса. Ожидается JSON.'
-          );
-          break;
-
-        case 429: {
-          let message =
-            'Слишком много запросов.';
-
-          if (
-            retryAfter
-          ) {
-            const seconds =
-              Number(
-                retryAfter
-              );
-
-            if (
-              Number.isFinite(
-                seconds
-              ) &&
-              seconds > 0
-            ) {
-              message +=
-                ` Повторите через ${Math.ceil(seconds)} сек.`;
-            }
-          }
-
-          message +=
-            ' Не обновляйте страницу несколько раз подряд.';
-
-          showError(
-            message,
-            true
-          );
-
-          break;
-        }
-
-        case 500:
-          showError(
-            'Внутренняя ошибка API Limupy.'
-          );
-          break;
-
-        case 502:
-        case 503:
-        case 504:
-          showError(
-            `Сервер подписки временно недоступен. HTTP ${status}.`
-          );
-          break;
-
-        default:
-          if (
-            data &&
-            typeof data.error === 'string'
-          ) {
-            showError(
-              data.error
-            );
-          } else {
-            showError(
-              `Не удалось получить данные подписки. HTTP ${status}.`
-            );
-          }
+      if (
+        status === 502 ||
+        status === 503 ||
+        status === 504
+      ) {
+        showError('Сервер временно недоступен.');
+        return;
       }
+
+      showError('Не удалось получить данные подписки.');
     }
 
-    function isSubscriptionActive(
-      data
-    ) {
+    function isSubscriptionActive(data) {
       const sub =
         data?.subscription || {};
 
-      if (
+      return !(
         sub.enabled === false ||
-        sub.active === false
-      ) {
-        return false;
-      }
-
-      if (
+        sub.active === false ||
         data?.enabled === false ||
         data?.active === false
-      ) {
-        return false;
-      }
-
-      return true;
+      );
     }
 
-    function renderActive(
-      data
-    ) {
+    function renderActive(data, elapsed) {
       const sub =
-        data.subscription || {};
+        data?.subscription || {};
 
-      const subscriptionName =
-        data.subscription_name ||
-        sub.name ||
-        data.name ||
-        'VPN-подписка';
+      $('subscription').textContent =
+        String(
+          data.subscription_name ||
+          sub.name ||
+          data.name ||
+          'VPN-подписка'
+        );
 
-      $('subscription')
-        .textContent =
-          String(
-            subscriptionName
-          );
+      $('server').textContent =
+        'Финляндия';
 
-      renderConnections(
-        data
-      );
+      renderConnections(data);
 
       renderProtocols(
         sub.protocols ||
@@ -1395,31 +1079,23 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         []
       );
 
-      $('traffic')
-        .textContent =
-          trafficText(
-            sub
-          );
+      $('traffic').textContent =
+        trafficText(sub);
 
-      $('expire')
-        .textContent =
-          expireText(
-            sub.expire
-          );
+      $('expire').textContent =
+        expireText(sub.expire);
+
+      $('latency').textContent =
+        `${Math.max(1, Math.round(elapsed))} мс`;
 
       if (
-        typeof data.launch_url ===
-          'string' &&
-        isAllowedHappUrl(
-          data.launch_url
-        )
+        typeof data.launch_url === 'string' &&
+        isAllowedHappUrl(data.launch_url)
       ) {
-        $('happConnect')
-          .href =
-            data.launch_url;
+        $('happConnect').href =
+          data.launch_url;
 
-        $('happConnect')
-          .hidden = false;
+        $('happConnect').hidden = false;
       }
     }
 
@@ -1432,17 +1108,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         'Проверка…'
       );
 
-      const token =
-        getToken();
-
-      if (!token) {
+      if (!activeToken) {
         setStatus(
           'bad',
           'Не активно'
         );
 
         showError(
-          'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.'
+          'Ссылка не содержит ключ подписки.'
         );
 
         return;
@@ -1453,25 +1126,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           res,
           data,
           elapsed
-        } =
-          await fetchSubscription(
-            token
-          );
-
-        if (
-          Number.isFinite(
-            elapsed
-          )
-        ) {
-          $('latency')
-            .textContent =
-              `${Math.max(
-                1,
-                Math.round(
-                  elapsed
-                )
-              )} мс`;
-        }
+        } = await fetchSubscription();
 
         if (
           res.status === 429
@@ -1483,10 +1138,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
           showApiError(
             429,
-            data,
-            res.headers.get(
-              'Retry-After'
-            )
+            res.headers.get('Retry-After')
           );
 
           return;
@@ -1504,20 +1156,13 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
           showApiError(
             res.status,
-            data,
-            res.headers.get(
-              'Retry-After'
-            )
+            res.headers.get('Retry-After')
           );
 
           return;
         }
 
-        if (
-          !isSubscriptionActive(
-            data
-          )
-        ) {
+        if (!isSubscriptionActive(data)) {
           setStatus(
             'bad',
             'Не активно'
@@ -1536,7 +1181,8 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         );
 
         renderActive(
-          data
+          data,
+          elapsed
         );
       } catch (error) {
         setStatus(
@@ -1544,51 +1190,38 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           'Не активно'
         );
 
-        if (
-          error &&
-          error.name ===
-            'AbortError'
-        ) {
-          showError(
-            'Сервер не ответил вовремя. Попробуйте обновить страницу.'
-          );
-
-          return;
-        }
+        resetFields();
 
         showError(
-          'Нет связи с сервером подписки. Проверьте соединение и попробуйте обновить страницу.'
+          error?.name === 'AbortError'
+            ? 'Сервер не ответил вовремя.'
+            : 'Нет связи с сервером подписки.'
         );
       }
     }
 
     function load() {
-      if (
-        activeLoadPromise
-      ) {
+      if (activeLoadPromise) {
         return activeLoadPromise;
       }
 
       activeLoadPromise =
-        loadInternal()
-          .finally(
-            () => {
-              activeLoadPromise =
-                null;
-            }
-          );
+        loadInternal().finally(() => {
+          activeLoadPromise = null;
+        });
 
       return activeLoadPromise;
     }
 
-    let hashTimer = null;
-
     window.addEventListener(
       'hashchange',
       () => {
-        clearTimeout(
-          hashTimer
-        );
+        activeToken =
+          getTokenFromUrl();
+
+        cleanUrl();
+
+        clearTimeout(hashTimer);
 
         hashTimer =
           setTimeout(
@@ -1601,9 +1234,13 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     window.addEventListener(
       'load',
       () => {
-        $('happDownload')
-          .href =
-            HAPP_DOWNLOAD_URL;
+        activeToken =
+          getTokenFromUrl();
+
+        cleanUrl();
+
+        $('happDownload').href =
+          'https://happ.info/';
 
         load();
       }
