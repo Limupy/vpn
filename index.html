@@ -62,7 +62,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-
       background:
         radial-gradient(
           900px 500px at 10% -10%,
@@ -75,7 +74,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           transparent 50%
         ),
         var(--bg);
-
       color: var(--text);
       padding: 28px 16px 42px;
     }
@@ -105,17 +103,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       border-radius: 14px;
       display: grid;
       place-items: center;
-
       background:
         linear-gradient(
           135deg,
           var(--accent),
           var(--accent-2)
         );
-
       color: white;
       font-weight: 800;
-
       box-shadow:
         0 10px 30px rgba(110,168,254,.24);
     }
@@ -164,15 +159,12 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       display: inline-flex;
       align-items: center;
       gap: 7px;
-
       padding: 5px 9px;
       min-height: 24px;
-
       border-radius: 999px;
       font-size: 12px;
       line-height: 1;
       font-weight: 700;
-
       background: rgba(255,255,255,.06);
     }
 
@@ -180,7 +172,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       content: "";
       width: 6px;
       height: 6px;
-
       flex: 0 0 6px;
       border-radius: 50%;
       background: currentColor;
@@ -214,12 +205,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       grid-template-columns:
         minmax(120px, 1fr)
         minmax(0, 1.5fr);
-
       gap: 18px;
       align-items: center;
-
       min-height: 62px;
-
       border-bottom: 1px solid var(--line);
     }
 
@@ -243,10 +231,8 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     .protocol {
       padding: 6px 9px;
       border-radius: 9px;
-
       border: 1px solid rgba(110,168,254,.22);
       background: rgba(110,168,254,.10);
-
       color: #dce9ff;
       font-size: 12px;
       font-weight: 700;
@@ -273,8 +259,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-
-      /* немного подняли кнопки */
       padding: 11px 22px 20px;
     }
 
@@ -282,21 +266,16 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       appearance: none;
       border: 0;
       cursor: pointer;
-
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-
       min-height: 46px;
       padding: 0 16px;
-
       border-radius: 13px;
-
       text-decoration: none;
       font-weight: 750;
       font-size: 14px;
-
       transition:
         transform .15s ease,
         opacity .15s ease,
@@ -313,7 +292,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
     .btn.primary {
       color: #07101f;
-
       background:
         linear-gradient(
           135deg,
@@ -342,16 +320,12 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     .error {
       margin-top: 14px;
       padding: 12px 14px;
-
       border-radius: 12px;
-
       background: rgba(255,101,122,.08);
       border: 1px solid rgba(255,101,122,.18);
-
       color: #ffd7dd;
       font-size: 13px;
       line-height: 1.45;
-
       white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
@@ -404,14 +378,12 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 ```
 <div class="header">
   <div class="brand">
-
     <div class="logo">L</div>
 
     <div>
       <h1>Limupy VPN</h1>
       <div class="subtitle">VPN-подписка</div>
     </div>
-
   </div>
 </div>
 
@@ -421,9 +393,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 >
 
   <div class="hero">
-
     <div class="status-row">
-
       <span class="label">
         Статус
       </span>
@@ -434,9 +404,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       >
         Проверка…
       </span>
-
     </div>
-
   </div>
 
   <div class="rows">
@@ -591,23 +559,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     const $ =
       id => document.getElementById(id);
 
-
-    /*
-     * Один общий Promise.
-     *
-     * Даже если hashchange/load сработают почти одновременно,
-     * второй POST не пойдёт, пока первый запрос выполняется.
-     */
     let activeLoadPromise = null;
 
-
-    /*
-     * Получение ключа из:
-     *
-     * https://limupy.github.io/vpn/#key=TOKEN
-     */
     function getToken() {
-
       const hash =
         window.location.hash.replace(
           /^#/,
@@ -623,12 +577,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       ).trim();
     }
 
-
-    /*
-     * Base64URL.
-     */
     function base64Url(bytes) {
-
       let binary = '';
 
       for (const byte of bytes) {
@@ -643,12 +592,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         .replace(/=+$/g, '');
     }
 
-
-    /*
-     * Генерация стабильного ID устройства.
-     */
     function makeDeviceId() {
-
       const bytes =
         new Uint8Array(32);
 
@@ -657,12 +601,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return base64Url(bytes);
     }
 
-
-    /*
-     * Один device_id на браузер.
-     */
     function getDeviceId() {
-
       let value =
         localStorage.getItem(
           DEVICE_STORAGE_KEY
@@ -674,7 +613,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           value
         )
       ) {
-
         value =
           makeDeviceId();
 
@@ -687,15 +625,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return value;
     }
 
-
-    /*
-     * Статус.
-     */
     function setStatus(
       type,
       text
     ) {
-
       const el =
         $('status');
 
@@ -706,12 +639,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         text;
     }
 
-
-    /*
-     * Сброс полей.
-     */
     function resetFields() {
-
       $('subscription')
         .textContent = '—';
 
@@ -739,15 +667,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         );
     }
 
-
-    /*
-     * Сообщение ошибки.
-     */
     function showError(
       message,
       warning = false
     ) {
-
       const el =
         $('error');
 
@@ -762,12 +685,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         message;
     }
 
-
-    /*
-     * Скрыть ошибку.
-     */
     function hideError() {
-
       const el =
         $('error');
 
@@ -776,12 +694,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       el.className = 'error';
     }
 
-
-    /*
-     * Форматирование байтов.
-     */
     function bytes(value) {
-
       const n =
         Number(value || 0);
 
@@ -807,7 +720,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         x >= 1024 &&
         i < units.length - 1
       ) {
-
         x /= 1024;
         i++;
       }
@@ -824,12 +736,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-
-    /*
-     * Трафик.
-     */
     function trafficText(sub) {
-
       const total =
         Number(
           sub.total_bytes || 0
@@ -841,7 +748,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         );
 
       if (!total) {
-
         return (
           `Использовано ${bytes(used)} · без лимита`
         );
@@ -862,14 +768,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-
-    /*
-     * Срок.
-     */
     function expireText(
       timestamp
     ) {
-
       const ts =
         Number(
           timestamp || 0
@@ -904,16 +805,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-
-    /*
-     * Окончательная проверка Happ URL.
-     */
     function isAllowedHappUrl(
       value
     ) {
-
       try {
-
         const url =
           new URL(value);
 
@@ -921,24 +816,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           url.protocol === 'https:' ||
           url.protocol === 'happ:'
         );
-
       } catch (_) {
-
         return false;
       }
     }
 
-
-    /*
-     * POST к API.
-     *
-     * ВАЖНО:
-     * На одну загрузку страницы теперь только ОДИН POST.
-     */
     async function postApi(
       token
     ) {
-
       const controller =
         new AbortController();
 
@@ -949,7 +834,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         );
 
       try {
-
         return await fetch(
           API_URL,
           {
@@ -959,53 +843,39 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             credentials: 'omit',
             redirect: 'error',
             signal: controller.signal,
-
             headers: {
               'Authorization':
                 `Bearer ${token}`,
-
               'Accept':
                 'application/json',
-
               'Content-Type':
                 'application/json'
             },
-
             body: JSON.stringify({
               device_id:
                 getDeviceId()
             })
           }
         );
-
       } finally {
-
         clearTimeout(timeout);
       }
     }
 
-
-    /*
-     * Получение JSON.
-     */
     async function fetchSubscription(
       token
     ) {
-
       const started =
         performance.now();
 
       let res;
 
       try {
-
         res =
           await postApi(
             token
           );
-
       } catch (error) {
-
         error.requestTimeMs =
           performance.now() -
           started;
@@ -1016,12 +886,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       let data = null;
 
       try {
-
         data =
           await res.json();
-
       } catch (_) {
-
         data = null;
       }
 
@@ -1036,14 +903,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       };
     }
 
-
-    /*
-     * Простое склонение.
-     */
     function pluralizeDevices(
       count
     ) {
-
       const mod10 =
         count % 10;
 
@@ -1071,110 +933,62 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return 'устройств';
     }
 
-
-    /*
-     * Попытка найти число подключённых устройств
-     * во всех поддерживаемых вариантах ответа API.
-     */
     function getConnectionCount(
       data
     ) {
-
       const candidates = [
-
         data?.vpn_connections_count,
-
         data?.vpn_connected_devices_count,
-
         data?.connected_vpn_devices_count,
-
         data?.vpn_devices_count,
-
         data?.active_vpn_devices_count,
-
         data?.connected_devices_count,
-
         data?.connectedDevicesCount,
-
         data?.active_devices_count,
-
         data?.activeDevicesCount,
-
         data?.connections_count,
-
         data?.connectionsCount,
-
         data?.online_count,
-
         data?.connected_count,
-
         data?.device_count,
-
         data?.devices_count,
-
         data?.connection_count,
-
         data?.connectionCount,
-
         data?.subscription?.vpn_connections_count,
-
         data?.subscription?.vpn_connected_devices_count,
-
         data?.subscription?.connected_vpn_devices_count,
-
         data?.subscription?.vpn_devices_count,
-
         data?.subscription?.active_vpn_devices_count,
-
         data?.subscription?.connected_devices_count,
-
         data?.subscription?.active_devices_count,
-
         data?.subscription?.connections_count,
-
         data?.subscription?.online_count,
-
         data?.connection?.vpn_connected_devices_count,
-
         data?.connection?.connected_devices_count,
-
         data?.connection?.active_devices_count,
-
         data?.connection?.connections_count,
-
         data?.connection?.online_count,
-
         data?.connection?.count,
-
         data?.device?.connected_devices_count,
-
         data?.device?.active_devices_count,
-
         data?.device?.connections_count,
-
         data?.device?.online_count,
-
         data?.device?.connections,
-
         data?.connections?.count
       ];
-
 
       for (
         const value of candidates
       ) {
-
         if (
           typeof value === 'number' &&
           Number.isFinite(value) &&
           value >= 0
         ) {
-
           return Math.floor(
             value
           );
         }
-
 
         if (
           typeof value === 'string' &&
@@ -1183,7 +997,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             Number(value)
           )
         ) {
-
           return Math.max(
             0,
             Math.floor(
@@ -1193,74 +1006,43 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         }
       }
 
-
-      /*
-       * Если API возвращает массивы.
-       */
       const arrays = [
-
         data?.connections,
-
         data?.devices,
-
         data?.connected_devices,
-
         data?.connectedDevices,
-
         data?.vpn_devices,
-
         data?.vpnDevices,
-
         data?.sessions,
-
         data?.connected_clients,
-
         data?.connectedClients,
-
         data?.online_clients,
-
         data?.onlineClients,
-
         data?.subscription?.connections,
-
         data?.subscription?.connected_devices,
-
         data?.subscription?.sessions,
-
         data?.connection?.connections,
-
         data?.connection?.sessions,
-
         data?.device?.connections,
-
         data?.device?.sessions
       ];
-
 
       for (
         const value of arrays
       ) {
-
         if (
           Array.isArray(value)
         ) {
-
           return value.length;
         }
       }
 
-
       return null;
     }
 
-
-    /*
-     * Отрисовка подключённых устройств.
-     */
     function renderConnections(
       data
     ) {
-
       const count =
         getConnectionCount(
           data
@@ -1274,7 +1056,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       if (
         count === null
       ) {
-
         const wrapper =
           document.createElement(
             'div'
@@ -1305,7 +1086,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         return;
       }
 
-
       const wrapper =
         document.createElement(
           'div'
@@ -1313,7 +1093,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
       wrapper.className =
         'connections';
-
 
       const countEl =
         document.createElement(
@@ -1326,18 +1105,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       countEl.textContent =
         `${count} ${pluralizeDevices(count)}`;
 
-
       wrapper.appendChild(
         countEl
       );
 
-
-      /*
-       * Небольшое пояснение,
-       * если одновременно 0.
-       */
       if (count === 0) {
-
         const stateEl =
           document.createElement(
             'div'
@@ -1354,20 +1126,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         );
       }
 
-
       el.appendChild(
         wrapper
       );
     }
 
-
-    /*
-     * Протоколы.
-     */
     function renderProtocols(
       protocols
     ) {
-
       const arr =
         Array.isArray(protocols)
           ? protocols
@@ -1387,14 +1153,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
       el.textContent = '';
 
-
       if (!arr.length) {
-
         el.textContent = '—';
-
         return;
       }
-
 
       const wrapper =
         document.createElement(
@@ -1404,11 +1166,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       wrapper.className =
         'protocols';
 
-
       for (
         const protocol of arr
       ) {
-
         const item =
           document.createElement(
             'span'
@@ -1425,78 +1185,54 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         );
       }
 
-
       el.appendChild(
         wrapper
       );
     }
 
-
-    /*
-     * Ошибки API.
-     */
     function showApiError(
       status,
       data,
       retryAfter
     ) {
-
       switch (status) {
-
         case 400:
-
           showError(
             'API отклонил запрос: проверьте формат данных и идентификатор устройства.'
           );
-
           break;
 
-
         case 401:
-
           showError(
             'Подписка отключена или ключ больше не действителен.'
           );
-
           break;
 
-
         case 403:
-
           showError(
             'Запрос отклонён сервером по политике доступа.'
           );
-
           break;
 
-
         case 405:
-
           showError(
             'Ошибка метода API: сервер ожидает POST-запрос.'
           );
-
           break;
 
-
         case 415:
-
           showError(
             'API отклонил формат запроса. Ожидается JSON.'
           );
-
           break;
 
-
         case 429: {
-
           let message =
             'Слишком много запросов.';
 
           if (
             retryAfter
           ) {
-
             const seconds =
               Number(
                 retryAfter
@@ -1508,7 +1244,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
               ) &&
               seconds > 0
             ) {
-
               message +=
                 ` Повторите через ${Math.ceil(seconds)} сек.`;
             }
@@ -1525,40 +1260,29 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           break;
         }
 
-
         case 500:
-
           showError(
             'Внутренняя ошибка API Limupy.'
           );
-
           break;
-
 
         case 502:
         case 503:
         case 504:
-
           showError(
             `Сервер подписки временно недоступен. HTTP ${status}.`
           );
-
           break;
 
-
         default:
-
           if (
             data &&
             typeof data.error === 'string'
           ) {
-
             showError(
               data.error
             );
-
           } else {
-
             showError(
               `Не удалось получить данные подписки. HTTP ${status}.`
             );
@@ -1566,50 +1290,34 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     }
 
-
-    /*
-     * Проверка активности.
-     */
     function isSubscriptionActive(
       data
     ) {
-
       const sub =
         data?.subscription || {};
-
 
       if (
         sub.enabled === false ||
         sub.active === false
       ) {
-
         return false;
       }
-
 
       if (
         data?.enabled === false ||
         data?.active === false
       ) {
-
         return false;
       }
-
 
       return true;
     }
 
-
-    /*
-     * Основной рендер.
-     */
     function renderActive(
       data
     ) {
-
       const sub =
         data.subscription || {};
-
 
       const subscriptionName =
         data.subscription_name ||
@@ -1617,18 +1325,15 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         data.name ||
         'VPN-подписка';
 
-
       $('subscription')
         .textContent =
           String(
             subscriptionName
           );
 
-
       renderConnections(
         data
       );
-
 
       renderProtocols(
         sub.protocols ||
@@ -1636,20 +1341,17 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         []
       );
 
-
       $('traffic')
         .textContent =
           trafficText(
             sub
           );
 
-
       $('expire')
         .textContent =
           expireText(
             sub.expire
           );
-
 
       if (
         typeof data.launch_url ===
@@ -1658,7 +1360,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           data.launch_url
         )
       ) {
-
         $('happConnect')
           .href =
             data.launch_url;
@@ -1668,12 +1369,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     }
 
-
-    /*
-     * Реальная загрузка.
-     */
     async function loadInternal() {
-
       hideError();
       resetFields();
 
@@ -1682,13 +1378,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         'Проверка…'
       );
 
-
       const token =
         getToken();
 
-
       if (!token) {
-
         setStatus(
           'bad',
           'Не активно'
@@ -1701,13 +1394,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         return;
       }
 
-
       try {
-
-        /*
-         * ВАЖНО:
-         * это единственный API-запрос.
-         */
         const {
           res,
           data,
@@ -1717,16 +1404,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             token
           );
 
-
-        /*
-         * Задержка именно этого запроса.
-         */
         if (
           Number.isFinite(
             elapsed
           )
         ) {
-
           $('latency')
             .textContent =
               `${Math.max(
@@ -1737,19 +1419,13 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
               )} мс`;
         }
 
-
-        /*
-         * Обрабатываем 429 отдельно.
-         */
         if (
           res.status === 429
         ) {
-
           setStatus(
             'warn',
             'Ограничение'
           );
-
 
           showApiError(
             429,
@@ -1762,18 +1438,15 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           return;
         }
 
-
         if (
           !res.ok ||
           !data ||
           data.ok === false
         ) {
-
           setStatus(
             'bad',
             'Не активно'
           );
-
 
           showApiError(
             res.status,
@@ -1786,13 +1459,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           return;
         }
 
-
         if (
           !isSubscriptionActive(
             data
           )
         ) {
-
           setStatus(
             'bad',
             'Не активно'
@@ -1805,32 +1476,25 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           return;
         }
 
-
         setStatus(
           'ok',
           'Активно'
         );
 
-
         renderActive(
           data
         );
-
-
       } catch (error) {
-
         setStatus(
           'bad',
           'Не активно'
         );
-
 
         if (
           error &&
           error.name ===
             'AbortError'
         ) {
-
           showError(
             'Сервер не ответил вовремя. Попробуйте обновить страницу.'
           );
@@ -1838,26 +1502,18 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           return;
         }
 
-
         showError(
           'Нет связи с сервером подписки. Проверьте соединение и попробуйте обновить страницу.'
         );
       }
     }
 
-
-    /*
-     * Обёртка от двойных/параллельных запусков.
-     */
     function load() {
-
       if (
         activeLoadPromise
       ) {
-
         return activeLoadPromise;
       }
-
 
       activeLoadPromise =
         loadInternal()
@@ -1868,22 +1524,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             }
           );
 
-
       return activeLoadPromise;
     }
 
-
-    /*
-     * hashchange с маленькой задержкой,
-     * чтобы несколько изменений hash не дали
-     * серию POST.
-     */
     let hashTimer = null;
 
     window.addEventListener(
       'hashchange',
       () => {
-
         clearTimeout(
           hashTimer
         );
@@ -1896,14 +1544,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     );
 
-
-    /*
-     * Первый запуск.
-     */
     window.addEventListener(
       'load',
       () => {
-
         $('happDownload')
           .href =
             HAPP_DOWNLOAD_URL;
