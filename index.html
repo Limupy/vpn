@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="ru">
 <head>
@@ -21,9 +22,7 @@
 body{
     margin:0;
     min-height:100vh;
-    display:flex;
-    justify-content:center;
-    padding:20px;
+    padding:24px 16px;
     font-family:Arial,sans-serif;
     background:#0f1115;
     color:#fff;
@@ -31,31 +30,24 @@ body{
 
 .container{
     width:100%;
-    max-width:460px;
-    margin:auto;
-}
-
-.card{
-    padding:30px 22px;
-    background:#191c22;
-    border:1px solid #252a33;
-    border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.25);
+    max-width:480px;
+    margin:0 auto;
 }
 
 .header{
     text-align:center;
+    margin-bottom:18px;
 }
 
 .logo{
     width:58px;
     height:58px;
-    margin:0 auto 16px;
+    margin:0 auto 14px;
     display:flex;
     align-items:center;
     justify-content:center;
     border-radius:16px;
-    background:#0f1115;
+    background:#000;
     color:#fff;
     font-size:24px;
     font-weight:700;
@@ -63,69 +55,130 @@ body{
 
 h1{
     margin:0;
-    font-size:26px;
+    font-size:27px;
 }
 
 .subtitle{
-    margin:8px 0 24px;
-    color:#8f97a5;
+    margin-top:7px;
+    color:#858e9d;
     font-size:14px;
 }
 
 .status{
-    padding:14px;
-    margin-bottom:18px;
-    border-radius:12px;
-    background:#11141a;
-    color:#dce1e8;
-    font-size:14px;
-    line-height:1.5;
-    text-align:center;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+    padding:14px 15px;
+    border:1px solid #292e37;
+    border-radius:14px;
+    background:#191c22;
+    color:#dfe4eb;
+    font-size:13px;
+    line-height:1.45;
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+    flex:none;
+    border-radius:50%;
+    background:#777;
+}
+
+.status-dot.good{
+    background:#74d48a;
+}
+
+.status-dot.bad{
+    background:#e46f6f;
 }
 
 .section{
     margin-top:14px;
-    padding:16px;
-    background:#20242c;
-    border-radius:14px;
+    padding:18px;
+    border:1px solid #292e37;
+    border-radius:16px;
+    background:#191c22;
+}
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:16px;
 }
 
 .section-title{
-    margin-bottom:14px;
-    font-size:14px;
+    margin:0;
+    font-size:15px;
     font-weight:700;
 }
 
-.row{
+.section-caption{
+    color:#737d8c;
+    font-size:11px;
+}
+
+.key-box{
+    padding:13px;
+    margin-bottom:14px;
+    border-radius:12px;
+    background:#101319;
+}
+
+.key-label{
+    margin-bottom:6px;
+    color:#737d8c;
+    font-size:11px;
+}
+
+.key-value{
+    color:#fff;
+    font-family:monospace;
+    font-size:13px;
+    line-height:1.5;
+    word-break:break-all;
+}
+
+.info-list{
     display:flex;
+    flex-direction:column;
+}
+
+.info-row{
+    display:flex;
+    align-items:center;
     justify-content:space-between;
     gap:15px;
-    padding:10px 0;
-    border-bottom:1px solid #2d323b;
+    min-height:42px;
+    border-bottom:1px solid #2a2f38;
 }
 
-.row:last-child{
+.info-row:last-child{
     border-bottom:0;
-    padding-bottom:0;
 }
 
-.label{
-    color:#8f97a5;
+.info-label{
+    color:#8f98a7;
     font-size:13px;
 }
 
-.value{
-    text-align:right;
+.info-value{
+    max-width:58%;
     color:#fff;
+    text-align:right;
     font-size:13px;
+    word-break:break-word;
 }
 
-.value.good{
-    color:#8ee28e;
+.info-value.good{
+    color:#83dc95;
 }
 
-.value.bad{
-    color:#ff8c8c;
+.info-value.bad{
+    color:#ed7c7c;
 }
 
 .devices{
@@ -135,9 +188,20 @@ h1{
 }
 
 .device{
-    padding:12px;
-    border-radius:10px;
-    background:#11141a;
+    padding:13px;
+    border-radius:12px;
+    background:#101319;
+}
+
+.device.current{
+    border:1px solid #3a414d;
+}
+
+.device-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .device-name{
@@ -146,49 +210,54 @@ h1{
     font-weight:600;
 }
 
+.device-badge{
+    padding:4px 7px;
+    border-radius:7px;
+    background:#252b34;
+    color:#aeb6c2;
+    font-size:10px;
+    white-space:nowrap;
+}
+
 .device-time{
-    margin-top:5px;
-    color:#707886;
+    margin-top:7px;
+    color:#697382;
     font-size:11px;
-    line-height:1.4;
+    line-height:1.5;
     white-space:pre-line;
 }
 
-.device.current{
-    border:1px solid #3b414c;
-}
-
 .empty{
-    padding:12px;
-    border-radius:10px;
-    background:#11141a;
-    color:#707886;
+    padding:13px;
+    border-radius:12px;
+    background:#101319;
+    color:#6f7887;
     font-size:13px;
+    text-align:center;
 }
 
-.warning{
+.notice{
+    padding:14px 15px;
     margin-top:14px;
-    padding:14px;
-    border-radius:12px;
-    background:#2a2420;
-    color:#d8c8bb;
-    font-size:13px;
+    border-radius:14px;
+    background:#24201d;
+    color:#cfc2b9;
+    font-size:12px;
     line-height:1.5;
 }
 
 .actions{
     display:flex;
     flex-direction:column;
-    gap:10px;
-    margin-top:18px;
+    gap:9px;
+    margin-top:14px;
 }
 
 .button{
+    min-height:48px;
     display:flex;
     align-items:center;
     justify-content:center;
-    min-height:48px;
-    padding:12px 16px;
     border-radius:12px;
     text-decoration:none;
     font-size:14px;
@@ -201,22 +270,32 @@ h1{
 }
 
 .button.secondary{
-    background:#2a2f38;
+    background:#272c35;
     color:#fff;
 }
 
-@media(max-width:400px){
-    .card{
-        padding:26px 18px;
+.footer{
+    margin-top:14px;
+    text-align:center;
+    color:#5f6876;
+    font-size:11px;
+}
+
+@media(max-width:380px){
+    body{
+        padding:18px 12px;
     }
 
-    .row{
-        flex-direction:column;
-        gap:5px;
+    .section{
+        padding:16px;
     }
 
-    .value{
-        text-align:left;
+    .info-row{
+        gap:10px;
+    }
+
+    .info-value{
+        max-width:55%;
     }
 }
 </style>
@@ -225,74 +304,96 @@ h1{
 <body>
 
 <div class="container">
-<div class="card">
 
-<div class="header">
-    <div class="logo">L</div>
-    <h1>Limupy VPN</h1>
-    <div class="subtitle">VPN-подписка</div>
-</div>
-
-<div class="status" id="status">
-    Получаем информацию о подписке...
-</div>
-
-<div class="section">
-    <div class="section-title">Подписка</div>
-
-    <div class="row">
-        <div class="label">Клиент</div>
-        <div class="value">HAPP</div>
+    <div class="header">
+        <div class="logo">L</div>
+        <h1>Limupy VPN</h1>
+        <div class="subtitle">VPN-подписка для HAPP</div>
     </div>
 
-    <div class="row">
-        <div class="label">Сервер</div>
-        <div class="value" id="serverStatus">Проверка...</div>
+    <div class="status">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="status">Получаем информацию о подписке...</span>
     </div>
 
-    <div class="row">
-        <div class="label">Осталось</div>
-        <div class="value" id="remaining">Проверка...</div>
+    <div class="section">
+
+        <div class="section-header">
+            <div class="section-title">Подписка</div>
+            <div class="section-caption">Информация</div>
+        </div>
+
+        <div class="key-box">
+            <div class="key-label">Ключ подписки</div>
+            <div class="key-value" id="subscriptionKey">Нет данных</div>
+        </div>
+
+        <div class="info-list">
+
+            <div class="info-row">
+                <div class="info-label">Клиент</div>
+                <div class="info-value">HAPP</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">Сервер</div>
+                <div class="info-value" id="serverStatus">Проверка...</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">Осталось</div>
+                <div class="info-value" id="remaining">Проверка...</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">Использовано</div>
+                <div class="info-value" id="used">Проверка...</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">Лимит</div>
+                <div class="info-value" id="total">Проверка...</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">Действует до</div>
+                <div class="info-value" id="expire">Проверка...</div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="row">
-        <div class="label">Использовано</div>
-        <div class="value" id="used">Проверка...</div>
+    <div class="section">
+
+        <div class="section-header">
+            <div class="section-title">Устройства</div>
+            <div class="section-caption">История посещений</div>
+        </div>
+
+        <div class="devices" id="devices">
+            <div class="empty">Получаем список устройств...</div>
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="label">Лимит</div>
-        <div class="value" id="total">Проверка...</div>
+    <div class="notice">
+        Не передавайте ссылку на этот сайт третьим лицам.
     </div>
 
-    <div class="row">
-        <div class="label">Действует до</div>
-        <div class="value" id="expire">Проверка...</div>
+    <div class="actions">
+        <a class="button primary" id="open" href="#">
+            Открыть HAPP
+        </a>
+
+        <a class="button secondary" href="https://happ.info/">
+            Скачать HAPP
+        </a>
     </div>
-</div>
 
-<div class="section">
-    <div class="section-title">Устройства</div>
-    <div class="devices" id="devices">
-        <div class="empty">Получаем список устройств...</div>
+    <div class="footer">
+        Limupy VPN
     </div>
-</div>
 
-<div class="warning">
-    Не передавайте ссылку на этот сайт третьим лицам.
-</div>
-
-<div class="actions">
-    <a class="button primary" id="open" href="#">
-        Открыть HAPP
-    </a>
-
-    <a class="button secondary" href="https://happ.info/">
-        Скачать HAPP
-    </a>
-</div>
-
-</div>
 </div>
 
 <script>
@@ -303,8 +404,10 @@ const key=params.get("key");
 const state=params.get("state");
 
 const status=document.getElementById("status");
+const statusDot=document.getElementById("statusDot");
 const open=document.getElementById("open");
 
+const subscriptionKey=document.getElementById("subscriptionKey");
 const serverStatus=document.getElementById("serverStatus");
 const remaining=document.getElementById("remaining");
 const used=document.getElementById("used");
@@ -380,6 +483,7 @@ function formatBytes(bytes){
     }
 
     const units=["Б","КБ","МБ","ГБ","ТБ"];
+
     const index=Math.min(
         Math.floor(Math.log(bytes)/Math.log(1024)),
         units.length-1
@@ -408,7 +512,6 @@ function decodeState(value){
     );
 
     const binary=atob(padded);
-
     const bytes=new Uint8Array(binary.length);
 
     for(let i=0;i<binary.length;i++){
@@ -432,17 +535,27 @@ function renderDevices(list){
     }
 
     list.forEach(device=>{
-        const item=document.createElement("div");
 
+        const item=document.createElement("div");
         item.className="device"+(
             device.current ? " current":""
         );
 
+        const top=document.createElement("div");
+        top.className="device-top";
+
         const name=document.createElement("div");
         name.className="device-name";
-        name.textContent=
-            device.name+
-            (device.current ? " · текущее":"");
+        name.textContent=device.name;
+
+        top.appendChild(name);
+
+        if(device.current){
+            const badge=document.createElement("div");
+            badge.className="device-badge";
+            badge.textContent="Текущее";
+            top.appendChild(badge);
+        }
 
         const time=document.createElement("div");
         time.className="device-time";
@@ -452,7 +565,7 @@ function renderDevices(list){
             "\nПервый визит: "+
             formatDate(device.first_seen);
 
-        item.appendChild(name);
+        item.appendChild(top);
         item.appendChild(time);
 
         devices.appendChild(item);
@@ -473,29 +586,25 @@ function renderSubscription(info){
                 : ""
             );
 
-        serverStatus.className="value good";
+        serverStatus.className="info-value good";
     }else{
         serverStatus.textContent="Недоступен";
-        serverStatus.className="value bad";
+        serverStatus.className="info-value bad";
     }
 
-    const isUnlimited=
+    const unlimited=
         info.total_bytes !== null &&
-        Number(info.total_bytes) === 0;
+        Number(info.total_bytes)===0;
 
-    if(isUnlimited){
+    if(unlimited){
         total.textContent="Безлимит";
         remaining.textContent="Безлимит";
     }else{
-        total.textContent=
-            formatBytes(info.total_bytes);
-
-        remaining.textContent=
-            formatBytes(info.remaining_bytes);
+        total.textContent=formatBytes(info.total_bytes);
+        remaining.textContent=formatBytes(info.remaining_bytes);
     }
 
-    used.textContent=
-        formatBytes(info.used_bytes);
+    used.textContent=formatBytes(info.used_bytes);
 
     expire.textContent=
         info.expire
@@ -504,10 +613,14 @@ function renderSubscription(info){
 }
 
 function start(){
+
     if(!key){
         status.textContent="Страница не найдена.";
+        statusDot.className="status-dot bad";
         return;
     }
+
+    subscriptionKey.textContent=key;
 
     open.href=
         SERVER+
@@ -515,20 +628,22 @@ function start(){
         encodeURIComponent(key);
 
     if(state){
+
         let data;
 
         try{
             data=decodeState(state);
         }catch(e){
             status.textContent="Не удалось получить данные.";
+            statusDot.className="status-dot bad";
             return;
         }
 
         renderDevices(data.devices);
         renderSubscription(data.subscription);
 
-        status.textContent=
-            "Подписка готова. Открываем HAPP...";
+        status.textContent="Подписка готова. Открываем HAPP...";
+        statusDot.className="status-dot good";
 
         const cleanUrl=new URL(location.href);
 
@@ -576,3 +691,4 @@ start();
 
 </body>
 </html>
+```
