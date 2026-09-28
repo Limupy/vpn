@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="ru">
@@ -372,7 +373,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       <div class="brand">
         <div class="logo">L</div>
 
-
     <div>
       <h1>Limupy VPN</h1>
       <div class="subtitle">VPN-подписка</div>
@@ -521,7 +521,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 <div class="footer-note">
   Задержка измеряется непосредственно с вашего устройства до API Limupy.
 </div>
-    
 
   </main>
 
@@ -705,7 +704,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       $('latency').textContent = '—';
 
       $('happConnect').hidden = true;
-      $('happConnect').removeAttribute('href');
+      $('happConnect').setAttribute('href', '#');
     }
 
     function showError(
@@ -846,34 +845,47 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     }
 
     function isAllowedHappUrl(value) {
-      try {
-        const url =
-          new URL(value);
-
-        if (
-          url.protocol === 'happ:'
-        ) {
-          return (
-            url.hostname === 'add' &&
-            url.pathname.startsWith(
-              '/https://78.17.112.158/'
-            )
-          );
-        }
-
-        if (
-          url.protocol === 'https:'
-        ) {
-          return (
-            url.origin ===
-              'https://78.17.112.158' &&
-            url.pathname.startsWith(
-              '/DisstVpn/'
-            )
-          );
-        }
-
+      if (
+        typeof value !== 'string'
+      ) {
         return false;
+      }
+
+      const raw =
+        value.trim();
+
+      if (!raw) {
+        return false;
+      }
+
+      if (
+        /^happ:\/\/add\/https?:\/\//i.test(raw)
+      ) {
+        return (
+          /^happ:\/\/add\/https:\/\/78\.17\.112\.158(?:\/|$)/i.test(
+            raw
+          )
+        );
+      }
+
+      if (
+        /^https:\/\/78\.17\.112\.158\/DisstVpn\//i.test(raw)
+      ) {
+        return true;
+      }
+
+      try {
+        const decoded =
+          decodeURIComponent(raw);
+
+        return (
+          /^happ:\/\/add\/https:\/\/78\.17\.112\.158(?:\/|$)/i.test(
+            decoded
+          ) ||
+          /^https:\/\/78\.17\.112\.158\/DisstVpn\//i.test(
+            decoded
+          )
+        );
       } catch (_) {
         return false;
       }
@@ -1369,12 +1381,15 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       if (
         typeof data.launch_url ===
           'string' &&
+        data.launch_url.trim() !== '' &&
         isAllowedHappUrl(
           data.launch_url
         )
       ) {
-        $('happConnect').href =
-          data.launch_url;
+        $('happConnect').setAttribute(
+          'href',
+          data.launch_url.trim()
+        );
 
         $('happConnect').hidden =
           false;
@@ -1522,6 +1537,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
         if (
           !href ||
+          href === '#' ||
           !isAllowedHappUrl(
             href
           )
@@ -1530,8 +1546,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           return;
         }
 
-        event.currentTarget.href =
-          href;
+        event.currentTarget.setAttribute(
+          'href',
+          href
+        );
       }
     );
 
@@ -1596,3 +1614,4 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
 </body>
 </html>
+```
