@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="ru">
 <head>
@@ -151,6 +152,7 @@ h1{
     color:#707886;
     font-size:11px;
     line-height:1.4;
+    white-space:pre-line;
 }
 
 .device.current{
@@ -379,9 +381,14 @@ function formatBytes(bytes){
     }
 
     const units=["Б","КБ","МБ","ГБ","ТБ"];
-    const index=Math.floor(Math.log(bytes)/Math.log(1024));
+    const index=Math.min(
+        Math.floor(Math.log(bytes)/Math.log(1024)),
+        units.length-1
+    );
 
-    return (bytes/Math.pow(1024,index)).toFixed(index>2 ? 2 : 1)+" "+units[index];
+    return (
+        bytes/Math.pow(1024,index)
+    ).toFixed(index>2 ? 2 : 1)+" "+units[index];
 }
 
 function formatDate(timestamp){
@@ -461,9 +468,11 @@ function renderSubscription(info){
     if(info.available){
         serverStatus.textContent=
             "Доступен"+
-            (info.latency_ms !== null
+            (
+                info.latency_ms !== null
                 ? " · "+info.latency_ms+" мс"
-                : "");
+                : ""
+            );
 
         serverStatus.className="value good";
     }else{
@@ -471,19 +480,28 @@ function renderSubscription(info){
         serverStatus.className="value bad";
     }
 
-    remaining.textContent=
-        formatBytes(info.remaining_bytes);
+    const isUnlimited=
+        info.total_bytes !== null &&
+        Number(info.total_bytes) === 0;
+
+    if(isUnlimited){
+        total.textContent="Безлимит";
+        remaining.textContent="Безлимит";
+    }else{
+        total.textContent=
+            formatBytes(info.total_bytes);
+
+        remaining.textContent=
+            formatBytes(info.remaining_bytes);
+    }
 
     used.textContent=
         formatBytes(info.used_bytes);
 
-    total.textContent=
-        formatBytes(info.total_bytes);
-
     expire.textContent=
         info.expire
-            ? formatDate(info.expire)
-            : "Нет данных";
+        ? formatDate(info.expire)
+        : "Нет данных";
 }
 
 function start(){
@@ -559,3 +577,4 @@ start();
 
 </body>
 </html>
+```
