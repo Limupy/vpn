@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -16,7 +17,6 @@
     :root {
       --bg: #0b1020;
       --card: rgba(20, 27, 48, .9);
-      --card-2: rgba(15, 21, 38, .8);
       --line: rgba(255,255,255,.08);
       --text: #f4f7fb;
       --muted: #9aa6bd;
@@ -318,94 +318,97 @@
       }
     }
   </style>
+
 </head>
 
 <body>
   <main class="wrap">
 
-    <div class="header">
-      <div class="brand">
-        <div class="logo">L</div>
+```
+<div class="header">
+  <div class="brand">
+    <div class="logo">L</div>
 
-        <div>
-          <h1>Limupy VPN</h1>
-          <div class="subtitle">VPN-подписка</div>
-        </div>
-      </div>
+    <div>
+      <h1>Limupy VPN</h1>
+      <div class="subtitle">VPN-подписка</div>
+    </div>
+  </div>
+</div>
+
+<section class="card" aria-live="polite">
+
+  <div class="hero">
+    <div class="status-row">
+      <span class="label">Статус</span>
+      <span id="status" class="status wait">Проверка…</span>
     </div>
 
-    <section class="card" aria-live="polite">
+    <div id="name" class="name">—</div>
+    <div id="device" class="device">—</div>
+  </div>
 
-      <div class="hero">
-        <div class="status-row">
-          <span class="label">Статус</span>
-          <span id="status" class="status wait">Проверка…</span>
-        </div>
+  <div class="rows">
 
-        <div id="name" class="name">—</div>
-        <div id="device" class="device">—</div>
-      </div>
-
-      <div class="rows">
-
-        <div class="row">
-          <div class="label">VPN-подписка</div>
-          <div id="subscription" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Протоколы</div>
-          <div id="protocols" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Трафик</div>
-          <div id="traffic" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Срок действия</div>
-          <div id="expire" class="value">—</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Задержка</div>
-          <div id="latency" class="value">—</div>
-        </div>
-
-      </div>
-
-      <div class="actions">
-
-        <a
-          id="happDownload"
-          class="btn secondary"
-          href="https://happ.info/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Скачать Happ
-        </a>
-
-        <a
-          id="happConnect"
-          class="btn primary"
-          href="#"
-          rel="noopener"
-          hidden
-        >
-          Открыть в Happ
-        </a>
-
-      </div>
-
-    </section>
-
-    <div id="error" class="error" hidden></div>
-
-    <div class="footer-note">
-      Задержка измеряется непосредственно с вашего устройства до API Limupy.
+    <div class="row">
+      <div class="label">VPN-подписка</div>
+      <div id="subscription" class="value">—</div>
     </div>
+
+    <div class="row">
+      <div class="label">Протоколы</div>
+      <div id="protocols" class="value">—</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Трафик</div>
+      <div id="traffic" class="value">—</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Срок действия</div>
+      <div id="expire" class="value">—</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Задержка</div>
+      <div id="latency" class="value">—</div>
+    </div>
+
+  </div>
+
+  <div class="actions">
+
+    <a
+      id="happDownload"
+      class="btn secondary"
+      href="https://happ.info/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Скачать Happ
+    </a>
+
+    <a
+      id="happConnect"
+      class="btn primary"
+      href="#"
+      rel="noopener"
+      hidden
+    >
+      Открыть в Happ
+    </a>
+
+  </div>
+
+</section>
+
+<div id="error" class="error" hidden></div>
+
+<div class="footer-note">
+  Задержка измеряется непосредственно с вашего устройства до API Limupy.
+</div>
+```
 
   </main>
 
@@ -575,8 +578,11 @@
           headers: {
             'Authorization': `Bearer ${token}`,
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
             ...extraHeaders
-          }
+          },
+
+          body: JSON.stringify({})
         });
       } finally {
         clearTimeout(timeout);
@@ -622,7 +628,7 @@
             );
           }
         } catch (_) {
-          // Один неудачный замер не ломает всю страницу.
+         
         }
       }
 
@@ -728,6 +734,9 @@
           } else if (res.status === 405) {
             $('error').textContent =
               'Ошибка метода API: сервер ожидает POST-запрос.';
+          } else if (res.status === 415) {
+            $('error').textContent =
+              'API отклонил формат запроса. Ожидается JSON.';
           } else if (res.status === 403) {
             $('error').textContent =
               'Запрос отклонён сервером по политике доступа.';
@@ -809,5 +818,6 @@
       }
     );
   </script>
+
 </body>
 </html>
