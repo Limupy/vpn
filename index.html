@@ -1,617 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Умный помощник</title>
+
+    <title>HAPP</title>
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 0;
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: #0f1115;
+            color: #fff;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            overflow: hidden;
-        }
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 20px;
+
+        .box {
+            width: min(90%, 420px);
+            padding: 35px 25px;
             text-align: center;
+            background: #191c22;
+            border-radius: 18px;
         }
+
         h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+            margin: 0 0 12px;
         }
-        .subtitle {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-top: 10px;
+
+        p {
+            color: #aeb4c0;
+            line-height: 1.5;
         }
-        .main-content {
-            padding: 30px;
-        }
-        .input-area {
-            margin-bottom: 30px;
-        }
-        textarea {
-            width: 100%;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            font-size: 18px;
-            min-height: 120px;
-            margin-bottom: 20px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .primary-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .secondary-btn {
-            background: #f8f9fa;
-            color: #333;
-            border: 2px solid #e0e0e0;
-        }
-        .quick-questions {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-        .quick-title {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .question-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        @media (max-width: 600px) {
-            .question-grid { grid-template-columns: 1fr; }
-            .buttons { grid-template-columns: 1fr; }
-        }
-        .question-btn {
-            padding: 15px;
-            background: white;
-            border: 2px solid #e0e0e0;
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 22px;
             border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-        .question-btn:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-        .response-area {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-            display: none;
-        }
-        .response-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        .response-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .copy-btn {
-            background: #f0f0f0;
-            color: #666;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        .copy-btn:hover {
-            background: #667eea;
-            color: white;
-        }
-        .answer-content {
-            line-height: 1.8;
-            font-size: 16px;
-            color: #444;
-        }
-        .answer-content p {
-            margin-bottom: 15px;
-        }
-        .sources {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
-        }
-        .sources-title {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .source-item {
-            display: block;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            color: #667eea;
+            background: #fff;
+            color: #111;
             text-decoration: none;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-        .source-item:hover {
-            background: #eef2ff;
-            transform: translateX(5px);
-        }
-        .loading {
-            text-align: center;
-            padding: 40px;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f0f0f0;
-            border-top: 5px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 14px;
-            border-top: 1px solid #f0f0f0;
-            margin-top: 30px;
-        }
-        .error {
-            background: #fee;
-            border: 2px solid #f99;
-            color: #c00;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
+            font-weight: bold;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>🤖 Умный помощник</h1>
-            <p class="subtitle">Задайте вопрос → Получите точный ответ из интернета</p>
-        </header>
-        
-        <div class="main-content">
-            <div class="input-area">
-                <textarea id="questionInput" placeholder="Задайте любой вопрос на русском или английском... Пример: 'Что такое искусственный интеллект?' или 'Как работает блокчейн?'"></textarea>
-                
-                <div class="buttons">
-                    <button class="primary-btn" onclick="getAnswer()">
-                        <span>🔍</span> Получить ответ
-                    </button>
-                    <button class="secondary-btn" onclick="clearAll()">
-                        <span>🗑️</span> Очистить
-                    </button>
-                </div>
-            </div>
-            
-            <div class="quick-questions">
-                <div class="quick-title">💡 Примеры вопросов:</div>
-                <div class="question-grid">
-                    <div class="question-btn" onclick="askExample('Что такое искусственный интеллект?')">Что такое ИИ?</div>
-                    <div class="question-btn" onclick="askExample('Как работает блокчейн?')">Как работает блокчейн?</div>
-                    <div class="question-btn" onclick="askExample('Кто такой Илон Маск?')">Кто такой Илон Маск?</div>
-                    <div class="question-btn" onclick="askExample('Что такое квантовые вычисления?')">Квантовые вычисления</div>
-                    <div class="question-btn" onclick="askExample('Как приготовить пасту карбонара?')">Рецепт пасты</div>
-                    <div class="question-btn" onclick="askExample('Что такое NFT?')">Что такое NFT?</div>
-                    <div class="question-btn" onclick="askExample('Как работает солнечная батарея?')">Солнечные батареи</div>
-                    <div class="question-btn" onclick="askExample('Что такое метавселенная?')">Метавселенная</div>
-                </div>
-            </div>
-            
-            <div class="response-area" id="responseArea">
-                <div class="response-header">
-                    <div class="response-title">📚 Ответ:</div>
-                    <div class="copy-btn" onclick="copyToClipboard()">📋 Копировать</div>
-                </div>
-                <div class="answer-content" id="answerContent">
-                    <!-- Здесь появится ответ -->
-                </div>
-                <div class="sources" id="sources">
-                    <div class="sources-title">🌐 Источники информации:</div>
-                    <!-- Здесь появятся источники -->
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p>Система ищет информацию в открытых источниках и формирует краткий ответ</p>
-            <p>Для работы требуется подключение к интернету</p>
-        </div>
-    </div>
 
-    <script>
-        // Глобальные переменные
-        let currentAnswer = '';
-        
-        // Основная функция получения ответа
-        async function getAnswer() {
-            const question = document.getElementById('questionInput').value.trim();
-            if (!question) {
-                alert('Пожалуйста, введите вопрос');
-                return;
+<body>
+
+<div class="box">
+    <h1>HAPP</h1>
+    <p id="status">Открываем приложение...</p>
+
+    <a id="fallback" href="https://happ.info/" style="display:none;">
+        Скачать HAPP
+    </a>
+</div>
+
+<script>
+    /*
+     * =====================================================
+     * НАСТРОЙКИ
+     * =====================================================
+     */
+
+    // Твоя подписка
+    const subscription =
+        "http://78.17.112.158:444/DisstVpn/dplgn7904o4cd4cp";
+
+    // Секретный путь.
+    //
+    // Итоговая ссылка будет:
+    //
+    // https://happ.example.com/7fK3mP9xQ2vL
+    //
+    const secretPath = "/7fK3mP9xQ2vL";
+
+
+    /*
+     * =====================================================
+     * ПРОВЕРКА СЕКРЕТНОГО URL
+     * =====================================================
+     */
+
+    const currentPath =
+        window.location.pathname.replace(/\/+$/, "");
+
+    if (currentPath !== secretPath) {
+
+        document.getElementById("status").textContent =
+            "Страница не найдена.";
+
+    } else {
+
+        const happUrl =
+            "happ://add/" + subscription;
+
+        const status =
+            document.getElementById("status");
+
+        const fallback =
+            document.getElementById("fallback");
+
+        let opened = false;
+
+        /*
+         * Пытаемся открыть HAPP.
+         */
+        window.location.href = happUrl;
+
+        /*
+         * Если приложение не открылось,
+         * показываем кнопку сайта HAPP.
+         */
+        setTimeout(function () {
+
+            if (!opened) {
+
+                status.textContent =
+                    "Если HAPP не установлен, скачайте его:";
+
+                fallback.style.display =
+                    "inline-block";
             }
-            
-            // Показываем загрузку
-            showLoading();
-            
-            try {
-                // Пробуем разные методы поиска информации
-                const answer = await searchInformation(question);
-                
-                // Показываем ответ
-                showAnswer(answer.answer, answer.sources);
-                
-            } catch (error) {
-                console.error('Ошибка:', error);
-                showError('Не удалось получить ответ. Проверьте подключение к интернету.');
-            }
-        }
-        
-        // Функция поиска информации
-        async function searchInformation(question) {
-            // Преобразуем вопрос для поиска
-            const searchQuery = encodeURIComponent(question);
-            
-            // Пробуем получить данные из нескольких источников
-            const sources = [
-                `https://api.allorigins.win/get?url=${encodeURIComponent(`https://ru.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=true&explaintext=true&titles=${searchQuery}`)}`,
-                `https://api.allorigins.win/get?url=${encodeURIComponent(`https://www.googleapis.com/customsearch/v1?key=AIzaSyC8O4H2jWY4iVQp6v-0iN9n7M2Gk6jXz0w&cx=017576662512468239146:omuauf_lfve&q=${searchQuery}`)}`,
-                `https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.duckduckgo.com/?q=${searchQuery}&format=json&no_html=1&skip_disambig=1`)}`
-            ];
-            
-            let answer = '';
-            let foundSources = [];
-            
-            // Пробуем каждый источник
-            for (const source of sources) {
-                try {
-                    const response = await fetch(source);
-                    if (!response.ok) continue;
-                    
-                    const data = await response.json();
-                    
-                    // Обрабатываем данные в зависимости от источника
-                    if (source.includes('wikipedia')) {
-                        const wikiData = JSON.parse(data.contents);
-                        const pages = wikiData.query?.pages;
-                        if (pages) {
-                            const page = Object.values(pages)[0];
-                            if (page?.extract) {
-                                answer += `📚 Из Википедии:\n\n${page.extract.substring(0, 500)}...\n\n`;
-                                foundSources.push(`https://ru.wikipedia.org/wiki/${encodeURIComponent(page.title)}`);
-                            }
-                        }
-                    }
-                    else if (source.includes('googleapis')) {
-                        const searchData = JSON.parse(data.contents);
-                        if (searchData.items && searchData.items.length > 0) {
-                            answer += `🔍 Поисковая информация:\n\n`;
-                            searchData.items.slice(0, 2).forEach((item, i) => {
-                                answer += `${i+1}. ${item.title}\n${item.snippet}\n\n`;
-                                foundSources.push(item.link);
-                            });
-                        }
-                    }
-                    else if (source.includes('duckduckgo')) {
-                        const ddgData = JSON.parse(data.contents);
-                        if (ddgData.AbstractText) {
-                            answer += `💡 Краткий ответ:\n\n${ddgData.AbstractText}\n\n`;
-                            if (ddgData.AbstractURL) foundSources.push(ddgData.AbstractURL);
-                        }
-                    }
-                    
-                    // Если нашли достаточно информации, останавливаемся
-                    if (answer.length > 300) break;
-                    
-                } catch (error) {
-                    console.log('Источник не сработал:', error);
-                    continue;
-                }
-            }
-            
-            // Если не нашли информацию в API, используем запасной вариант
-            if (!answer || answer.length < 100) {
-                answer = await generateAnswerFromKnowledge(question);
-                foundSources = [
-                    'https://ru.wikipedia.org',
-                    'https://www.google.com',
-                    'https://yandex.ru'
-                ];
-            }
-            
-            return {
-                answer: formatAnswer(answer, question),
-                sources: foundSources.slice(0, 3) // Ограничиваем 3 источниками
-            };
-        }
-        
-        // Запасная функция генерации ответа
-        async function generateAnswerFromKnowledge(question) {
-            // База знаний для частых вопросов
-            const knowledgeBase = {
-                // Технологии
-                'искусственный интеллект': 'Искусственный интеллект (ИИ) — это область компьютерных наук, занимающаяся созданием машин и систем, способных выполнять задачи, требующие человеческого интеллекта: обучение, решение проблем, распознавание образов и понимание естественного языка.',
-                'блокчейн': 'Блокчейн — это распределенная база данных, которая хранит информацию в виде цепочки блоков. Каждый блок содержит данные, хеш предыдущего блока и временную метку. Это обеспечивает безопасность, прозрачность и неизменяемость данных.',
-                'квантовые вычисления': 'Квантовые вычисления используют квантовые биты (кубиты), которые могут находиться в суперпозиции состояний 0 и 1 одновременно. Это позволяет решать определенные задачи (например, факторизацию больших чисел) намного быстрее классических компьютеров.',
-                'nft': 'NFT (Non-Fungible Token) — это уникальный цифровой сертификат, хранящийся в блокчейне, который подтверждает право собственности на цифровой или физический актив. Каждый NFT уникален и не взаимозаменяем.',
-                'метавселенная': 'Метавселенная — это концепция постоянного, онлайн 3D-мира, объединяющего несколько виртуальных пространств. Пользователи могут взаимодействовать друг с другом и цифровыми объектами в этой среде.',
-                'chatgpt': 'ChatGPT — это языковая модель на базе искусственного интеллекта, разработанная OpenAI. Она обучена на огромных объемах текстовых данных и способна генерировать человекообразные ответы на различные вопросы и задачи.',
-                
-                // Наука
-                'фотосинтез': 'Фотосинтез — это процесс, при котором растения, водоросли и некоторые бактерии преобразуют световую энергию в химическую энергию, используя углекислый газ и воду для производства глюкозы и кислорода.',
-                'днк': 'ДНК (дезоксирибонуклеиновая кислота) — это молекула, содержащая генетические инструкции для развития и функционирования всех известных живых организмов. Структура ДНК представляет собой двойную спираль.',
-                'теория относительности': 'Теория относительности Альберта Эйнштейна состоит из специальной теории (1905) и общей теории (1915). Она описывает законы физики в системах отсчета, движущихся с постоянной скоростью, и влияние гравитации на пространство-время.',
-                
-                // Люди
-                'илон маск': 'Илон Маск — предприниматель, инженер и изобретатель. Основатель компаний SpaceX, Tesla, Neuralink и The Boring Company. Известен своими амбициозными проектами по колонизации Марса и развитию устойчивой энергетики.',
-                'стеве джобс': 'Стив Джобс — сооснователь Apple Inc. Сыграл ключевую роль в революции персональных компьютеров, анимационных фильмов, музыки, телефонов и планшетных компьютеров.',
-                'альберт эйнштейн': 'Альберт Эйнштейн — физик-теоретик, разработавший теорию относительности, один из столпов современной физики. Лауреат Нобелевской премии по физике 1921 года.',
-                
-                // Кулинария
-                'паста карбонара': 'Паста карбонара — традиционное итальянское блюдо из спагетти с соусом на основе яиц, сыра пекорино, гуанчале (свиные щечки) и черного перца. Яйца не должны сворачиваться, создавая кремовый соус.',
-                'омлет': 'Омлет — блюдо из взбитых яиц, жареных на сковороде. Классический французский омлет готовится только из яиц, соли и масла, без добавления молока. Подается свернутым или сложенным пополам.',
-                'борщ': 'Борщ — суп на основе свеклы, который придает ему характерный красный цвет. Традиционное блюдо восточнославянской кухни. Готовится с мясом или без, с овощами и подается со сметаной.',
-                
-                // Экономика
-                'биткоин': 'Биткоин — первая и самая известная криптовалюта, созданная в 2009 году человеком или группой под псевдонимом Сатоши Накамото. Использует технологию блокчейн и работает без центрального органа управления.',
-                'инфляция': 'Инфляция — это устойчивое повышение общего уровня цен на товары и услуги в экономике за определенный период. Приводит к снижению покупательной способности денег.',
-                'акция': 'Акция — это ценная бумага, подтверждающая право ее владельца на долю в компании и на часть прибыли в виде дивидендов. Акционеры также имеют право голоса на собраниях акционеров.',
-            };
-            
-            // Ищем совпадение в базе знаний
-            const lowerQuestion = question.toLowerCase();
-            for (const [key, value] of Object.entries(knowledgeBase)) {
-                if (lowerQuestion.includes(key)) {
-                    return value;
-                }
-            }
-            
-            // Если не нашли, генерируем ответ на основе типа вопроса
-            if (lowerQuestion.includes('что такое') || lowerQuestion.includes('что есть')) {
-                return `Это понятие относится к области знаний. Для получения точной информации рекомендую обратиться к специализированным источникам или энциклопедиям.`;
-            } else if (lowerQuestion.includes('как работает') || lowerQuestion.includes('как устроен')) {
-                return `Принцип работы основан на современных технологиях и научных достижениях. Процесс включает несколько этапов и компонентов.`;
-            } else if (lowerQuestion.includes('почему')) {
-                return `Это объясняется совокупностью факторов, включая основные принципы физики, биологии или других соответствующих наук.`;
-            } else if (lowerQuestion.includes('кто такой') || lowerQuestion.includes('кто такая')) {
-                return `Это известная личность в своей области деятельности. Внес значительный вклад в развитие соответствующей сферы.`;
-            } else {
-                return `На основе анализа доступных данных, можно сказать, что это интересный вопрос, требующий изучения специализированных источников для получения точного ответа.`;
-            }
-        }
-        
-        // Форматирование ответа
-        function formatAnswer(text, question) {
-            // Очищаем текст от лишних пробелов
-            text = text.replace(/\s+/g, ' ').trim();
-            
-            // Добавляем заголовок
-            let formatted = `<p><strong>Вопрос:</strong> ${question}</p>`;
-            formatted += `<p><strong>Ответ:</strong></p>`;
-            
-            // Разбиваем текст на абзацы
-            const paragraphs = text.split('\n\n');
-            paragraphs.forEach(paragraph => {
-                if (paragraph.trim()) {
-                    formatted += `<p>${paragraph.trim()}</p>`;
-                }
-            });
-            
-            // Добавляем заключение
-            formatted += `<p><em>Ответ сформирован на основе анализа информации из открытых источников. Для получения наиболее актуальных данных рекомендуется проверять информацию в специализированных источниках.</em></p>`;
-            
-            return formatted;
-        }
-        
-        // Показать загрузку
-        function showLoading() {
-            const responseArea = document.getElementById('responseArea');
-            responseArea.style.display = 'block';
-            responseArea.innerHTML = `
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <h3>Ищу информацию в интернете...</h3>
-                    <p>Анализирую вопрос, проверяю источники, формирую ответ...</p>
-                </div>
-            `;
-        }
-        
-        // Показать ответ
-        function showAnswer(answer, sources) {
-            const responseArea = document.getElementById('responseArea');
-            currentAnswer = answer;
-            
-            // Устанавливаем ответ
-            document.getElementById('answerContent').innerHTML = answer;
-            
-            // Добавляем источники
-            const sourcesDiv = document.getElementById('sources');
-            let sourcesHTML = '<div class="sources-title">🌐 Источники информации:</div>';
-            
-            if (sources && sources.length > 0) {
-                sources.forEach((source, index) => {
-                    const sourceName = new URL(source).hostname.replace('www.', '');
-                    sourcesHTML += `
-                        <a href="${source}" target="_blank" class="source-item">
-                            📚 ${index + 1}. ${sourceName}
-                        </a>
-                    `;
-                });
-            } else {
-                sourcesHTML += `<p>Использованы общие знания и открытые источники</p>`;
-            }
-            
-            sourcesDiv.innerHTML = sourcesHTML;
-            
-            // Показываем блок с ответом
-            responseArea.style.display = 'block';
-            responseArea.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Показать ошибку
-        function showError(message) {
-            const responseArea = document.getElementById('responseArea');
-            responseArea.style.display = 'block';
-            responseArea.innerHTML = `
-                <div class="error">
-                    <h3>⚠️ Ошибка</h3>
-                    <p>${message}</p>
-                    <button class="primary-btn" onclick="getAnswer()" style="margin-top: 10px; padding: 10px 20px;">
-                        Попробовать снова
-                    </button>
-                </div>
-            `;
-        }
-        
-        // Копировать в буфер обмена
-        function copyToClipboard() {
-            if (!currentAnswer) return;
-            
-            // Извлекаем текст из HTML
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = currentAnswer;
-            const textToCopy = tempDiv.textContent || tempDiv.innerText || '';
-            
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const copyBtn = document.querySelector('.copy-btn');
-                const originalText = copyBtn.textContent;
-                copyBtn.textContent = '✓ Скопировано!';
-                copyBtn.style.background = '#4CAF50';
-                copyBtn.style.color = 'white';
-                
-                setTimeout(() => {
-                    copyBtn.textContent = originalText;
-                    copyBtn.style.background = '';
-                    copyBtn.style.color = '';
-                }, 2000);
-            });
-        }
-        
-        // Очистить все
-        function clearAll() {
-            document.getElementById('questionInput').value = '';
-            document.getElementById('responseArea').style.display = 'none';
-            currentAnswer = '';
-            document.getElementById('questionInput').focus();
-        }
-        
-        // Использовать пример вопроса
-        function askExample(question) {
-            document.getElementById('questionInput').value = question;
-            getAnswer();
-        }
-        
-        // Управление с клавиатуры
-        document.addEventListener('keydown', function(e) {
-            const input = document.getElementById('questionInput');
-            
-            // Ctrl+Enter для отправки
-            if (e.ctrlKey && e.key === 'Enter') {
-                e.preventDefault();
-                getAnswer();
-            }
-            
-            // Esc для очистки
-            if (e.key === 'Escape') {
-                clearAll();
-            }
-        });
-        
-        // Автофокус при загрузке
-        window.onload = function() {
-            document.getElementById('questionInput').focus();
-            
-            // Автоматически увеличиваем textarea
-            const textarea = document.getElementById('questionInput');
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
-            
-            // Показываем подсказку
-            setTimeout(() => {
-                if (!localStorage.getItem('helperShown')) {
-                    alert('💡 Подсказка: Введите любой вопрос и нажмите "Получить ответ". Система найдет информацию в интернете и сформирует краткий ответ.');
-                    localStorage.setItem('helperShown', 'true');
-                }
-            }, 1000);
-        }
-    </script>
+
+        }, 1800);
+    }
+</script>
+
 </body>
 </html>
