@@ -6,13 +6,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Limupy VPN</title>
 
-<meta name="description" content="Личная VPN-подписка Limupy VPN для клиента HAPP. Эта ссылка предназначена только для владельца подписки и не должна передаваться другим лицам.">
-<meta property="og:title" content="Limupy VPN — личная VPN-подписка">
-<meta property="og:description" content="Личная VPN-подписка Limupy VPN для клиента HAPP. Не передавайте эту ссылку другим лицам.">
+<meta name="description" content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на сайт третьим лицам.">
+<meta property="og:title" content="Limupy VPN — VPN-подписка">
+<meta property="og:description" content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на сайт третьим лицам.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Limupy VPN — личная VPN-подписка">
-<meta name="twitter:description" content="Личная VPN-подписка Limupy VPN для клиента HAPP. Не передавайте эту ссылку другим лицам.">
+<meta name="twitter:title" content="Limupy VPN — VPN-подписка">
+<meta name="twitter:description" content="VPN-подписка Limupy VPN для клиента HAPP. Не передавайте ссылку на сайт третьим лицам.">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f1115'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial,sans-serif' font-size='38' font-weight='700' fill='white'%3EL%3C/text%3E%3C/svg%3E">
 
@@ -130,16 +130,6 @@ h1{
     word-break:break-word;
 }
 
-.warning{
-    margin-top:14px;
-    padding:14px;
-    border-radius:12px;
-    background:#2a2420;
-    color:#d8c8bb;
-    font-size:13px;
-    line-height:1.5;
-}
-
 .devices{
     display:flex;
     flex-direction:column;
@@ -152,6 +142,20 @@ h1{
     background:#11141a;
     color:#aeb4c0;
     font-size:13px;
+}
+
+.device.current{
+    color:#fff;
+}
+
+.warning{
+    margin-top:14px;
+    padding:14px;
+    border-radius:12px;
+    background:#2a2420;
+    color:#d8c8bb;
+    font-size:13px;
+    line-height:1.5;
 }
 
 .actions{
@@ -216,11 +220,11 @@ h1{
 <div class="container">
     <div class="card">
 
-
+```
     <div class="header">
         <div class="logo">L</div>
         <h1>Limupy VPN</h1>
-        <div class="subtitle">Личная VPN-подписка</div>
+        <div class="subtitle">VPN-подписка</div>
     </div>
 
     <div class="status" id="status">
@@ -248,17 +252,11 @@ h1{
 
     <div class="section">
         <div class="section-title">Устройства</div>
-
-        <div class="devices">
-            <div class="device">
-                История подключений недоступна
-            </div>
-        </div>
+        <div class="devices" id="devices"></div>
     </div>
 
     <div class="warning">
-        Это личная ссылка на VPN-подписку Limupy VPN.
-        Не передавайте её другим лицам и не публикуйте в открытом доступе.
+        Не передавайте ссылку на этот сайт третьим лицам.
     </div>
 
     <div class="actions" id="actions">
@@ -272,7 +270,7 @@ h1{
     </div>
 
 </div>
-
+```
 
 </div>
 
@@ -282,6 +280,74 @@ const key=params.get("key");
 const status=document.getElementById("status");
 const actions=document.getElementById("actions");
 const open=document.getElementById("open");
+const devices=document.getElementById("devices");
+
+function getDeviceName(){
+    const ua=navigator.userAgent;
+    let browser="Браузер";
+
+    if(/Edg\//i.test(ua)){
+        browser="Microsoft Edge";
+    }else if(/OPR\//i.test(ua)){
+        browser="Opera";
+    }else if(/Chrome\//i.test(ua)){
+        browser="Google Chrome";
+    }else if(/Firefox\//i.test(ua)){
+        browser="Firefox";
+    }else if(/Safari\//i.test(ua) && !/Chrome\//i.test(ua)){
+        browser="Safari";
+    }
+
+    let os="Неизвестное устройство";
+
+    if(/Android/i.test(ua)){
+        os="Android";
+    }else if(/iPhone|iPad|iPod/i.test(ua)){
+        os="iOS";
+    }else if(/Windows/i.test(ua)){
+        os="Windows";
+    }else if(/Mac OS X/i.test(ua)){
+        os="macOS";
+    }else if(/Linux/i.test(ua)){
+        os="Linux";
+    }
+
+    return os+" · "+browser;
+}
+
+function loadDevices(){
+    const storageKey="limupy_devices";
+    const currentDevice=getDeviceName();
+    let saved=[];
+
+    try{
+        saved=JSON.parse(localStorage.getItem(storageKey)||"[]");
+    }catch(e){
+        saved=[];
+    }
+
+    if(!saved.includes(currentDevice)){
+        saved.push(currentDevice);
+        if(saved.length>10){
+            saved=saved.slice(-10);
+        }
+
+        try{
+            localStorage.setItem(storageKey,JSON.stringify(saved));
+        }catch(e){}
+    }
+
+    devices.innerHTML="";
+
+    saved.slice().reverse().forEach((device,index)=>{
+        const item=document.createElement("div");
+        item.className="device"+(index===0 && device===currentDevice ? " current":"");
+        item.textContent=device+(index===0 && device===currentDevice ? " · текущее":"");
+        devices.appendChild(item);
+    });
+}
+
+loadDevices();
 
 if(key){
     const url="http://78.17.112.158/open.php?key="+encodeURIComponent(key);
