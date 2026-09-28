@@ -1,3 +1,4 @@
+
 <!doctype html>
 
 <html lang="ru">
@@ -10,11 +11,10 @@
   <meta name="referrer" content="no-referrer">
   <meta name="color-scheme" content="dark light">
 
-<meta
-name="theme-color"
-content="#0b1020"
-
->
+  <meta
+    name="theme-color"
+    content="#0b1020"
+  >
 
   <link
     rel="icon"
@@ -228,23 +228,6 @@ content="#0b1020"
       letter-spacing: .01em;
     }
 
-    .device-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-    }
-
-    .device-count {
-      font-weight: 700;
-    }
-
-    .device-name {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 500;
-    }
-
     .actions {
       display: flex;
       gap: 10px;
@@ -341,10 +324,6 @@ content="#0b1020"
         justify-content: flex-start;
       }
 
-      .device-info {
-        align-items: flex-start;
-      }
-
       .header {
         align-items: flex-start;
       }
@@ -354,170 +333,164 @@ content="#0b1020"
       }
     }
   </style>
-
 </head>
 
 <body>
   <main class="wrap">
 
-```
-<div class="header">
-  <div class="brand">
-    <div class="logo">L</div>
+    <div class="header">
+      <div class="brand">
+        <div class="logo">L</div>
 
-    <div>
-      <h1>Limupy VPN</h1>
-
-      <div class="subtitle">
-        VPN-подписка
-      </div>
-    </div>
-  </div>
-</div>
-
-<section
-  class="card"
-  aria-live="polite"
->
-
-  <div class="hero">
-
-    <div class="status-row">
-      <span class="label">
-        Статус
-      </span>
-
-      <span
-        id="status"
-        class="status wait"
-      >
-        Проверка…
-      </span>
-    </div>
-
-  </div>
-
-  <div class="rows">
-
-    <!-- Название подписки теперь здесь -->
-    <div class="row">
-      <div class="label">
-        Подписка
-      </div>
-
-      <div
-        id="subscription"
-        class="value"
-      >
-        —
+        <div>
+          <h1>Limupy VPN</h1>
+          <div class="subtitle">
+            VPN-подписка
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Подключённые устройства -->
-    <div class="row">
-      <div class="label">
-        Подключённые устройства
-      </div>
-
-      <div
-        id="devicesCount"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Протоколы
-      </div>
-
-      <div
-        id="protocols"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Трафик
-      </div>
-
-      <div
-        id="traffic"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Срок действия
-      </div>
-
-      <div
-        id="expire"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Задержка
-      </div>
-
-      <div
-        id="latency"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-  </div>
-
-  <div class="actions">
-
-    <a
-      id="happDownload"
-      class="btn secondary"
-      href="https://happ.info/"
-      target="_blank"
-      rel="noopener noreferrer"
+    <section
+      class="card"
+      aria-live="polite"
     >
-      Скачать Happ
-    </a>
 
-    <a
-      id="happConnect"
-      class="btn primary"
-      href="#"
-      rel="noopener"
+      <div class="hero">
+
+        <div class="status-row">
+          <span class="label">
+            Статус
+          </span>
+
+          <span
+            id="status"
+            class="status wait"
+          >
+            Проверка…
+          </span>
+        </div>
+
+      </div>
+
+      <div class="rows">
+
+        <div class="row">
+          <div class="label">
+            Подписка
+          </div>
+
+          <div
+            id="subscription"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Подключено к VPN
+          </div>
+
+          <div
+            id="devicesCount"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Протоколы
+          </div>
+
+          <div
+            id="protocols"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Трафик
+          </div>
+
+          <div
+            id="traffic"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Срок действия
+          </div>
+
+          <div
+            id="expire"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Задержка
+          </div>
+
+          <div
+            id="latency"
+            class="value"
+          >
+            —
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <a
+          id="happDownload"
+          class="btn secondary"
+          href="https://happ.info/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Скачать Happ
+        </a>
+
+        <a
+          id="happConnect"
+          class="btn primary"
+          href="#"
+          rel="noopener"
+          hidden
+        >
+          Открыть в Happ
+        </a>
+
+      </div>
+
+    </section>
+
+    <div
+      id="error"
+      class="error"
       hidden
-    >
-      Открыть в Happ
-    </a>
+    ></div>
 
-  </div>
-
-</section>
-
-<div
-  id="error"
-  class="error"
-  hidden
-></div>
-
-<div class="footer-note">
-  Задержка измеряется непосредственно
-  с вашего устройства до API Limupy.
-</div>
-```
+    <div class="footer-note">
+      Задержка измеряется непосредственно
+      с вашего устройства до API Limupy.
+    </div>
 
   </main>
 
@@ -773,30 +746,30 @@ content="#0b1020"
 
 
     /* ==================================================
-       DEVICES COUNT
+       VPN DEVICES COUNT
+       Только реальные VPN-подключения.
+       НЕ используем data.devices,
+       т.к. это может быть список браузерных
+       / зарегистрированных устройств.
        ================================================== */
 
-    function getDevicesCount(data) {
-      const sub =
-        data?.subscription || {};
-
+    function getVpnDevicesCount(data) {
       const candidates = [
-        data.connected_devices_count,
-        data.connected_device_count,
-        data.devices_count,
-        data.device_count,
-        data.online_devices_count,
-        data.online_device_count,
+        data.vpn_connected_devices_count,
+        data.connected_vpn_devices_count,
+        data.vpn_devices_count,
+        data.active_vpn_devices_count,
+        data.vpn_connections_count,
 
-        sub.connected_devices_count,
-        sub.connected_device_count,
-        sub.devices_count,
-        sub.device_count,
-        sub.online_devices_count,
-        sub.online_device_count,
+        data.subscription?.vpn_connected_devices_count,
+        data.subscription?.connected_vpn_devices_count,
+        data.subscription?.vpn_devices_count,
+        data.subscription?.active_vpn_devices_count,
+        data.subscription?.vpn_connections_count,
 
-        data.devices?.count,
-        sub.devices?.count
+        data.connection?.vpn_connected_devices_count,
+        data.connection?.connected_devices_count,
+        data.connection?.active_devices_count
       ];
 
       for (const value of candidates) {
@@ -815,53 +788,38 @@ content="#0b1020"
         ) {
           return Math.max(
             0,
-            Math.floor(
-              Number(value)
-            )
+            Math.floor(Number(value))
           );
         }
-      }
-
-      if (
-        Array.isArray(data.devices)
-      ) {
-        return data.devices.length;
-      }
-
-      if (
-        Array.isArray(sub.devices)
-      ) {
-        return sub.devices.length;
-      }
-
-      /*
-       * Если API не передал отдельный счётчик,
-       * запрос уже пришёл с текущего устройства.
-       * Поэтому минимум считаем 1 активное устройство.
-       */
-      if (data.device) {
-        return 1;
       }
 
       return null;
     }
 
 
-    function deviceWord(count) {
+    function devicesText(data) {
+      const count =
+        getVpnDevicesCount(data);
+
+      if (count === null) {
+        return '—';
+      }
+
       const mod10 =
         count % 10;
 
       const mod100 =
         count % 100;
 
+      let word =
+        'устройств';
+
       if (
         mod10 === 1 &&
         mod100 !== 11
       ) {
-        return 'устройство';
-      }
-
-      if (
+        word = 'устройство';
+      } else if (
         mod10 >= 2 &&
         mod10 <= 4 &&
         (
@@ -869,46 +827,10 @@ content="#0b1020"
           mod100 >= 20
         )
       ) {
-        return 'устройства';
+        word = 'устройства';
       }
 
-      return 'устройств';
-    }
-
-
-    function devicesText(data) {
-      const count =
-        getDevicesCount(data);
-
-      if (count === null) {
-        return '—';
-      }
-
-      const device =
-        data.device || {};
-
-      const deviceName =
-        typeof device.name === 'string'
-          ? device.name.trim()
-          : '';
-
-      const countText =
-        `${count} ${deviceWord(count)}`;
-
-      if (!deviceName) {
-        return countText;
-      }
-
-      return `
-        <div class="device-info">
-          <div class="device-count">
-            ${escapeHtml(countText)}
-          </div>
-          <div class="device-name">
-            ${escapeHtml(deviceName)}
-          </div>
-        </div>
-      `;
+      return `${count} ${word}`;
     }
 
 
@@ -945,8 +867,7 @@ content="#0b1020"
             )
               .split(',')
               .map(
-                s =>
-                  s.trim()
+                s => s.trim()
               )
               .filter(Boolean);
 
@@ -979,8 +900,7 @@ content="#0b1020"
 
       const timeout =
         setTimeout(
-          () =>
-            controller.abort(),
+          () => controller.abort(),
           REQUEST_TIMEOUT_MS
         );
 
@@ -1013,9 +933,7 @@ content="#0b1020"
           }
         );
       } finally {
-        clearTimeout(
-          timeout
-        );
+        clearTimeout(timeout);
       }
     }
 
@@ -1028,19 +946,14 @@ content="#0b1020"
       token
     ) {
       const res =
-        await postApi(
-          token
-        );
+        await postApi(token);
 
-      let data =
-        null;
+      let data = null;
 
       try {
-        data =
-          await res.json();
+        data = await res.json();
       } catch (_) {
-        data =
-          null;
+        data = null;
       }
 
       return {
@@ -1057,8 +970,7 @@ content="#0b1020"
     async function measureBrowserLatency(
       token
     ) {
-      const samples =
-        [];
+      const samples = [];
 
       for (
         let i = 0;
@@ -1070,16 +982,13 @@ content="#0b1020"
 
         try {
           const res =
-            await postApi(
-              token
-            );
+            await postApi(token);
 
           await res.arrayBuffer();
 
           if (res.ok) {
             samples.push(
-              performance.now() -
-              start
+              performance.now() - start
             );
           }
         } catch (_) {
@@ -1092,8 +1001,7 @@ content="#0b1020"
       }
 
       samples.sort(
-        (a, b) =>
-          a - b
+        (a, b) => a - b
       );
 
       return samples[
@@ -1112,13 +1020,11 @@ content="#0b1020"
       status,
       data
     ) {
-      $('error').hidden =
-        false;
+      $('error').hidden = false;
 
       if (
         data &&
-        typeof data.error ===
-          'string'
+        typeof data.error === 'string'
       ) {
         $('error').textContent =
           data.error;
@@ -1163,12 +1069,9 @@ content="#0b1020"
        RENDER ACTIVE
        ================================================== */
 
-    function renderActive(
-      data
-    ) {
+    function renderActive(data) {
       const sub =
-        data.subscription ||
-        {};
+        data.subscription || {};
 
       const subscriptionName =
         data.subscription_name ||
@@ -1176,17 +1079,13 @@ content="#0b1020"
         data.name ||
         'VPN-подписка';
 
-      /*
-       * Здесь теперь именно название подписки,
-       * а не слово "Активна".
-       */
+      // Название теперь находится
+      // непосредственно в строке "Подписка".
       $('subscription').textContent =
         subscriptionName;
 
-      /*
-       * Счётчик устройств.
-       */
-      $('devicesCount').innerHTML =
+      // Только реальное VPN-подключение.
+      $('devicesCount').textContent =
         devicesText(data);
 
       renderProtocols(
@@ -1196,18 +1095,12 @@ content="#0b1020"
       );
 
       $('traffic').textContent =
-        trafficText(
-          sub
-        );
+        trafficText(sub);
 
       $('expire').textContent =
-        expireText(
-          sub.expire
-        );
+        expireText(sub.expire);
 
-      if (
-        data.launch_url
-      ) {
+      if (data.launch_url) {
         $('happConnect').href =
           data.launch_url;
 
@@ -1222,11 +1115,8 @@ content="#0b1020"
        ================================================== */
 
     async function load() {
-      $('error').hidden =
-        true;
-
-      $('error').textContent =
-        '';
+      $('error').hidden = true;
+      $('error').textContent = '';
 
       resetFields();
 
@@ -1245,8 +1135,7 @@ content="#0b1020"
           'Не активно'
         );
 
-        $('error').hidden =
-          false;
+        $('error').hidden = false;
 
         $('error').textContent =
           'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.';
@@ -1259,9 +1148,7 @@ content="#0b1020"
           res,
           data
         } =
-          await fetchSubscription(
-            token
-          );
+          await fetchSubscription(token);
 
         if (
           !res.ok ||
@@ -1284,11 +1171,8 @@ content="#0b1020"
         if (
           data.subscription &&
           (
-            data.subscription.enabled ===
-              false ||
-
-            data.subscription.active ===
-              false
+            data.subscription.enabled === false ||
+            data.subscription.active === false
           )
         ) {
           setStatus(
@@ -1296,8 +1180,7 @@ content="#0b1020"
             'Не активно'
           );
 
-          $('error').hidden =
-            false;
+          $('error').hidden = false;
 
           $('error').textContent =
             'Эта VPN-подписка отключена.';
@@ -1310,23 +1193,17 @@ content="#0b1020"
           'Активно'
         );
 
-        renderActive(
-          data
-        );
+        renderActive(data);
 
         const latency =
-          await measureBrowserLatency(
-            token
-          );
+          await measureBrowserLatency(token);
 
         $('latency').textContent =
           latency == null
             ? '—'
             : `${Math.max(
                 1,
-                Math.round(
-                  latency
-                )
+                Math.round(latency)
               )} мс`;
 
       } catch (error) {
@@ -1335,13 +1212,11 @@ content="#0b1020"
           'Не активно'
         );
 
-        $('error').hidden =
-          false;
+        $('error').hidden = false;
 
         if (
           error &&
-          error.name ===
-            'AbortError'
+          error.name === 'AbortError'
         ) {
           $('error').textContent =
             'Сервер не ответил вовремя. Попробуйте обновить страницу.';
