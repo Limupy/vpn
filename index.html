@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -8,11 +7,10 @@
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0b1020">
 
-<meta
-http-equiv="Content-Security-Policy"
-content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'"
-
->
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'"
+  >
 
   <link
     rel="icon"
@@ -363,182 +361,111 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     }
   </style>
-
 </head>
 
 <body>
   <main class="wrap">
 
-<div class="header">
-  <div class="brand">
-    <div class="logo">L</div>
+    <div class="header">
+      <div class="brand">
+        <div class="logo">L</div>
 
-    <div>
-      <h1>Limupy VPN</h1>
-      <div class="subtitle">VPN-подписка</div>
-    </div>
-  </div>
-</div>
-
-<section
-  class="card"
-  aria-live="polite"
->
-
-  <div class="hero">
-    <div class="status-row">
-      <span class="label">
-        Статус
-      </span>
-
-      <span
-        id="status"
-        class="status wait"
-      >
-        Проверка…
-      </span>
-    </div>
-  </div>
-
-  <div class="rows">
-
-    <div class="row">
-      <div class="label">
-        Подписка
-      </div>
-
-      <div
-        id="subscription"
-        class="value"
-      >
-        —
+        <div>
+          <h1>Limupy VPN</h1>
+          <div class="subtitle">VPN-подписка</div>
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="label">
-        Сервер
+    <section class="card" aria-live="polite">
+
+      <div class="hero">
+        <div class="status-row">
+          <span class="label">Статус</span>
+
+          <span id="status" class="status wait">
+            Проверка…
+          </span>
+        </div>
       </div>
 
-      <div
-        id="server"
-        class="value"
-      >
-        —
+      <div class="rows">
+
+        <div class="row">
+          <div class="label">Подписка</div>
+          <div id="subscription" class="value">—</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Сервер</div>
+          <div id="server" class="value">—</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Подключено к VPN</div>
+          <div id="devicesCount" class="value">—</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Протоколы</div>
+          <div id="protocols" class="value">—</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Трафик</div>
+          <div id="traffic" class="value">—</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Срок действия</div>
+          <div id="expire" class="value">—</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Задержка</div>
+          <div id="latency" class="value">—</div>
+        </div>
+
       </div>
+
+      <div class="actions">
+
+        <a
+          id="happDownload"
+          class="btn secondary"
+          href="https://happ.info/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Скачать Happ
+        </a>
+
+        <a
+          id="happConnect"
+          class="btn primary"
+          href="#"
+          rel="noopener noreferrer"
+          hidden
+        >
+          Добавить подписку в Happ
+        </a>
+
+      </div>
+
+    </section>
+
+    <div id="error" class="error" hidden></div>
+
+    <div class="footer-note">
+      Задержка измеряется непосредственно с вашего устройства до API Limupy.
     </div>
-
-    <div class="row">
-      <div class="label">
-        Подключено к VPN
-      </div>
-
-      <div
-        id="devicesCount"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Протоколы
-      </div>
-
-      <div
-        id="protocols"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Трафик
-      </div>
-
-      <div
-        id="traffic"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Срок действия
-      </div>
-
-      <div
-        id="expire"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Задержка
-      </div>
-
-      <div
-        id="latency"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-  </div>
-
-  <div class="actions">
-
-    <a
-      id="happDownload"
-      class="btn secondary"
-      href="https://happ.info/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Скачать Happ
-    </a>
-
-    <a
-      id="happConnect"
-      class="btn primary"
-      href="#"
-      rel="noopener noreferrer"
-      hidden
-    >
-      Открыть в Happ
-    </a>
-
-  </div>
-
-</section>
-
-<div
-  id="error"
-  class="error"
-  hidden
-></div>
-
-<div class="footer-note">
-  Задержка измеряется непосредственно с вашего устройства до API Limupy.
-</div>
 
   </main>
 
   <script>
     'use strict';
 
-    const API_URL =
-      'https://78.17.112.158/api.php';
-
+    const API_URL = 'https://78.17.112.158/api.php';
     const REQUEST_TIMEOUT_MS = 10000;
     const HASH_CHANGE_DELAY_MS = 150;
 
@@ -547,38 +474,40 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     let activeLoadPromise = null;
     let hashTimer = null;
 
-    const $ = id =>
-      document.getElementById(id);
+    const $ = id => document.getElementById(id);
 
     function getTokenFromUrl() {
-      const hashParams =
-        new URLSearchParams(
-          window.location.hash.replace(/^#/, '')
-        );
+      const hashParams = new URLSearchParams(
+        window.location.hash.replace(/^#/, '')
+      );
 
-      const searchParams =
-        new URLSearchParams(
-          window.location.search
-        );
+      const searchParams = new URLSearchParams(
+        window.location.search
+      );
 
-      return (
-        hashParams.get('key') ||
-        searchParams.get('key') ||
+      const hashToken = hashParams.get('key');
+      const queryToken = searchParams.get('key');
+
+      return String(
+        hashToken ||
+        queryToken ||
         ''
       ).trim();
     }
 
     function cleanUrl() {
       if (
-        window.history &&
-        typeof window.history.replaceState === 'function'
+        !window.history ||
+        typeof window.history.replaceState !== 'function'
       ) {
-        window.history.replaceState(
-          null,
-          '',
-          window.location.pathname
-        );
+        return;
       }
+
+      window.history.replaceState(
+        null,
+        '',
+        window.location.pathname
+      );
     }
 
     function base64Url(bytes) {
@@ -599,8 +528,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         return deviceId;
       }
 
-      const bytes =
-        new Uint8Array(32);
+      const bytes = new Uint8Array(32);
 
       crypto.getRandomValues(bytes);
 
@@ -612,9 +540,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     function setStatus(type, text) {
       const el = $('status');
 
-      el.className =
-        'status ' + type;
-
+      el.className = 'status ' + type;
       el.textContent = text;
     }
 
@@ -628,17 +554,16 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       $('latency').textContent = '—';
 
       $('happConnect').hidden = true;
-      $('happConnect').removeAttribute('href');
+      $('happConnect').href = '#';
     }
 
     function showError(message, warning = false) {
       const el = $('error');
 
       el.hidden = false;
-      el.className =
-        warning
-          ? 'error warning'
-          : 'error';
+      el.className = warning
+        ? 'error warning'
+        : 'error';
 
       el.textContent = message;
     }
@@ -652,13 +577,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     }
 
     function bytes(value) {
-      const n =
-        Number(value || 0);
+      const n = Number(value || 0);
 
-      if (
-        !Number.isFinite(n) ||
-        n <= 0
-      ) {
+      if (!Number.isFinite(n) || n <= 0) {
         return '0 Б';
       }
 
@@ -692,21 +613,22 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     }
 
     function trafficText(sub) {
-      const total =
-        Number(sub.total_bytes || 0);
+      const total = Number(
+        sub.total_bytes || 0
+      );
 
-      const used =
-        Number(sub.used_bytes || 0);
+      const used = Number(
+        sub.used_bytes || 0
+      );
 
       if (!total) {
         return `Использовано ${bytes(used)} · без лимита`;
       }
 
-      const remaining =
-        Number(
-          sub.remaining_bytes ??
-          Math.max(0, total - used)
-        );
+      const remaining = Number(
+        sub.remaining_bytes ??
+        Math.max(0, total - used)
+      );
 
       return (
         `${bytes(used)} из ${bytes(total)} · осталось ${bytes(remaining)}`
@@ -714,19 +636,17 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     }
 
     function expireText(timestamp) {
-      const ts =
-        Number(timestamp || 0);
+      const ts = Number(timestamp || 0);
 
       if (!ts) {
         return 'Бессрочно';
       }
 
-      const d =
-        new Date(
-          ts > 1e12
-            ? ts
-            : ts * 1000
-        );
+      const d = new Date(
+        ts > 1e12
+          ? ts
+          : ts * 1000
+      );
 
       if (Number.isNaN(d.getTime())) {
         return '—';
@@ -744,8 +664,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
     function isAllowedHappUrl(value) {
       try {
-        const url =
-          new URL(value);
+        const url = new URL(value);
 
         return (
           url.protocol === 'https:' ||
@@ -756,7 +675,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     }
 
-    async function postApi() {
+    async function postApi(token) {
       const controller =
         new AbortController();
 
@@ -778,7 +697,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             signal: controller.signal,
             headers: {
               'Authorization':
-                `Bearer ${activeToken}`,
+                `Bearer ${token}`,
               'Accept':
                 'application/json',
               'Content-Type':
@@ -794,12 +713,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     }
 
-    async function fetchSubscription() {
-      const started =
-        performance.now();
+    async function fetchSubscription(token) {
+      const started = performance.now();
 
-      const res =
-        await postApi();
+      const res = await postApi(token);
 
       let data = null;
 
@@ -818,11 +735,8 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     }
 
     function pluralizeDevices(count) {
-      const mod10 =
-        count % 10;
-
-      const mod100 =
-        count % 100;
+      const mod10 = count % 10;
+      const mod100 = count % 100;
 
       if (
         mod10 === 1 &&
@@ -924,7 +838,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             continue;
           }
 
-          if (item && typeof item === 'object') {
+          if (
+            item &&
+            typeof item === 'object'
+          ) {
             const ip = String(
               item.ip ??
               item.address ??
@@ -979,7 +896,8 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       el.textContent = '';
 
       if (count === null) {
-        el.textContent = 'Данные недоступны';
+        el.textContent =
+          'Данные недоступны';
         return;
       }
 
@@ -998,7 +916,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       countEl.textContent =
         `${count} ${pluralizeDevices(count)}`;
 
-      wrapper.appendChild(countEl);
+      wrapper.appendChild(
+        countEl
+      );
 
       if (count === 0) {
         const stateEl =
@@ -1010,10 +930,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         stateEl.textContent =
           'сейчас нет активных подключений';
 
-        wrapper.appendChild(stateEl);
+        wrapper.appendChild(
+          stateEl
+        );
       }
 
-      el.appendChild(wrapper);
+      el.appendChild(
+        wrapper
+      );
     }
 
     function renderProtocols(protocols) {
@@ -1025,8 +949,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
               .map(s => s.trim())
               .filter(Boolean);
 
-      const el =
-        $('protocols');
+      const el = $('protocols');
 
       el.textContent = '';
 
@@ -1051,20 +974,31 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         item.textContent =
           String(protocol);
 
-        wrapper.appendChild(item);
+        wrapper.appendChild(
+          item
+        );
       }
 
-      el.appendChild(wrapper);
+      el.appendChild(
+        wrapper
+      );
     }
 
-    function showApiError(status, retryAfter) {
+    function showApiError(
+      status,
+      retryAfter
+    ) {
       if (status === 401) {
-        showError('Подписка недействительна.');
+        showError(
+          'Подписка недействительна.'
+        );
         return;
       }
 
       if (status === 403) {
-        showError('Доступ запрещён.');
+        showError(
+          'Доступ запрещён.'
+        );
         return;
       }
 
@@ -1073,7 +1007,8 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           Number(retryAfter);
 
         showError(
-          Number.isFinite(seconds) && seconds > 0
+          Number.isFinite(seconds) &&
+          seconds > 0
             ? `Слишком много запросов. Повторите через ${Math.ceil(seconds)} сек.`
             : 'Слишком много запросов. Попробуйте позже.',
           true
@@ -1087,11 +1022,15 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         status === 503 ||
         status === 504
       ) {
-        showError('Сервер временно недоступен.');
+        showError(
+          'Сервер временно недоступен.'
+        );
         return;
       }
 
-      showError('Не удалось получить данные подписки.');
+      showError(
+        'Не удалось получить данные подписки.'
+      );
     }
 
     function isSubscriptionActive(data) {
@@ -1106,7 +1045,44 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-    function renderActive(data, elapsed) {
+    function setHappLink(value) {
+      const button =
+        $('happConnect');
+
+      if (
+        typeof value !== 'string' ||
+        !isAllowedHappUrl(value)
+      ) {
+        button.hidden = true;
+        button.href = '#';
+        return;
+      }
+
+      button.href = value;
+      button.hidden = false;
+
+      button.onclick = event => {
+        event.preventDefault();
+
+        const url =
+          button.getAttribute('href');
+
+        if (!url || url === '#') {
+          return;
+        }
+
+        try {
+          window.location.assign(url);
+        } catch (_) {
+          window.location.href = url;
+        }
+      };
+    }
+
+    function renderActive(
+      data,
+      elapsed
+    ) {
       const sub =
         data?.subscription || {};
 
@@ -1121,7 +1097,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       $('server').textContent =
         'Финляндия';
 
-      renderConnections(data);
+      renderConnections(
+        data
+      );
 
       renderProtocols(
         sub.protocols ||
@@ -1136,20 +1114,19 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         expireText(sub.expire);
 
       $('latency').textContent =
-        `${Math.max(1, Math.round(elapsed))} мс`;
+        `${Math.max(
+          1,
+          Math.round(elapsed)
+        )} мс`;
 
-      if (
-        typeof data.launch_url === 'string' &&
-        isAllowedHappUrl(data.launch_url)
-      ) {
-        $('happConnect').href =
-          data.launch_url;
-
-        $('happConnect').hidden = false;
-      }
+      setHappLink(
+        data.launch_url
+      );
     }
 
-    async function loadInternal() {
+    async function loadInternal(
+      token
+    ) {
       hideError();
       resetFields();
 
@@ -1158,7 +1135,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         'Проверка…'
       );
 
-      if (!activeToken) {
+      if (!token) {
         setStatus(
           'bad',
           'Не активно'
@@ -1176,11 +1153,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           res,
           data,
           elapsed
-        } = await fetchSubscription();
+        } = await fetchSubscription(
+          token
+        );
 
-        if (
-          res.status === 429
-        ) {
+        if (res.status === 429) {
           setStatus(
             'warn',
             'Ограничение'
@@ -1188,7 +1165,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
           showApiError(
             429,
-            res.headers.get('Retry-After')
+            res.headers.get(
+              'Retry-After'
+            )
           );
 
           return;
@@ -1206,13 +1185,19 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
           showApiError(
             res.status,
-            res.headers.get('Retry-After')
+            res.headers.get(
+              'Retry-After'
+            )
           );
 
           return;
         }
 
-        if (!isSubscriptionActive(data)) {
+        if (
+          !isSubscriptionActive(
+            data
+          )
+        ) {
           setStatus(
             'bad',
             'Не активно'
@@ -1247,6 +1232,8 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
             ? 'Сервер не ответил вовремя.'
             : 'Нет связи с сервером подписки.'
         );
+      } finally {
+        activeToken = '';
       }
     }
 
@@ -1255,23 +1242,39 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         return activeLoadPromise;
       }
 
+      const token =
+        activeToken;
+
       activeLoadPromise =
-        loadInternal().finally(() => {
+        loadInternal(
+          token
+        ).finally(() => {
           activeLoadPromise = null;
         });
 
       return activeLoadPromise;
     }
 
+    function acceptTokenFromCurrentUrl() {
+      activeToken =
+        getTokenFromUrl();
+
+      cleanUrl();
+
+      load();
+    }
+
     window.addEventListener(
       'hashchange',
       () => {
+        clearTimeout(
+          hashTimer
+        );
+
         activeToken =
           getTokenFromUrl();
 
         cleanUrl();
-
-        clearTimeout(hashTimer);
 
         hashTimer =
           setTimeout(
@@ -1284,18 +1287,12 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     window.addEventListener(
       'load',
       () => {
-        activeToken =
-          getTokenFromUrl();
-
-        cleanUrl();
-
         $('happDownload').href =
           'https://happ.info/';
 
-        load();
+        acceptTokenFromCurrentUrl();
       }
     );
   </script>
-
 </body>
 </html>
