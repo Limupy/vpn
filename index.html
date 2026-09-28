@@ -201,10 +201,10 @@
 
         .row {
             min-height: 38px;
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
             align-items: center;
-            justify-content: space-between;
-            gap: 15px;
+            gap: 12px;
             padding: 9px 0;
             border-bottom: 1px solid #2d323b;
         }
@@ -215,41 +215,50 @@
         }
 
         .label {
-            flex: 0 0 auto;
+            min-width: 0;
             color: #8f97a5;
             font-size: 13px;
             line-height: 1.4;
         }
 
         .value {
-            max-width: 72%;
+            min-width: 0;
+            max-width: 100%;
             color: #fff;
             font-size: 13px;
             font-weight: 500;
             line-height: 1.4;
             text-align: right;
             overflow-wrap: anywhere;
+            word-break: break-word;
         }
 
         .server-value {
             display: flex;
+            min-width: 0;
             flex-direction: column;
             align-items: flex-end;
+            justify-content: center;
             gap: 3px;
         }
 
         .server-main {
+            max-width: 100%;
             color: #fff;
             font-size: 13px;
             line-height: 1.35;
-            white-space: nowrap;
+            text-align: right;
+            overflow-wrap: anywhere;
         }
 
         .server-details {
+            max-width: 100%;
             color: #707886;
             font-size: 10px;
             font-weight: 400;
             line-height: 1.3;
+            text-align: right;
+            overflow-wrap: anywhere;
         }
 
         .devices {
@@ -376,31 +385,97 @@
                 padding: 13px;
             }
 
-            .section-header,
-            .row {
-                align-items: flex-start;
-                flex-direction: column;
+            .section-header {
+                flex-direction: row;
+                align-items: center;
             }
 
             .subscription-key {
-                width: 100%;
-                max-width: 100%;
+                max-width: 58%;
+                width: auto;
             }
 
-            .value,
+            .row {
+                grid-template-columns: minmax(80px, .9fr) minmax(0, 1.6fr);
+                align-items: center;
+                gap: 10px;
+            }
+
+            .label {
+                font-size: 12px;
+            }
+
+            .value {
+                width: 100%;
+                max-width: 100%;
+                font-size: 12px;
+                text-align: right;
+            }
+
             .server-value {
                 width: 100%;
                 max-width: 100%;
-                align-items: flex-start;
-                text-align: left;
+                align-items: flex-end;
+                text-align: right;
+            }
+
+            .server-main,
+            .server-details {
+                max-width: 100%;
+                text-align: right;
             }
 
             .server-main {
                 white-space: normal;
             }
 
+            .device {
+                padding: 11px;
+            }
+
+            .device-name {
+                font-size: 12px;
+            }
+
+            .device-time {
+                font-size: 10px;
+            }
+
             .button {
                 min-height: 52px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            body {
+                padding:
+                    max(10px, env(safe-area-inset-top))
+                    max(10px, env(safe-area-inset-right))
+                    max(10px, env(safe-area-inset-bottom))
+                    max(10px, env(safe-area-inset-left));
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .section {
+                padding: 12px;
+            }
+
+            .row {
+                grid-template-columns: minmax(72px, .8fr) minmax(0, 1.5fr);
+                gap: 8px;
+            }
+
+            .label,
+            .value {
+                font-size: 11px;
+            }
+
+            .subscription-key {
+                max-width: 55%;
+                font-size: 9px;
             }
         }
 
@@ -812,8 +887,7 @@
         }
 
         function renderDevices(list) {
-            elements.devices.innerHTML =
-                "";
+            elements.devices.innerHTML = "";
 
             if (
                 !list ||
