@@ -1,5 +1,5 @@
-
 <!doctype html>
+
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -10,10 +10,11 @@
   <meta name="referrer" content="no-referrer">
   <meta name="color-scheme" content="dark light">
 
-  <meta
-    name="theme-color"
-    content="#0b1020"
-  >
+<meta
+name="theme-color"
+content="#0b1020"
+
+>
 
   <link
     rel="icon"
@@ -344,165 +345,155 @@
       }
     }
   </style>
+
 </head>
 
 <body>
   <main class="wrap">
 
-    <div class="header">
-      <div class="brand">
-        <div class="logo">L</div>
+```
+<div class="header">
+  <div class="brand">
+    <div class="logo">L</div>
 
-        <div>
-          <h1>Limupy VPN</h1>
-          <div class="subtitle">
-            VPN-подписка
-          </div>
-        </div>
+    <div>
+      <h1>Limupy VPN</h1>
+      <div class="subtitle">
+        VPN-подписка
       </div>
     </div>
+  </div>
+</div>
 
-    <section
-      class="card"
-      aria-live="polite"
-    >
+<section
+  class="card"
+  aria-live="polite"
+>
 
-      <div class="hero">
+  <div class="hero">
 
-        <div class="status-row">
-          <span class="label">
-            Статус
-          </span>
+    <div class="status-row">
+      <span class="label">
+        Статус
+      </span>
 
-          <span
-            id="status"
-            class="status wait"
-          >
-            Проверка…
-          </span>
-        </div>
-
-        <div
-          id="name"
-          class="name"
-        >
-          —
-        </div>
-
-        <div
-          id="device"
-          class="device"
-        >
-          —
-        </div>
-
-      </div>
-
-      <div class="rows">
-
-        <div class="row">
-          <div class="label">
-            VPN-подписка
-          </div>
-
-          <div
-            id="subscription"
-            class="value"
-          >
-            —
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="label">
-            Протоколы
-          </div>
-
-          <div
-            id="protocols"
-            class="value"
-          >
-            —
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="label">
-            Трафик
-          </div>
-
-          <div
-            id="traffic"
-            class="value"
-          >
-            —
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="label">
-            Срок действия
-          </div>
-
-          <div
-            id="expire"
-            class="value"
-          >
-            —
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="label">
-            Задержка
-          </div>
-
-          <div
-            id="latency"
-            class="value"
-          >
-            —
-          </div>
-        </div>
-
-      </div>
-
-      <div class="actions">
-
-        <a
-          id="happDownload"
-          class="btn secondary"
-          href="https://happ.info/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Скачать Happ
-        </a>
-
-        <a
-          id="happConnect"
-          class="btn primary"
-          href="#"
-          rel="noopener"
-          hidden
-        >
-          Открыть в Happ
-        </a>
-
-      </div>
-
-    </section>
+      <span
+        id="status"
+        class="status wait"
+      >
+        Проверка…
+      </span>
+    </div>
 
     <div
-      id="error"
-      class="error"
-      hidden
-    ></div>
-
-    <div class="footer-note">
-      Задержка измеряется непосредственно
-      с вашего устройства до API Limupy.
+      id="name"
+      class="name"
+    >
+      —
     </div>
+
+    <div
+      id="device"
+      class="device"
+    >
+      Подписка
+    </div>
+
+  </div>
+
+  <div class="rows">
+
+    <div class="row">
+      <div class="label">
+        Протоколы
+      </div>
+
+      <div
+        id="protocols"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        Трафик
+      </div>
+
+      <div
+        id="traffic"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        Срок действия
+      </div>
+
+      <div
+        id="expire"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        Задержка
+      </div>
+
+      <div
+        id="latency"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+  </div>
+
+  <div class="actions">
+
+    <a
+      id="happDownload"
+      class="btn secondary"
+      href="https://happ.info/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Скачать Happ
+    </a>
+
+    <a
+      id="happConnect"
+      class="btn primary"
+      href="#"
+      rel="noopener"
+      hidden
+    >
+      Открыть в Happ
+    </a>
+
+  </div>
+
+</section>
+
+<div
+  id="error"
+  class="error"
+  hidden
+></div>
+
+<div class="footer-note">
+  Задержка измеряется непосредственно
+  с вашего устройства до API Limupy.
+</div>
+```
 
   </main>
 
@@ -632,7 +623,6 @@
     function resetFields() {
       [
         'name',
-        'device',
         'subscription',
         'protocols',
         'traffic',
@@ -642,6 +632,9 @@
         $(id).textContent =
           '—';
       });
+
+      $('device').textContent =
+        'Подписка';
 
       $('happConnect').hidden =
         true;
@@ -879,13 +872,6 @@
                 'application/json'
             },
 
-            /*
-             * Раньше здесь было:
-             *
-             * body: JSON.stringify({})
-             *
-             * API требует device_id.
-             */
             body: JSON.stringify({
               device_id:
                 getDeviceId()
@@ -1052,10 +1038,6 @@
         data.subscription ||
         {};
 
-      const dev =
-        data.device ||
-        {};
-
       $('name').textContent =
         data.subscription_name ||
         sub.name ||
@@ -1063,12 +1045,7 @@
         'VPN-подписка';
 
       $('device').textContent =
-        dev.name ||
-        dev.label ||
-        'Устройство';
-
-      $('subscription').textContent =
-        'Активна';
+        'Подписка';
 
       renderProtocols(
         sub.protocols ||
@@ -1261,4 +1238,3 @@
 
 </body>
 </html>
-
