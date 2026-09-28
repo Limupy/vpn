@@ -375,7 +375,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 <body>
   <main class="wrap">
 
-
+```
 <div class="header">
   <div class="brand">
     <div class="logo">L</div>
@@ -534,7 +534,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 <div class="footer-note">
   Задержка измеряется непосредственно с вашего устройства до API Limupy.
 </div>
-
+```
 
   </main>
 
@@ -553,6 +553,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     const DEVICE_STORAGE_KEY =
       'limupy_device_id_v2';
 
+    const TOKEN_STORAGE_KEY =
+      'limupy_subscription_key_v1';
+
     const HASH_CHANGE_DELAY_MS =
       150;
 
@@ -561,6 +564,32 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
     let activeLoadPromise = null;
 
+    function hideTokenFromUrl() {
+      const cleanUrl =
+        window.location.pathname +
+        window.location.search.replace(
+          /([?&])key=[^&]*/i,
+          (match, separator) =>
+            separator === '?'
+              ? ''
+              : ''
+        ).replace(
+          /^&/,
+          ''
+        );
+
+      const finalUrl =
+        cleanUrl.endsWith('?')
+          ? cleanUrl.slice(0, -1)
+          : cleanUrl;
+
+      window.history.replaceState(
+        null,
+        '',
+        finalUrl
+      );
+    }
+
     function getToken() {
       const hash =
         window.location.hash.replace(
@@ -568,11 +597,36 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           ''
         );
 
-      const params =
+      const hashParams =
         new URLSearchParams(hash);
 
+      const searchParams =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      const urlToken =
+        (
+          hashParams.get('key') ||
+          searchParams.get('key') ||
+          ''
+        ).trim();
+
+      if (urlToken) {
+        localStorage.setItem(
+          TOKEN_STORAGE_KEY,
+          urlToken
+        );
+
+        hideTokenFromUrl();
+
+        return urlToken;
+      }
+
       return (
-        params.get('key') ||
+        localStorage.getItem(
+          TOKEN_STORAGE_KEY
+        ) ||
         ''
       ).trim();
     }
