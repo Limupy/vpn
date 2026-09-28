@@ -9,6 +9,11 @@
     >
 
     <meta
+        name="referrer"
+        content="no-referrer"
+    >
+
+    <meta
         name="format-detection"
         content="telephone=no"
     >
@@ -56,7 +61,6 @@
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
@@ -84,10 +88,6 @@
             color: #fff;
         }
 
-        a {
-            color: inherit;
-        }
-
         .container {
             width: 100%;
             max-width: 480px;
@@ -101,7 +101,7 @@
             background: #191c22;
             border: 1px solid #252a33;
             border-radius: 22px;
-            box-shadow: 0 16px 45px rgba(0, 0, 0, .28);
+            box-shadow: 0 16px 45px rgba(0,0,0,.28);
         }
 
         .header {
@@ -120,21 +120,18 @@
             color: #fff;
             font-size: 25px;
             font-weight: 700;
-            line-height: 1;
         }
 
         h1 {
             margin: 0;
             font-size: 28px;
             line-height: 1.15;
-            font-weight: 700;
         }
 
         .subtitle {
             margin-top: 7px;
             color: #8f97a5;
             font-size: 14px;
-            line-height: 1.4;
         }
 
         .status {
@@ -165,11 +162,9 @@
         }
 
         .section-title {
-            flex: 0 0 auto;
             color: #fff;
             font-size: 14px;
             font-weight: 700;
-            line-height: 1.3;
         }
 
         .subscription-key {
@@ -181,15 +176,8 @@
             border-radius: 8px;
             background: #11141a;
             color: #9ca4b2;
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                Monaco,
-                Consolas,
-                monospace;
+            font-family: monospace;
             font-size: 10px;
-            line-height: 1.2;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
@@ -203,8 +191,8 @@
             min-height: 38px;
             display: grid;
             grid-template-columns:
-                minmax(0, 1fr)
-                minmax(0, 1.7fr);
+                minmax(0,1fr)
+                minmax(0,1.7fr);
             align-items: center;
             gap: 12px;
             padding: 9px 0;
@@ -212,65 +200,47 @@
         }
 
         .row:last-child {
-            padding-bottom: 0;
             border-bottom: 0;
+            padding-bottom: 0;
         }
 
         .label {
             min-width: 0;
             color: #8f97a5;
             font-size: 13px;
-            line-height: 1.4;
         }
 
         .value {
             min-width: 0;
-            max-width: 100%;
             color: #fff;
             font-size: 13px;
             font-weight: 500;
             line-height: 1.4;
             text-align: right;
             overflow-wrap: anywhere;
-            word-break: break-word;
         }
 
         .server-value {
             display: flex;
-            min-width: 0;
             flex-direction: column;
             align-items: flex-end;
-            justify-content: center;
             gap: 3px;
         }
 
         .server-main {
-            max-width: 100%;
             color: #fff;
             font-size: 13px;
-            line-height: 1.35;
             text-align: right;
             overflow-wrap: anywhere;
         }
 
-        .protocols {
-            min-width: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            gap: 5px;
-        }
-
-        .protocol {
-            padding: 4px 7px;
-            border: 1px solid #343a45;
-            border-radius: 7px;
-            background: #11141a;
-            color: #dce1e8;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 1.2;
-            white-space: nowrap;
+        .config-text {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.4;
+            text-align: right;
+            overflow-wrap: anywhere;
         }
 
         .devices {
@@ -293,26 +263,23 @@
 
         .device-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 9px;
+            right: 9px;
             padding: 4px 7px;
-            border: 1px solid #363c47;
+            border: 1px solid #3a404b;
             border-radius: 7px;
-            background: #252a33;
-            color: #c5cbd4;
+            background: #262b34;
+            color: #c5cad3;
             font-size: 9px;
             font-weight: 700;
-            line-height: 1;
-            letter-spacing: .1px;
         }
 
         .device-name {
-            padding-right: 70px;
+            padding-right: 72px;
             color: #fff;
             font-size: 13px;
             font-weight: 600;
             line-height: 1.35;
-            overflow-wrap: anywhere;
         }
 
         .device-time {
@@ -329,7 +296,6 @@
             background: #11141a;
             color: #707886;
             font-size: 13px;
-            line-height: 1.4;
         }
 
         .warning {
@@ -360,7 +326,6 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 700;
-            line-height: 1.2;
         }
 
         .primary {
@@ -384,12 +349,10 @@
             }
 
             .container {
-                width: 100%;
                 max-width: 100%;
             }
 
             .card {
-                width: 100%;
                 padding: 18px;
                 border-radius: 19px;
             }
@@ -397,8 +360,6 @@
             .logo {
                 width: 54px;
                 height: 54px;
-                margin-bottom: 12px;
-                border-radius: 15px;
                 font-size: 23px;
             }
 
@@ -406,29 +367,14 @@
                 font-size: 25px;
             }
 
-            .subtitle {
-                font-size: 13px;
-            }
-
             .section {
                 padding: 13px;
             }
 
-            .section-header {
-                flex-direction: row;
-                align-items: center;
-            }
-
-            .subscription-key {
-                max-width: 58%;
-                width: auto;
-            }
-
             .row {
                 grid-template-columns:
-                    minmax(80px, .9fr)
-                    minmax(0, 1.6fr);
-                align-items: center;
+                    minmax(78px,.9fr)
+                    minmax(0,1.6fr);
                 gap: 10px;
             }
 
@@ -436,35 +382,18 @@
                 font-size: 12px;
             }
 
-            .value {
-                width: 100%;
-                max-width: 100%;
+            .value,
+            .config-text {
                 font-size: 12px;
                 text-align: right;
             }
 
-            .server-value {
-                width: 100%;
-                max-width: 100%;
-                align-items: flex-end;
-                text-align: right;
-            }
-
             .server-main {
-                max-width: 100%;
+                font-size: 12px;
                 text-align: right;
-            }
-
-            .protocols {
-                justify-content: flex-end;
-            }
-
-            .device {
-                padding: 11px;
             }
 
             .device-name {
-                padding-right: 68px;
                 font-size: 12px;
             }
 
@@ -478,14 +407,6 @@
         }
 
         @media (max-width: 360px) {
-            body {
-                padding:
-                    max(10px, env(safe-area-inset-top))
-                    max(10px, env(safe-area-inset-right))
-                    max(10px, env(safe-area-inset-bottom))
-                    max(10px, env(safe-area-inset-left));
-            }
-
             .card {
                 padding: 16px;
             }
@@ -496,13 +417,14 @@
 
             .row {
                 grid-template-columns:
-                    minmax(72px, .8fr)
-                    minmax(0, 1.5fr);
+                    minmax(70px,.8fr)
+                    minmax(0,1.5fr);
                 gap: 8px;
             }
 
             .label,
-            .value {
+            .value,
+            .config-text {
                 font-size: 11px;
             }
 
@@ -510,22 +432,9 @@
                 max-width: 55%;
                 font-size: 9px;
             }
-
-            .device-badge {
-                top: 8px;
-                right: 8px;
-            }
-
-            .device-name {
-                padding-right: 64px;
-            }
         }
 
         @media (min-width: 768px) {
-            .container {
-                max-width: 480px;
-            }
-
             .card {
                 padding: 28px 24px;
             }
@@ -585,11 +494,11 @@
                             Сервер
                         </div>
 
-                        <div
-                            class="value server-value"
-                            id="serverStatus"
-                        >
-                            <div class="server-main">
+                        <div class="value server-value">
+                            <div
+                                class="server-main"
+                                id="serverMain"
+                            >
                                 Проверка...
                             </div>
                         </div>
@@ -601,12 +510,10 @@
                         </div>
 
                         <div
-                            class="value protocols"
-                            id="protocols"
+                            class="config-text"
+                            id="configText"
                         >
-                            <span class="protocol">
-                                Проверка...
-                            </span>
+                            Проверка...
                         </div>
                     </div>
 
@@ -711,8 +618,8 @@
         const key =
             params.get("key");
 
-        const state =
-            params.get("state");
+        const hash =
+            location.hash;
 
         const elements = {
             status:
@@ -731,13 +638,13 @@
                 ),
 
             serverMain:
-                document.querySelector(
-                    ".server-main"
+                document.getElementById(
+                    "serverMain"
                 ),
 
-            protocols:
+            configText:
                 document.getElementById(
-                    "protocols"
+                    "configText"
                 ),
 
             remaining:
@@ -761,152 +668,19 @@
                 )
         };
 
-        let happUrl = "";
-
-        function makeId() {
-            if (
-                window.crypto &&
-                crypto.randomUUID
-            ) {
-                return crypto.randomUUID();
-            }
-
-            return (
-                Date.now().toString(36) +
-                "-" +
-                Math.random()
-                    .toString(36)
-                    .slice(2)
-            );
-        }
-
-        function getDeviceId() {
-            let id =
-                localStorage.getItem(
-                    "limupy_device_id"
-                );
-
-            if (!id) {
-                id = makeId();
-
-                try {
-                    localStorage.setItem(
-                        "limupy_device_id",
-                        id
-                    );
-                } catch (error) {}
-            }
-
-            return id;
-        }
-
-        function getDeviceName() {
-            const ua =
-                navigator.userAgent;
-
-            let browser =
-                "Браузер";
-
-            let os =
-                "Устройство";
-
-            if (/Edg\//i.test(ua)) {
-                browser =
-                    "Microsoft Edge";
-            } else if (/OPR\//i.test(ua)) {
-                browser =
-                    "Opera";
-            } else if (/Chrome\//i.test(ua)) {
-                browser =
-                    "Google Chrome";
-            } else if (/Firefox\//i.test(ua)) {
-                browser =
-                    "Firefox";
-            } else if (
-                /Safari\//i.test(ua) &&
-                !/Chrome\//i.test(ua)
-            ) {
-                browser =
-                    "Safari";
-            }
-
-            if (/Android/i.test(ua)) {
-                os = "Android";
-            } else if (/iPhone/i.test(ua)) {
-                os = "iPhone";
-            } else if (/iPad/i.test(ua)) {
-                os = "iPad";
-            } else if (/Windows/i.test(ua)) {
-                os = "Windows";
-            } else if (/Mac OS X/i.test(ua)) {
-                os = "macOS";
-            } else if (/Linux/i.test(ua)) {
-                os = "Linux";
-            }
-
-            return `${os} · ${browser}`;
-        }
-
-        function formatBytes(bytes) {
-            if (
-                bytes === null ||
-                bytes === undefined
-            ) {
-                return "Нет данных";
-            }
-
-            if (bytes === 0) {
-                return "0 Б";
-            }
-
-            const units = [
-                "Б",
-                "КБ",
-                "МБ",
-                "ГБ",
-                "ТБ"
-            ];
-
-            const index = Math.min(
-                Math.floor(
-                    Math.log(bytes) /
-                    Math.log(1024)
-                ),
-                units.length - 1
-            );
-
-            const value = (
-                bytes /
-                Math.pow(1024, index)
-            ).toFixed(
-                index > 2 ? 2 : 1
-            );
-
-            return `${value} ${units[index]}`;
-        }
-
-        function formatDate(timestamp) {
-            if (!timestamp) {
-                return "Нет данных";
-            }
-
-            return new Date(
-                timestamp * 1000
-            ).toLocaleString("ru-RU");
-        }
+        let state = null;
 
         function decodeState(value) {
-            const normalized =
+            const raw =
                 value
+                    .replace(/^#state=/, "")
                     .replace(/-/g, "+")
                     .replace(/_/g, "/");
 
             const padded =
-                normalized +
+                raw +
                 "=".repeat(
-                    (4 -
-                        normalized.length % 4) %
-                        4
+                    (4 - raw.length % 4) % 4
                 );
 
             const binary =
@@ -933,54 +707,63 @@
             );
         }
 
-        function renderProtocols(list) {
-            elements.protocols.innerHTML = "";
-
+        function formatBytes(bytes) {
             if (
-                !Array.isArray(list) ||
-                !list.length
+                bytes === null ||
+                bytes === undefined
             ) {
-                const item =
-                    document.createElement(
-                        "span"
-                    );
-
-                item.className =
-                    "protocol";
-
-                item.textContent =
-                    "Нет данных";
-
-                elements.protocols.appendChild(
-                    item
-                );
-
-                return;
+                return "Нет данных";
             }
 
-            list.forEach(protocol => {
-                const item =
-                    document.createElement(
-                        "span"
-                    );
+            if (bytes === 0) {
+                return "0 Б";
+            }
 
-                item.className =
-                    "protocol";
+            const units = [
+                "Б",
+                "КБ",
+                "МБ",
+                "ГБ",
+                "ТБ"
+            ];
 
-                item.textContent =
-                    protocol;
-
-                elements.protocols.appendChild(
-                    item
+            const index =
+                Math.min(
+                    Math.floor(
+                        Math.log(bytes) /
+                        Math.log(1024)
+                    ),
+                    units.length - 1
                 );
-            });
+
+            return (
+                bytes /
+                Math.pow(1024, index)
+            ).toFixed(
+                index > 2 ? 2 : 1
+            ) +
+            " " +
+            units[index];
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) {
+                return "Нет данных";
+            }
+
+            return new Date(
+                timestamp * 1000
+            ).toLocaleString(
+                "ru-RU"
+            );
         }
 
         function renderDevices(list) {
-            elements.devices.innerHTML = "";
+            elements.devices.innerHTML =
+                "";
 
             if (
-                !list ||
+                !Array.isArray(list) ||
                 !list.length
             ) {
                 const empty =
@@ -1061,8 +844,13 @@
                         device.first_seen
                     );
 
-                item.appendChild(name);
-                item.appendChild(time);
+                item.appendChild(
+                    name
+                );
+
+                item.appendChild(
+                    time
+                );
 
                 elements.devices.appendChild(
                     item
@@ -1075,11 +863,12 @@
                 return;
             }
 
-            const unlimited =
+            if (
                 info.total_bytes !== null &&
-                Number(info.total_bytes) === 0;
-
-            if (unlimited) {
+                Number(
+                    info.total_bytes
+                ) === 0
+            ) {
                 elements.remaining.textContent =
                     "Безлимит";
             } else {
@@ -1101,9 +890,17 @@
                     )
                     : "Нет данных";
 
-            renderProtocols(
-                info.protocols
-            );
+            const protocols =
+                Array.isArray(
+                    info.protocols
+                )
+                    ? info.protocols
+                    : [];
+
+            elements.configText.textContent =
+                protocols.length
+                    ? protocols.join(" · ")
+                    : "Нет данных";
         }
 
         async function createPingMeasurement() {
@@ -1134,7 +931,7 @@
 
             if (!response.ok) {
                 throw new Error(
-                    `Globalping HTTP ${response.status}`
+                    "Globalping error"
                 );
             }
 
@@ -1144,7 +941,9 @@
         async function getPingMeasurement(id) {
             const response =
                 await fetch(
-                    `${GLOBALPING}/${encodeURIComponent(id)}`,
+                    GLOBALPING +
+                    "/" +
+                    encodeURIComponent(id),
                     {
                         cache: "no-store"
                     }
@@ -1152,7 +951,7 @@
 
             if (!response.ok) {
                 throw new Error(
-                    `Globalping result HTTP ${response.status}`
+                    "Globalping result error"
                 );
             }
 
@@ -1164,21 +963,22 @@
                 Date.now();
 
             while (
-                Date.now() - started <
+                Date.now() -
+                started <
                 20000
             ) {
-                const measurement =
+                const result =
                     await getPingMeasurement(
                         id
                     );
 
                 if (
-                    measurement.status ===
+                    result.status ===
                         "finished" ||
-                    measurement.status ===
+                    result.status ===
                         "failed"
                 ) {
-                    return measurement;
+                    return result;
                 }
 
                 await new Promise(
@@ -1195,29 +995,21 @@
             );
         }
 
-        function renderPingResults(
-            measurement
-        ) {
+        function renderPing(result) {
             const results =
                 Array.isArray(
-                    measurement.results
+                    result.results
                 )
-                    ? measurement.results
+                    ? result.results
                     : [];
 
-            const finished =
-                results.filter(result =>
-                    result &&
-                    result.result &&
-                    result.result.status ===
-                        "finished" &&
-                    result.result.stats
-                );
-
             const reachable =
-                finished.filter(result =>
+                results.filter(item =>
+                    item &&
+                    item.result &&
+                    item.result.stats &&
                     Number(
-                        result.result.stats.rcv
+                        item.result.stats.rcv
                     ) > 0
                 );
 
@@ -1228,35 +1020,34 @@
                 return;
             }
 
-            const averages =
+            const values =
                 reachable
-                    .map(result =>
+                    .map(item =>
                         Number(
-                            result.result.stats.avg
+                            item.result.stats.avg
                         )
                     )
-                    .filter(value =>
-                        Number.isFinite(
-                            value
-                        )
+                    .filter(
+                        Number.isFinite
                     );
 
             const average =
-                averages.length
-                    ? averages.reduce(
-                        (sum, value) =>
-                            sum + value,
+                values.length
+                    ? values.reduce(
+                        (a, b) => a + b,
                         0
-                    ) / averages.length
+                    ) / values.length
                     : null;
 
             elements.serverMain.textContent =
                 average !== null
-                    ? `Finland · Доступен · ${average.toFixed(1)} мс`
+                    ? "Finland · Доступен · " +
+                      average.toFixed(1) +
+                      " мс"
                     : "Finland · Доступен";
         }
 
-        async function checkExternalPing() {
+        async function checkPing() {
             elements.serverMain.textContent =
                 "Finland · Проверка...";
 
@@ -1264,14 +1055,12 @@
                 const created =
                     await createPingMeasurement();
 
-                const measurement =
+                const result =
                     await waitForPing(
                         created.id
                     );
 
-                renderPingResults(
-                    measurement
-                );
+                renderPing(result);
             } catch (error) {
                 elements.serverMain.textContent =
                     "Finland · Проверка недоступна";
@@ -1279,46 +1068,41 @@
         }
 
         function launchHapp() {
-            if (!happUrl) {
-                return;
-            }
+            const url =
+                SERVER +
+                "?mode=launch&key=" +
+                encodeURIComponent(
+                    key
+                );
 
             window.location.assign(
-                happUrl
+                url
             );
         }
 
-        function collectDevice() {
-            const deviceId =
-                getDeviceId();
-
-            const deviceName =
-                getDeviceName();
-
+        function requestData() {
             const returnUrl =
                 new URL(
                     location.href
                 );
 
-            returnUrl.searchParams.delete(
-                "state"
-            );
+            returnUrl.hash = "";
 
             const url =
                 SERVER +
                 "?mode=collect" +
                 "&key=" +
-                encodeURIComponent(key) +
-                "&device_id=" +
-                encodeURIComponent(deviceId) +
-                "&device_name=" +
-                encodeURIComponent(deviceName) +
+                encodeURIComponent(
+                    key
+                ) +
                 "&return=" +
                 encodeURIComponent(
                     returnUrl.toString()
                 );
 
-            location.replace(url);
+            location.replace(
+                url
+            );
         }
 
         function initialize() {
@@ -1332,20 +1116,16 @@
             elements.subscriptionKey.textContent =
                 key;
 
-            if (!state) {
-                elements.status.textContent =
-                    "Получаем данные...";
-
-                collectDevice();
-
+            if (!hash) {
+                requestData();
                 return;
             }
 
-            let data;
-
             try {
-                data =
-                    decodeState(state);
+                state =
+                    decodeState(
+                        hash
+                    );
             } catch (error) {
                 elements.status.textContent =
                     "Не удалось получить данные.";
@@ -1353,22 +1133,23 @@
                 return;
             }
 
-            happUrl =
-                data.happ_url || "";
-
             renderDevices(
-                data.devices
+                state.devices
             );
 
             renderSubscription(
-                data.subscription
+                state.subscription
             );
 
             elements.status.textContent =
                 "Подписка готова.";
 
             elements.open.href =
-                happUrl || "#";
+                SERVER +
+                "?mode=launch&key=" +
+                encodeURIComponent(
+                    key
+                );
 
             elements.open.onclick =
                 event => {
@@ -1376,22 +1157,14 @@
                     launchHapp();
                 };
 
-            const cleanUrl =
-                new URL(
-                    location.href
-                );
-
-            cleanUrl.searchParams.delete(
-                "state"
-            );
-
             history.replaceState(
                 {},
-                "",
-                cleanUrl.toString()
+                document.title,
+                location.pathname +
+                location.search
             );
 
-            checkExternalPing();
+            checkPing();
 
             setTimeout(
                 launchHapp,
