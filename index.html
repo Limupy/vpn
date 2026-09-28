@@ -405,6 +405,19 @@ content="#0b1020"
 
     <div class="row">
       <div class="label">
+        Подключённые устройства
+      </div>
+
+      <div
+        id="devicesCount"
+        class="value"
+      >
+        —
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
         Протоколы
       </div>
 
@@ -624,6 +637,7 @@ content="#0b1020"
       [
         'name',
         'subscription',
+        'devicesCount',
         'protocols',
         'traffic',
         'expire',
@@ -763,6 +777,99 @@ content="#0b1020"
 
 
     /* ==================================================
+       DEVICES COUNT
+       ================================================== */
+
+    function getDevicesCount(data) {
+      const candidates = [
+        data.connected_devices_count,
+        data.devices_count,
+        data.device_count,
+        data.connected_devices,
+        data.devices?.count,
+        data.subscription?.connected_devices_count,
+        data.subscription?.devices_count,
+        data.subscription?.device_count,
+        data.subscription?.connected_devices
+      ];
+
+      for (const value of candidates) {
+        if (
+          typeof value === 'number' &&
+          Number.isFinite(value) &&
+          value >= 0
+        ) {
+          return Math.floor(value);
+        }
+
+        if (
+          typeof value === 'string' &&
+          value.trim() !== '' &&
+          Number.isFinite(Number(value))
+        ) {
+          return Math.max(
+            0,
+            Math.floor(
+              Number(value)
+            )
+          );
+        }
+      }
+
+      if (
+        Array.isArray(data.devices)
+      ) {
+        return data.devices.length;
+      }
+
+      if (
+        Array.isArray(data.subscription?.devices)
+      ) {
+        return data.subscription.devices.length;
+      }
+
+      return null;
+    }
+
+
+    function devicesText(data) {
+      const count =
+        getDevicesCount(data);
+
+      if (count === null) {
+        return '—';
+      }
+
+      const mod10 =
+        count % 10;
+
+      const mod100 =
+        count % 100;
+
+      let word =
+        'устройств';
+
+      if (
+        mod10 === 1 &&
+        mod100 !== 11
+      ) {
+        word = 'устройство';
+      } else if (
+        mod10 >= 2 &&
+        mod10 <= 4 &&
+        (
+          mod100 < 10 ||
+          mod100 >= 20
+        )
+      ) {
+        word = 'устройства';
+      }
+
+      return `${count} ${word}`;
+    }
+
+
+    /* ==================================================
        HTML ESCAPE
        ================================================== */
 
@@ -830,8 +937,6 @@ content="#0b1020"
 
     /* ==================================================
        API POST
-       ВАЖНО:
-       отправляем device_id
        ================================================== */
 
     async function postApi(token) {
@@ -918,8 +1023,6 @@ content="#0b1020"
 
     /* ==================================================
        BROWSER LATENCY
-       Используем тот же POST,
-       без дополнительного CORS-заголовка
        ================================================== */
 
     async function measureBrowserLatency(
@@ -1046,6 +1149,12 @@ content="#0b1020"
 
       $('device').textContent =
         'Подписка';
+
+      $('subscription').textContent =
+        'Активна';
+
+      $('devicesCount').textContent =
+        devicesText(data);
 
       renderProtocols(
         sub.protocols ||
