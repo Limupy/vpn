@@ -1,6 +1,5 @@
 'use strict';
 
-// GitHub Pages -> backend over HTTPS.
 const API_URL = 'https://78.17.112.158/api.php';
 
 function base64Url(bytes) {
@@ -26,13 +25,8 @@ function getDeviceId() {
 }
 
 function readToken() {
-  const hash = new URLSearchParams(location.hash.replace(/^#/, ''));
-  const token = hash.get('key') || '';
-  return token.trim();
-}
-
-function clearTokenFromUrl() {
-  history.replaceState(null, '', location.pathname);
+  const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+  return (params.get('key') || '').trim();
 }
 
 async function collect() {
@@ -46,12 +40,11 @@ async function collect() {
     mode: 'cors',
     cache: 'no-store',
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
     },
-    body: JSON.stringify({
-      device_id: getDeviceId()
-    })
+    body: JSON.stringify({ device_id: getDeviceId() }),
   });
 
   let payload = null;
@@ -61,8 +54,6 @@ async function collect() {
     payload = null;
   }
 
-  clearTokenFromUrl();
-
   if (!response.ok || !payload?.ok) {
     throw new Error(payload?.error || `HTTP ${response.status}`);
   }
@@ -70,11 +61,12 @@ async function collect() {
   return payload;
 }
 
-// Example UI hooks. Adapt to your existing markup.
 window.Limupy = {
   collect,
   openHapp(payload) {
-    if (!payload?.launch_url) throw new Error('launch_url отсутствует');
-    location.href = payload.launch_url;
-  }
+    if (!payload?.launch_url) {
+      throw new Error('launch_url отсутствует');
+    }
+    window.location.href = payload.launch_url;
+  },
 };
