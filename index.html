@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -427,6 +428,7 @@
   <main class="page">
     <header class="header">
       <div class="logo">L</div>
+
       <div class="brand">
         <h1 class="title">Limupy VPN</h1>
         <div class="subtitle">VPN-подписка</div>
@@ -507,7 +509,6 @@
 
   <script>
     const SERVER = "http://78.17.112.158/open.php";
-    const HAPP_SITE = "https://happ.info/";
     let initialized = false;
 
     function setReady() {
@@ -587,10 +588,19 @@
     }
 
     function getKey() {
+      const params = new URLSearchParams(location.search);
+      const queryKey = params.get("key");
+
+      if (queryKey) {
+        return queryKey.trim();
+      }
+
       const path = location.pathname.replace(/^\/+|\/+$/g, "");
       const parts = path.split("/").filter(Boolean);
 
-      return parts.length ? parts[parts.length - 1] : "";
+      return parts.length
+        ? parts[parts.length - 1].trim()
+        : "";
     }
 
     function requestData(key) {
@@ -645,11 +655,9 @@
 
       used.textContent = formatBytes(usedBytes);
 
-      if (Number(info.expire || 0) > 0) {
-        expire.textContent = formatDate(info.expire);
-      } else {
-        expire.textContent = "Без ограничения";
-      }
+      expire.textContent = Number(info.expire || 0) > 0
+        ? formatDate(info.expire)
+        : "Без ограничения";
 
       const protocols = Array.isArray(info.protocols)
         ? info.protocols.filter(Boolean)
@@ -719,9 +727,7 @@
     }
 
     function renderState(state, key) {
-      const keyView = document.getElementById("keyView");
-
-      keyView.textContent = key || "Не указан";
+      document.getElementById("keyView").textContent = key || "Не указан";
 
       if (!state) {
         setStatus("Не удалось получить данные", "error");
@@ -759,11 +765,6 @@
       initialized = true;
 
       const key = getKey();
-      const hashParams = new URLSearchParams(
-        location.hash.replace(/^#/, "")
-      );
-
-      const encodedState = hashParams.get("state");
 
       if (!key) {
         setStatus("Ключ не указан", "error");
@@ -771,6 +772,12 @@
         setReady();
         return;
       }
+
+      const hashParams = new URLSearchParams(
+        location.hash.replace(/^#/, "")
+      );
+
+      const encodedState = hashParams.get("state");
 
       if (!encodedState) {
         requestData(key);
@@ -780,13 +787,12 @@
       const state = decodeState(encodedState);
 
       renderState(state, key);
-
       setReady();
     }
 
-    document.getElementById("openButton").addEventListener("click", () => {
-      launchHapp();
-    });
+    document
+      .getElementById("openButton")
+      .addEventListener("click", launchHapp);
 
     initialize();
   </script>
