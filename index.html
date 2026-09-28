@@ -369,7 +369,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 <body>
   <main class="wrap">
 
-
 <div class="header">
   <div class="brand">
     <div class="logo">L</div>
@@ -531,7 +530,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 <div class="footer-note">
   Задержка измеряется непосредственно с вашего устройства до API Limupy.
 </div>
-
 
   </main>
 
@@ -847,12 +845,35 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return 'устройств';
     }
 
+    function normalizeCount(value) {
+      if (
+        typeof value === 'number' &&
+        Number.isFinite(value) &&
+        value >= 0
+      ) {
+        return Math.floor(value);
+      }
+
+      if (
+        typeof value === 'string' &&
+        value.trim() !== '' &&
+        Number.isFinite(Number(value))
+      ) {
+        return Math.max(
+          0,
+          Math.floor(Number(value))
+        );
+      }
+
+      return null;
+    }
+
     function getConnectionCount(data) {
-      const direct = [
+      const directValues = [
+        data?.connected_devices_count,
         data?.vpn_connections_count,
         data?.vpn_connected_devices_count,
         data?.connected_vpn_devices_count,
-        data?.connected_devices_count,
         data?.active_devices_count,
         data?.connections_count,
         data?.online_count,
@@ -860,35 +881,84 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         data?.device_count,
         data?.devices_count,
         data?.connection_count,
+
         data?.subscription?.connected_devices_count,
+        data?.subscription?.vpn_connections_count,
+        data?.subscription?.vpn_connected_devices_count,
+        data?.subscription?.connected_vpn_devices_count,
         data?.subscription?.active_devices_count,
         data?.subscription?.connections_count,
         data?.subscription?.online_count,
+        data?.subscription?.connected_count,
+        data?.subscription?.device_count,
+        data?.subscription?.devices_count,
+        data?.subscription?.connection_count,
+
         data?.device?.connected_devices_count,
+        data?.device?.vpn_connections_count,
+        data?.device?.vpn_connected_devices_count,
+        data?.device?.connected_vpn_devices_count,
         data?.device?.active_devices_count,
         data?.device?.connections_count,
         data?.device?.online_count,
-        data?.connections?.count
+        data?.device?.connected_count,
+        data?.device?.connection_count
       ];
 
-      for (const value of direct) {
-        if (
-          typeof value === 'number' &&
-          Number.isFinite(value) &&
-          value >= 0
-        ) {
-          return Math.floor(value);
+      for (const value of directValues) {
+        const count =
+          normalizeCount(value);
+
+        if (count !== null) {
+          return count;
+        }
+      }
+
+      const booleanOnlineValues = [
+        data?.online,
+        data?.connected,
+        data?.is_online,
+        data?.is_connected,
+        data?.device?.online,
+        data?.device?.connected,
+        data?.device?.is_online,
+        data?.device?.is_connected,
+        data?.subscription?.online,
+        data?.subscription?.connected,
+        data?.subscription?.is_online,
+        data?.subscription?.is_connected
+      ];
+
+      for (const value of booleanOnlineValues) {
+        if (value === true) {
+          return 1;
         }
 
-        if (
-          typeof value === 'string' &&
-          value.trim() !== '' &&
-          Number.isFinite(Number(value))
-        ) {
-          return Math.max(
-            0,
-            Math.floor(Number(value))
-          );
+        if (value === false) {
+          return 0;
+        }
+
+        if (typeof value === 'string') {
+          const normalized =
+            value.trim().toLowerCase();
+
+          if (
+            normalized === 'true' ||
+            normalized === 'yes' ||
+            normalized === 'online' ||
+            normalized === 'connected'
+          ) {
+            return 1;
+          }
+
+          if (
+            normalized === 'false' ||
+            normalized === 'no' ||
+            normalized === 'offline' ||
+            normalized === 'disconnected'
+          ) {
+            return 0;
+          }
         }
       }
 
@@ -903,6 +973,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         data?.online_clients,
         data?.subscription?.connections,
         data?.subscription?.connected_devices,
+        data?.subscription?.connectedDevices,
         data?.subscription?.sessions,
         data?.connection?.connections,
         data?.connection?.sessions,
