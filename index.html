@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, viewport-fit=cover"
+        content="width=device-width,initial-scale=1,viewport-fit=cover"
     >
 
     <title>Limupy VPN</title>
@@ -44,143 +44,163 @@
         }
 
         html {
+            min-height: 100%;
             background: #0f1115;
         }
 
         body {
             margin: 0;
-            min-width: 320px;
             min-height: 100vh;
-            min-height: 100svh;
+            min-height: 100dvh;
             padding:
-                max(14px, env(safe-area-inset-top))
-                max(14px, env(safe-area-inset-right))
-                max(14px, env(safe-area-inset-bottom))
-                max(14px, env(safe-area-inset-left));
+                max(16px, env(safe-area-inset-top))
+                max(16px, env(safe-area-inset-right))
+                max(16px, env(safe-area-inset-bottom))
+                max(16px, env(safe-area-inset-left));
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
                 Arial,
                 sans-serif;
             background: #0f1115;
             color: #fff;
         }
 
+        a,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
         .container {
-            width: min(100%, 470px);
+            width: 100%;
+            max-width: 480px;
             margin: 0 auto;
         }
 
         .card {
-            padding: 22px 16px;
+            width: 100%;
+            padding: 22px;
+            overflow: hidden;
             background: #191c22;
             border: 1px solid #252a33;
-            border-radius: 20px;
-            box-shadow:
-                0 12px 35px rgba(0, 0, 0, .28);
+            border-radius: 22px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, .28);
         }
 
         .header {
             text-align: center;
-            padding: 6px 4px 20px;
         }
 
         .logo {
-            width: 54px;
-            height: 54px;
-            margin: 0 auto 13px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 15px;
+            border-radius: 17px;
             background: #0f1115;
             color: #fff;
-            font-size: 23px;
+            font-size: 25px;
             font-weight: 700;
         }
 
         h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: clamp(24px, 6vw, 28px);
             line-height: 1.15;
         }
 
         .subtitle {
             margin-top: 7px;
             color: #8f97a5;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .status {
-            margin-bottom: 12px;
-            padding: 13px 14px;
-            border-radius: 12px;
+            margin-top: 20px;
+            padding: 14px 15px;
+            border-radius: 13px;
             background: #11141a;
             color: #dce1e8;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.45;
             text-align: center;
         }
 
         .section {
             margin-top: 12px;
-            padding: 14px;
+            padding: 15px;
+            border-radius: 15px;
             background: #20242c;
-            border-radius: 14px;
         }
 
         .section-header {
+            min-width: 0;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            margin-bottom: 11px;
         }
 
         .section-title {
-            font-size: 13px;
+            flex: 0 0 auto;
+            color: #fff;
+            font-size: 14px;
             font-weight: 700;
         }
 
         .subscription-key {
             min-width: 0;
-            max-width: 62%;
-            padding: 5px 7px;
+            max-width: 58%;
+            padding: 6px 8px;
             overflow: hidden;
             border: 1px solid #343a45;
-            border-radius: 7px;
+            border-radius: 8px;
             background: #11141a;
             color: #9ca4b2;
-            font-family: monospace;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
             font-size: 10px;
             line-height: 1.2;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
+        .rows {
+            display: flex;
+            flex-direction: column;
+        }
+
         .row {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
+            min-height: 38px;
+            display: flex;
             align-items: center;
-            gap: 12px;
-            min-height: 40px;
+            justify-content: space-between;
+            gap: 15px;
             padding: 9px 0;
             border-bottom: 1px solid #2d323b;
         }
 
         .row:last-child {
-            padding-bottom: 0;
             border-bottom: 0;
+            padding-bottom: 0;
         }
 
         .label {
-            min-width: 0;
             color: #8f97a5;
-            font-size: 12px;
+            font-size: 13px;
         }
 
         .value {
-            max-width: 70%;
+            max-width: 65%;
             color: #fff;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
             text-align: right;
             overflow-wrap: anywhere;
         }
@@ -193,84 +213,81 @@
             color: #ff8c8c;
         }
 
-        .muted {
-            color: #8f97a5;
-        }
-
-        .source {
-            margin-top: 9px;
-            color: #676f7d;
-            font-size: 10px;
-            line-height: 1.4;
+        .ping-details {
+            margin-top: 5px;
+            color: #707886;
+            font-size: 11px;
+            font-weight: 400;
         }
 
         .devices {
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 8px;
         }
 
         .device {
-            padding: 11px 12px;
+            padding: 12px;
+            border: 1px solid transparent;
             border-radius: 11px;
             background: #11141a;
         }
 
         .device.current {
-            border: 1px solid #3b414c;
+            border-color: #3b414c;
         }
 
         .device-name {
             color: #fff;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            overflow-wrap: anywhere;
+            line-height: 1.35;
         }
 
         .device-time {
-            margin-top: 5px;
+            margin-top: 6px;
             color: #707886;
-            font-size: 10px;
-            line-height: 1.45;
+            font-size: 11px;
+            line-height: 1.5;
+            white-space: pre-line;
         }
 
         .empty {
-            padding: 11px 12px;
+            padding: 12px;
             border-radius: 11px;
             background: #11141a;
             color: #707886;
-            font-size: 12px;
+            font-size: 13px;
+            line-height: 1.4;
         }
 
         .warning {
             margin-top: 12px;
-            padding: 12px 13px;
-            border-radius: 12px;
+            padding: 14px;
+            border-radius: 13px;
             background: #2a2420;
             color: #d8c8bb;
-            font-size: 11px;
+            font-size: 13px;
             line-height: 1.5;
         }
 
         .actions {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 9px;
             margin-top: 14px;
         }
 
         .button {
-            width: 100%;
-            min-height: 48px;
+            min-height: 50px;
+            padding: 13px 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 16px;
-            border-radius: 12px;
+            border-radius: 13px;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .primary {
@@ -283,45 +300,52 @@
             color: #fff;
         }
 
-        .button:active {
-            transform: scale(.99);
+        @media (min-width: 481px) {
+            .card {
+                padding: 28px 24px;
+            }
         }
 
-        @media (min-width: 480px) {
+        @media (max-width: 380px) {
             body {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                padding: 12px;
             }
 
             .card {
-                padding: 28px 22px;
+                padding: 18px;
+                border-radius: 19px;
             }
-        }
 
-        @media (max-width: 360px) {
-            .card {
-                padding: 18px 13px;
-                border-radius: 17px;
+            .logo {
+                width: 54px;
+                height: 54px;
+                margin-bottom: 12px;
+                border-radius: 15px;
             }
 
             .section {
                 padding: 13px;
             }
 
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .subscription-key {
+                max-width: 100%;
+                width: 100%;
+            }
+
             .row {
-                grid-template-columns: 1fr;
+                align-items: flex-start;
+                flex-direction: column;
                 gap: 4px;
-                align-items: start;
             }
 
             .value {
                 max-width: 100%;
                 text-align: left;
-            }
-
-            .subscription-key {
-                max-width: 100%;
             }
         }
     </style>
@@ -334,9 +358,7 @@
             <header class="header">
                 <div class="logo">L</div>
 
-                <h1>
-                    Limupy VPN
-                </h1>
+                <h1>Limupy VPN</h1>
 
                 <div class="subtitle">
                     VPN-подписка
@@ -347,7 +369,7 @@
                 class="status"
                 id="status"
             >
-                Получаем информацию...
+                Получаем информацию о подписке...
             </div>
 
             <section class="section">
@@ -364,98 +386,95 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="label">
-                        Клиент
+                <div class="rows">
+                    <div class="row">
+                        <div class="label">
+                            Клиент
+                        </div>
+
+                        <div class="value">
+                            HAPP
+                        </div>
                     </div>
 
-                    <div class="value">
-                        HAPP
+                    <div class="row">
+                        <div class="label">
+                            Сервер
+                        </div>
+
+                        <div
+                            class="value"
+                            id="serverStatus"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Внешний ping
+                        </div>
+
+                        <div
+                            class="value"
+                            id="pingStatus"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Осталось
+                        </div>
+
+                        <div
+                            class="value"
+                            id="remaining"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Использовано
+                        </div>
+
+                        <div
+                            class="value"
+                            id="used"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Лимит
+                        </div>
+
+                        <div
+                            class="value"
+                            id="total"
+                        >
+                            Проверка...
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="label">
+                            Действует до
+                        </div>
+
+                        <div
+                            class="value"
+                            id="expire"
+                        >
+                            Проверка...
+                        </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="label">
-                        Сервер
-                    </div>
-
-                    <div
-                        class="value"
-                        id="serverStatus"
-                    >
-                        Проверка...
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="label">
-                        Ping
-                    </div>
-
-                    <div
-                        class="value"
-                        id="ping"
-                    >
-                        Проверка...
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="label">
-                        Осталось
-                    </div>
-
-                    <div
-                        class="value"
-                        id="remaining"
-                    >
-                        Проверка...
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="label">
-                        Использовано
-                    </div>
-
-                    <div
-                        class="value"
-                        id="used"
-                    >
-                        Проверка...
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="label">
-                        Лимит
-                    </div>
-
-                    <div
-                        class="value"
-                        id="total"
-                    >
-                        Проверка...
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="label">
-                        Действует до
-                    </div>
-
-                    <div
-                        class="value"
-                        id="expire"
-                    >
-                        Проверка...
-                    </div>
-                </div>
-
-                <div
-                    class="source"
-                    id="pingSource"
-                ></div>
             </section>
 
             <section class="section">
@@ -479,7 +498,7 @@
                 Не передавайте ссылку на этот сайт третьим лицам.
             </div>
 
-            <div class="actions">
+            <nav class="actions">
                 <a
                     class="button primary"
                     id="open"
@@ -494,7 +513,7 @@
                 >
                     Скачать HAPP
                 </a>
-            </div>
+            </nav>
 
         </section>
     </main>
@@ -503,10 +522,14 @@
         const SERVER =
             "http://78.17.112.158/open.php";
 
+        const GLOBALPING =
+            "https://api.globalping.io/v1/measurements";
+
+        const TARGET =
+            "78.17.112.158";
+
         const params =
-            new URLSearchParams(
-                window.location.search
-            );
+            new URLSearchParams(location.search);
 
         const key =
             params.get("key");
@@ -516,14 +539,10 @@
 
         const elements = {
             status:
-                document.getElementById(
-                    "status"
-                ),
+                document.getElementById("status"),
 
             open:
-                document.getElementById(
-                    "open"
-                ),
+                document.getElementById("open"),
 
             subscriptionKey:
                 document.getElementById(
@@ -535,14 +554,9 @@
                     "serverStatus"
                 ),
 
-            ping:
+            pingStatus:
                 document.getElementById(
-                    "ping"
-                ),
-
-            pingSource:
-                document.getElementById(
-                    "pingSource"
+                    "pingStatus"
                 ),
 
             remaining:
@@ -551,14 +565,10 @@
                 ),
 
             used:
-                document.getElementById(
-                    "used"
-                ),
+                document.getElementById("used"),
 
             total:
-                document.getElementById(
-                    "total"
-                ),
+                document.getElementById("total"),
 
             expire:
                 document.getElementById(
@@ -614,24 +624,30 @@
             const ua =
                 navigator.userAgent;
 
-            let browser = "Браузер";
-            let os = "Устройство";
+            let browser =
+                "Браузер";
+
+            let os =
+                "Устройство";
 
             if (/Edg\//i.test(ua)) {
                 browser =
                     "Microsoft Edge";
             } else if (/OPR\//i.test(ua)) {
-                browser = "Opera";
+                browser =
+                    "Opera";
             } else if (/Chrome\//i.test(ua)) {
                 browser =
                     "Google Chrome";
             } else if (/Firefox\//i.test(ua)) {
-                browser = "Firefox";
+                browser =
+                    "Firefox";
             } else if (
                 /Safari\//i.test(ua) &&
                 !/Chrome\//i.test(ua)
             ) {
-                browser = "Safari";
+                browser =
+                    "Safari";
             }
 
             if (/Android/i.test(ua)) {
@@ -696,9 +712,7 @@
 
             return new Date(
                 timestamp * 1000
-            ).toLocaleString(
-                "ru-RU"
-            );
+            ).toLocaleString("ru-RU");
         }
 
         function decodeState(value) {
@@ -771,17 +785,22 @@
                         "div"
                     );
 
+                const name =
+                    document.createElement(
+                        "div"
+                    );
+
+                const time =
+                    document.createElement(
+                        "div"
+                    );
+
                 item.className =
                     "device" +
                     (
                         device.current
                             ? " current"
                             : ""
-                    );
-
-                const name =
-                    document.createElement(
-                        "div"
                     );
 
                 name.className =
@@ -793,11 +812,6 @@
                         device.current
                             ? " · текущее"
                             : ""
-                    );
-
-                const time =
-                    document.createElement(
-                        "div"
                     );
 
                 time.className =
@@ -862,54 +876,257 @@
                     : "Нет данных";
         }
 
-        function renderMonitoring(info) {
-            if (!info) {
-                return;
+        async function createPingMeasurement() {
+            const response =
+                await fetch(
+                    GLOBALPING,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+                        body: JSON.stringify({
+                            type: "ping",
+                            target: TARGET,
+                            locations: [
+                                {
+                                    continent: "EU"
+                                }
+                            ],
+                            limit: 3,
+                            inProgressUpdates: true,
+                            measurementOptions: {
+                                packets: 4
+                            }
+                        })
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Globalping HTTP " +
+                    response.status
+                );
             }
 
-            if (info.available === true) {
-                elements.serverStatus.textContent =
-                    "Доступен";
+            return response.json();
+        }
 
-                elements.serverStatus.className =
-                    "value good";
-            } else if (
-                info.available === false
+        async function getPingMeasurement(id) {
+            const response =
+                await fetch(
+                    `${GLOBALPING}/${encodeURIComponent(id)}`,
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Globalping result HTTP " +
+                    response.status
+                );
+            }
+
+            return response.json();
+        }
+
+        async function waitForPing(id) {
+            const started =
+                Date.now();
+
+            while (
+                Date.now() - started <
+                20000
             ) {
+                const measurement =
+                    await getPingMeasurement(
+                        id
+                    );
+
+                if (
+                    measurement.status ===
+                        "finished" ||
+                    measurement.status ===
+                        "failed"
+                ) {
+                    return measurement;
+                }
+
+                await new Promise(
+                    resolve =>
+                        setTimeout(
+                            resolve,
+                            1000
+                        )
+                );
+            }
+
+            throw new Error(
+                "Ping timeout"
+            );
+        }
+
+        function renderPingResults(
+            measurement
+        ) {
+            const results =
+                Array.isArray(
+                    measurement.results
+                )
+                    ? measurement.results
+                    : [];
+
+            const finished =
+                results.filter(result =>
+                    result &&
+                    result.result &&
+                    result.result.status ===
+                        "finished" &&
+                    result.result.stats
+                );
+
+            const reachable =
+                finished.filter(result =>
+                    Number(
+                        result.result.stats.rcv
+                    ) > 0
+                );
+
+            if (!reachable.length) {
                 elements.serverStatus.textContent =
                     "Недоступен";
 
                 elements.serverStatus.className =
                     "value bad";
-            } else {
-                elements.serverStatus.textContent =
-                    "Нет проверки";
 
-                elements.serverStatus.className =
-                    "value muted";
-            }
-
-            if (
-                info.ping_ms !== null &&
-                info.ping_ms !== undefined
-            ) {
-                elements.ping.textContent =
-                    `${info.ping_ms} мс`;
-
-                elements.ping.className =
-                    "value good";
-            } else {
-                elements.ping.textContent =
+                elements.pingStatus.textContent =
                     "Нет ответа";
 
-                elements.ping.className =
+                elements.pingStatus.className =
                     "value bad";
+
+                return;
             }
 
-            elements.pingSource.textContent =
-                info.source
-                    ? `Проверка: ${info.source}`
-                    : "";
+            const averages =
+                reachable
+                    .map(
+                        result =>
+                            Number(
+                                result.result.stats.avg
+                            )
+                    )
+                    .filter(
+                        value =>
+                            Number.isFinite(
+                                value
+                            )
+                    );
+
+            const losses =
+                reachable
+                    .map(
+                        result =>
+                            Number(
+                                result.result.stats.loss
+                            )
+                    )
+                    .filter(
+                        value =>
+                            Number.isFinite(
+                                value
+                            )
+                    );
+
+            const average =
+                averages.length
+                    ? averages.reduce(
+                        (sum, value) =>
+                            sum + value,
+                        0
+                    ) / averages.length
+                    : null;
+
+            const loss =
+                losses.length
+                    ? losses.reduce(
+                        (sum, value) =>
+                            sum + value,
+                        0
+                    ) / losses.length
+                    : null;
+
+            const fastest =
+                Math.min(
+                    ...averages
+                );
+
+            const slowest =
+                Math.max(
+                    ...averages
+                );
+
+            elements.serverStatus.textContent =
+                `Доступен · ${reachable.length}/${results.length} проб`;
+
+            elements.serverStatus.className =
+                "value good";
+
+            if (average !== null) {
+                elements.pingStatus.innerHTML =
+                    `${average.toFixed(1)} мс` +
+                    (
+                        loss !== null
+                            ? `<div class="ping-details">потери ${loss.toFixed(1)}% · ${fastest.toFixed(1)}–${slowest.toFixed(1)} мс</div>`
+                            : ""
+                    );
+
+                elements.pingStatus.className =
+                    "value good";
+            } else {
+                elements.pingStatus.textContent =
+                    "Нет данных";
+
+                elements.pingStatus.className =
+                    "value bad";
+            }
+        }
+
+        async function checkExternalPing() {
+            elements.serverStatus.textContent =
+                "Внешняя проверка...";
+
+            elements.pingStatus.textContent =
+                "Внешняя проверка...";
+
+            try {
+                const created =
+                    await createPingMeasurement();
+
+                const measurement =
+                    await waitForPing(
+                        created.id
+                    );
+
+                renderPingResults(
+                    measurement
+                );
+            } catch (error) {
+                elements.serverStatus.textContent =
+                    "Не удалось проверить";
+
+                elements.serverStatus.className =
+                    "value";
+
+                elements.pingStatus.textContent =
+                    "Нет результата";
+
+                elements.pingStatus.className =
+                    "value";
+
+            }
         }
 
         function launchHapp() {
@@ -923,36 +1140,40 @@
         }
 
         function collectDevice() {
+            const deviceId =
+                getDeviceId();
+
+            const deviceName =
+                getDeviceName();
+
             const returnUrl =
-                new URL(
-                    window.location.href
-                );
+                new URL(location.href);
 
             returnUrl.searchParams.delete(
                 "state"
             );
 
-            const request =
+            const url =
                 SERVER +
                 "?mode=collect" +
                 "&key=" +
-                encodeURIComponent(key) +
+                encodeURIComponent(
+                    key
+                ) +
                 "&device_id=" +
                 encodeURIComponent(
-                    getDeviceId()
+                    deviceId
                 ) +
                 "&device_name=" +
                 encodeURIComponent(
-                    getDeviceName()
+                    deviceName
                 ) +
                 "&return=" +
                 encodeURIComponent(
                     returnUrl.toString()
                 );
 
-            window.location.replace(
-                request
-            );
+            location.replace(url);
         }
 
         function initialize() {
@@ -968,7 +1189,7 @@
 
             if (!state) {
                 elements.status.textContent =
-                    "Проверяем подписку...";
+                    "Получаем данные...";
 
                 collectDevice();
 
@@ -998,10 +1219,6 @@
                 data.subscription
             );
 
-            renderMonitoring(
-                data.monitoring
-            );
-
             elements.status.textContent =
                 "Подписка готова.";
 
@@ -1016,22 +1233,24 @@
 
             const cleanUrl =
                 new URL(
-                    window.location.href
+                    location.href
                 );
 
             cleanUrl.searchParams.delete(
                 "state"
             );
 
-            window.history.replaceState(
+            history.replaceState(
                 {},
                 "",
                 cleanUrl.toString()
             );
 
+            checkExternalPing();
+
             setTimeout(
                 launchHapp,
-                450
+                500
             );
         }
 
