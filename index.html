@@ -5,7 +5,7 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, viewport-fit=cover"
+        content="width=device-width,initial-scale=1.0,viewport-fit=cover"
     >
 
     <meta
@@ -63,6 +63,7 @@
             width: 100%;
             min-width: 100%;
             min-height: 100vh;
+            min-height: 100dvh;
             margin: 0;
             padding:
                 max(16px, env(safe-area-inset-top))
@@ -334,22 +335,23 @@
             color: #fff;
         }
 
-        @media (min-width: 481px) {
-            .card {
-                padding: 28px 24px;
-            }
-        }
-
-        @media (max-width: 380px) {
+        @media (max-width: 767px) {
             body {
+                align-items: flex-start;
                 padding:
-                    max(10px, env(safe-area-inset-top))
-                    max(10px, env(safe-area-inset-right))
-                    max(10px, env(safe-area-inset-bottom))
-                    max(10px, env(safe-area-inset-left));
+                    max(12px, env(safe-area-inset-top))
+                    max(12px, env(safe-area-inset-right))
+                    max(12px, env(safe-area-inset-bottom))
+                    max(12px, env(safe-area-inset-left));
+            }
+
+            .container {
+                width: 100%;
+                max-width: 100%;
             }
 
             .card {
+                width: 100%;
                 padding: 18px;
                 border-radius: 19px;
             }
@@ -364,6 +366,10 @@
 
             h1 {
                 font-size: 25px;
+            }
+
+            .subtitle {
+                font-size: 13px;
             }
 
             .section {
@@ -391,6 +397,20 @@
 
             .server-main {
                 white-space: normal;
+            }
+
+            .button {
+                min-height: 52px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 480px;
+            }
+
+            .card {
+                padding: 28px 24px;
             }
         }
     </style>
@@ -557,7 +577,9 @@
             "78.17.112.158";
 
         const params =
-            new URLSearchParams(location.search);
+            new URLSearchParams(
+                location.search
+            );
 
         const key =
             params.get("key");
@@ -567,10 +589,14 @@
 
         const elements = {
             status:
-                document.getElementById("status"),
+                document.getElementById(
+                    "status"
+                ),
 
             open:
-                document.getElementById("open"),
+                document.getElementById(
+                    "open"
+                ),
 
             subscriptionKey:
                 document.getElementById(
@@ -598,13 +624,19 @@
                 ),
 
             used:
-                document.getElementById("used"),
+                document.getElementById(
+                    "used"
+                ),
 
             expire:
-                document.getElementById("expire"),
+                document.getElementById(
+                    "expire"
+                ),
 
             devices:
-                document.getElementById("devices")
+                document.getElementById(
+                    "devices"
+                )
         };
 
         let happUrl = "";
@@ -780,7 +812,8 @@
         }
 
         function renderDevices(list) {
-            elements.devices.innerHTML = "";
+            elements.devices.innerHTML =
+                "";
 
             if (
                 !list ||
@@ -1095,7 +1128,9 @@
                 getDeviceName();
 
             const returnUrl =
-                new URL(location.href);
+                new URL(
+                    location.href
+                );
 
             returnUrl.searchParams.delete(
                 "state"
