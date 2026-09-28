@@ -19,7 +19,7 @@
             justify-content: center;
             font-family: Arial, sans-serif;
             background: #0f1115;
-            color: white;
+            color: #fff;
         }
 
         .box {
@@ -31,7 +31,7 @@
         }
 
         h1 {
-            margin-bottom: 12px;
+            margin: 0 0 15px;
         }
 
         p {
@@ -55,73 +55,60 @@
 <body>
 
 <div class="box">
+
     <h1>HAPP</h1>
 
     <p id="status">
-        Открываем приложение...
+        Проверяем ссылку...
     </p>
 
     <a
-        id="fallback"
+        id="download"
         href="https://happ.info/"
         style="display:none;"
     >
         Скачать HAPP
     </a>
+
 </div>
 
 <script>
 
     /*
-     * ССЫЛКА НА ТВОЮ ПОДПИСКУ
+     * ==========================================
+     * НАСТРОЙКИ
+     * ==========================================
      */
+
+    // Ссылка на твою подписку
     const subscription =
         "http://78.17.112.158:444/DisstVpn/dplgn7904o4cd4cp";
 
-
-    /*
-     * СЕКРЕТНАЯ ЧАСТЬ ССЫЛКИ
-     *
-     * Например:
-     *
-     * /7fK3mP9xQ2vL
-     */
-    const secretPath =
+    // Секретный ключ
+    const validKey =
         "7fK3mP9xQ2vL";
 
 
     /*
-     * Текущий путь
+     * ==========================================
+     * ПОЛУЧАЕМ ?key=
+     * ==========================================
      */
-    let path =
-        window.location.pathname;
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const key =
+        params.get("key");
 
 
     /*
-     * Убираем начальные и конечные /
+     * ==========================================
+     * ПРОВЕРЯЕМ КЛЮЧ
+     * ==========================================
      */
-    path = path.replace(/^\/+|\/+$/g, "");
 
-
-    /*
-     * Берём последнюю часть URL.
-     *
-     * Например:
-     *
-     * happ-link/7fK3mP9xQ2vL
-     *
-     * превратится в:
-     *
-     * 7fK3mP9xQ2vL
-     */
-    const currentToken =
-        path.split("/").pop();
-
-
-    /*
-     * Проверяем секрет
-     */
-    if (currentToken !== secretPath) {
+    if (key !== validKey) {
 
         document.getElementById("status").textContent =
             "Страница не найдена.";
@@ -134,26 +121,31 @@
         const status =
             document.getElementById("status");
 
-        const fallback =
-            document.getElementById("fallback");
+        const download =
+            document.getElementById("download");
 
 
         /*
          * Пытаемся открыть HAPP
          */
-        window.location.href = happUrl;
+
+        status.textContent =
+            "Открываем HAPP...";
+
+        window.location.href =
+            happUrl;
 
 
         /*
-         * Если HAPP не установлен,
-         * показываем кнопку скачивания
+         * Если приложение не открылось
          */
+
         setTimeout(function () {
 
             status.textContent =
-                "Если HAPP не установлен, скачайте его:";
+                "HAPP не установлен или не удалось открыть приложение.";
 
-            fallback.style.display =
+            download.style.display =
                 "inline-block";
 
         }, 2000);
