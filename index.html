@@ -2,208 +2,27 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Limupy VPN</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-family: Arial, sans-serif;
-
-            background: #0f1115;
-            color: #fff;
-        }
-
-        .box {
-            width: min(90%, 420px);
-
-            padding: 35px 25px;
-
-            text-align: center;
-
-            background: #191c22;
-
-            border-radius: 18px;
-        }
-
-        h1 {
-            margin: 0 0 12px;
-        }
-
-        p {
-            color: #aeb4c0;
-            line-height: 1.5;
-        }
-
-        a {
-            display: inline-block;
-
-            margin-top: 15px;
-
-            padding: 13px 22px;
-
-            border-radius: 10px;
-
-            background: #fff;
-            color: #111;
-
-            text-decoration: none;
-
-            font-weight: bold;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Limupy VPN</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;background:#0f1115;color:#fff}
+.box{width:min(90%,420px);padding:35px 25px;text-align:center;background:#191c22;border-radius:18px}
+h1{margin:0 0 12px}
+p{color:#aeb4c0;line-height:1.5}
+a{display:inline-block;margin-top:15px;padding:13px 22px;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:bold}
+</style>
 </head>
-
 <body>
-
 <div class="box">
-
-    <h1>Limupy VPN</h1>
-
-    <p id="status">
-        Открываем приложение...
-    </p>
-
-    <a
-        id="fallback"
-        href="https://happ.info/"
-        style="display:none;"
-    >
-        Скачать HAPP
-    </a>
-
+<h1>Limupy VPN</h1>
+<p id="status">Открываем приложение...</p>
+<a id="fallback" href="https://happ.info/" style="display:none">Скачать HAPP</a>
 </div>
-
-
 <script>
-
-    /*
-     * ==========================================
-     * КЛЮЧИ И ИХ ПОДПИСКИ
-     * ==========================================
-     *
-     * Формат:
-     *
-     * "ключ": "ссылка на подписку"
-     *
-     * Добавляй сюда новых пользователей.
-     */
-
-
-    const subscriptions = {
-
-        "7fK3mP9xQ2vL":
-            "http://78.17.112.158:444/DisstVpn/dplgn7904o4cd4cp",
-
-
-        "Ab92KlmP7xQ":
-            "http://example.com/subscription2",
-
-
-        "X8nP4sL2Qa":
-            "http://example.com/subscription3"
-
-    };
-
-
-    /*
-     * ==========================================
-     * ПОЛУЧАЕМ КЛЮЧ ИЗ ?key=
-     * ==========================================
-     */
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    const key =
-        params.get("key");
-
-
-    /*
-     * ==========================================
-     * ИЩЕМ ПОДПИСКУ
-     * ==========================================
-     */
-
-    const subscription =
-        subscriptions[key];
-
-
-    const status =
-        document.getElementById("status");
-
-
-    const fallback =
-        document.getElementById("fallback");
-
-
-    /*
-     * ==========================================
-     * ПРОВЕРЯЕМ КЛЮЧ
-     * ==========================================
-     */
-
-    if (!subscription) {
-
-        status.textContent =
-            "Страница не найдена.";
-
-    } else {
-
-        /*
-         * Формируем ссылку HAPP
-         */
-
-        const happUrl =
-            "happ://add/" + subscription;
-
-
-        /*
-         * Пытаемся открыть HAPP
-         */
-
-        window.location.href =
-            happUrl;
-
-
-        /*
-         * Если HAPP не установлен,
-         * показываем кнопку скачивания
-         */
-
-        setTimeout(function () {
-
-            status.textContent =
-                "Если приложение не открылось автоматически:";
-
-            fallback.style.display =
-                "inline-block";
-
-        }, 1800);
-
-    }
-
+const s={"7fK3mP9xQ2vL":"http://78.17.112.158:444/DisstVpn/dplgn7904o4cd4cp","Ab92KlmP7xQ":"http://example.com/subscription2","X8nP4sL2Qa":"http://example.com/subscription3"},p=new URLSearchParams(location.search),u=s[p.get("key")],t=document.getElementById("status"),f=document.getElementById("fallback");if(u){location.href="happ://add/"+u;setTimeout(()=>{t.textContent="Если приложение не открылось автоматически:";f.style.display="inline-block"},1800)}else t.textContent="Страница не найдена.";
 </script>
-
 </body>
 </html>
 ```
