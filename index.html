@@ -438,13 +438,19 @@
             document.getElementById("open");
 
         const subscriptionKey =
-            document.getElementById("subscriptionKey");
+            document.getElementById(
+                "subscriptionKey"
+            );
 
         const serverStatus =
-            document.getElementById("serverStatus");
+            document.getElementById(
+                "serverStatus"
+            );
 
         const remaining =
-            document.getElementById("remaining");
+            document.getElementById(
+                "remaining"
+            );
 
         const used =
             document.getElementById("used");
@@ -457,6 +463,8 @@
 
         const devices =
             document.getElementById("devices");
+
+        let happUrl = "";
 
         function makeId() {
             if (
@@ -499,8 +507,8 @@
             const ua =
                 navigator.userAgent;
 
-            let browser =
-                "Браузер";
+            let browser = "Браузер";
+            let os = "Устройство";
 
             if (/Edg\//i.test(ua)) {
                 browser = "Microsoft Edge";
@@ -516,9 +524,6 @@
             ) {
                 browser = "Safari";
             }
-
-            let os =
-                "Устройство";
 
             if (/Android/i.test(ua)) {
                 os = "Android";
@@ -642,6 +647,7 @@
                     "Пока никто не посещал эту ссылку.";
 
                 devices.appendChild(empty);
+
                 return;
             }
 
@@ -759,48 +765,14 @@
                     : "Нет данных";
         }
 
-        function getLaunchUrl() {
-            const isIOS =
-                /iPhone|iPad|iPod/i.test(
-                    navigator.userAgent
-                );
-
-            const isLinux =
-                /Linux/i.test(
-                    navigator.userAgent
-                ) &&
-                !/Android/i.test(
-                    navigator.userAgent
-                );
-
-            const mode =
-                isIOS || isLinux
-                    ? "launch"
-                    : "open";
-
-            return (
-                SERVER +
-                "?key=" +
-                encodeURIComponent(key) +
-                (
-                    mode === "launch"
-                        ? "&mode=launch"
-                        : ""
-                )
-            );
-        }
-
         function launchHapp() {
-            if (!key) {
+            if (!happUrl) {
                 return;
             }
 
-            const url =
-                getLaunchUrl();
-
-            openButton.href = url;
-
-            location.href = url;
+            window.location.assign(
+                happUrl
+            );
         }
 
         function collectDevice() {
@@ -817,15 +789,13 @@
                 "state"
             );
 
-            const collectUrl =
+            const url =
                 SERVER +
                 "?mode=collect" +
                 "&key=" +
                 encodeURIComponent(key) +
                 "&device_id=" +
-                encodeURIComponent(
-                    deviceId
-                ) +
+                encodeURIComponent(deviceId) +
                 "&device_name=" +
                 encodeURIComponent(
                     deviceName
@@ -835,9 +805,7 @@
                     returnUrl.toString()
                 );
 
-            location.replace(
-                collectUrl
-            );
+            location.replace(url);
         }
 
         function initialize() {
@@ -851,36 +819,48 @@
             subscriptionKey.textContent =
                 key;
 
-            openButton.onclick = event => {
-                event.preventDefault();
-                launchHapp();
-            };
-
             if (!state) {
                 status.textContent =
-                    "Получаем данные...";
+                    "Сохраняем устройство...";
 
                 collectDevice();
+
                 return;
             }
 
+            let data;
+
             try {
-                const data =
-                    decodeState(state);
-
-                renderDevices(
-                    data.devices
-                );
-
-                renderSubscription(
-                    data.subscription
-                );
+                data = decodeState(state);
             } catch (error) {
                 status.textContent =
                     "Не удалось получить данные.";
 
                 return;
             }
+
+            happUrl =
+                data.happ_url || "";
+
+            renderDevices(
+                data.devices
+            );
+
+            renderSubscription(
+                data.subscription
+            );
+
+            status.textContent =
+                "Подписка готова.";
+
+            openButton.href =
+                happUrl || "#";
+
+            openButton.onclick =
+                event => {
+                    event.preventDefault();
+                    launchHapp();
+                };
 
             const cleanUrl =
                 new URL(location.href);
@@ -895,36 +875,10 @@
                 cleanUrl.toString()
             );
 
-            status.textContent =
-                "Подписка готова.";
-
-            openButton.href =
-                getLaunchUrl();
-
-            const isIOS =
-                /iPhone|iPad|iPod/i.test(
-                    navigator.userAgent
-                );
-
-            const isLinux =
-                /Linux/i.test(
-                    navigator.userAgent
-                ) &&
-                !/Android/i.test(
-                    navigator.userAgent
-                );
-
-            if (isIOS || isLinux) {
-                setTimeout(
-                    launchHapp,
-                    400
-                );
-            } else {
-                setTimeout(
-                    launchHapp,
-                    300
-                );
-            }
+            setTimeout(
+                launchHapp,
+                400
+            );
         }
 
         initialize();
