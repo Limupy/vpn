@@ -19,7 +19,7 @@
             justify-content: center;
             font-family: Arial, sans-serif;
             background: #0f1115;
-            color: #fff;
+            color: white;
         }
 
         .box {
@@ -31,7 +31,7 @@
         }
 
         h1 {
-            margin: 0 0 12px;
+            margin-bottom: 12px;
         }
 
         p {
@@ -44,7 +44,7 @@
             margin-top: 15px;
             padding: 13px 22px;
             border-radius: 10px;
-            background: #fff;
+            background: white;
             color: #111;
             text-decoration: none;
             font-weight: bold;
@@ -56,43 +56,72 @@
 
 <div class="box">
     <h1>HAPP</h1>
-    <p id="status">Открываем приложение...</p>
 
-    <a id="fallback" href="https://happ.info/" style="display:none;">
+    <p id="status">
+        Открываем приложение...
+    </p>
+
+    <a
+        id="fallback"
+        href="https://happ.info/"
+        style="display:none;"
+    >
         Скачать HAPP
     </a>
 </div>
 
 <script>
-    /*
-     * =====================================================
-     * НАСТРОЙКИ
-     * =====================================================
-     */
 
-    // Твоя подписка
+    /*
+     * ССЫЛКА НА ТВОЮ ПОДПИСКУ
+     */
     const subscription =
         "http://78.17.112.158:444/DisstVpn/dplgn7904o4cd4cp";
 
-    // Секретный путь.
-    //
-    // Итоговая ссылка будет:
-    //
-    // https://happ.example.com/7fK3mP9xQ2vL
-    //
-    const secretPath = "/7fK3mP9xQ2vL";
+
+    /*
+     * СЕКРЕТНАЯ ЧАСТЬ ССЫЛКИ
+     *
+     * Например:
+     *
+     * /7fK3mP9xQ2vL
+     */
+    const secretPath =
+        "7fK3mP9xQ2vL";
 
 
     /*
-     * =====================================================
-     * ПРОВЕРКА СЕКРЕТНОГО URL
-     * =====================================================
+     * Текущий путь
      */
+    let path =
+        window.location.pathname;
 
-    const currentPath =
-        window.location.pathname.replace(/\/+$/, "");
 
-    if (currentPath !== secretPath) {
+    /*
+     * Убираем начальные и конечные /
+     */
+    path = path.replace(/^\/+|\/+$/g, "");
+
+
+    /*
+     * Берём последнюю часть URL.
+     *
+     * Например:
+     *
+     * happ-link/7fK3mP9xQ2vL
+     *
+     * превратится в:
+     *
+     * 7fK3mP9xQ2vL
+     */
+    const currentToken =
+        path.split("/").pop();
+
+
+    /*
+     * Проверяем секрет
+     */
+    if (currentToken !== secretPath) {
 
         document.getElementById("status").textContent =
             "Страница не найдена.";
@@ -108,30 +137,28 @@
         const fallback =
             document.getElementById("fallback");
 
-        let opened = false;
 
         /*
-         * Пытаемся открыть HAPP.
+         * Пытаемся открыть HAPP
          */
         window.location.href = happUrl;
 
+
         /*
-         * Если приложение не открылось,
-         * показываем кнопку сайта HAPP.
+         * Если HAPP не установлен,
+         * показываем кнопку скачивания
          */
         setTimeout(function () {
 
-            if (!opened) {
+            status.textContent =
+                "Если HAPP не установлен, скачайте его:";
 
-                status.textContent =
-                    "Если HAPP не установлен, скачайте его:";
+            fallback.style.display =
+                "inline-block";
 
-                fallback.style.display =
-                    "inline-block";
-            }
-
-        }, 1800);
+        }, 2000);
     }
+
 </script>
 
 </body>
