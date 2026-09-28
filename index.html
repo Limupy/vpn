@@ -35,6 +35,7 @@
       --accent-2: #8b7cff;
       --ok: #41d392;
       --bad: #ff657a;
+      --warn: #ffc857;
       --shadow: 0 20px 60px rgba(0,0,0,.35);
       --radius: 22px;
     }
@@ -101,14 +102,17 @@
       border-radius: 14px;
       display: grid;
       place-items: center;
+
       background:
         linear-gradient(
           135deg,
           var(--accent),
           var(--accent-2)
         );
+
       color: white;
       font-weight: 800;
+
       box-shadow:
         0 10px 30px rgba(110,168,254,.24);
     }
@@ -157,12 +161,15 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
+
       padding: 5px 9px;
       min-height: 24px;
+
       border-radius: 999px;
       font-size: 12px;
       line-height: 1;
       font-weight: 700;
+
       background: rgba(255,255,255,.06);
     }
 
@@ -170,6 +177,7 @@
       content: "";
       width: 6px;
       height: 6px;
+
       flex: 0 0 6px;
       border-radius: 50%;
       background: currentColor;
@@ -189,6 +197,11 @@
       color: #c5cde0;
     }
 
+    .status.warn {
+      color: var(--warn);
+      background: rgba(255,200,87,.10);
+    }
+
     .rows {
       padding: 6px 22px 14px;
     }
@@ -198,9 +211,12 @@
       grid-template-columns:
         minmax(120px, 1fr)
         minmax(0, 1.5fr);
+
       gap: 18px;
       align-items: center;
+
       min-height: 62px;
+
       border-bottom: 1px solid var(--line);
     }
 
@@ -224,8 +240,10 @@
     .protocol {
       padding: 6px 9px;
       border-radius: 9px;
+
       border: 1px solid rgba(110,168,254,.22);
       background: rgba(110,168,254,.10);
+
       color: #dce9ff;
       font-size: 12px;
       font-weight: 700;
@@ -233,9 +251,8 @@
     }
 
     .connections {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
     }
 
@@ -243,40 +260,10 @@
       font-weight: 750;
     }
 
-    .ip-list {
-      display: flex;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 6px;
-      width: 100%;
-    }
-
-    .ip {
-      display: inline-flex;
-      align-items: center;
-      min-height: 25px;
-      padding: 4px 8px;
-      border-radius: 8px;
-      background: rgba(65,211,146,.08);
-      border: 1px solid rgba(65,211,146,.18);
-      color: #c9f6df;
-      font-family:
-        ui-monospace,
-        SFMono-Regular,
-        Menlo,
-        Monaco,
-        Consolas,
-        "Liberation Mono",
-        monospace;
-      font-size: 11px;
-      font-weight: 650;
-      white-space: nowrap;
-    }
-
-    .ip-more {
+    .connections-state {
       color: var(--muted);
-      font-size: 11px;
-      padding: 5px 2px;
+      font-size: 12px;
+      font-weight: 500;
     }
 
     .actions {
@@ -290,16 +277,21 @@
       appearance: none;
       border: 0;
       cursor: pointer;
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+
       min-height: 46px;
       padding: 0 16px;
+
       border-radius: 13px;
+
       text-decoration: none;
       font-weight: 750;
       font-size: 14px;
+
       transition:
         transform .15s ease,
         opacity .15s ease,
@@ -316,6 +308,7 @@
 
     .btn.primary {
       color: #07101f;
+
       background:
         linear-gradient(
           135deg,
@@ -344,14 +337,24 @@
     .error {
       margin-top: 14px;
       padding: 12px 14px;
+
       border-radius: 12px;
+
       background: rgba(255,101,122,.08);
       border: 1px solid rgba(255,101,122,.18);
+
       color: #ffd7dd;
       font-size: 13px;
       line-height: 1.45;
+
       white-space: pre-wrap;
       overflow-wrap: anywhere;
+    }
+
+    .error.warning {
+      background: rgba(255,200,87,.08);
+      border-color: rgba(255,200,87,.18);
+      color: #ffe8ad;
     }
 
     .error[hidden] {
@@ -375,10 +378,6 @@
       }
 
       .connections {
-        align-items: flex-start;
-      }
-
-      .ip-list {
         justify-content: flex-start;
       }
 
@@ -395,14 +394,17 @@
 
 <body>
   <main class="wrap">
+
     <div class="header">
       <div class="brand">
+
         <div class="logo">L</div>
 
         <div>
           <h1>Limupy VPN</h1>
           <div class="subtitle">VPN-подписка</div>
         </div>
+
       </div>
     </div>
 
@@ -410,9 +412,14 @@
       class="card"
       aria-live="polite"
     >
+
       <div class="hero">
+
         <div class="status-row">
-          <span class="label">Статус</span>
+
+          <span class="label">
+            Статус
+          </span>
 
           <span
             id="status"
@@ -420,12 +427,17 @@
           >
             Проверка…
           </span>
+
         </div>
+
       </div>
 
       <div class="rows">
+
         <div class="row">
-          <div class="label">Подписка</div>
+          <div class="label">
+            Подписка
+          </div>
 
           <div
             id="subscription"
@@ -436,7 +448,9 @@
         </div>
 
         <div class="row">
-          <div class="label">Подключено к VPN</div>
+          <div class="label">
+            Подключено к VPN
+          </div>
 
           <div
             id="devicesCount"
@@ -447,7 +461,9 @@
         </div>
 
         <div class="row">
-          <div class="label">Протоколы</div>
+          <div class="label">
+            Протоколы
+          </div>
 
           <div
             id="protocols"
@@ -458,7 +474,9 @@
         </div>
 
         <div class="row">
-          <div class="label">Трафик</div>
+          <div class="label">
+            Трафик
+          </div>
 
           <div
             id="traffic"
@@ -469,7 +487,9 @@
         </div>
 
         <div class="row">
-          <div class="label">Срок действия</div>
+          <div class="label">
+            Срок действия
+          </div>
 
           <div
             id="expire"
@@ -480,7 +500,9 @@
         </div>
 
         <div class="row">
-          <div class="label">Задержка</div>
+          <div class="label">
+            Задержка
+          </div>
 
           <div
             id="latency"
@@ -489,9 +511,11 @@
             —
           </div>
         </div>
+
       </div>
 
       <div class="actions">
+
         <a
           id="happDownload"
           class="btn secondary"
@@ -511,7 +535,9 @@
         >
           Открыть в Happ
         </a>
+
       </div>
+
     </section>
 
     <div
@@ -521,31 +547,76 @@
     ></div>
 
     <div class="footer-note">
-      Задержка измеряется непосредственно с вашего устройства до API Limupy.
+      Задержка измеряется по запросу к API Limupy.
     </div>
+
   </main>
 
   <script>
     'use strict';
 
-    const API_URL = 'https://78.17.112.158/api.php';
-    const HAPP_DOWNLOAD_URL = 'https://happ.info/';
-    const REQUEST_TIMEOUT_MS = 10000;
-    const DEVICE_STORAGE_KEY = 'limupy_device_id_v2';
+    const API_URL =
+      'https://78.17.112.158/api.php';
 
-    const $ = id => document.getElementById(id);
+    const HAPP_DOWNLOAD_URL =
+      'https://happ.info/';
 
+    const REQUEST_TIMEOUT_MS =
+      10000;
+
+    const DEVICE_STORAGE_KEY =
+      'limupy_device_id_v2';
+
+    const HASH_CHANGE_DELAY_MS =
+      150;
+
+    const $ =
+      id => document.getElementById(id);
+
+
+    /*
+     * Один общий Promise.
+     *
+     * Даже если hashchange/load сработают почти одновременно,
+     * второй POST не пойдёт, пока первый запрос выполняется.
+     */
+    let activeLoadPromise = null;
+
+
+    /*
+     * Получение ключа из:
+     *
+     * https://limupy.github.io/vpn/#key=TOKEN
+     */
     function getToken() {
-      const hash = window.location.hash.replace(/^#/, '');
-      const params = new URLSearchParams(hash);
-      return (params.get('key') || '').trim();
+
+      const hash =
+        window.location.hash.replace(
+          /^#/,
+          ''
+        );
+
+      const params =
+        new URLSearchParams(hash);
+
+      return (
+        params.get('key') ||
+        ''
+      ).trim();
     }
 
+
+    /*
+     * Base64URL.
+     */
     function base64Url(bytes) {
+
       let binary = '';
 
       for (const byte of bytes) {
-        binary += String.fromCharCode(byte);
+        binary += String.fromCharCode(
+          byte
+        );
       }
 
       return btoa(binary)
@@ -554,55 +625,171 @@
         .replace(/=+$/g, '');
     }
 
+
+    /*
+     * Генерация стабильного ID устройства.
+     */
     function makeDeviceId() {
-      const bytes = new Uint8Array(32);
+
+      const bytes =
+        new Uint8Array(32);
+
       crypto.getRandomValues(bytes);
+
       return base64Url(bytes);
     }
 
-    function getDeviceId() {
-      let value = localStorage.getItem(DEVICE_STORAGE_KEY);
 
-      if (!value || !/^[A-Za-z0-9._~-]{43}$/.test(value)) {
-        value = makeDeviceId();
-        localStorage.setItem(DEVICE_STORAGE_KEY, value);
+    /*
+     * Один device_id на браузер.
+     */
+    function getDeviceId() {
+
+      let value =
+        localStorage.getItem(
+          DEVICE_STORAGE_KEY
+        );
+
+      if (
+        !value ||
+        !/^[A-Za-z0-9._~-]{43}$/.test(
+          value
+        )
+      ) {
+
+        value =
+          makeDeviceId();
+
+        localStorage.setItem(
+          DEVICE_STORAGE_KEY,
+          value
+        );
       }
 
       return value;
     }
 
-    function setStatus(active, text) {
-      const el = $('status');
 
-      el.className = 'status ' + (active ? 'ok' : 'bad');
-      el.textContent = text;
+    /*
+     * Статус.
+     */
+    function setStatus(
+      type,
+      text
+    ) {
+
+      const el =
+        $('status');
+
+      el.className =
+        'status ' + type;
+
+      el.textContent =
+        text;
     }
 
+
+    /*
+     * Сброс полей.
+     */
     function resetFields() {
-      $('subscription').textContent = '—';
-      $('devicesCount').textContent = '—';
-      $('protocols').textContent = '—';
-      $('traffic').textContent = '—';
-      $('expire').textContent = '—';
-      $('latency').textContent = '—';
 
-      $('happConnect').hidden = true;
-      $('happConnect').removeAttribute('href');
+      $('subscription')
+        .textContent = '—';
+
+      $('devicesCount')
+        .textContent = '—';
+
+      $('protocols')
+        .textContent = '—';
+
+      $('traffic')
+        .textContent = '—';
+
+      $('expire')
+        .textContent = '—';
+
+      $('latency')
+        .textContent = '—';
+
+      $('happConnect')
+        .hidden = true;
+
+      $('happConnect')
+        .removeAttribute(
+          'href'
+        );
     }
 
-    function bytes(value) {
-      const n = Number(value || 0);
 
-      if (!Number.isFinite(n) || n <= 0) {
+    /*
+     * Сообщение ошибки.
+     */
+    function showError(
+      message,
+      warning = false
+    ) {
+
+      const el =
+        $('error');
+
+      el.hidden = false;
+
+      el.className =
+        warning
+          ? 'error warning'
+          : 'error';
+
+      el.textContent =
+        message;
+    }
+
+
+    /*
+     * Скрыть ошибку.
+     */
+    function hideError() {
+
+      const el =
+        $('error');
+
+      el.hidden = true;
+      el.textContent = '';
+      el.className = 'error';
+    }
+
+
+    /*
+     * Форматирование байтов.
+     */
+    function bytes(value) {
+
+      const n =
+        Number(value || 0);
+
+      if (
+        !Number.isFinite(n) ||
+        n <= 0
+      ) {
         return '0 Б';
       }
 
-      const units = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ'];
+      const units = [
+        'Б',
+        'КБ',
+        'МБ',
+        'ГБ',
+        'ТБ'
+      ];
 
       let x = n;
       let i = 0;
 
-      while (x >= 1024 && i < units.length - 1) {
+      while (
+        x >= 1024 &&
+        i < units.length - 1
+      ) {
+
         x /= 1024;
         i++;
       }
@@ -614,352 +801,236 @@
             ? 1
             : 2;
 
-      return `${x.toFixed(digits)} ${units[i]}`;
+      return (
+        `${x.toFixed(digits)} ${units[i]}`
+      );
     }
 
+
+    /*
+     * Трафик.
+     */
     function trafficText(sub) {
-      const total = Number(sub.total_bytes || 0);
-      const used = Number(sub.used_bytes || 0);
+
+      const total =
+        Number(
+          sub.total_bytes || 0
+        );
+
+      const used =
+        Number(
+          sub.used_bytes || 0
+        );
 
       if (!total) {
-        return `Использовано ${bytes(used)} · без лимита`;
+
+        return (
+          `Использовано ${bytes(used)} · без лимита`
+        );
       }
 
-      return `${bytes(used)} из ${bytes(total)}`;
+      const remaining =
+        Number(
+          sub.remaining_bytes ?? (
+            Math.max(
+              0,
+              total - used
+            )
+          )
+        );
+
+      return (
+        `${bytes(used)} из ${bytes(total)} · осталось ${bytes(remaining)}`
+      );
     }
 
-    function expireText(timestamp) {
-      const ts = Number(timestamp || 0);
+
+    /*
+     * Срок.
+     */
+    function expireText(
+      timestamp
+    ) {
+
+      const ts =
+        Number(
+          timestamp || 0
+        );
 
       if (!ts) {
         return 'Бессрочно';
       }
 
-      const d = new Date(
-        ts > 1e12
-          ? ts
-          : ts * 1000
-      );
+      const d =
+        new Date(
+          ts > 1e12
+            ? ts
+            : ts * 1000
+        );
 
-      if (Number.isNaN(d.getTime())) {
+      if (
+        Number.isNaN(
+          d.getTime()
+        )
+      ) {
         return '—';
       }
 
-      return d.toLocaleDateString('ru-RU', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
+      return d.toLocaleDateString(
+        'ru-RU',
+        {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        }
+      );
     }
 
-    function isIPv4(value) {
-      const parts = String(value).trim().split('.');
 
-      if (parts.length !== 4) {
+    /*
+     * Окончательная проверка Happ URL.
+     */
+    function isAllowedHappUrl(
+      value
+    ) {
+
+      try {
+
+        const url =
+          new URL(value);
+
+        return (
+          url.protocol === 'https:' ||
+          url.protocol === 'happ:'
+        );
+
+      } catch (_) {
+
         return false;
       }
-
-      return parts.every(part => {
-        if (!/^\d+$/.test(part)) {
-          return false;
-        }
-
-        const n = Number(part);
-
-        return n >= 0 && n <= 255;
-      });
     }
 
-    function isIPv6(value) {
-      const text = String(value).trim();
 
-      return (
-        text.includes(':') &&
-        /^[0-9a-fA-F:.]+$/.test(text)
-      );
-    }
+    /*
+     * POST к API.
+     *
+     * ВАЖНО:
+     * На одну загрузку страницы теперь только ОДИН POST.
+     */
+    async function postApi(
+      token
+    ) {
 
-    function isValidIp(value) {
-      return isIPv4(value) || isIPv6(value);
-    }
+      const controller =
+        new AbortController();
 
-    function normalizeIp(value) {
-      if (typeof value !== 'string') {
-        return null;
-      }
+      const timeout =
+        setTimeout(
+          () => controller.abort(),
+          REQUEST_TIMEOUT_MS
+        );
 
-      let ip = value.trim();
+      try {
 
-      const suffixMatch = ip.match(
-        /^([0-9a-fA-F:.]+)(?:\s|\(|$)/
-      );
+        return await fetch(
+          API_URL,
+          {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-store',
+            credentials: 'omit',
+            redirect: 'error',
+            signal: controller.signal,
 
-      if (suffixMatch) {
-        ip = suffixMatch[1];
-      }
+            headers: {
+              'Authorization':
+                `Bearer ${token}`,
 
-      return isValidIp(ip) ? ip : null;
-    }
+              'Accept':
+                'application/json',
 
-    function getIpFromObject(obj) {
-      if (!obj || typeof obj !== 'object') {
-        return null;
-      }
+              'Content-Type':
+                'application/json'
+            },
 
-      const candidates = [
-        obj.ip,
-        obj.IP,
-        obj.address,
-        obj.addr,
-        obj.source_ip,
-        obj.sourceIp,
-        obj.client_ip,
-        obj.clientIp,
-        obj.remote_ip,
-        obj.remoteIp,
-        obj.remote_address,
-        obj.remoteAddress,
-        obj.last_ip,
-        obj.lastIp
-      ];
-
-      for (const value of candidates) {
-        const ip = normalizeIp(value);
-
-        if (ip) {
-          return ip;
-        }
-      }
-
-      return null;
-    }
-
-    function extractConnections(data) {
-      const result = new Set();
-
-      const addIp = value => {
-        const ip = normalizeIp(value);
-
-        if (ip) {
-          result.add(ip);
-        }
-      };
-
-      const walk = value => {
-        if (value == null) {
-          return;
-        }
-
-        if (typeof value === 'string') {
-          addIp(value);
-          return;
-        }
-
-        if (typeof value !== 'object') {
-          return;
-        }
-
-        if (Array.isArray(value)) {
-          for (const item of value) {
-            if (typeof item === 'string') {
-              addIp(item);
-            } else if (item && typeof item === 'object') {
-              const directIp = getIpFromObject(item);
-
-              if (directIp) {
-                addIp(directIp);
-              }
-
-              walkObjectFields(item);
-            }
+            body: JSON.stringify({
+              device_id:
+                getDeviceId()
+            })
           }
+        );
 
-          return;
-        }
+      } finally {
 
-        walkObjectFields(value);
-      };
-
-      const walkObjectFields = obj => {
-        const directIp = getIpFromObject(obj);
-
-        if (directIp) {
-          addIp(directIp);
-        }
-
-        const nestedKeys = [
-          'ips',
-          'ip_addresses',
-          'ipAddresses',
-          'connected_ips',
-          'connectedIPs',
-          'online_ips',
-          'onlineIPs',
-          'active_ips',
-          'activeIPs',
-          'connections',
-          'online_connections',
-          'onlineConnections',
-          'vpn_connections',
-          'vpnConnections',
-          'connected_devices',
-          'connectedDevices',
-          'vpn_devices',
-          'vpnDevices',
-          'connected_clients',
-          'connectedClients',
-          'online_clients',
-          'onlineClients',
-          'clients',
-          'sessions',
-          'peers',
-          'addresses'
-        ];
-
-        for (const key of nestedKeys) {
-          if (obj[key] != null) {
-            walk(obj[key]);
-          }
-        }
-      };
-
-      const candidates = [
-        data.vpn_connections,
-        data.vpnConnections,
-        data.connected_ips,
-        data.connectedIPs,
-        data.online_ips,
-        data.onlineIPs,
-        data.active_ips,
-        data.activeIPs,
-        data.connections,
-        data.online_connections,
-        data.onlineConnections,
-        data.connected_devices,
-        data.connectedDevices,
-        data.vpn_devices,
-        data.vpnDevices,
-        data.connected_clients,
-        data.connectedClients,
-        data.online_clients,
-        data.onlineClients,
-        data.sessions,
-        data.subscription?.vpn_connections,
-        data.subscription?.connections,
-        data.subscription?.connected_ips,
-        data.subscription?.online_ips,
-        data.subscription?.connected_devices,
-        data.subscription?.vpn_devices,
-        data.subscription?.sessions,
-        data.connection?.vpn_connections,
-        data.connection?.connections,
-        data.connection?.connected_ips,
-        data.connection?.online_ips,
-        data.connection?.connected_devices,
-        data.connection?.sessions,
-        data.device?.connections,
-        data.device?.connected_devices,
-        data.device?.sessions,
-        data.device?.ips,
-        data.devices
-      ];
-
-      for (const candidate of candidates) {
-        walk(candidate);
+        clearTimeout(timeout);
       }
-
-      return [...result];
     }
 
-    function getExplicitConnectionCount(data) {
-      const candidates = [
-        data.vpn_connected_devices_count,
-        data.connected_vpn_devices_count,
-        data.vpn_devices_count,
-        data.active_vpn_devices_count,
-        data.vpn_connections_count,
-        data.connected_devices_count,
-        data.connectedDevicesCount,
-        data.active_devices_count,
-        data.activeDevicesCount,
-        data.connections_count,
-        data.connectionsCount,
-        data.online_count,
-        data.connected_count,
-        data.device_count,
-        data.devices_count,
-        data.subscription?.vpn_connected_devices_count,
-        data.subscription?.connected_vpn_devices_count,
-        data.subscription?.vpn_devices_count,
-        data.subscription?.active_vpn_devices_count,
-        data.subscription?.vpn_connections_count,
-        data.subscription?.connected_devices_count,
-        data.subscription?.active_devices_count,
-        data.subscription?.connections_count,
-        data.subscription?.online_count,
-        data.connection?.vpn_connected_devices_count,
-        data.connection?.connected_devices_count,
-        data.connection?.active_devices_count,
-        data.connection?.connections_count,
-        data.connection?.online_count,
-        data.device?.connected_devices_count,
-        data.device?.active_devices_count,
-        data.device?.connections_count,
-        data.device?.online_count
-      ];
 
-      for (const value of candidates) {
-        if (
-          typeof value === 'number' &&
-          Number.isFinite(value) &&
-          value >= 0
-        ) {
-          return Math.floor(value);
-        }
+    /*
+     * Получение JSON.
+     */
+    async function fetchSubscription(
+      token
+    ) {
 
-        if (
-          typeof value === 'string' &&
-          value.trim() !== '' &&
-          Number.isFinite(Number(value))
-        ) {
-          return Math.max(
-            0,
-            Math.floor(Number(value))
+      const started =
+        performance.now();
+
+      let res;
+
+      try {
+
+        res =
+          await postApi(
+            token
           );
-        }
+
+      } catch (error) {
+
+        error.requestTimeMs =
+          performance.now() -
+          started;
+
+        throw error;
       }
 
-      return null;
-    }
+      let data = null;
 
-    function getConnectionArrayCount(data) {
-      const candidates = [
-        data.connected_devices,
-        data.connectedDevices,
-        data.vpn_devices,
-        data.vpnDevices,
-        data.sessions,
-        data.subscription?.connected_devices,
-        data.subscription?.vpn_devices,
-        data.subscription?.sessions,
-        data.connection?.connected_devices,
-        data.connection?.sessions,
-        data.device?.connections,
-        data.device?.sessions
-      ];
+      try {
 
-      for (const value of candidates) {
-        if (Array.isArray(value)) {
-          return value.length;
-        }
+        data =
+          await res.json();
+
+      } catch (_) {
+
+        data = null;
       }
 
-      return null;
+      const elapsed =
+        performance.now() -
+        started;
+
+      return {
+        res,
+        data,
+        elapsed
+      };
     }
 
-    function pluralizeDevices(count) {
-      const mod10 = count % 10;
-      const mod100 = count % 100;
+
+    /*
+     * Простое склонение.
+     */
+    function pluralizeDevices(
+      count
+    ) {
+
+      const mod10 =
+        count % 10;
+
+      const mod100 =
+        count % 100;
 
       if (
         mod10 === 1 &&
@@ -982,234 +1053,545 @@
       return 'устройств';
     }
 
-    function clearChildren(el) {
-      while (el.firstChild) {
-        el.removeChild(el.firstChild);
+
+    /*
+     * Попытка найти число подключённых устройств
+     * во всех поддерживаемых вариантах ответа API.
+     */
+    function getConnectionCount(
+      data
+    ) {
+
+      const candidates = [
+
+        data?.vpn_connections_count,
+
+        data?.vpn_connected_devices_count,
+
+        data?.connected_vpn_devices_count,
+
+        data?.vpn_devices_count,
+
+        data?.active_vpn_devices_count,
+
+        data?.connected_devices_count,
+
+        data?.connectedDevicesCount,
+
+        data?.active_devices_count,
+
+        data?.activeDevicesCount,
+
+        data?.connections_count,
+
+        data?.connectionsCount,
+
+        data?.online_count,
+
+        data?.connected_count,
+
+        data?.device_count,
+
+        data?.devices_count,
+
+        data?.connection_count,
+
+        data?.connectionCount,
+
+        data?.subscription?.vpn_connections_count,
+
+        data?.subscription?.vpn_connected_devices_count,
+
+        data?.subscription?.connected_vpn_devices_count,
+
+        data?.subscription?.vpn_devices_count,
+
+        data?.subscription?.active_vpn_devices_count,
+
+        data?.subscription?.connected_devices_count,
+
+        data?.subscription?.active_devices_count,
+
+        data?.subscription?.connections_count,
+
+        data?.subscription?.online_count,
+
+        data?.connection?.vpn_connected_devices_count,
+
+        data?.connection?.connected_devices_count,
+
+        data?.connection?.active_devices_count,
+
+        data?.connection?.connections_count,
+
+        data?.connection?.online_count,
+
+        data?.connection?.count,
+
+        data?.device?.connected_devices_count,
+
+        data?.device?.active_devices_count,
+
+        data?.device?.connections_count,
+
+        data?.device?.online_count,
+
+        data?.device?.connections,
+
+        data?.connections?.count
+      ];
+
+
+      for (
+        const value of candidates
+      ) {
+
+        if (
+          typeof value === 'number' &&
+          Number.isFinite(value) &&
+          value >= 0
+        ) {
+
+          return Math.floor(
+            value
+          );
+        }
+
+
+        if (
+          typeof value === 'string' &&
+          value.trim() !== '' &&
+          Number.isFinite(
+            Number(value)
+          )
+        ) {
+
+          return Math.max(
+            0,
+            Math.floor(
+              Number(value)
+            )
+          );
+        }
       }
+
+
+      /*
+       * Если API возвращает массивы.
+       */
+      const arrays = [
+
+        data?.connections,
+
+        data?.devices,
+
+        data?.connected_devices,
+
+        data?.connectedDevices,
+
+        data?.vpn_devices,
+
+        data?.vpnDevices,
+
+        data?.sessions,
+
+        data?.connected_clients,
+
+        data?.connectedClients,
+
+        data?.online_clients,
+
+        data?.onlineClients,
+
+        data?.subscription?.connections,
+
+        data?.subscription?.connected_devices,
+
+        data?.subscription?.sessions,
+
+        data?.connection?.connections,
+
+        data?.connection?.sessions,
+
+        data?.device?.connections,
+
+        data?.device?.sessions
+      ];
+
+
+      for (
+        const value of arrays
+      ) {
+
+        if (
+          Array.isArray(value)
+        ) {
+
+          return value.length;
+        }
+      }
+
+
+      return null;
     }
 
-    function renderConnections(data) {
-      const ips = extractConnections(data);
 
-      let count = getExplicitConnectionCount(data);
+    /*
+     * Отрисовка подключённых устройств.
+     */
+    function renderConnections(
+      data
+    ) {
 
-      if (count === null) {
-        count = getConnectionArrayCount(data);
-      }
+      const count =
+        getConnectionCount(
+          data
+        );
 
-      if (count === null && ips.length > 0) {
-        count = ips.length;
-      }
+      const el =
+        $('devicesCount');
 
-      clearChildren($('devicesCount'));
+      el.textContent = '';
 
-      if (count === null) {
-        $('devicesCount').textContent = '—';
+      if (
+        count === null
+      ) {
+
+        const wrapper =
+          document.createElement(
+            'div'
+          );
+
+        wrapper.className =
+          'connections';
+
+        const countEl =
+          document.createElement(
+            'div'
+          );
+
+        countEl.className =
+          'connections-count';
+
+        countEl.textContent =
+          'Данные недоступны';
+
+        wrapper.appendChild(
+          countEl
+        );
+
+        el.appendChild(
+          wrapper
+        );
+
         return;
       }
 
-      const wrapper = document.createElement('div');
-      wrapper.className = 'connections';
 
-      const countEl = document.createElement('div');
-      countEl.className = 'connections-count';
+      const wrapper =
+        document.createElement(
+          'div'
+        );
+
+      wrapper.className =
+        'connections';
+
+
+      const countEl =
+        document.createElement(
+          'div'
+        );
+
+      countEl.className =
+        'connections-count';
+
       countEl.textContent =
         `${count} ${pluralizeDevices(count)}`;
 
-      wrapper.appendChild(countEl);
 
-      if (ips.length > 0) {
-        const ipList = document.createElement('div');
-        ipList.className = 'ip-list';
-
-        const visible = ips.slice(0, 8);
-
-        for (const ip of visible) {
-          const ipEl = document.createElement('span');
-          ipEl.className = 'ip';
-          ipEl.textContent = ip;
-          ipList.appendChild(ipEl);
-        }
-
-        if (ips.length > 8) {
-          const moreEl = document.createElement('span');
-          moreEl.className = 'ip-more';
-          moreEl.textContent = `+${ips.length - 8}`;
-          ipList.appendChild(moreEl);
-        }
-
-        wrapper.appendChild(ipList);
-      }
-
-      $('devicesCount').appendChild(wrapper);
-    }
-
-    function renderProtocols(protocols) {
-      const arr = Array.isArray(protocols)
-        ? protocols
-        : String(protocols || '')
-            .split(',')
-            .map(s => s.trim())
-            .filter(Boolean);
-
-      clearChildren($('protocols'));
-
-      if (!arr.length) {
-        $('protocols').textContent = '—';
-        return;
-      }
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'protocols';
-
-      for (const protocol of arr) {
-        const item = document.createElement('span');
-        item.className = 'protocol';
-        item.textContent = String(protocol);
-        wrapper.appendChild(item);
-      }
-
-      $('protocols').appendChild(wrapper);
-    }
-
-    function isAllowedHappUrl(value) {
-      try {
-        const url = new URL(value);
-
-        return (
-          url.protocol === 'https:' ||
-          url.protocol === 'happ:'
-        );
-      } catch (_) {
-        return false;
-      }
-    }
-
-    async function postApi(token) {
-      const controller = new AbortController();
-
-      const timeout = setTimeout(
-        () => controller.abort(),
-        REQUEST_TIMEOUT_MS
+      wrapper.appendChild(
+        countEl
       );
 
-      try {
-        return await fetch(
-          API_URL,
-          {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-store',
-            credentials: 'omit',
-            redirect: 'error',
-            signal: controller.signal,
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              device_id: getDeviceId()
-            })
-          }
+
+      /*
+       * Небольшое пояснение,
+       * если одновременно 0.
+       */
+      if (count === 0) {
+
+        const stateEl =
+          document.createElement(
+            'div'
+          );
+
+        stateEl.className =
+          'connections-state';
+
+        stateEl.textContent =
+          'сейчас нет активных подключений';
+
+        wrapper.appendChild(
+          stateEl
         );
-      } finally {
-        clearTimeout(timeout);
       }
+
+
+      el.appendChild(
+        wrapper
+      );
     }
 
-    async function fetchSubscription(token) {
-      const res = await postApi(token);
 
-      let data = null;
+    /*
+     * Протоколы.
+     */
+    function renderProtocols(
+      protocols
+    ) {
 
-      try {
-        data = await res.json();
-      } catch (_) {
-        data = null;
-      }
+      const arr =
+        Array.isArray(protocols)
+          ? protocols
+          : String(
+              protocols || ''
+            )
+              .split(',')
+              .map(
+                s => s.trim()
+              )
+              .filter(
+                Boolean
+              );
 
-      return {
-        res,
-        data
-      };
-    }
+      const el =
+        $('protocols');
 
-    async function measureBrowserLatency(token) {
-      const samples = [];
+      el.textContent = '';
 
-      for (let i = 0; i < 3; i++) {
-        const start = performance.now();
 
-        try {
-          const res = await postApi(token);
+      if (!arr.length) {
 
-          await res.arrayBuffer();
+        el.textContent = '—';
 
-          if (res.ok) {
-            samples.push(
-              performance.now() - start
-            );
-          }
-        } catch (_) {}
-      }
-
-      if (!samples.length) {
-        return null;
-      }
-
-      samples.sort((a, b) => a - b);
-
-      return samples[
-        Math.floor(samples.length / 2)
-      ];
-    }
-
-    function showApiError(status, data) {
-      $('error').hidden = false;
-
-      if (
-        data &&
-        typeof data.error === 'string'
-      ) {
-        $('error').textContent = data.error;
         return;
       }
 
+
+      const wrapper =
+        document.createElement(
+          'div'
+        );
+
+      wrapper.className =
+        'protocols';
+
+
+      for (
+        const protocol of arr
+      ) {
+
+        const item =
+          document.createElement(
+            'span'
+          );
+
+        item.className =
+          'protocol';
+
+        item.textContent =
+          String(protocol);
+
+        wrapper.appendChild(
+          item
+        );
+      }
+
+
+      el.appendChild(
+        wrapper
+      );
+    }
+
+
+    /*
+     * Ошибки API.
+     */
+    function showApiError(
+      status,
+      data,
+      retryAfter
+    ) {
+
       switch (status) {
+
         case 400:
-          $('error').textContent =
-            'API отклонил запрос: проверьте формат данных и идентификатор устройства.';
+
+          showError(
+            'API отклонил запрос: проверьте формат данных и идентификатор устройства.'
+          );
+
           break;
+
 
         case 401:
-          $('error').textContent =
-            'Подписка отключена или ключ больше не действителен.';
+
+          showError(
+            'Подписка отключена или ключ больше не действителен.'
+          );
+
           break;
+
 
         case 403:
-          $('error').textContent =
-            'Запрос отклонён сервером по политике доступа.';
+
+          showError(
+            'Запрос отклонён сервером по политике доступа.'
+          );
+
           break;
+
 
         case 405:
-          $('error').textContent =
-            'Ошибка метода API: сервер ожидает POST-запрос.';
+
+          showError(
+            'Ошибка метода API: сервер ожидает POST-запрос.'
+          );
+
           break;
+
 
         case 415:
-          $('error').textContent =
-            'API отклонил формат запроса. Ожидается JSON.';
+
+          showError(
+            'API отклонил формат запроса. Ожидается JSON.'
+          );
+
           break;
 
+
+        case 429: {
+
+          let message =
+            'Слишком много запросов.';
+
+          if (
+            retryAfter
+          ) {
+
+            const seconds =
+              Number(
+                retryAfter
+              );
+
+            if (
+              Number.isFinite(
+                seconds
+              ) &&
+              seconds > 0
+            ) {
+
+              message +=
+                ` Повторите через ${Math.ceil(seconds)} сек.`;
+            }
+          }
+
+          message +=
+            ' Не обновляйте страницу несколько раз подряд.';
+
+          showError(
+            message,
+            true
+          );
+
+          break;
+        }
+
+
+        case 500:
+
+          showError(
+            'Внутренняя ошибка API Limupy.'
+          );
+
+          break;
+
+
+        case 502:
+        case 503:
+        case 504:
+
+          showError(
+            `Сервер подписки временно недоступен. HTTP ${status}.`
+          );
+
+          break;
+
+
         default:
-          $('error').textContent =
-            `Не удалось получить данные подписки. HTTP ${status}.`;
+
+          if (
+            data &&
+            typeof data.error === 'string'
+          ) {
+
+            showError(
+              data.error
+            );
+
+          } else {
+
+            showError(
+              `Не удалось получить данные подписки. HTTP ${status}.`
+            );
+          }
       }
     }
 
-    function renderActive(data) {
-      const sub = data.subscription || {};
+
+    /*
+     * Проверка активности.
+     */
+    function isSubscriptionActive(
+      data
+    ) {
+
+      const sub =
+        data?.subscription || {};
+
+
+      if (
+        sub.enabled === false ||
+        sub.active === false
+      ) {
+
+        return false;
+      }
+
+
+      if (
+        data?.enabled === false ||
+        data?.active === false
+      ) {
+
+        return false;
+      }
+
+
+      return true;
+    }
+
+
+    /*
+     * Основной рендер.
+     */
+    function renderActive(
+      data
+    ) {
+
+      const sub =
+        data.subscription || {};
+
 
       const subscriptionName =
         data.subscription_name ||
@@ -1217,10 +1599,18 @@
         data.name ||
         'VPN-подписка';
 
-      $('subscription').textContent =
-        subscriptionName;
 
-      renderConnections(data);
+      $('subscription')
+        .textContent =
+          String(
+            subscriptionName
+          );
+
+
+      renderConnections(
+        data
+      );
+
 
       renderProtocols(
         sub.protocols ||
@@ -1228,126 +1618,277 @@
         []
       );
 
-      $('traffic').textContent =
-        trafficText(sub);
 
-      $('expire').textContent =
-        expireText(sub.expire);
+      $('traffic')
+        .textContent =
+          trafficText(
+            sub
+          );
+
+
+      $('expire')
+        .textContent =
+          expireText(
+            sub.expire
+          );
+
 
       if (
-        typeof data.launch_url === 'string' &&
-        isAllowedHappUrl(data.launch_url)
+        typeof data.launch_url ===
+          'string' &&
+        isAllowedHappUrl(
+          data.launch_url
+        )
       ) {
-        $('happConnect').href =
-          data.launch_url;
 
-        $('happConnect').hidden = false;
+        $('happConnect')
+          .href =
+            data.launch_url;
+
+        $('happConnect')
+          .hidden = false;
       }
     }
 
-    async function load() {
-      $('error').hidden = true;
-      $('error').textContent = '';
 
+    /*
+     * Реальная загрузка.
+     */
+    async function loadInternal() {
+
+      hideError();
       resetFields();
 
-      $('status').className =
-        'status wait';
+      setStatus(
+        'wait',
+        'Проверка…'
+      );
 
-      $('status').textContent =
-        'Проверка…';
 
-      const token = getToken();
+      const token =
+        getToken();
+
 
       if (!token) {
-        setStatus(false, 'Не активно');
 
-        $('error').hidden = false;
+        setStatus(
+          'bad',
+          'Не активно'
+        );
 
-        $('error').textContent =
-          'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.';
+        showError(
+          'Ссылка не содержит ключ подписки. Откройте персональную ссылку из Limupy.'
+        );
 
         return;
       }
 
+
       try {
-        const { res, data } =
-          await fetchSubscription(token);
+
+        /*
+         * ВАЖНО:
+         * это единственный API-запрос.
+         */
+        const {
+          res,
+          data,
+          elapsed
+        } =
+          await fetchSubscription(
+            token
+          );
+
+
+        /*
+         * Задержка именно этого запроса.
+         */
+        if (
+          Number.isFinite(
+            elapsed
+          )
+        ) {
+
+          $('latency')
+            .textContent =
+              `${Math.max(
+                1,
+                Math.round(
+                  elapsed
+                )
+              )} мс`;
+        }
+
+
+        /*
+         * Обрабатываем 429 отдельно.
+         */
+        if (
+          res.status === 429
+        ) {
+
+          setStatus(
+            'warn',
+            'Ограничение'
+          );
+
+
+          showApiError(
+            429,
+            data,
+            res.headers.get(
+              'Retry-After'
+            )
+          );
+
+          return;
+        }
+
 
         if (
           !res.ok ||
           !data ||
           data.ok === false
         ) {
-          setStatus(false, 'Не активно');
+
+          setStatus(
+            'bad',
+            'Не активно'
+          );
+
 
           showApiError(
             res.status,
-            data
+            data,
+            res.headers.get(
+              'Retry-After'
+            )
           );
 
           return;
         }
 
+
         if (
-          data.subscription &&
-          (
-            data.subscription.enabled === false ||
-            data.subscription.active === false
+          !isSubscriptionActive(
+            data
           )
         ) {
-          setStatus(false, 'Не активно');
 
-          $('error').hidden = false;
+          setStatus(
+            'bad',
+            'Не активно'
+          );
 
-          $('error').textContent =
-            'Эта VPN-подписка отключена.';
+          showError(
+            'Эта VPN-подписка отключена.'
+          );
 
           return;
         }
 
-        setStatus(true, 'Активно');
 
-        renderActive(data);
+        setStatus(
+          'ok',
+          'Активно'
+        );
 
-        const latency =
-          await measureBrowserLatency(token);
 
-        $('latency').textContent =
-          latency == null
-            ? '—'
-            : `${Math.max(
-                1,
-                Math.round(latency)
-              )} мс`;
+        renderActive(
+          data
+        );
+
+
       } catch (error) {
-        setStatus(false, 'Не активно');
 
-        $('error').hidden = false;
+        setStatus(
+          'bad',
+          'Не активно'
+        );
+
 
         if (
           error &&
-          error.name === 'AbortError'
+          error.name ===
+            'AbortError'
         ) {
-          $('error').textContent =
-            'Сервер не ответил вовремя. Попробуйте обновить страницу.';
-        } else {
-          $('error').textContent =
-            'Нет связи с сервером подписки. Проверьте соединение и попробуйте обновить страницу.';
+
+          showError(
+            'Сервер не ответил вовремя. Попробуйте обновить страницу.'
+          );
+
+          return;
         }
+
+
+        showError(
+          'Нет связи с сервером подписки. Проверьте соединение и попробуйте обновить страницу.'
+        );
       }
     }
 
+
+    /*
+     * Обёртка от двойных/параллельных запусков.
+     */
+    function load() {
+
+      if (
+        activeLoadPromise
+      ) {
+
+        return activeLoadPromise;
+      }
+
+
+      activeLoadPromise =
+        loadInternal()
+          .finally(
+            () => {
+              activeLoadPromise =
+                null;
+            }
+          );
+
+
+      return activeLoadPromise;
+    }
+
+
+    /*
+     * hashchange с маленькой задержкой,
+     * чтобы несколько изменений hash не дали
+     * серию POST.
+     */
+    let hashTimer = null;
+
     window.addEventListener(
       'hashchange',
-      load
+      () => {
+
+        clearTimeout(
+          hashTimer
+        );
+
+        hashTimer =
+          setTimeout(
+            () => load(),
+            HASH_CHANGE_DELAY_MS
+          );
+      }
     );
 
+
+    /*
+     * Первый запуск.
+     */
     window.addEventListener(
       'load',
       () => {
-        $('happDownload').href =
-          HAPP_DOWNLOAD_URL;
+
+        $('happDownload')
+          .href =
+            HAPP_DOWNLOAD_URL;
 
         load();
       }
