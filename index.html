@@ -678,31 +678,15 @@
       window.history.replaceState(
         nextState,
         '',
-        window.location.pathname
+        window.location.href
       );
 
       return true;
     }
 
     function clearUrlKeepHistoryState() {
-      if (
-        !window.history ||
-        typeof window.history.replaceState !== 'function'
-      ) {
-        return;
-      }
-
-      const currentState =
-        window.history.state &&
-        typeof window.history.state === 'object'
-          ? window.history.state
-          : null;
-
-      window.history.replaceState(
-        currentState,
-        '',
-        window.location.pathname
-      );
+      // Токен больше не скрывается из адресной строки.
+      return;
     }
 
     function adoptToken() {
@@ -728,10 +712,6 @@
 
       activeToken =
         historyToken;
-
-      if (historyToken) {
-        clearUrlKeepHistoryState();
-      }
 
       return activeToken;
     }
@@ -1347,8 +1327,6 @@
           activeToken
         );
 
-        clearUrlKeepHistoryState();
-
         setStatus(
           'ok',
           'Активно'
@@ -1514,8 +1492,6 @@
           if (!activeToken) {
             showTokenEntry();
           }
-
-          clearUrlKeepHistoryState();
         }
 
         clearTimeout(
@@ -1548,8 +1524,6 @@
         } else {
           showTokenEntry();
         }
-
-        clearUrlKeepHistoryState();
 
         load();
       }
