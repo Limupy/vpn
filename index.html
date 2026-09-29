@@ -371,7 +371,11 @@
       margin-top: 13px;
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.45;
       text-align: center;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @media (max-width: 560px) {
@@ -590,7 +594,7 @@
     </section>
 
     <div class="footer-note">
-      Задержка измеряется непосредственно с вашего устройства до API Limupy.
+      Не передавайте токен подписки и ссылку с токеном третьим лицам. Любой, у кого есть токен или ссылка с ним, может получить доступ к вашей VPN-подписке.
     </div>
 
   </main>
@@ -1177,7 +1181,7 @@
         if (tokenWasProvidedInUrl) {
           setStatus(
             'bad',
-            'Ключ отсутствует.'
+            'Токен отсутствует.'
           );
 
           hideTokenEntry();
@@ -1391,7 +1395,7 @@
       if (!token) {
         setStatus(
           'bad',
-          'Нет ключа подписки.'
+          'Нет токена подписки.'
         );
 
         showTokenEntry();
@@ -1582,7 +1586,7 @@
 
           setStatus(
             'bad',
-            'Нет ключа подписки.'
+            'Нет токена подписки.'
           );
 
         }
