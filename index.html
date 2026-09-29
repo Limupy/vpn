@@ -1,6 +1,4 @@
-
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -9,11 +7,10 @@
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0b1020">
 
-<meta
-http-equiv="Content-Security-Policy"
-content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'"
-
->
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'"
+  >
 
   <link
     rel="icon"
@@ -139,7 +136,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     .status-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       gap: 14px;
       margin: 0;
       min-height: 24px;
@@ -156,11 +153,13 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       gap: 7px;
       padding: 5px 9px;
       min-height: 24px;
+      max-width: 80%;
       border-radius: 999px;
       font-size: 12px;
-      line-height: 1;
+      line-height: 1.35;
       font-weight: 700;
       background: rgba(255,255,255,.06);
+      overflow-wrap: anywhere;
     }
 
     .status::before {
@@ -234,27 +233,41 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       letter-spacing: .01em;
     }
 
-    .connections {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .connections-count {
-      font-weight: 750;
-    }
-
-    .connections-state {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 500;
-    }
-
     .actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       padding: 11px 22px 20px;
+    }
+
+    .token-wrap {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .token-input {
+      appearance: none;
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 46px;
+      padding: 0 14px;
+      border-radius: 13px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline: none;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .token-input::placeholder {
+      color: var(--muted);
+    }
+
+    .token-input:focus {
+      border-color: rgba(110,168,254,.55);
+      box-shadow: 0 0 0 3px rgba(110,168,254,.10);
     }
 
     .btn {
@@ -301,38 +314,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       border: 1px solid var(--line);
     }
 
-    .btn[hidden] {
-      display: none;
-    }
-
     .footer-note {
       margin-top: 13px;
       color: var(--muted);
       font-size: 12px;
       text-align: center;
-    }
-
-    .error {
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(255,101,122,.08);
-      border: 1px solid rgba(255,101,122,.18);
-      color: #ffd7dd;
-      font-size: 13px;
-      line-height: 1.45;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
-    .error.warning {
-      background: rgba(255,200,87,.08);
-      border-color: rgba(255,200,87,.18);
-      color: #ffe8ad;
-    }
-
-    .error[hidden] {
-      display: none;
     }
 
     @media (max-width: 560px) {
@@ -351,20 +337,28 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         justify-content: flex-start;
       }
 
-      .connections {
-        justify-content: flex-start;
-      }
-
       .header {
         align-items: flex-start;
       }
 
-      .actions .btn {
+      .token-wrap {
+        flex-direction: column;
+      }
+
+      .token-input,
+      .token-wrap .btn {
         width: 100%;
+      }
+
+      .status-row {
+        align-items: flex-start;
+      }
+
+      .status {
+        max-width: 70%;
       }
     }
   </style>
-
 </head>
 
 <body>
@@ -373,155 +367,124 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       <div class="brand">
         <div class="logo">L</div>
 
-    <div>
-      <h1>Limupy VPN</h1>
-      <div class="subtitle">VPN-подписка</div>
-    </div>
-  </div>
-</div>
-
-<section class="card" aria-live="polite">
-  <div class="hero">
-    <div class="status-row">
-      <span class="label">
-        Статус
-      </span>
-
-      <span
-        id="status"
-        class="status wait"
-      >
-        Проверка…
-      </span>
-    </div>
-  </div>
-
-  <div class="rows">
-    <div class="row">
-      <div class="label">
-        Подписка
-      </div>
-
-      <div
-        id="subscription"
-        class="value"
-      >
-        —
+        <div>
+          <h1>Limupy VPN</h1>
+          <div class="subtitle">VPN-подписка</div>
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="label">
-        Сервер
+    <section class="card" aria-live="polite">
+      <div class="hero">
+        <div class="status-row">
+          <span class="label">Статус</span>
+
+          <span id="status" class="status wait">
+            Проверка…
+          </span>
+        </div>
       </div>
 
-      <div
-        id="server"
-        class="value"
-      >
-        —
+      <div class="rows">
+        <div class="row">
+          <div class="label">
+            Подписка
+          </div>
+
+          <div id="subscription" class="value">
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Сервер
+          </div>
+
+          <div id="server" class="value">
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Протоколы
+          </div>
+
+          <div id="protocols" class="value">
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Трафик
+          </div>
+
+          <div id="traffic" class="value">
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Срок действия
+          </div>
+
+          <div id="expire" class="value">
+            —
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            Задержка
+          </div>
+
+          <div id="latency" class="value">
+            —
+          </div>
+        </div>
       </div>
+
+      <div class="actions">
+        <div class="token-wrap">
+          <input
+            id="tokenInput"
+            class="token-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="Введите токен подписки"
+            aria-label="Токен подписки"
+          >
+
+          <button
+            id="tokenButton"
+            class="btn primary"
+            type="button"
+          >
+            Проверить
+          </button>
+        </div>
+
+        <a
+          id="happDownload"
+          class="btn secondary"
+          href="https://happ.info/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Скачать Happ
+        </a>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      Задержка измеряется непосредственно с вашего устройства до API Limupy.
     </div>
-
-    <div class="row">
-      <div class="label">
-        Подключено к VPN
-      </div>
-
-      <div
-        id="devicesCount"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Протоколы
-      </div>
-
-      <div
-        id="protocols"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Трафик
-      </div>
-
-      <div
-        id="traffic"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Срок действия
-      </div>
-
-      <div
-        id="expire"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="label">
-        Задержка
-      </div>
-
-      <div
-        id="latency"
-        class="value"
-      >
-        —
-      </div>
-    </div>
-  </div>
-
-  <div class="actions">
-    <a
-      id="happDownload"
-      class="btn secondary"
-      href="https://happ.info/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Скачать Happ
-    </a>
-
-    <a
-      id="happConnect"
-      class="btn primary"
-      href="#"
-      rel="noopener noreferrer"
-      hidden
-    >
-      Открыть в Happ
-    </a>
-  </div>
-</section>
-
-<div
-  id="error"
-  class="error"
-  hidden
-></div>
-
-<div class="footer-note">
-  Задержка измеряется непосредственно с вашего устройства до API Limupy.
-</div>
-
   </main>
 
   <script>
@@ -637,6 +600,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         activeToken =
           urlToken;
 
+        $('tokenInput').value =
+          activeToken;
+
         saveTokenToHistory(
           activeToken
         );
@@ -649,6 +615,11 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
       activeToken =
         historyToken;
+
+      if (activeToken) {
+        $('tokenInput').value =
+          activeToken;
+      }
 
       clearUrlKeepHistoryState();
 
@@ -697,47 +668,10 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
     function resetFields() {
       $('subscription').textContent = '—';
       $('server').textContent = '—';
-      $('devicesCount').textContent = '—';
       $('protocols').textContent = '—';
       $('traffic').textContent = '—';
       $('expire').textContent = '—';
       $('latency').textContent = '—';
-
-      $('happConnect').hidden = true;
-      $('happConnect').setAttribute('href', '#');
-    }
-
-    function showError(
-      message,
-      warning = false
-    ) {
-      const el =
-        $('error');
-
-      el.hidden =
-        false;
-
-      el.className =
-        warning
-          ? 'error warning'
-          : 'error';
-
-      el.textContent =
-        message;
-    }
-
-    function hideError() {
-      const el =
-        $('error');
-
-      el.hidden =
-        true;
-
-      el.textContent =
-        '';
-
-      el.className =
-        'error';
     }
 
     function bytes(value) {
@@ -844,53 +778,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-    function isAllowedHappUrl(value) {
-      if (
-        typeof value !== 'string'
-      ) {
-        return false;
-      }
-
-      const raw =
-        value.trim();
-
-      if (!raw) {
-        return false;
-      }
-
-      if (
-        /^happ:\/\/add\/https?:\/\//i.test(raw)
-      ) {
-        return (
-          /^happ:\/\/add\/https:\/\/78\.17\.112\.158(?:\/|$)/i.test(
-            raw
-          )
-        );
-      }
-
-      if (
-        /^https:\/\/78\.17\.112\.158\/DisstVpn\//i.test(raw)
-      ) {
-        return true;
-      }
-
-      try {
-        const decoded =
-          decodeURIComponent(raw);
-
-        return (
-          /^happ:\/\/add\/https:\/\/78\.17\.112\.158(?:\/|$)/i.test(
-            decoded
-          ) ||
-          /^https:\/\/78\.17\.112\.158\/DisstVpn\//i.test(
-            decoded
-          )
-        );
-      } catch (_) {
-        return false;
-      }
-    }
-
     async function postApi() {
       const controller =
         new AbortController();
@@ -959,250 +846,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       };
     }
 
-    function pluralizeDevices(count) {
-      const mod10 =
-        count % 10;
-
-      const mod100 =
-        count % 100;
-
-      if (
-        mod10 === 1 &&
-        mod100 !== 11
-      ) {
-        return 'устройство';
-      }
-
-      if (
-        mod10 >= 2 &&
-        mod10 <= 4 &&
-        (
-          mod100 < 10 ||
-          mod100 >= 20
-        )
-      ) {
-        return 'устройства';
-      }
-
-      return 'устройств';
-    }
-
-    function getConnectionCount(data) {
-      const direct = [
-        data?.vpn_connections_count,
-        data?.vpn_connected_devices_count,
-        data?.connected_vpn_devices_count,
-        data?.connected_devices_count,
-        data?.active_devices_count,
-        data?.connections_count,
-        data?.online_count,
-        data?.connected_count,
-        data?.device_count,
-        data?.devices_count,
-        data?.connection_count,
-        data?.subscription?.connected_devices_count,
-        data?.subscription?.active_devices_count,
-        data?.subscription?.connections_count,
-        data?.subscription?.online_count,
-        data?.device?.connected_devices_count,
-        data?.device?.active_devices_count,
-        data?.device?.connections_count,
-        data?.device?.online_count,
-        data?.connections?.count
-      ];
-
-      for (const value of direct) {
-        if (
-          typeof value === 'number' &&
-          Number.isFinite(value) &&
-          value >= 0
-        ) {
-          return Math.floor(
-            value
-          );
-        }
-
-        if (
-          typeof value === 'string' &&
-          value.trim() !== '' &&
-          Number.isFinite(
-            Number(value)
-          )
-        ) {
-          return Math.max(
-            0,
-            Math.floor(
-              Number(value)
-            )
-          );
-        }
-      }
-
-      const ipSources = [
-        data?.connected_ips,
-        data?.connectedIPs,
-        data?.vpn_ips,
-        data?.online_ips,
-        data?.ips,
-        data?.subscription?.connected_ips,
-        data?.subscription?.connectedIPs,
-        data?.subscription?.vpn_ips,
-        data?.subscription?.online_ips,
-        data?.subscription?.ips,
-        data?.connection?.ips,
-        data?.connections?.ips,
-        data?.device?.ips
-      ];
-
-      for (
-        const value of ipSources
-      ) {
-        if (
-          !Array.isArray(value)
-        ) {
-          continue;
-        }
-
-        const uniqueIps =
-          new Set();
-
-        for (
-          const item of value
-        ) {
-          if (
-            typeof item === 'string'
-          ) {
-            const ip =
-              item.trim();
-
-            if (ip) {
-              uniqueIps.add(ip);
-            }
-
-            continue;
-          }
-
-          if (
-            item &&
-            typeof item === 'object'
-          ) {
-            const ip =
-              String(
-                item.ip ??
-                item.address ??
-                item.client_ip ??
-                item.clientIp ??
-                ''
-              ).trim();
-
-            if (ip) {
-              uniqueIps.add(ip);
-            }
-          }
-        }
-
-        return uniqueIps.size;
-      }
-
-      const arrays = [
-        data?.connections,
-        data?.devices,
-        data?.connected_devices,
-        data?.connectedDevices,
-        data?.vpn_devices,
-        data?.sessions,
-        data?.connected_clients,
-        data?.online_clients,
-        data?.subscription?.connections,
-        data?.subscription?.connected_devices,
-        data?.subscription?.sessions,
-        data?.connection?.connections,
-        data?.connection?.sessions,
-        data?.device?.connections,
-        data?.device?.sessions
-      ];
-
-      for (
-        const value of arrays
-      ) {
-        if (
-          Array.isArray(value)
-        ) {
-          return value.length;
-        }
-      }
-
-      return null;
-    }
-
-    function renderConnections(data) {
-      const count =
-        getConnectionCount(
-          data
-        );
-
-      const el =
-        $('devicesCount');
-
-      el.textContent =
-        '';
-
-      if (
-        count === null
-      ) {
-        el.textContent =
-          'Данные недоступны';
-
-        return;
-      }
-
-      const wrapper =
-        document.createElement(
-          'div'
-        );
-
-      wrapper.className =
-        'connections';
-
-      const countEl =
-        document.createElement(
-          'div'
-        );
-
-      countEl.className =
-        'connections-count';
-
-      countEl.textContent =
-        `${count} ${pluralizeDevices(count)}`;
-
-      wrapper.appendChild(
-        countEl
-      );
-
-      if (
-        count === 0
-      ) {
-        const stateEl =
-          document.createElement(
-            'div'
-          );
-
-        stateEl.className =
-          'connections-state';
-
-        stateEl.textContent =
-          'сейчас нет активных подключений';
-
-        wrapper.appendChild(
-          stateEl
-        );
-      }
-
-      el.appendChild(
-        wrapper
-      );
-    }
-
     function renderProtocols(protocols) {
       const arr =
         Array.isArray(protocols)
@@ -1265,64 +908,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       );
     }
 
-    function showApiError(
-      status,
-      retryAfter
-    ) {
-      if (
-        status === 401
-      ) {
-        showError(
-          'Подписка недействительна.'
-        );
-        return;
-      }
-
-      if (
-        status === 403
-      ) {
-        showError(
-          'Доступ запрещён.'
-        );
-        return;
-      }
-
-      if (
-        status === 429
-      ) {
-        const seconds =
-          Number(
-            retryAfter
-          );
-
-        showError(
-          Number.isFinite(seconds) &&
-          seconds > 0
-            ? `Слишком много запросов. Повторите через ${Math.ceil(seconds)} сек.`
-            : 'Слишком много запросов. Попробуйте позже.',
-          true
-        );
-
-        return;
-      }
-
-      if (
-        status === 502 ||
-        status === 503 ||
-        status === 504
-      ) {
-        showError(
-          'Сервер временно недоступен.'
-        );
-
-        return;
-      }
-
-      showError(
-        'Не удалось получить данные подписки.'
-      );
-    }
-
     function isSubscriptionActive(data) {
       const sub =
         data?.subscription ||
@@ -1355,10 +940,6 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       $('server').textContent =
         'Финляндия';
 
-      renderConnections(
-        data
-      );
-
       renderProtocols(
         sub.protocols ||
         data.protocols ||
@@ -1377,27 +958,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
 
       $('latency').textContent =
         `${Math.max(1, Math.round(elapsed))} мс`;
-
-      if (
-        typeof data.launch_url ===
-          'string' &&
-        data.launch_url.trim() !== '' &&
-        isAllowedHappUrl(
-          data.launch_url
-        )
-      ) {
-        $('happConnect').setAttribute(
-          'href',
-          data.launch_url.trim()
-        );
-
-        $('happConnect').hidden =
-          false;
-      }
     }
 
     async function loadInternal() {
-      hideError();
       resetFields();
 
       setStatus(
@@ -1410,11 +973,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       ) {
         setStatus(
           'bad',
-          'Не активно'
-        );
-
-        showError(
-          'Ссылка не содержит ключ подписки.'
+          'Ссылка не содержит ключ подписки'
         );
 
         return;
@@ -1433,14 +992,17 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         ) {
           setStatus(
             'warn',
-            'Ограничение'
-          );
-
-          showApiError(
-            429,
             res.headers.get(
               'Retry-After'
             )
+              ? `Слишком много запросов. Повторите через ${Math.ceil(
+                  Number(
+                    res.headers.get(
+                      'Retry-After'
+                    )
+                  )
+                )} сек.`
+              : 'Слишком много запросов. Попробуйте позже.'
           );
 
           return;
@@ -1451,17 +1013,35 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           !data ||
           data.ok === false
         ) {
-          setStatus(
-            'bad',
-            'Не активно'
-          );
-
-          showApiError(
-            res.status,
-            res.headers.get(
-              'Retry-After'
-            )
-          );
+          if (
+            res.status === 401
+          ) {
+            setStatus(
+              'bad',
+              'Подписка недействительна'
+            );
+          } else if (
+            res.status === 403
+          ) {
+            setStatus(
+              'bad',
+              'Доступ запрещён'
+            );
+          } else if (
+            res.status === 502 ||
+            res.status === 503 ||
+            res.status === 504
+          ) {
+            setStatus(
+              'bad',
+              'Сервер временно недоступен'
+            );
+          } else {
+            setStatus(
+              'bad',
+              'Не удалось получить данные подписки'
+            );
+          }
 
           return;
         }
@@ -1473,11 +1053,7 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         ) {
           setStatus(
             'bad',
-            'Не активно'
-          );
-
-          showError(
-            'Эта VPN-подписка отключена.'
+            'Эта VPN-подписка отключена'
           );
 
           return;
@@ -1493,18 +1069,14 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           elapsed
         );
       } catch (error) {
-        setStatus(
-          'bad',
-          'Не активно'
-        );
-
         resetFields();
 
-        showError(
+        setStatus(
+          'bad',
           error?.name ===
             'AbortError'
-            ? 'Сервер не ответил вовремя.'
-            : 'Нет связи с сервером подписки.'
+            ? 'Сервер не ответил вовремя'
+            : 'Нет связи с сервером подписки'
         );
       }
     }
@@ -1527,29 +1099,53 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       return activeLoadPromise;
     }
 
-    $('happConnect').addEventListener(
-      'click',
-      event => {
-        const href =
-          $('happConnect').getAttribute(
-            'href'
-          );
+    function applyToken() {
+      const token =
+        $('tokenInput').value.trim();
 
+      if (!token) {
+        activeToken = '';
+
+        clearUrlKeepHistoryState();
+
+        resetFields();
+
+        setStatus(
+          'bad',
+          'Введите токен подписки'
+        );
+
+        return;
+      }
+
+      activeToken =
+        token;
+
+      saveTokenToHistory(
+        activeToken
+      );
+
+      clearUrlKeepHistoryState();
+
+      load();
+    }
+
+    $('tokenButton').addEventListener(
+      'click',
+      () => {
+        applyToken();
+      }
+    );
+
+    $('tokenInput').addEventListener(
+      'keydown',
+      event => {
         if (
-          !href ||
-          href === '#' ||
-          !isAllowedHappUrl(
-            href
-          )
+          event.key === 'Enter'
         ) {
           event.preventDefault();
-          return;
+          applyToken();
         }
-
-        event.currentTarget.setAttribute(
-          'href',
-          href
-        );
       }
     );
 
@@ -1565,12 +1161,18 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
           activeToken =
             urlToken;
 
+          $('tokenInput').value =
+            activeToken;
+
           saveTokenToHistory(
             activeToken
           );
         } else {
           activeToken =
             getHistoryToken();
+
+          $('tokenInput').value =
+            activeToken;
 
           clearUrlKeepHistoryState();
         }
@@ -1593,6 +1195,9 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
         activeToken =
           getHistoryToken();
 
+        $('tokenInput').value =
+          activeToken;
+
         clearUrlKeepHistoryState();
 
         load();
@@ -1611,6 +1216,5 @@ content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' d
       }
     );
   </script>
-
 </body>
 </html>
