@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -129,7 +131,7 @@
     }
 
     .hero {
-      padding: 8px 14px;
+      padding: 11px 18px;
       border-bottom: 1px solid var(--line);
     }
 
@@ -137,8 +139,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      min-height: 22px;
+      gap: 14px;
+      margin: 0;
+      min-height: 24px;
     }
 
     .label {
@@ -149,23 +152,23 @@
     .status {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 3px 7px;
-      min-height: 20px;
-      max-width: 82%;
+      gap: 7px;
+      padding: 5px 9px;
+      min-height: 24px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 12px;
       line-height: 1.2;
       font-weight: 700;
       background: rgba(255,255,255,.06);
+      text-align: right;
       overflow-wrap: anywhere;
     }
 
     .status::before {
       content: "";
-      width: 5px;
-      height: 5px;
-      flex: 0 0 5px;
+      width: 6px;
+      height: 6px;
+      flex: 0 0 6px;
       border-radius: 50%;
       background: currentColor;
     }
@@ -239,37 +242,6 @@
       padding: 11px 22px 20px;
     }
 
-    .token-form {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .token-input {
-      appearance: none;
-      flex: 1 1 auto;
-      min-width: 0;
-      height: 46px;
-      padding: 0 14px;
-      border-radius: 13px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      outline: none;
-      font: inherit;
-      font-size: 14px;
-    }
-
-    .token-input::placeholder {
-      color: var(--muted);
-    }
-
-    .token-input:focus {
-      border-color: rgba(110,168,254,.55);
-      box-shadow: 0 0 0 3px rgba(110,168,254,.10);
-    }
-
     .btn {
       appearance: none;
       border: 0;
@@ -314,6 +286,73 @@
       border: 1px solid var(--line);
     }
 
+    .btn[hidden] {
+      display: none;
+    }
+
+    .token-entry {
+      width: 100%;
+      height: 46px;
+      min-height: 46px;
+      display: flex;
+      align-items: stretch;
+      border-radius: 13px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .token-entry input {
+      min-width: 0;
+      flex: 1 1 auto;
+      width: 100%;
+      height: 44px;
+      border: 0;
+      outline: 0;
+      padding: 0 12px;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .token-entry input::placeholder {
+      color: var(--muted);
+      opacity: 1;
+    }
+
+    .token-submit {
+      appearance: none;
+      border: 0;
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      background: rgba(110,168,254,.16);
+      color: #dce9ff;
+      font-size: 18px;
+      font-weight: 800;
+      transition:
+        background .15s ease,
+        opacity .15s ease;
+    }
+
+    .token-submit:hover {
+      background: rgba(110,168,254,.24);
+    }
+
+    .token-submit:active {
+      opacity: .75;
+    }
+
+    .token-submit:disabled {
+      opacity: .45;
+      cursor: default;
+    }
+
     .footer-note {
       margin-top: 13px;
       color: var(--muted);
@@ -322,10 +361,6 @@
     }
 
     @media (max-width: 560px) {
-      body {
-        padding: 22px 12px 34px;
-      }
-
       .row {
         grid-template-columns: 1fr;
         gap: 6px;
@@ -345,32 +380,24 @@
         align-items: flex-start;
       }
 
-      .token-form {
-        flex-direction: row;
+      .actions .btn {
+        width: 100%;
       }
 
-      .token-input {
-        min-width: 0;
-        flex: 1 1 auto;
-      }
-
-      .token-form .btn {
-        flex: 0 0 auto;
-        width: auto;
-        padding: 0 14px;
+      .token-entry {
+        width: 100%;
       }
 
       .status-row {
-        gap: 8px;
+        align-items: flex-start;
       }
 
       .status {
-        max-width: 78%;
-        font-size: 10px;
-        padding: 3px 6px;
+        max-width: 75%;
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -389,9 +416,14 @@
     <section class="card" aria-live="polite">
       <div class="hero">
         <div class="status-row">
-          <span class="label">Статус</span>
+          <span class="label">
+            Статус
+          </span>
 
-          <span id="status" class="status wait">
+          <span
+            id="status"
+            class="status wait"
+          >
             Проверка…
           </span>
         </div>
@@ -403,7 +435,10 @@
             Подписка
           </div>
 
-          <div id="subscription" class="value">
+          <div
+            id="subscription"
+            class="value"
+          >
             —
           </div>
         </div>
@@ -413,7 +448,10 @@
             Сервер
           </div>
 
-          <div id="server" class="value">
+          <div
+            id="server"
+            class="value"
+          >
             —
           </div>
         </div>
@@ -423,7 +461,10 @@
             Протоколы
           </div>
 
-          <div id="protocols" class="value">
+          <div
+            id="protocols"
+            class="value"
+          >
             —
           </div>
         </div>
@@ -433,7 +474,10 @@
             Трафик
           </div>
 
-          <div id="traffic" class="value">
+          <div
+            id="traffic"
+            class="value"
+          >
             —
           </div>
         </div>
@@ -443,7 +487,10 @@
             Срок действия
           </div>
 
-          <div id="expire" class="value">
+          <div
+            id="expire"
+            class="value"
+          >
             —
           </div>
         </div>
@@ -453,35 +500,16 @@
             Задержка
           </div>
 
-          <div id="latency" class="value">
+          <div
+            id="latency"
+            class="value"
+          >
             —
           </div>
         </div>
       </div>
 
       <div class="actions">
-        <div id="tokenForm" class="token-form" hidden>
-          <input
-            id="tokenInput"
-            class="token-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            autocapitalize="off"
-            spellcheck="false"
-            placeholder="Введите токен подписки"
-            aria-label="Токен подписки"
-          >
-
-          <button
-            id="tokenButton"
-            class="btn primary"
-            type="button"
-          >
-            Отправить
-          </button>
-        </div>
-
         <a
           id="happDownload"
           class="btn secondary"
@@ -490,6 +518,42 @@
           rel="noopener noreferrer"
         >
           Скачать Happ
+        </a>
+
+        <div
+          id="tokenEntry"
+          class="token-entry"
+        >
+          <input
+            id="tokenInput"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+            placeholder="Введите токен подписки"
+          >
+
+          <button
+            id="tokenSubmit"
+            class="token-submit"
+            type="button"
+            aria-label="Проверить токен"
+            title="Проверить токен"
+          >
+            →
+          </button>
+        </div>
+
+        <a
+          id="happConnect"
+          class="btn primary"
+          href="#"
+          rel="noopener noreferrer"
+          hidden
+        >
+          Открыть в Happ
         </a>
       </div>
     </section>
@@ -604,14 +668,6 @@
       );
     }
 
-    function updateTokenForm() {
-      const tokenForm =
-        $('tokenForm');
-
-      tokenForm.hidden =
-        Boolean(activeToken);
-    }
-
     function adoptToken() {
       const urlToken =
         getUrlToken();
@@ -624,10 +680,6 @@
           activeToken
         );
 
-        clearUrlKeepHistoryState();
-
-        updateTokenForm();
-
         return activeToken;
       }
 
@@ -638,7 +690,6 @@
         historyToken;
 
       clearUrlKeepHistoryState();
-      updateTokenForm();
 
       return activeToken;
     }
@@ -673,7 +724,8 @@
     }
 
     function setStatus(type, text) {
-      const el = $('status');
+      const el =
+        $('status');
 
       el.className =
         'status ' + type;
@@ -689,6 +741,14 @@
       $('traffic').textContent = '—';
       $('expire').textContent = '—';
       $('latency').textContent = '—';
+
+      $('happConnect').hidden = true;
+      $('happConnect').setAttribute(
+        'href',
+        '#'
+      );
+
+      $('tokenEntry').hidden = false;
     }
 
     function bytes(value) {
@@ -795,7 +855,72 @@
       );
     }
 
-    async function postApi() {
+    function isAllowedHappUrl(value) {
+      if (
+        typeof value !== 'string'
+      ) {
+        return false;
+      }
+
+      const raw =
+        value.trim();
+
+      if (!raw) {
+        return false;
+      }
+
+      if (
+        /^happ:\/\/add\/https?:\/\//i.test(raw)
+      ) {
+        return (
+          /^happ:\/\/add\/https:\/\/78\.17\.112\.158(?:\/|$)/i.test(
+            raw
+          )
+        );
+      }
+
+      if (
+        /^https:\/\/78\.17\.112\.158\/DisstVpn\//i.test(raw)
+      ) {
+        return true;
+      }
+
+      try {
+        const decoded =
+          decodeURIComponent(raw);
+
+        return (
+          /^happ:\/\/add\/https:\/\/78\.17\.112\.158(?:\/|$)/i.test(
+            decoded
+          ) ||
+          /^https:\/\/78\.17\.112\.158\/DisstVpn\//i.test(
+            decoded
+          )
+        );
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function showTokenEntry() {
+      $('tokenEntry').hidden = false;
+      $('happConnect').hidden = true;
+    }
+
+    function showHappButton(url) {
+      $('happConnect').setAttribute(
+        'href',
+        url
+      );
+
+      $('happConnect').hidden =
+        false;
+
+      $('tokenEntry').hidden =
+        true;
+    }
+
+    async function postApi(token) {
       const controller =
         new AbortController();
 
@@ -817,7 +942,7 @@
             signal: controller.signal,
             headers: {
               'Authorization':
-                `Bearer ${activeToken}`,
+                `Bearer ${token}`,
               'Accept':
                 'application/json',
               'Content-Type':
@@ -836,12 +961,12 @@
       }
     }
 
-    async function fetchSubscription() {
+    async function fetchSubscription(token) {
       const started =
         performance.now();
 
       const res =
-        await postApi();
+        await postApi(token);
 
       let data =
         null;
@@ -975,28 +1100,47 @@
 
       $('latency').textContent =
         `${Math.max(1, Math.round(elapsed))} мс`;
+
+      if (
+        typeof data.launch_url ===
+          'string' &&
+        data.launch_url.trim() !== '' &&
+        isAllowedHappUrl(
+          data.launch_url
+        )
+      ) {
+        showHappButton(
+          data.launch_url.trim()
+        );
+      } else {
+        showTokenEntry();
+      }
     }
 
-    async function loadInternal() {
-      resetFields();
+    async function checkToken(token, preserveInput = true) {
+      const normalizedToken =
+        String(
+          token || ''
+        ).trim();
+
+      if (!normalizedToken) {
+        setStatus(
+          'bad',
+          'Введите токен подписки.'
+        );
+
+        showTokenEntry();
+
+        return false;
+      }
 
       setStatus(
         'wait',
-        'Проверка…'
+        'Проверка токена…'
       );
 
-      if (!activeToken) {
-        updateTokenForm();
-
-        setStatus(
-          'bad',
-          'Введите токен'
-        );
-
-        return;
-      }
-
-      updateTokenForm();
+      $('tokenSubmit').disabled =
+        true;
 
       try {
         const {
@@ -1004,7 +1148,45 @@
           data,
           elapsed
         } =
-          await fetchSubscription();
+          await fetchSubscription(
+            normalizedToken
+          );
+
+        if (
+          res.status === 401
+        ) {
+          setStatus(
+            'bad',
+            'Подписка недействительна.'
+          );
+
+          showTokenEntry();
+
+          if (preserveInput) {
+            $('tokenInput').value =
+              normalizedToken;
+          }
+
+          return false;
+        }
+
+        if (
+          res.status === 403
+        ) {
+          setStatus(
+            'bad',
+            'Доступ запрещён.'
+          );
+
+          showTokenEntry();
+
+          if (preserveInput) {
+            $('tokenInput').value =
+              normalizedToken;
+          }
+
+          return false;
+        }
 
         if (
           res.status === 429
@@ -1020,11 +1202,28 @@
             'warn',
             Number.isFinite(retryAfter) &&
             retryAfter > 0
-              ? `Слишком много запросов · ${Math.ceil(retryAfter)} сек`
-              : 'Слишком много запросов'
+              ? `Слишком много запросов. Повторите через ${Math.ceil(retryAfter)} сек.`
+              : 'Слишком много запросов. Попробуйте позже.'
           );
 
-          return;
+          showTokenEntry();
+
+          return false;
+        }
+
+        if (
+          res.status === 502 ||
+          res.status === 503 ||
+          res.status === 504
+        ) {
+          setStatus(
+            'bad',
+            'Сервер временно недоступен.'
+          );
+
+          showTokenEntry();
+
+          return false;
         }
 
         if (
@@ -1032,37 +1231,14 @@
           !data ||
           data.ok === false
         ) {
-          if (
-            res.status === 401
-          ) {
-            setStatus(
-              'bad',
-              'Неверный токен'
-            );
-          } else if (
-            res.status === 403
-          ) {
-            setStatus(
-              'bad',
-              'Доступ запрещён'
-            );
-          } else if (
-            res.status === 502 ||
-            res.status === 503 ||
-            res.status === 504
-          ) {
-            setStatus(
-              'bad',
-              'Сервер недоступен'
-            );
-          } else {
-            setStatus(
-              'bad',
-              'Ошибка загрузки'
-            );
-          }
+          setStatus(
+            'bad',
+            'Не удалось получить данные подписки.'
+          );
 
-          return;
+          showTokenEntry();
+
+          return false;
         }
 
         if (
@@ -1072,11 +1248,24 @@
         ) {
           setStatus(
             'bad',
-            'Подписка отключена'
+            'Эта VPN-подписка отключена.'
           );
 
-          return;
+          showTokenEntry();
+
+          return false;
         }
+
+        activeToken =
+          normalizedToken;
+
+        saveTokenToHistory(
+          activeToken
+        );
+
+        clearUrlKeepHistoryState();
+
+        resetFields();
 
         setStatus(
           'ok',
@@ -1087,16 +1276,46 @@
           data,
           elapsed
         );
-      } catch (error) {
-        resetFields();
 
+        return true;
+      } catch (error) {
         setStatus(
           'bad',
           error?.name === 'AbortError'
-            ? 'Таймаут'
-            : 'Нет связи с сервером'
+            ? 'Сервер не ответил вовремя.'
+            : 'Нет связи с сервером подписки.'
         );
+
+        showTokenEntry();
+
+        return false;
+      } finally {
+        $('tokenSubmit').disabled =
+          false;
       }
+    }
+
+    async function loadInternal() {
+      resetFields();
+
+      const token =
+        adoptToken();
+
+      if (!token) {
+        setStatus(
+          'bad',
+          'Ссылка не содержит ключ подписки.'
+        );
+
+        showTokenEntry();
+
+        return;
+      }
+
+      await checkToken(
+        token,
+        false
+      );
     }
 
     function load() {
@@ -1117,41 +1336,13 @@
       return activeLoadPromise;
     }
 
-    function applyToken() {
-      const token =
-        $('tokenInput').value.trim();
-
-      if (!token) {
-        activeToken = '';
-
-        clearUrlKeepHistoryState();
-        updateTokenForm();
-        resetFields();
-
-        setStatus(
-          'bad',
-          'Введите токен'
-        );
-
-        return;
-      }
-
-      activeToken =
-        token;
-
-      saveTokenToHistory(
-        activeToken
-      );
-
-      clearUrlKeepHistoryState();
-      updateTokenForm();
-
-      load();
-    }
-
-    $('tokenButton').addEventListener(
+    $('tokenSubmit').addEventListener(
       'click',
-      applyToken
+      () => {
+        checkToken(
+          $('tokenInput').value
+        );
+      }
     );
 
     $('tokenInput').addEventListener(
@@ -1161,8 +1352,37 @@
           event.key === 'Enter'
         ) {
           event.preventDefault();
-          applyToken();
+
+          checkToken(
+            $('tokenInput').value
+          );
         }
+      }
+    );
+
+    $('happConnect').addEventListener(
+      'click',
+      event => {
+        const href =
+          $('happConnect').getAttribute(
+            'href'
+          );
+
+        if (
+          !href ||
+          href === '#' ||
+          !isAllowedHappUrl(
+            href
+          )
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        event.currentTarget.setAttribute(
+          'href',
+          href
+        );
       }
     );
 
@@ -1172,15 +1392,15 @@
         const urlToken =
           getUrlToken();
 
-        if (urlToken) {
+        if (
+          urlToken
+        ) {
           activeToken =
             urlToken;
 
           saveTokenToHistory(
             activeToken
           );
-
-          clearUrlKeepHistoryState();
         } else {
           activeToken =
             getHistoryToken();
@@ -1188,15 +1408,13 @@
           clearUrlKeepHistoryState();
         }
 
-        updateTokenForm();
-
         clearTimeout(
           hashTimer
         );
 
         hashTimer =
           setTimeout(
-            load,
+            () => load(),
             HASH_CHANGE_DELAY_MS
           );
       }
@@ -1209,7 +1427,7 @@
           getHistoryToken();
 
         clearUrlKeepHistoryState();
-        updateTokenForm();
+
         load();
       }
     );
@@ -1217,10 +1435,26 @@
     window.addEventListener(
       'load',
       () => {
+        $('happDownload').href =
+          'https://happ.info/';
+
         adoptToken();
-        load();
+
+        if (
+          activeToken
+        ) {
+          load();
+        } else {
+          setStatus(
+            'bad',
+            'Ссылка не содержит ключ подписки.'
+          );
+
+          showTokenEntry();
+        }
       }
     );
   </script>
+
 </body>
 </html>
