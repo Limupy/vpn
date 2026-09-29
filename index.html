@@ -139,9 +139,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       margin: 0;
-      min-height: 24px;
+      min-height: 22px;
     }
 
     .label {
@@ -152,12 +152,14 @@
     .status {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 9px;
-      min-height: 24px;
+      justify-content: flex-end;
+      gap: 5px;
+      padding: 4px 7px;
+      min-height: 22px;
+      max-width: 72%;
       border-radius: 999px;
-      font-size: 12px;
-      line-height: 1.2;
+      font-size: 11px;
+      line-height: 1.15;
       font-weight: 700;
       background: rgba(255,255,255,.06);
       text-align: right;
@@ -166,9 +168,9 @@
 
     .status::before {
       content: "";
-      width: 6px;
-      height: 6px;
-      flex: 0 0 6px;
+      width: 5px;
+      height: 5px;
+      flex: 0 0 5px;
       border-radius: 50%;
       background: currentColor;
     }
@@ -328,13 +330,12 @@
       width: 44px;
       min-width: 44px;
       height: 44px;
+      padding: 0;
       cursor: pointer;
       display: grid;
       place-items: center;
       background: rgba(110,168,254,.16);
       color: #dce9ff;
-      font-size: 18px;
-      font-weight: 800;
       transition:
         background .15s ease,
         opacity .15s ease;
@@ -351,6 +352,16 @@
     .token-submit:disabled {
       opacity: .45;
       cursor: default;
+    }
+
+    .token-submit svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .footer-note {
@@ -393,7 +404,7 @@
       }
 
       .status {
-        max-width: 75%;
+        max-width: 70%;
       }
     }
   </style>
@@ -542,7 +553,14 @@
             aria-label="Проверить токен"
             title="Проверить токен"
           >
-            →
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M5 12h13"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
           </button>
         </div>
 
@@ -907,6 +925,10 @@
       $('happConnect').hidden = true;
     }
 
+    function hideTokenEntry() {
+      $('tokenEntry').hidden = true;
+    }
+
     function showHappButton(url) {
       $('happConnect').setAttribute(
         'href',
@@ -1117,7 +1139,10 @@
       }
     }
 
-    async function checkToken(token, preserveInput = true) {
+    async function checkToken(
+      token,
+      preserveInput = true
+    ) {
       const normalizedToken =
         String(
           token || ''
@@ -1126,7 +1151,7 @@
       if (!normalizedToken) {
         setStatus(
           'bad',
-          'Введите токен подписки.'
+          'Введите токен.'
         );
 
         showTokenEntry();
@@ -1136,7 +1161,7 @@
 
       setStatus(
         'wait',
-        'Проверка токена…'
+        'Проверка…'
       );
 
       $('tokenSubmit').disabled =
@@ -1157,7 +1182,7 @@
         ) {
           setStatus(
             'bad',
-            'Подписка недействительна.'
+            'Неверный токен.'
           );
 
           showTokenEntry();
@@ -1202,8 +1227,8 @@
             'warn',
             Number.isFinite(retryAfter) &&
             retryAfter > 0
-              ? `Слишком много запросов. Повторите через ${Math.ceil(retryAfter)} сек.`
-              : 'Слишком много запросов. Попробуйте позже.'
+              ? `Повторите через ${Math.ceil(retryAfter)} сек.`
+              : 'Слишком много запросов.'
           );
 
           showTokenEntry();
@@ -1218,7 +1243,7 @@
         ) {
           setStatus(
             'bad',
-            'Сервер временно недоступен.'
+            'Сервер недоступен.'
           );
 
           showTokenEntry();
@@ -1233,7 +1258,7 @@
         ) {
           setStatus(
             'bad',
-            'Не удалось получить данные подписки.'
+            'Не удалось получить данные.'
           );
 
           showTokenEntry();
@@ -1248,7 +1273,7 @@
         ) {
           setStatus(
             'bad',
-            'Эта VPN-подписка отключена.'
+            'Подписка отключена.'
           );
 
           showTokenEntry();
@@ -1265,8 +1290,6 @@
 
         clearUrlKeepHistoryState();
 
-        resetFields();
-
         setStatus(
           'ok',
           'Активно'
@@ -1282,8 +1305,8 @@
         setStatus(
           'bad',
           error?.name === 'AbortError'
-            ? 'Сервер не ответил вовремя.'
-            : 'Нет связи с сервером подписки.'
+            ? 'Нет ответа от сервера.'
+            : 'Нет связи с сервером.'
         );
 
         showTokenEntry();
@@ -1304,13 +1327,20 @@
       if (!token) {
         setStatus(
           'bad',
-          'Ссылка не содержит ключ подписки.'
+          'Нет ключа подписки.'
         );
 
         showTokenEntry();
 
         return;
       }
+
+      hideTokenEntry();
+
+      setStatus(
+        'wait',
+        'Проверка…'
+      );
 
       await checkToken(
         token,
@@ -1401,6 +1431,8 @@
           saveTokenToHistory(
             activeToken
           );
+
+          hideTokenEntry();
         } else {
           activeToken =
             getHistoryToken();
@@ -1438,16 +1470,16 @@
         $('happDownload').href =
           'https://happ.info/';
 
-        adoptToken();
+        const token =
+          adoptToken();
 
-        if (
-          activeToken
-        ) {
+        if (token) {
+          hideTokenEntry();
           load();
         } else {
           setStatus(
             'bad',
-            'Ссылка не содержит ключ подписки.'
+            'Нет ключа подписки.'
           );
 
           showTokenEntry();
