@@ -129,17 +129,16 @@
     }
 
     .hero {
-      padding: 11px 18px;
+      padding: 8px 14px;
       border-bottom: 1px solid var(--line);
     }
 
     .status-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 14px;
-      margin: 0;
-      min-height: 24px;
+      align-items: center;
+      gap: 10px;
+      min-height: 22px;
     }
 
     .label {
@@ -150,13 +149,13 @@
     .status {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 9px;
-      min-height: 24px;
-      max-width: 80%;
+      gap: 6px;
+      padding: 3px 7px;
+      min-height: 20px;
+      max-width: 82%;
       border-radius: 999px;
-      font-size: 12px;
-      line-height: 1.35;
+      font-size: 11px;
+      line-height: 1.2;
       font-weight: 700;
       background: rgba(255,255,255,.06);
       overflow-wrap: anywhere;
@@ -164,9 +163,9 @@
 
     .status::before {
       content: "";
-      width: 6px;
-      height: 6px;
-      flex: 0 0 6px;
+      width: 5px;
+      height: 5px;
+      flex: 0 0 5px;
       border-radius: 50%;
       background: currentColor;
     }
@@ -240,9 +239,10 @@
       padding: 11px 22px 20px;
     }
 
-    .token-wrap {
+    .token-form {
       display: flex;
-      gap: 10px;
+      align-items: center;
+      gap: 8px;
       width: 100%;
     }
 
@@ -322,6 +322,10 @@
     }
 
     @media (max-width: 560px) {
+      body {
+        padding: 22px 12px 34px;
+      }
+
       .row {
         grid-template-columns: 1fr;
         gap: 6px;
@@ -341,21 +345,29 @@
         align-items: flex-start;
       }
 
-      .token-wrap {
-        flex-direction: column;
+      .token-form {
+        flex-direction: row;
       }
 
-      .token-input,
-      .token-wrap .btn {
-        width: 100%;
+      .token-input {
+        min-width: 0;
+        flex: 1 1 auto;
+      }
+
+      .token-form .btn {
+        flex: 0 0 auto;
+        width: auto;
+        padding: 0 14px;
       }
 
       .status-row {
-        align-items: flex-start;
+        gap: 8px;
       }
 
       .status {
-        max-width: 70%;
+        max-width: 78%;
+        font-size: 10px;
+        padding: 3px 6px;
       }
     }
   </style>
@@ -448,7 +460,7 @@
       </div>
 
       <div class="actions">
-        <div class="token-wrap">
+        <div id="tokenForm" class="token-form" hidden>
           <input
             id="tokenInput"
             class="token-input"
@@ -466,7 +478,7 @@
             class="btn primary"
             type="button"
           >
-            Проверить
+            Отправить
           </button>
         </div>
 
@@ -592,6 +604,14 @@
       );
     }
 
+    function updateTokenForm() {
+      const tokenForm =
+        $('tokenForm');
+
+      tokenForm.hidden =
+        Boolean(activeToken);
+    }
+
     function adoptToken() {
       const urlToken =
         getUrlToken();
@@ -600,12 +620,13 @@
         activeToken =
           urlToken;
 
-        $('tokenInput').value =
-          activeToken;
-
         saveTokenToHistory(
           activeToken
         );
+
+        clearUrlKeepHistoryState();
+
+        updateTokenForm();
 
         return activeToken;
       }
@@ -616,12 +637,8 @@
       activeToken =
         historyToken;
 
-      if (activeToken) {
-        $('tokenInput').value =
-          activeToken;
-      }
-
       clearUrlKeepHistoryState();
+      updateTokenForm();
 
       return activeToken;
     }
@@ -968,16 +985,18 @@
         'Проверка…'
       );
 
-      if (
-        !activeToken
-      ) {
+      if (!activeToken) {
+        updateTokenForm();
+
         setStatus(
           'bad',
-          'Ссылка не содержит ключ подписки'
+          'Введите токен'
         );
 
         return;
       }
+
+      updateTokenForm();
 
       try {
         const {
@@ -990,19 +1009,19 @@
         if (
           res.status === 429
         ) {
+          const retryAfter =
+            Number(
+              res.headers.get(
+                'Retry-After'
+              )
+            );
+
           setStatus(
             'warn',
-            res.headers.get(
-              'Retry-After'
-            )
-              ? `Слишком много запросов. Повторите через ${Math.ceil(
-                  Number(
-                    res.headers.get(
-                      'Retry-After'
-                    )
-                  )
-                )} сек.`
-              : 'Слишком много запросов. Попробуйте позже.'
+            Number.isFinite(retryAfter) &&
+            retryAfter > 0
+              ? `Слишком много запросов · ${Math.ceil(retryAfter)} сек`
+              : 'Слишком много запросов'
           );
 
           return;
@@ -1018,7 +1037,7 @@
           ) {
             setStatus(
               'bad',
-              'Подписка недействительна'
+              'Неверный токен'
             );
           } else if (
             res.status === 403
@@ -1034,12 +1053,12 @@
           ) {
             setStatus(
               'bad',
-              'Сервер временно недоступен'
+              'Сервер недоступен'
             );
           } else {
             setStatus(
               'bad',
-              'Не удалось получить данные подписки'
+              'Ошибка загрузки'
             );
           }
 
@@ -1053,7 +1072,7 @@
         ) {
           setStatus(
             'bad',
-            'Эта VPN-подписка отключена'
+            'Подписка отключена'
           );
 
           return;
@@ -1073,10 +1092,9 @@
 
         setStatus(
           'bad',
-          error?.name ===
-            'AbortError'
-            ? 'Сервер не ответил вовремя'
-            : 'Нет связи с сервером подписки'
+          error?.name === 'AbortError'
+            ? 'Таймаут'
+            : 'Нет связи с сервером'
         );
       }
     }
@@ -1107,12 +1125,12 @@
         activeToken = '';
 
         clearUrlKeepHistoryState();
-
+        updateTokenForm();
         resetFields();
 
         setStatus(
           'bad',
-          'Введите токен подписки'
+          'Введите токен'
         );
 
         return;
@@ -1126,15 +1144,14 @@
       );
 
       clearUrlKeepHistoryState();
+      updateTokenForm();
 
       load();
     }
 
     $('tokenButton').addEventListener(
       'click',
-      () => {
-        applyToken();
-      }
+      applyToken
     );
 
     $('tokenInput').addEventListener(
@@ -1155,27 +1172,23 @@
         const urlToken =
           getUrlToken();
 
-        if (
-          urlToken
-        ) {
+        if (urlToken) {
           activeToken =
             urlToken;
-
-          $('tokenInput').value =
-            activeToken;
 
           saveTokenToHistory(
             activeToken
           );
+
+          clearUrlKeepHistoryState();
         } else {
           activeToken =
             getHistoryToken();
 
-          $('tokenInput').value =
-            activeToken;
-
           clearUrlKeepHistoryState();
         }
+
+        updateTokenForm();
 
         clearTimeout(
           hashTimer
@@ -1183,7 +1196,7 @@
 
         hashTimer =
           setTimeout(
-            () => load(),
+            load,
             HASH_CHANGE_DELAY_MS
           );
       }
@@ -1195,11 +1208,8 @@
         activeToken =
           getHistoryToken();
 
-        $('tokenInput').value =
-          activeToken;
-
         clearUrlKeepHistoryState();
-
+        updateTokenForm();
         load();
       }
     );
@@ -1208,10 +1218,6 @@
       'load',
       () => {
         adoptToken();
-
-        $('happDownload').href =
-          'https://happ.info/';
-
         load();
       }
     );
