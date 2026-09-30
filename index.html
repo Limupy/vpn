@@ -11,9 +11,11 @@
   <title>Limupy</title>
   <style>
     :root{--bg:#0b1020;--card:rgba(20,27,48,.9);--line:rgba(255,255,255,.08);--text:#f4f7fb;--muted:#9aa6bd;--accent:#6ea8fe;--accent-2:#8b7cff;--ok:#41d392;--bad:#ff657a;--warn:#ffc857;--shadow:0 20px 60px rgba(0,0,0,.35);--radius:22px}
-    *{box-sizing:border-box}html,body{margin:0;min-height:100%}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 500px at 10% -10%,rgba(110,168,254,.16),transparent 55%),radial-gradient(700px 450px at 100% 0%,rgba(139,124,255,.13),transparent 50%),var(--bg);color:var(--text);padding:28px 16px 42px}.wrap{width:min(780px,100%);margin:0 auto}.header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;box-shadow:0 10px 30px rgba(110,168,254,.24)}h1{margin:0;font-size:24px;line-height:1.1}.subtitle{margin-top:4px;color:var(--muted);font-size:13px}.mode-switch{display:flex;gap:6px;padding:4px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.05)}.mode-btn{appearance:none;border:0;cursor:pointer;color:var(--muted);background:transparent;border-radius:10px;padding:9px 12px;font-weight:750;font-size:13px}.mode-btn.active{color:var(--text);background:rgba(110,168,254,.18)}.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(16px)}.hero{padding:11px 18px;border-bottom:1px solid var(--line)}.status-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0;min-height:22px}.label{color:var(--muted);font-size:13px}.status{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;padding:4px 7px;min-height:22px;max-width:76%;border-radius:999px;font-size:11px;line-height:1.15;font-weight:700;background:rgba(255,255,255,.06);text-align:right;overflow-wrap:anywhere}.status::before{content:"";width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:currentColor}.status.ok{color:var(--ok);background:rgba(65,211,146,.1)}.status.bad{color:var(--bad);background:rgba(255,101,122,.1)}.status.wait{color:#c5cde0}.status.warn{color:var(--warn);background:rgba(255,200,87,.1)}.rows{padding:6px 22px 14px}.row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,1.5fr);gap:18px;align-items:center;min-height:62px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.value{text-align:right;font-weight:650;overflow-wrap:anywhere}.protocols{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:7px}.protocol{padding:6px 9px;border-radius:9px;border:1px solid rgba(110,168,254,.22);background:rgba(110,168,254,.1);color:#dce9ff;font-size:12px;font-weight:700;letter-spacing:.01em}.actions{display:flex;gap:10px;flex-wrap:wrap;padding:11px 22px 20px}.btn{appearance:none;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 16px;border-radius:13px;text-decoration:none;font-weight:750;font-size:14px;transition:transform .15s ease,opacity .15s ease,background .15s ease}.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0)}.btn.primary{color:#07101f;background:linear-gradient(135deg,#86b8ff,#8f84ff)}.btn.secondary{color:var(--text);background:rgba(255,255,255,.07);border:1px solid var(--line)}.btn.danger{color:#fff;background:rgba(255,101,122,.16);border:1px solid rgba(255,101,122,.25)}.btn.small{min-height:38px;padding:0 12px;font-size:12px}.btn[hidden],.field[hidden],.section[hidden],.panel[hidden]{display:none}.token-entry,.input-row{width:100%;display:flex;align-items:stretch;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid var(--line);overflow:hidden}.token-entry input,.input-row input{min-width:0;flex:1;width:100%;height:44px;border:0;outline:0;padding:0 12px;background:transparent;color:var(--text);font:inherit;font-size:14px;font-weight:650}.token-entry input::placeholder,.input-row input::placeholder{color:var(--muted);opacity:1}.token-submit{appearance:none;border:0;width:44px;min-width:44px;height:44px;cursor:pointer;display:grid;place-items:center;background:rgba(110,168,254,.16);color:#dce9ff}.token-submit:disabled{opacity:.45;cursor:default}.token-submit svg{width:16px;height:16px;display:block;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.section{padding:18px 22px;border-bottom:1px solid var(--line)}.section:last-child{border-bottom:0}.section-title{font-size:14px;font-weight:800;margin-bottom:10px}.muted{color:var(--muted);font-size:12px;line-height:1.45}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.field.full{grid-column:1/-1}.field input,.field select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);outline:0;padding:0 12px;font:inherit}.field select option{background:#141b30;color:var(--text)}.field input:focus,.field select:focus{border-color:rgba(110,168,254,.55)}.split-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.network-select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 12px;font:inherit}.network-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.mini{padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035);min-width:0}.mini-label{font-size:11px;color:var(--muted);margin-bottom:4px}.mini-value{font-size:13px;font-weight:750;overflow-wrap:anywhere}.code-box{display:flex;gap:8px;align-items:stretch;margin-top:10px}.code-box input{flex:1;min-width:0;height:42px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 11px;font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace}.config-box{margin-top:12px;position:relative}.config-box pre{margin:0;max-height:270px;overflow:auto;padding:14px;border:1px solid var(--line);border-radius:13px;background:rgba(4,8,18,.65);color:#dfe7f6;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.device-list{display:grid;gap:8px;margin-top:10px}.device{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.035)}.device-main{min-width:0}.device-name{font-weight:800;overflow-wrap:anywhere}.device-meta{margin-top:3px;color:var(--muted);font-size:11px;line-height:1.35;overflow-wrap:anywhere}.device-side{text-align:right;font-size:11px;font-weight:750}.online{color:var(--ok)}.offline{color:var(--muted)}.footer-note{margin-top:13px;color:var(--muted);font-size:12px;line-height:1.45;text-align:center;max-width:680px;margin-left:auto;margin-right:auto}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#151d31;color:var(--text);border:1px solid var(--line);border-radius:13px;padding:10px 13px;font-size:12px;box-shadow:var(--shadow);transition:opacity .18s ease,transform .18s ease;z-index:10}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-    @media(max-width:680px){.header{align-items:flex-start;flex-direction:column}.mode-switch{width:100%}.mode-btn{flex:1}.form-grid,.network-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:6px;padding:13px 0;min-height:auto}.value{text-align:left}.protocols{justify-content:flex-start}.actions .btn,.split-actions .btn{width:100%}.status-row{align-items:flex-start}.status{max-width:70%}.device{grid-template-columns:1fr}.device-side{text-align:left}}
-  </style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 500px at 10% -10%,rgba(110,168,254,.16),transparent 55%),radial-gradient(700px 450px at 100% 0%,rgba(139,124,255,.13),transparent 50%),var(--bg);color:var(--text);padding:clamp(16px,4vw,28px) clamp(10px,2.5vw,16px) 34px}.wrap{width:min(760px,100%);margin:0 auto}.header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;box-shadow:0 10px 30px rgba(110,168,254,.24)}h1{margin:0;font-size:24px;line-height:1.1}.subtitle{margin-top:4px;color:var(--muted);font-size:13px}.mode-switch{display:flex;gap:6px;padding:4px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.05)}.mode-btn{appearance:none;border:0;cursor:pointer;color:var(--muted);background:transparent;border-radius:10px;padding:9px 12px;font-weight:750;font-size:13px}.mode-btn.active{color:var(--text);background:rgba(110,168,254,.18)}.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(16px)}.hero{padding:11px 18px;border-bottom:1px solid var(--line)}.status-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0;min-height:22px}.label{color:var(--muted);font-size:13px}.status{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;padding:4px 7px;min-height:22px;max-width:76%;border-radius:999px;font-size:11px;line-height:1.15;font-weight:700;background:rgba(255,255,255,.06);text-align:right;overflow-wrap:anywhere}.status::before{content:"";width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:currentColor}.status.ok{color:var(--ok);background:rgba(65,211,146,.1)}.status.bad{color:var(--bad);background:rgba(255,101,122,.1)}.status.wait{color:#c5cde0}.status.warn{color:var(--warn);background:rgba(255,200,87,.1)}.rows{padding:6px 22px 14px}.row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,1.5fr);gap:18px;align-items:center;min-height:62px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.value{text-align:right;font-weight:650;overflow-wrap:anywhere}.protocols{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:7px}.protocol{padding:6px 9px;border-radius:9px;border:1px solid rgba(110,168,254,.22);background:rgba(110,168,254,.1);color:#dce9ff;font-size:12px;font-weight:700;letter-spacing:.01em}.actions{display:grid;grid-template-columns:minmax(0,2.1fr) auto minmax(120px,.9fr) minmax(120px,.9fr);gap:10px;padding:11px 22px 20px;align-items:stretch}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(140px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(140px,.9fr)}.btn{appearance:none;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 16px;border-radius:13px;text-decoration:none;font-weight:750;font-size:14px;transition:transform .15s ease,opacity .15s ease,background .15s ease}.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0)}.btn.primary{color:#07101f;background:linear-gradient(135deg,#86b8ff,#8f84ff)}.btn.secondary{color:var(--text);background:rgba(255,255,255,.07);border:1px solid var(--line)}.btn.danger{color:#fff;background:rgba(255,101,122,.16);border:1px solid rgba(255,101,122,.25)}.btn.small{min-height:38px;padding:0 12px;font-size:12px}.btn[hidden],.field[hidden],.section[hidden],.panel[hidden]{display:none}.token-entry,.input-row{position:relative;min-width:0;width:100%;height:44px;display:flex;align-items:stretch;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid var(--line);overflow:visible}.token-entry input,.input-row input{min-width:0;flex:1 1 auto;width:100%;height:42px;border:0;outline:0;padding:5px 12px 0;background:transparent;color:var(--text);font:inherit;font-size:14px;font-weight:500;text-overflow:clip}.token-entry input::placeholder,.input-row input::placeholder{color:transparent;opacity:0}.token-entry:focus-within,.input-row:focus-within{border-color:rgba(110,168,254,.55)}
+.float-label{position:absolute;top:-8px;left:10px;z-index:2;padding:0 4px;background:var(--card);border-radius:0;box-shadow:none;color:#aeb8cc;font-size:10px;line-height:16px;font-weight:750;letter-spacing:.01em;pointer-events:none;white-space:nowrap}.token-entry:focus-within .float-label,.input-row:focus-within .float-label{color:var(--accent)}.actions>.btn{height:44px;min-height:44px;min-width:0;white-space:nowrap}.vpn-actions #tokenEntry{width:100%;min-width:0}.vpn-actions{align-items:stretch}.vpn-actions #happDownload,.vpn-actions #happConnect{width:100%}.vpn-actions .token-submit{width:auto}.token-submit{width:auto;min-width:116px;height:44px;min-height:44px;margin:0;align-self:center;border-radius:13px;padding:0 16px}.token-submit:disabled{opacity:.45;cursor:default}.section{padding:18px 22px;border-bottom:1px solid var(--line);min-width:0}.section:last-child{border-bottom:0}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.section-title{font-size:14px;font-weight:800}.field-label{display:block;margin:0 0 6px 2px;color:var(--muted);font-size:11px;font-weight:700}.muted{color:var(--muted);font-size:12px;line-height:1.45}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.field.full{grid-column:1/-1}.field input,.field select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);outline:0;padding:0 12px;font:inherit}.field select option{background:#141b30;color:var(--text)}.field input:focus,.field select:focus{border-color:rgba(110,168,254,.55)}.split-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.control-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:stretch}.control-btn{height:44px;min-height:44px;padding:0 16px;white-space:nowrap;min-width:max-content}.identity-grid .input-row{height:44px}.identity-grid .input-row input{height:42px}@media (max-width:640px){body{padding-left:10px;padding-right:10px}.wrap{width:100%}.header{gap:8px}.logo{width:40px;height:40px;border-radius:13px}h1{font-size:21px}.subtitle{font-size:12px}.mode-switch{gap:3px;padding:3px}.mode-btn{padding:8px 10px;font-size:12px}.card{border-radius:18px}.hero{padding:10px 14px}.rows{padding:4px 14px 10px}.row{grid-template-columns:minmax(86px,.9fr) minmax(0,1.5fr);gap:10px;min-height:54px}.status{max-width:70%}.actions{grid-template-columns:minmax(0,2.1fr) auto minmax(92px,.9fr) minmax(92px,.9fr);gap:7px;padding:10px 14px 14px}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(110px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(110px,.9fr)}.actions>.btn{font-size:11px;padding:0 7px;white-space:nowrap;line-height:1.15}.token-entry,.input-row{height:42px}.token-entry input,.input-row input{height:40px;padding:5px 10px 0;font-size:13px}.float-label{top:-8px;left:9px;font-size:9px;line-height:16px;padding:0 3px}.token-submit{min-width:0!important;padding:0 7px!important}.section{padding:14px}.identity-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.control-row{grid-template-columns:minmax(0,1fr) auto}.control-btn{width:auto;min-width:max-content;padding:0 11px}.network-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.network-toolbar{grid-template-columns:minmax(0,1fr) auto}.footer-note{font-size:11px}}@media (max-width:390px){.header{gap:6px}.logo{width:38px;height:38px;border-radius:12px}h1{font-size:20px}.subtitle{font-size:11px}.mode-switch{gap:2px;padding:3px}.mode-btn{padding:7px 8px;font-size:11px}.actions{grid-template-columns:minmax(0,2fr) auto minmax(78px,.9fr) minmax(78px,.9fr);gap:6px}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(96px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(96px,.9fr)}.actions>.btn{font-size:10px;padding:0 6px}.token-entry input,.input-row input{font-size:12px}.network-toolbar{grid-template-columns:minmax(0,1fr) auto}.identity-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.control-row{grid-template-columns:minmax(0,1fr) auto}.control-btn{padding:0 8px}.status{max-width:64%}}.network-select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 12px;font:inherit}.network-select:focus{outline:0;border-color:rgba(110,168,254,.55)}.network-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.network-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.mini{padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035);min-width:0}.mini-label{font-size:11px;color:var(--muted);margin-bottom:4px}.mini-value{font-size:13px;font-weight:750;overflow-wrap:anywhere}.info-line{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035)}.info-line .info-copy{min-width:0}.info-line .info-value{font-size:12px;font-weight:750;overflow-wrap:anywhere}.fold{margin-top:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.02);overflow:hidden}.fold summary{cursor:pointer;padding:11px 13px;font-size:12px;font-weight:800;list-style:none}.fold summary::-webkit-details-marker{display:none}.fold summary::after{content:'+';float:right;color:var(--muted);font-size:15px;line-height:1}.fold[open] summary::after{content:'-';}.fold-content{padding:0 12px 12px}.code-box{display:flex;gap:8px;align-items:stretch;margin-top:10px}.code-box input{flex:1;min-width:0;height:42px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 11px;font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace}.config-box{margin-top:12px;position:relative}.config-box pre{margin:0;max-height:270px;overflow:auto;padding:14px;border:1px solid var(--line);border-radius:13px;background:rgba(4,8,18,.65);color:#dfe7f6;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.device-list{display:grid;gap:8px;margin-top:10px}.device{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.035)}.device-main{min-width:0}.device-name{font-weight:800;overflow-wrap:anywhere}.device-meta{margin-top:3px;color:var(--muted);font-size:11px;line-height:1.35;overflow-wrap:anywhere}.device-side{text-align:right;font-size:11px;font-weight:750}.online{color:var(--ok)}.offline{color:var(--muted)}.footer-note{margin-top:13px;color:var(--muted);font-size:12px;line-height:1.45;text-align:center;max-width:680px;margin-left:auto;margin-right:auto}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#151d31;color:var(--text);border:1px solid var(--line);border-radius:13px;padding:10px 13px;font-size:12px;box-shadow:var(--shadow);transition:opacity .18s ease,transform .18s ease;z-index:10}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:680px){.header{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}.mode-switch{width:auto;flex:0 0 auto}.mode-btn{padding:8px 10px;font-size:12px}.form-grid,.network-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:6px;padding:13px 0;min-height:auto}.value{text-align:left}.protocols{justify-content:flex-start}.status-row{align-items:center}.status{max-width:70%}.device{grid-template-columns:1fr}.device-side{text-align:left}}
+      .float-label{background:var(--card);border-radius:999px;padding:0 6px;line-height:16px}.vpn-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}.vpn-token-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:stretch}.vpn-buttons-row{display:flex;gap:10px;justify-content:flex-start}.vpn-buttons-row .btn{flex:0 0 auto;min-width:140px}.token-entry,.input-row{height:44px;display:flex;align-items:stretch;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.07)}.token-entry input,.input-row input{height:42px}.input-row .float-label,.token-entry .float-label{background:var(--card);border-radius:999px;padding:0 6px}.lan-download-wrap{display:flex;gap:8px;align-items:center}@media (max-width:640px){.vpn-token-row{grid-template-columns:minmax(0,1fr) auto}.vpn-buttons-row{display:grid;grid-template-columns:1fr 1fr}.vpn-buttons-row .btn{min-width:0;width:100%}.vpn-actions{padding-left:14px;padding-right:14px}.float-label{padding:0 5px}}@media (max-width:390px){.vpn-buttons-row{gap:6px}.vpn-buttons-row .btn{font-size:10px;padding:0 8px}.vpn-token-row{gap:6px}.token-submit{min-width:92px!important}}
+</style>
 </head>
 <body>
   <main class="wrap">
@@ -35,7 +37,7 @@
       <div class="card" aria-live="polite">
         <div class="hero">
           <div class="status-row">
-            <span class="label">Статус</span>
+            <span class="label">Статус VPN</span>
             <span id="status" class="status wait">Проверка…</span>
           </div>
         </div>
@@ -47,15 +49,18 @@
           <div class="row"><div class="label">Срок действия</div><div id="expire" class="value">—</div></div>
           <div class="row"><div class="label">Задержка</div><div id="latency" class="value">—</div></div>
         </div>
-        <div class="actions">
-          <a id="happDownload" class="btn secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer">Скачать Happ</a>
-          <div id="tokenEntry" class="token-entry" hidden>
-            <input id="tokenInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Введите токен подписки">
-            <button id="tokenSubmit" class="token-submit" type="button" aria-label="Проверить токен" title="Проверить токен">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13"></path><path d="m13 6 6 6-6 6"></path></svg>
-            </button>
+        <div class="actions vpn-actions">
+          <div class="vpn-token-row">
+            <div id="tokenEntry" class="token-entry" hidden>
+              <label class="float-label" for="tokenInput">Токен подписки</label>
+              <input id="tokenInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+            </div>
+            <button id="tokenSubmit" class="btn primary control-btn token-submit" type="button">Проверить</button>
           </div>
-          <a id="happConnect" class="btn primary" href="#" rel="noopener noreferrer" hidden>Открыть в Happ</a>
+          <div class="vpn-buttons-row">
+            <a id="happDownload" class="btn secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer">Скачать Happ</a>
+            <a id="happConnect" class="btn primary" href="#" rel="noopener noreferrer" hidden>Открыть в Happ</a>
+          </div>
         </div>
       </div>
       <div class="footer-note">Не передавайте токен подписки и ссылку с токеном третьим лицам. VPN не обеспечивает абсолютную анонимность. Сервер может видеть технические данные соединения — время, объём трафика и сетевые направления.</div>
@@ -65,71 +70,55 @@
       <div class="card" aria-live="polite">
         <div class="hero">
           <div class="status-row">
-            <span class="label">LAN</span>
-            <span id="lanStatus" class="status wait">Готово</span>
+            <span class="label">Статус LAN</span>
+            <span id="lanStatus" class="status wait">Создайте или подключитесь к сети</span>
           </div>
         </div>
 
         <div class="section">
-          <div class="section-title">Устройство</div>
-          <div class="muted">WireGuard Public Key нужен серверу только для идентификации устройства. Private Key никогда не передаётся на сервер.</div>
-          <div class="form-grid" style="margin-top:10px">
-            <div class="field full"><input id="lanPublicKey" maxlength="44" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="WireGuard Public Key"></div>
-            <div class="field full"><input id="lanDeviceName" maxlength="48" autocomplete="off" placeholder="Название устройства, например Alex-PC"></div>
+          <div class="section-head"><div><div class="section-title">Ваше устройство</div><div class="muted">Public Key нужен серверу для идентификации устройства. Private Key остаётся только у вас.</div></div></div>
+          <div class="form-grid identity-grid" style="margin-top:12px">
+            <div class="field"><div class="input-row"><label class="float-label" for="lanPublicKey">Public Key</label><input id="lanPublicKey" maxlength="44" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></div></div>
+            <div class="field"><div class="input-row"><label class="float-label" for="lanDeviceName">Имя устройства</label><input id="lanDeviceName" maxlength="48" autocomplete="off"></div></div>
           </div>
         </div>
 
         <div class="section">
-          <div class="section-title">Создать LAN</div>
-          <div class="form-grid">
-            <div class="field full"><input id="lanName" maxlength="64" autocomplete="off" placeholder="Название сети, минимум 4 символа"></div>
-          </div>
-          <div class="split-actions">
-            <button id="lanCreate" class="btn primary" type="button">Создать сеть</button>
+          <div class="section-head"><div><div class="section-title">Создать сеть</div><div class="muted">Создайте свою LAN и получите код для других участников.</div></div></div>
+          <div class="control-row">
+            <div class="field"><div class="input-row"><label class="float-label" for="lanName">Название сети</label><input id="lanName" maxlength="64" autocomplete="off"></div></div>
+            <button id="lanCreate" class="btn primary control-btn" type="button">Создать сеть</button>
           </div>
         </div>
 
         <div class="section">
-          <div class="section-title">Подключиться к LAN</div>
-          <div class="muted">Введи код, который выдал владелец сети.</div>
-          <div class="form-grid" style="margin-top:10px">
-            <div class="field full"><input id="lanJoinCode" maxlength="64" autocomplete="off" autocapitalize="characters" placeholder="Код сети, например F3CDD8-162408-8832DC-A3BE88"></div>
-          </div>
-          <div class="split-actions">
-            <button id="lanJoin" class="btn primary" type="button">Подключиться</button>
+          <div class="section-head"><div><div class="section-title">Подключиться к сети</div><div class="muted">Введите код, который выдал владелец LAN.</div></div></div>
+          <div class="control-row">
+            <div class="field"><div class="input-row"><label class="float-label" for="lanJoinCode">Название сети</label><input id="lanJoinCode" maxlength="64" autocomplete="off" autocapitalize="characters"></div></div>
+            <button id="lanJoin" class="btn primary control-btn" type="button">Подключиться</button>
           </div>
         </div>
 
         <div id="lanNetworksSection" class="section" hidden>
-          <div class="section-title">Мои LAN</div>
-          <select id="lanNetworkSelect" class="network-select"></select>
+          <div class="section-head"><div><div class="section-title">Мои сети</div><div class="muted">Выберите сеть, чтобы посмотреть её участников и настройки.</div></div></div>
+          <div class="network-toolbar"><select id="lanNetworkSelect" class="network-select"></select><button id="lanRefresh" class="btn secondary small" type="button">Обновить</button></div>
         </div>
 
         <div id="lanDetailsSection" class="section" hidden>
-          <div class="section-title">Сеть</div>
+          <div class="section-head"><div><div class="section-title">Текущая сеть</div><div class="muted">Данные этой сети и ваш доступ.</div></div></div>
           <div class="network-grid">
             <div class="mini"><div class="mini-label">Название</div><div id="lanDetailName" class="mini-value">—</div></div>
             <div class="mini"><div class="mini-label">Подсеть</div><div id="lanDetailSubnet" class="mini-value">—</div></div>
             <div class="mini"><div class="mini-label">Мой IP</div><div id="lanDetailIp" class="mini-value">—</div></div>
             <div class="mini"><div class="mini-label">Роль</div><div id="lanDetailRole" class="mini-value">—</div></div>
           </div>
-          <div id="lanOwnerCode" class="code-box" hidden>
-            <input id="lanJoinCodeView" type="text" readonly>
-            <button id="lanCopyCode" class="btn secondary small" type="button">Копировать код</button>
-          </div>
-          <div class="config-box">
-            <div class="status-row" style="margin-bottom:8px"><span class="label">Конфигурация</span><button id="lanCopyConfig" class="btn secondary small" type="button">Копировать</button></div>
-            <pre id="lanConfig">—</pre>
-          </div>
-          <div class="split-actions">
-            <button id="lanRefresh" class="btn secondary" type="button">Обновить</button>
-            <button id="lanLeave" class="btn secondary" type="button" hidden>Выйти из сети</button>
-            <button id="lanDelete" class="btn danger" type="button" hidden>Удалить LAN</button>
-          </div>
+          <div id="lanOwnerCode" class="info-line" hidden><div class="info-copy"><div class="mini-label">Код для подключения</div><div id="lanJoinCodeText" class="info-value">—</div></div><button id="lanCopyCode" class="btn secondary small" type="button">Копировать</button><input id="lanJoinCodeView" type="hidden" value=""></div>
+          <details class="fold"><summary>Конфигурация WireGuard</summary><div class="fold-content"><div class="status-row" style="margin-bottom:8px"><span class="label">Конфигурация для этого устройства</span><div style="display:flex;gap:8px;align-items:center"><button id="lanCopyConfig" class="btn secondary small" type="button">Копировать</button><button id="lanDownloadConfig" class="btn secondary small" type="button">Скачать WireGuard</button></div></div><div class="config-box" style="margin-top:0"><pre id="lanConfig">—</pre></div></div></details>
+          <div class="split-actions"><button id="lanLeave" class="btn secondary" type="button" hidden>Выйти из сети</button><button id="lanDelete" class="btn danger" type="button" hidden>Удалить LAN</button></div>
         </div>
 
         <div id="lanDevicesSection" class="section" hidden>
-          <div class="section-title">Устройства</div>
+          <div class="section-head"><div><div class="section-title">Устройства</div><div id="lanDevicesHint" class="muted">Участники этой сети и их состояние.</div></div></div>
           <div id="lanDevices" class="device-list"></div>
         </div>
       </div>
@@ -239,6 +228,9 @@
       $('latency').textContent='—';
       $('happConnect').hidden=true;
       $('happConnect').setAttribute('href','#');
+      $('tokenEntry').hidden=true;
+      $('tokenSubmit').hidden=true;
+      updateVpnActionLayout();
     }
 
     function bytes(value){
@@ -279,17 +271,40 @@
       }catch(_){return false}
     }
 
-    function showTokenEntry(){
-      if(tokenWasProvidedInUrl){$('tokenEntry').hidden=true;$('happConnect').hidden=true;return}
-      $('tokenEntry').hidden=false;$('happConnect').hidden=true;
+    function updateVpnActionLayout(){
+      const actions=document.querySelector('.vpn-actions');
+      if(!actions)return;
+      actions.classList.toggle('no-connect',$('happConnect').hidden);
+      actions.classList.toggle('has-connect',!$('happConnect').hidden);
+      actions.classList.toggle('no-token',$('tokenEntry').hidden && $('tokenSubmit').hidden);
     }
 
-    function hideTokenEntry(){ $('tokenEntry').hidden=true; }
+    function showTokenEntry(){
+      if(tokenWasProvidedInUrl){
+        $('tokenEntry').hidden=true;
+        $('tokenSubmit').hidden=true;
+        $('happConnect').hidden=true;
+        updateVpnActionLayout();
+        return;
+      }
+      $('tokenEntry').hidden=false;
+      $('tokenSubmit').hidden=false;
+      $('happConnect').hidden=true;
+      updateVpnActionLayout();
+    }
+
+    function hideTokenEntry(){
+      $('tokenEntry').hidden=true;
+      $('tokenSubmit').hidden=true;
+      updateVpnActionLayout();
+    }
 
     function showHappButton(url){
       $('happConnect').setAttribute('href',url);
       $('happConnect').hidden=false;
       $('tokenEntry').hidden=true;
+      $('tokenSubmit').hidden=true;
+      updateVpnActionLayout();
     }
 
     async function postApi(token){
@@ -401,7 +416,7 @@
       const section=$('lanNetworksSection');
       const select=$('lanNetworkSelect');
       select.textContent='';
-      if(!lanNetworks.length){section.hidden=true;$('lanDetailsSection').hidden=true;$('lanDevicesSection').hidden=true;activeLanId=null;return}
+      if(!lanNetworks.length){section.hidden=true;$('lanDetailsSection').hidden=true;$('lanDevicesSection').hidden=true;activeLanId=null;setLanStatus('wait','Создайте или подключитесь к сети');return}
       section.hidden=false;
       for(const network of lanNetworks){const option=document.createElement('option');option.value=String(network.id);option.textContent=`${network.name} · ${network.subnet}`;select.appendChild(option)}
       if(!activeLanId||!lanNetworks.some(item=>String(item.id)===String(activeLanId)))activeLanId=lanNetworks[0].id;
@@ -430,10 +445,13 @@
       const owner=network.role==='owner';
       $('lanOwnerCode').hidden=!owner;
       $('lanJoinCodeView').value=network.joinCode||'';
+      $('lanJoinCodeText').textContent=network.joinCode||'—';
       $('lanLeave').hidden=owner;
       $('lanDelete').hidden=!owner;
       $('lanConfig').textContent=network.config||'—';
-      renderLanDevices(network.devices||[]);
+      const devices=network.devices||[];
+      $('lanDevicesHint').textContent=`Участники этой сети · ${devices.length}`;
+      renderLanDevices(devices);
     }
 
     function renderLanDevices(devices){
@@ -446,16 +464,26 @@
       for(const device of devices){
         const row=document.createElement('div');row.className='device';
         const main=document.createElement('div');main.className='device-main';
-        const name=document.createElement('div');name.className='device-name';name.textContent=String(device.name||'Устройство');
+        const name=document.createElement('div');name.className='device-name';
         const meta=document.createElement('div');meta.className='device-meta';
         const key=String(device.public_key||'');
         const shortKey=key.length>16?`${key.slice(0,8)}…${key.slice(-8)}`:key;
         const last=device.last_seen?new Date(Number(device.last_seen)*1000).toLocaleString('ru-RU'):'Нет handshake';
+        const own=key===String((findActiveLan()?.publicKey)||'');
+        name.textContent=own?`${String(device.name||'Устройство')} · вы`:String(device.name||'Устройство');
         meta.textContent=`${device.ip||'—'} · ${device.role==='owner'?'владелец':'участник'} · ${shortKey} · ${last}`;
         main.appendChild(name);main.appendChild(meta);
         const side=document.createElement('div');side.className='device-side '+(device.online?'online':'offline');side.textContent=device.online?'Онлайн':'Офлайн';
         row.appendChild(main);row.appendChild(side);list.appendChild(row);
       }
+    }
+
+    function updateLanConnectionState(devices){
+      const network=findActiveLan();
+      if(!network){setLanStatus('wait','Создайте или подключитесь к сети');return}
+      const publicKey=network.publicKey||$('lanPublicKey').value.trim();
+      const own=Array.isArray(devices)?devices.find(device=>String(device.public_key||'')===publicKey):null;
+      setLanStatus('ok',own?.online?'Подключено':'Активно');
     }
 
     async function lanRequest(action,payload={}){
@@ -496,7 +524,7 @@
       try{
         const data=await lanRequest('lan_create',{name:input.name,device_name:input.deviceName,public_key:input.publicKey});
         upsertLan({id:data.network.id,name:data.network.name,subnet:data.network.subnet,joinCode:data.join_code,publicKey:data.me.public_key,deviceName:input.deviceName,ip:data.me.ip,role:data.me.role||'owner',config:data.config,devices:data.devices||[]});
-        setLanStatus('ok','LAN создана');
+        updateLanConnectionState(data.devices||[]);
         showToast('LAN создана');
         await refreshLanNetwork(false);
       }catch(error){setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось создать LAN.')}finally{$('lanCreate').disabled=false}
@@ -511,7 +539,7 @@
       try{
         const data=await lanRequest('lan_join',{join_code:input.joinCode,device_name:input.deviceName,public_key:input.publicKey});
         upsertLan({id:data.network.id,name:data.network.name,subnet:data.network.subnet,joinCode:input.joinCode,publicKey:data.me.public_key,deviceName:input.deviceName,ip:data.me.ip,role:data.me.role||'member',config:data.config,devices:data.devices||[]});
-        setLanStatus('ok','Подключено');
+        updateLanConnectionState(data.devices||[]);
         showToast('Устройство добавлено в LAN');
         await refreshLanNetwork(false);
       }catch(error){setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось подключиться.')}finally{$('lanJoin').disabled=false}
@@ -526,7 +554,7 @@
         if(!data.joined){removeLan(network.id);setLanStatus('warn','Устройство не входит в эту LAN.');return}
         const merged={...network,name:data.name,subnet:data.subnet,ip:data.me?.ip||network.ip,role:data.me?.role||network.role,config:data.config||network.config,devices:data.devices||[]};
         upsertLan(merged);
-        setLanStatus('ok','Подключено');
+        updateLanConnectionState(data.devices||[]);
       }catch(error){setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось обновить LAN.')}    }
 
     async function leaveLan(){
@@ -536,7 +564,7 @@
       setLanStatus('wait','Выход…');
       try{
         await lanRequest('lan_leave',{join_code:network.joinCode,public_key:network.publicKey});
-        removeLan(network.id);setLanStatus('ok','Вышли из LAN');showToast('Вы вышли из LAN');
+        removeLan(network.id);showToast('Вы вышли из LAN');
       }catch(error){setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось выйти из LAN.')}finally{$('lanLeave').disabled=false}
     }
 
@@ -548,13 +576,26 @@
       setLanStatus('wait','Удаление…');
       try{
         await lanRequest('lan_delete',{join_code:network.joinCode,public_key:network.publicKey});
-        removeLan(network.id);setLanStatus('ok','LAN удалена');showToast('LAN удалена');
+        removeLan(network.id);showToast('LAN удалена');
       }catch(error){setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось удалить LAN.')}finally{$('lanDelete').disabled=false}
     }
 
     async function copyText(value,success){
       if(!value)return;
       try{await navigator.clipboard.writeText(value);showToast(success||'Скопировано')}catch(_){showToast('Не удалось скопировать')}
+    }
+
+    function downloadText(filename,text){
+      if(!text||text==='—')return;
+      const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download=filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
     }
 
     function setMode(mode){
@@ -578,9 +619,11 @@
     $('lanDelete').addEventListener('click',deleteLan);
     $('lanCopyCode').addEventListener('click',()=>copyText($('lanJoinCodeView').value,'Код LAN скопирован'));
     $('lanCopyConfig').addEventListener('click',()=>copyText($('lanConfig').textContent,'Конфигурация скопирована'));
+    $('lanDownloadConfig').addEventListener('click',()=>{const network=findActiveLan();const name=String(network?.name||'limupy-lan').replace(/[^a-zA-Z0-9а-яА-ЯёЁ._-]+/g,'-').replace(/^-+|-+$/g,'')||'limupy-lan';downloadText(`${name}.conf`,$('lanConfig').textContent)});
     $('lanNetworkSelect').addEventListener('change',()=>{activeLanId=$('lanNetworkSelect').value;renderActiveLan();refreshLanNetwork(true)});
     $('lanPublicKey').addEventListener('input',saveLanIdentity);
     $('lanDeviceName').addEventListener('input',saveLanIdentity);
+    $('lanJoinCode').addEventListener('input',event=>{event.target.value=event.target.value.toUpperCase()});
     $('lanJoinCode').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();joinLan()}});
     $('lanName').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();createLan()}});
 
