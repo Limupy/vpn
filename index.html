@@ -6,7 +6,22 @@
   <meta name="referrer" content="no-referrer">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0d12">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'; frame-src 'none'">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      connect-src https://78.17.112.158;
+      img-src 'self' data:;
+      style-src 'self' 'unsafe-inline';
+      script-src 'self' 'unsafe-inline';
+      font-src 'self';
+      object-src 'none';
+      base-uri 'none';
+      form-action 'none';
+      media-src 'none';
+      frame-src 'none'
+    "
+  >
   <title>Limupy Services</title>
 
   <style>
@@ -111,7 +126,6 @@
 
     .mode-option:hover{background:#1b202b}
     .mode-option.active{background:#202631}
-
     .mode-option span:last-child{
       color:var(--muted);
       font-size:12px;
@@ -151,6 +165,12 @@
     }
 
     .panel-body{padding:18px}
+
+    .mode-label{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
 
     .mode-value{
       font-size:30px;
@@ -311,13 +331,35 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      text-decoration:none;
     }
 
     .happ-download svg{
       width:17px;
       height:17px;
       stroke:currentColor;
+    }
+
+    .notice{
+      margin-top:10px;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+      background:var(--panel-2);
+    }
+
+    .notice.error{
+      color:var(--muted);
+      border-color:var(--line);
+      background:var(--panel-2);
+    }
+
+    .notice.success{
+      color:#a3e9ba;
+      border-color:rgba(103,211,145,.22);
+      background:rgba(103,211,145,.05);
     }
 
     .lan-wrap{
@@ -437,9 +479,7 @@
       align-items:stretch;
     }
 
-    .key-row .input{
-      min-width:0;
-    }
+    .key-row .input{min-width:0}
 
     .mini-btn{
       flex:0 0 auto;
@@ -648,6 +688,20 @@
       background:var(--success);
     }
 
+    .profile-placeholder{
+      text-align:center;
+      padding:38px 20px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .profile-placeholder-title{
+      color:var(--text);
+      font-size:22px;
+      font-weight:800;
+      margin-bottom:6px;
+    }
+
     .empty{
       padding:18px;
       text-align:center;
@@ -659,13 +713,6 @@
 
     .hidden{
       display:none !important;
-    }
-
-    .profile-placeholder{
-      padding:26px 18px;
-      text-align:center;
-      color:var(--muted);
-      font-size:13px;
     }
 
     @media (max-width:700px){
@@ -752,6 +799,7 @@
         </button>
 
         <div class="mode-menu" id="modeMenu">
+
           <button
             class="mode-option active"
             data-mode="vpn"
@@ -778,6 +826,7 @@
             <span>PROFILE</span>
             <span>Профиль</span>
           </button>
+
         </div>
       </div>
     </div>
@@ -803,10 +852,7 @@
             <div class="status-grid">
 
               <div class="status-item">
-                <div class="status-item-label">
-                  Статус
-                </div>
-
+                <div class="status-item-label">Статус</div>
                 <div
                   class="status-item-value"
                   id="vpnState"
@@ -816,23 +862,7 @@
               </div>
 
               <div class="status-item">
-                <div class="status-item-label">
-                  Пинг
-                </div>
-
-                <div
-                  class="status-item-value"
-                  id="vpnPing"
-                >
-                  —
-                </div>
-              </div>
-
-              <div class="status-item">
-                <div class="status-item-label">
-                  Срок
-                </div>
-
+                <div class="status-item-label">Срок</div>
                 <div
                   class="status-item-value"
                   id="vpnExpiry"
@@ -842,10 +872,17 @@
               </div>
 
               <div class="status-item">
-                <div class="status-item-label">
-                  Трафик
+                <div class="status-item-label">Пинг</div>
+                <div
+                  class="status-item-value"
+                  id="vpnPing"
+                >
+                  —
                 </div>
+              </div>
 
+              <div class="status-item">
+                <div class="status-item-label">Трафик</div>
                 <div
                   class="status-item-value"
                   id="vpnTraffic"
@@ -861,9 +898,7 @@
         <div class="panel">
           <div class="panel-head">
             <div>
-              <div class="panel-title">
-                Токен
-              </div>
+              <div class="panel-title">Токен</div>
             </div>
           </div>
 
@@ -871,9 +906,7 @@
 
             <div class="input-row">
 
-              <div
-                class="field floating-field input-field-grow"
-              >
+              <div class="field floating-field input-field-grow">
                 <label
                   class="field-label"
                   for="vpnToken"
@@ -958,9 +991,7 @@
               <div class="panel-body">
 
                 <div class="mode-value-row">
-                  <div class="mode-value">
-                    LAN
-                  </div>
+                  <div class="mode-value">LAN</div>
 
                   <div
                     class="service-name hidden"
@@ -971,10 +1002,7 @@
                 <div class="status-grid">
 
                   <div class="status-item">
-                    <div class="status-item-label">
-                      Статус
-                    </div>
-
+                    <div class="status-item-label">Статус</div>
                     <div
                       class="status-item-value"
                       id="lanInfoStatus"
@@ -984,10 +1012,7 @@
                   </div>
 
                   <div class="status-item">
-                    <div class="status-item-label">
-                      Подсеть
-                    </div>
-
+                    <div class="status-item-label">Подсеть</div>
                     <div
                       class="status-item-value"
                       id="lanInfoSubnet"
@@ -997,10 +1022,7 @@
                   </div>
 
                   <div class="status-item">
-                    <div class="status-item-label">
-                      IP
-                    </div>
-
+                    <div class="status-item-label">IP</div>
                     <div
                       class="status-item-value"
                       id="lanInfoIp"
@@ -1010,10 +1032,7 @@
                   </div>
 
                   <div class="status-item">
-                    <div class="status-item-label">
-                      Роль
-                    </div>
-
+                    <div class="status-item-label">Роль</div>
                     <div
                       class="status-item-value"
                       id="lanInfoRole"
@@ -1029,9 +1048,7 @@
             <div class="panel">
               <div class="panel-head">
                 <div>
-                  <div class="panel-title">
-                    Подключение
-                  </div>
+                  <div class="panel-title">Подключение</div>
                 </div>
               </div>
 
@@ -1058,6 +1075,7 @@
                 </div>
 
                 <div class="field floating-field">
+
                   <label
                     class="field-label"
                     for="lanPublicKey"
@@ -1076,6 +1094,7 @@
                     spellcheck="false"
                     maxlength="44"
                   >
+
                 </div>
 
                 <div
@@ -1084,6 +1103,7 @@
                 >
 
                   <div class="field floating-field">
+
                     <label
                       class="field-label"
                       for="lanCreateName"
@@ -1099,9 +1119,11 @@
                       placeholder="Введите название"
                       autocomplete="off"
                     >
+
                   </div>
 
                   <div class="actions one">
+
                     <button
                       class="btn btn-primary"
                       id="lanCreateButton"
@@ -1109,6 +1131,7 @@
                     >
                       Создать
                     </button>
+
                   </div>
 
                 </div>
@@ -1119,6 +1142,7 @@
                 >
 
                   <div class="field floating-field">
+
                     <label
                       class="field-label"
                       for="lanJoinCode"
@@ -1137,9 +1161,11 @@
                       autocorrect="off"
                       spellcheck="false"
                     >
+
                   </div>
 
                   <div class="actions one">
+
                     <button
                       class="btn btn-primary"
                       id="lanJoinButton"
@@ -1147,6 +1173,7 @@
                     >
                       Подключить
                     </button>
+
                   </div>
 
                 </div>
@@ -1342,6 +1369,7 @@
               class="panel hidden"
               id="devicesPanel"
             >
+
               <div class="panel-head">
 
                 <div>
@@ -1373,6 +1401,7 @@
               class="panel hidden"
               id="networkActionsPanel"
             >
+
               <div class="panel-head">
 
                 <div>
@@ -1428,21 +1457,11 @@
         id="pageProfile"
       >
         <div class="panel">
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">
-                PROFILE
-              </div>
-
-              <div class="panel-subtitle">
-                Профиль пользователя
-              </div>
-            </div>
-          </div>
-
           <div class="panel-body">
             <div class="profile-placeholder">
-              Профиль находится в разработке
+              <div class="profile-placeholder-title">
+                PROFILE
+              </div>
             </div>
           </div>
         </div>
@@ -1460,14 +1479,12 @@
     const LAN_NAME_MAX_LENGTH=64;
     const LAN_JOIN_CODE_MAX_LENGTH=128;
     const DEVICE_NAME='Limupy Web';
-
     const SS_VPN_TOKEN='__limupy_vpn_token';
     const SS_VPN_HISTORY_TOKEN='__limupy_vpn_history_token';
     const SS_ACTIVE_NETWORK='limupy_active_network';
     const SS_LAN_NETWORKS='limupy_lan_networks';
     const SS_LAN_JOIN_CODES='limupy_lan_join_codes';
     const SS_DEVICE_ID='limupy_device_id';
-
     const ALLOWED_HAPP_HOST='78.17.112.158';
 
     let currentMode='vpn';
@@ -1537,6 +1554,7 @@
           JSON.parse(raw);
 
         return parsed??fallback;
+
       }catch{
         return fallback;
       }
@@ -1563,9 +1581,10 @@
         const byte
         of bytes
       ){
-        binary+=String.fromCharCode(
-          byte
-        );
+        binary+=
+          String.fromCharCode(
+            byte
+          );
       }
 
       return btoa(binary)
@@ -1634,21 +1653,18 @@
               credentials:'omit',
               redirect:'error',
               referrerPolicy:'no-referrer',
-              signal:
-                controller.signal,
+              signal:controller.signal,
               headers:{
-                'Accept':
-                  'application/json',
+                'Accept':'application/json',
                 'Content-Type':
                   'application/json'
               },
-              body:
-                JSON.stringify({
-                  action,
-                  device_id:
-                    getDeviceId(),
-                  ...payload
-                })
+              body:JSON.stringify({
+                action,
+                device_id:
+                  getDeviceId(),
+                ...payload
+              })
             }
           );
 
@@ -1677,7 +1693,7 @@
         if(
           data &&
           (
-            data.success===false ||
+            data.success===false||
             data.ok===false
           )
         ){
@@ -1729,8 +1745,7 @@
               credentials:'omit',
               redirect:'error',
               referrerPolicy:'no-referrer',
-              signal:
-                controller.signal,
+              signal:controller.signal,
               headers:{
                 'Authorization':
                   `Bearer ${token}`,
@@ -1739,11 +1754,10 @@
                 'Content-Type':
                   'application/json'
               },
-              body:
-                JSON.stringify({
-                  device_id:
-                    getDeviceId()
-                })
+              body:JSON.stringify({
+                device_id:
+                  getDeviceId()
+              })
             }
           );
 
@@ -1761,7 +1775,7 @@
           data=null;
         }
 
-        return {
+        return{
           response,
           data,
           elapsed:
@@ -1809,11 +1823,11 @@
     function getVpnHistoryToken(){
       try{
         const state=
-          window.history&&
+          window.history &&
           window.history.state;
 
         if(
-          !state||
+          !state ||
           typeof state!=='object'
         ){
           return '';
@@ -1824,10 +1838,9 @@
             SS_VPN_HISTORY_TOKEN
           ];
 
-        return typeof value===
-          'string'
-            ? value.trim()
-            : '';
+        return typeof value==='string'
+          ? value.trim()
+          : '';
 
       }catch{
         return '';
@@ -1839,17 +1852,15 @@
     ){
       if(
         !window.history||
-        typeof window.history
-          .replaceState!=='function'
+        typeof window.history.replaceState!=='function'
       ){
         return;
       }
 
       try{
         const currentState=
-          window.history.state&&
-          typeof window.history
-            .state==='object'
+          window.history.state &&
+          typeof window.history.state==='object'
             ? window.history.state
             : {};
 
@@ -1932,8 +1943,8 @@
         }
 
         if(
-          hash&&
-          !hash.includes('=')&&
+          hash &&
+          !hash.includes('=') &&
           hash.length<=
             VPN_TOKEN_MAX_LENGTH
         ){
@@ -1963,6 +1974,7 @@
           document.title,
           url.toString()
         );
+
       }catch{}
     }
 
@@ -2073,16 +2085,16 @@
           units.length-1
         );
 
-      return `${
-        (
+      return(
+        `${(
           bytes/
           (1024**index)
         ).toFixed(
           index===0
             ? 0
             : 1
-        )
-      } ${units[index]}`;
+        )} ${units[index]}`
+      );
     }
 
     function normalizeTrafficNumber(
@@ -2119,7 +2131,7 @@
         {};
 
       if(
-        typeof traffic==='string'&&
+        typeof traffic==='string' &&
         traffic.trim()
       ){
         const value=
@@ -2164,15 +2176,31 @@
           limitValue
         );
 
+      const upload=
+        normalizeTrafficNumber(
+          traffic?.upload??
+          traffic?.uploaded??
+          data?.upload??
+          data?.uploaded
+        );
+
+      const download=
+        normalizeTrafficNumber(
+          traffic?.download??
+          traffic?.downloaded??
+          data?.download??
+          data?.downloaded
+        );
+
       if(
         limit!==null&&
         limit<=0
       ){
-        return `${
-          formatBytes(
+        return(
+          `${formatBytes(
             used||0
-          )
-        } / ∞`;
+          )} / ∞`
+        );
       }
 
       if(
@@ -2186,25 +2214,49 @@
             limit-used
           );
 
-        return `${
-          formatBytes(
+        return(
+          `${formatBytes(
             used
-          )
-        } / ${
-          formatBytes(
+          )} / ${formatBytes(
             available
+          )}`
+        );
+      }
+
+      if(
+        used!==null&&
+        limit===null&&
+        (
+          download!==null||
+          upload!==null
+        )
+      ){
+        const totalUsed=
+          (
+            download!==null||
+            upload!==null
           )
-        }`;
+            ? (
+                (download||0)+
+                (upload||0)
+              )
+            : used;
+
+        return(
+          `${formatBytes(
+            totalUsed
+          )} / ∞`
+        );
       }
 
       if(
         used!==null
       ){
-        return `${
-          formatBytes(
+        return(
+          `${formatBytes(
             used
-          )
-        } / ∞`;
+          )} / ∞`
+        );
       }
 
       return '—';
@@ -2324,10 +2376,10 @@
         vpnData?.subscription?.url
       ];
 
-      return (
+      return(
         candidates.find(
           value =>
-            typeof value==='string'&&
+            typeof value==='string' &&
             value.trim()
         )||
         ''
@@ -2386,9 +2438,8 @@
               nested
             );
 
-          return (
-            parsed.protocol===
-              'https:'&&
+          return(
+            parsed.protocol==='https:'&&
             parsed.hostname===
               ALLOWED_HAPP_HOST
           );
@@ -2411,6 +2462,7 @@
             decoded
           );
         }
+
       }catch{}
 
       return false;
@@ -2537,26 +2589,35 @@
             response.status===401
           ){
             clearVpnToken();
-            setVpnSubscriptionName('');
+
+            setVpnSubscriptionName(
+              ''
+            );
+
             setVpnStatus(
               'Неверный токен',
               '—',
               '—',
               '—'
             );
+
             return;
           }
 
           if(
             response.status===403
           ){
-            setVpnSubscriptionName('');
+            setVpnSubscriptionName(
+              ''
+            );
+
             setVpnStatus(
               'Доступ запрещён',
               '—',
               '—',
               '—'
             );
+
             return;
           }
 
@@ -2569,6 +2630,7 @@
               '—',
               '—'
             );
+
             return;
           }
 
@@ -2673,13 +2735,18 @@
 
         if(!valid){
           clearVpnToken();
-          setVpnSubscriptionName('');
+
+          setVpnSubscriptionName(
+            ''
+          );
+
           setVpnStatus(
             'Неверный токен',
             '—',
             '—',
             '—'
           );
+
           return;
         }
 
@@ -2709,12 +2776,16 @@
         const ping=
           serverPing!==null&&
           Number.isFinite(
-            Number(serverPing)
+            Number(
+              serverPing
+            )
           )
             ? `${Math.max(
                 1,
                 Math.round(
-                  Number(serverPing)
+                  Number(
+                    serverPing
+                  )
                 )
               )} ms`
             : `${Math.max(
@@ -2760,7 +2831,9 @@
         renderVpnActions();
 
       }catch(error){
-        setVpnSubscriptionName('');
+        setVpnSubscriptionName(
+          ''
+        );
 
         setVpnStatus(
           error?.name===
@@ -2786,7 +2859,8 @@
 
       if(token){
         $('vpnToken')
-          .value=token;
+          .value=
+          token;
       }
 
       setVpnSubscriptionName(
@@ -2806,7 +2880,9 @@
       updateVpnCheckButton();
     }
 
-    function escapeHtml(value){
+    function escapeHtml(
+      value
+    ){
       return String(
         value??''
       )
@@ -2926,7 +3002,8 @@
 
       codes[
         String(networkId)
-      ]=code;
+      ]=
+        code;
 
       saveJoinCodes(
         codes
@@ -3090,7 +3167,7 @@
             : 'member';
       }
 
-      return {
+      return{
         id,
 
         name:
@@ -3321,8 +3398,9 @@
         );
       }
 
-      const merged=
-        [...map.values()];
+      const merged=[
+        ...map.values()
+      ];
 
       saveLanNetworks(
         merged
@@ -3428,6 +3506,7 @@
           network,
           'Не готова'
         );
+
         return;
       }
 
@@ -3440,6 +3519,7 @@
           network,
           'Неверный ключ'
         );
+
         return;
       }
 
@@ -3491,14 +3571,14 @@
       list.innerHTML=
         networks
           .map(
-            network => {
+            network=>{
               const role=
                 network.role===
                   'owner'
                   ? 'Владелец'
                   : 'Участник';
 
-              return `
+              return`
                 <button
                   class="network-item"
                   type="button"
@@ -3542,13 +3622,13 @@
           '.network-item'
         )
         .forEach(
-          button => {
+          button=>{
             button.addEventListener(
               'click',
-              () => {
+              ()=>{
                 const network=
                   networks.find(
-                    item =>
+                    item=>
                       String(
                         item.id
                       )===
@@ -3606,7 +3686,7 @@
       list.innerHTML=
         safeDevices
           .map(
-            device => {
+            device=>{
               const publicKey=
                 device.public_key||
                 device.publicKey||
@@ -3634,7 +3714,7 @@
                   device.connected
                 );
 
-              return `
+              return`
                 <div class="device">
                   <div class="device-main">
                     <div class="device-name">
@@ -3730,8 +3810,7 @@
           : 'Участник';
 
       const owner=
-        network.role===
-          'owner';
+        network.role==='owner';
 
       const hasJoinCode=
         Boolean(
@@ -3832,8 +3911,7 @@
         top:
           $('currentNetworkPanel')
             .offsetTop-12,
-        behavior:
-          'smooth'
+        behavior:'smooth'
       });
     }
 
@@ -3850,7 +3928,7 @@
           '.lan-tab'
         )
         .forEach(
-          button => {
+          button=>{
             button.classList.toggle(
               'active',
               button.dataset
@@ -3901,8 +3979,7 @@
       const button=
         $('lanCreateButton');
 
-      button.disabled=
-        true;
+      button.disabled=true;
 
       try{
         const data=
@@ -3963,7 +4040,9 @@
           network.joinCode||
           '';
 
-        if(network.joinCode){
+        if(
+          network.joinCode
+        ){
           saveJoinCode(
             network.id,
             network.joinCode
@@ -3990,8 +4069,7 @@
 
       }catch(error){
         setLanStatus(
-          error?.name===
-            'AbortError'
+          error?.name==='AbortError'
             ? 'Нет ответа от сервера'
             : (
                 error?.message||
@@ -4032,8 +4110,7 @@
       const button=
         $('lanJoinButton');
 
-      button.disabled=
-        true;
+      button.disabled=true;
 
       try{
         const data=
@@ -4119,8 +4196,7 @@
 
       }catch(error){
         setLanStatus(
-          error?.name===
-            'AbortError'
+          error?.name==='AbortError'
             ? 'Нет ответа от сервера'
             : (
                 error?.message||
@@ -4503,8 +4579,7 @@
       const button=
         $('leaveLanButton');
 
-      button.disabled=
-        true;
+      button.disabled=true;
 
       try{
         await api(
@@ -4555,8 +4630,7 @@
 
       }catch(error){
         setLanStatus(
-          error?.name===
-            'AbortError'
+          error?.name==='AbortError'
             ? 'Нет ответа от сервера'
             : (
                 error?.message||
@@ -4587,8 +4661,7 @@
       const button=
         $('deleteLanButton');
 
-      button.disabled=
-        true;
+      button.disabled=true;
 
       try{
         await api(
@@ -4643,8 +4716,7 @@
 
       }catch(error){
         setLanStatus(
-          error?.name===
-            'AbortError'
+          error?.name==='AbortError'
             ? 'Нет ответа от сервера'
             : (
                 error?.message||
@@ -4731,9 +4803,7 @@
         value||
         'limupy'
       )
-        .normalize(
-          'NFKC'
-        )
+        .normalize('NFKC')
         .replace(
           /[^\p{L}\p{N}._-]+/gu,
           '_'
@@ -4793,6 +4863,7 @@
       );
 
       anchor.click();
+
       anchor.remove();
 
       setTimeout(
@@ -4846,7 +4917,7 @@
           '.mode-option'
         )
         .forEach(
-          button => {
+          button=>{
             button.classList.toggle(
               'active',
               button.dataset.mode===
@@ -4876,7 +4947,7 @@
     $('modeButton')
       .addEventListener(
         'click',
-        event => {
+        event=>{
           event.stopPropagation();
 
           const open=
@@ -4920,10 +4991,10 @@
         '.mode-option'
       )
       .forEach(
-        button => {
+        button=>{
           button.addEventListener(
             'click',
-            event => {
+            event=>{
               event.stopPropagation();
 
               setMode(
@@ -4939,7 +5010,7 @@
         '.lan-tab'
       )
       .forEach(
-        button => {
+        button=>{
           button.addEventListener(
             'click',
             () =>
@@ -4991,7 +5062,7 @@
     $('lanCreateName')
       .addEventListener(
         'keydown',
-        event => {
+        event=>{
           if(
             event.key==='Enter'&&
             !event.shiftKey&&
@@ -5007,7 +5078,7 @@
     $('lanJoinCode')
       .addEventListener(
         'input',
-        event => {
+        event=>{
           event.target.value=
             event.target.value
               .trimStart()
@@ -5018,7 +5089,7 @@
     $('lanJoinCode')
       .addEventListener(
         'keydown',
-        event => {
+        event=>{
           if(
             event.key==='Enter'&&
             !event.shiftKey&&
@@ -5120,7 +5191,7 @@
     $('vpnToken')
       .addEventListener(
         'keydown',
-        event => {
+        event=>{
           if(
             event.key==='Enter'&&
             $('vpnToken')
@@ -5172,7 +5243,6 @@
         renderCurrentNetwork(
           active
         );
-
       }else{
         clearCurrentNetwork();
       }
@@ -5180,9 +5250,12 @@
       updateLanControls();
       hideVpnActions();
 
-      setMode(
-        'vpn'
+      setLanNetworkName(
+        active?.name||
+        ''
       );
+
+      setMode('vpn');
     }
 
     init();
