@@ -8,22 +8,9 @@
   <meta name="theme-color" content="#0b0d12">
   <meta
     http-equiv="Content-Security-Policy"
-    content="
-      default-src 'self';
-      connect-src https://78.17.112.158;
-      img-src 'self' data:;
-      style-src 'self' 'unsafe-inline';
-      script-src 'self' 'unsafe-inline';
-      font-src 'self';
-      object-src 'none';
-      base-uri 'none';
-      form-action 'none';
-      media-src 'none';
-      frame-src 'none'
-    "
+    content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'; frame-src 'none'"
   >
   <title>Limupy</title>
-
   <style>
     :root{
       --bg:#0b0d12;
@@ -249,9 +236,19 @@
     }
 
     .btn-primary:hover:not(:disabled){background:#e9ebef}
-    .btn-secondary{background:var(--panel-2);border:1px solid var(--line);color:var(--text)}
+    .btn-secondary{
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      color:var(--text)
+    }
+
     .btn-secondary:hover:not(:disabled){background:#1a1f29}
-    .btn-danger{background:rgba(255,104,104,.08);border:1px solid rgba(255,104,104,.22);color:var(--danger)}
+
+    .btn-danger{
+      background:rgba(255,104,104,.08);
+      border:1px solid rgba(255,104,104,.22);
+      color:var(--danger)
+    }
 
     .actions{
       display:grid;
@@ -273,8 +270,17 @@
       background:var(--panel-2);
     }
 
-    .notice.error{color:var(--muted);border-color:var(--line);background:var(--panel-2)}
-    .notice.success{color:#a3e9ba;border-color:rgba(103,211,145,.22);background:rgba(103,211,145,.05)}
+    .notice.error{
+      color:var(--muted);
+      border-color:var(--line);
+      background:var(--panel-2)
+    }
+
+    .notice.success{
+      color:#a3e9ba;
+      border-color:rgba(103,211,145,.22);
+      background:rgba(103,211,145,.05)
+    }
 
     .lan-tabs{
       display:grid;
@@ -295,7 +301,11 @@
       font-weight:700;
     }
 
-    .lan-tab.active{background:#202631;color:var(--text)}
+    .lan-tab.active{
+      background:#202631;
+      color:var(--text)
+    }
+
     .lan-form{display:none}
     .lan-form.active{display:block}
 
@@ -385,9 +395,23 @@
 
     .network-item:hover{background:#191e27}
     .network-main{min-width:0}
-    .network-name{font-weight:750;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .network-meta{margin-top:4px;color:var(--muted);font-size:11px}
-    .network-arrow{color:var(--muted);font-size:18px}
+    .network-name{
+      font-weight:750;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap
+    }
+
+    .network-meta{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:11px
+    }
+
+    .network-arrow{
+      color:var(--muted);
+      font-size:18px
+    }
 
     .current-grid{
       display:grid;
@@ -402,8 +426,17 @@
       border-radius:12px;
     }
 
-    .current-label{color:var(--muted);font-size:11px;margin-bottom:7px}
-    .current-value{font-weight:700;font-size:14px;word-break:break-word}
+    .current-label{
+      color:var(--muted);
+      font-size:11px;
+      margin-bottom:7px
+    }
+
+    .current-value{
+      font-weight:700;
+      font-size:14px;
+      word-break:break-word
+    }
 
     .access-box{
       margin-top:12px;
@@ -413,8 +446,18 @@
       border-radius:14px;
     }
 
-    .access-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-    .access-title{font-size:12px;color:var(--muted)}
+    .access-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px
+    }
+
+    .access-title{
+      font-size:12px;
+      color:var(--muted)
+    }
 
     .access-code{
       padding:11px 12px;
@@ -436,9 +479,23 @@
       background:var(--panel-2);
     }
 
-    .config-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .config-title{font-weight:750;font-size:13px}
-    .config-actions{display:flex;gap:8px}
+    .config-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px
+    }
+
+    .config-title{
+      font-weight:750;
+      font-size:13px
+    }
+
+    .config-actions{
+      display:flex;
+      gap:8px
+    }
 
     .config-text{
       width:100%;
@@ -467,11 +524,39 @@
     }
 
     .device-main{min-width:0}
-    .device-name{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .device-sub{margin-top:4px;color:var(--muted);font-size:11px}
-    .device-state{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);flex:0 0 auto}
-    .device-dot{width:7px;height:7px;border-radius:50%;background:#666e7d}
-    .device-dot.online{background:var(--success)}
+
+    .device-name{
+      font-weight:700;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap
+    }
+
+    .device-sub{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:11px
+    }
+
+    .device-state{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:11px;
+      color:var(--muted);
+      flex:0 0 auto
+    }
+
+    .device-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#666e7d
+    }
+
+    .device-dot.online{
+      background:var(--success)
+    }
 
     .empty{
       padding:18px;
@@ -485,42 +570,83 @@
     .hidden{display:none !important}
 
     @media (max-width:700px){
-      .status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .status-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr))
+      }
     }
 
     @media (max-width:620px){
-      .app{padding:16px 12px 28px}
-      .input-row{flex-direction:column}
-      .actions{grid-template-columns:1fr}
-      .config-head{align-items:flex-start;flex-direction:column}
-      .config-actions{width:100%}
-      .config-actions .mini-btn{flex:1}
-      .key-row{flex-direction:column}
+      .app{
+        padding:16px 12px 28px
+      }
+
+      .input-row{
+        flex-direction:column
+      }
+
+      .actions{
+        grid-template-columns:1fr
+      }
+
+      .config-head{
+        align-items:flex-start;
+        flex-direction:column
+      }
+
+      .config-actions{
+        width:100%
+      }
+
+      .config-actions .mini-btn{
+        flex:1
+      }
+
+      .key-row{
+        flex-direction:column
+      }
     }
   </style>
 </head>
-
 <body>
   <div class="app">
     <div class="topbar">
       <div class="brand">Limupy</div>
 
       <div class="mode-wrap">
-        <button class="mode-button" id="modeButton" type="button" aria-expanded="false">
+        <button
+          class="mode-button"
+          id="modeButton"
+          type="button"
+          aria-expanded="false"
+        >
           <span id="modeButtonText">VPN</span>
 
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
             <path d="m6 9 6 6 6-6"/>
           </svg>
         </button>
 
         <div class="mode-menu" id="modeMenu">
-          <button class="mode-option active" data-mode="vpn" type="button">
+          <button
+            class="mode-option active"
+            data-mode="vpn"
+            type="button"
+          >
             <span>VPN</span>
             <span>Сервис</span>
           </button>
 
-          <button class="mode-option" data-mode="lan" type="button">
+          <button
+            class="mode-option"
+            data-mode="lan"
+            type="button"
+          >
             <span>LAN</span>
             <span>Сеть</span>
           </button>
@@ -529,11 +655,7 @@
     </div>
 
     <main>
-
-      <!-- ========================= VPN ========================= -->
-
       <section class="page active" id="pageVpn">
-
         <div class="panel">
           <div class="panel-body">
             <div class="mode-value">VPN</div>
@@ -570,10 +692,14 @@
           </div>
 
           <div class="panel-body">
-
             <div class="input-row">
               <div class="field floating-field input-field-grow">
-                <label class="field-label" for="vpnToken">Токен</label>
+                <label
+                  class="field-label"
+                  for="vpnToken"
+                >
+                  Токен
+                </label>
 
                 <input
                   class="input"
@@ -597,16 +723,10 @@
               </button>
             </div>
 
-            <div class="actions hidden" id="vpnActions">
-
-              <button
-                class="btn btn-primary"
-                id="happDownload"
-                type="button"
-              >
-                Открыть ссылку Happ
-              </button>
-
+            <div
+              class="actions one hidden"
+              id="vpnActions"
+            >
               <button
                 class="btn btn-secondary"
                 id="happOpen"
@@ -614,16 +734,12 @@
               >
                 Открыть в Happ
               </button>
-
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ========================= LAN ========================= -->
-
       <section class="page" id="pageLan">
-
         <div class="panel">
           <div class="panel-body">
             <div class="mode-value">LAN</div>
@@ -631,28 +747,40 @@
             <div class="status-grid">
               <div class="status-item">
                 <div class="status-item-label">Статус</div>
-                <div class="status-item-value" id="lanInfoStatus">
+                <div
+                  class="status-item-value"
+                  id="lanInfoStatus"
+                >
                   Не готова
                 </div>
               </div>
 
               <div class="status-item">
                 <div class="status-item-label">Подсеть</div>
-                <div class="status-item-value" id="lanInfoSubnet">
+                <div
+                  class="status-item-value"
+                  id="lanInfoSubnet"
+                >
                   —
                 </div>
               </div>
 
               <div class="status-item">
                 <div class="status-item-label">IP</div>
-                <div class="status-item-value" id="lanInfoIp">
+                <div
+                  class="status-item-value"
+                  id="lanInfoIp"
+                >
                   —
                 </div>
               </div>
 
               <div class="status-item">
                 <div class="status-item-label">Роль</div>
-                <div class="status-item-value" id="lanInfoRole">
+                <div
+                  class="status-item-value"
+                  id="lanInfoRole"
+                >
                   —
                 </div>
               </div>
@@ -668,7 +796,6 @@
           </div>
 
           <div class="panel-body">
-
             <div class="lan-tabs">
               <button
                 class="lan-tab active"
@@ -688,7 +815,10 @@
             </div>
 
             <div class="field floating-field">
-              <label class="field-label" for="lanPublicKey">
+              <label
+                class="field-label"
+                for="lanPublicKey"
+              >
                 Ключ
               </label>
 
@@ -705,9 +835,15 @@
               >
             </div>
 
-            <div class="lan-form active" id="lanCreateForm">
+            <div
+              class="lan-form active"
+              id="lanCreateForm"
+            >
               <div class="field floating-field">
-                <label class="field-label" for="lanCreateName">
+                <label
+                  class="field-label"
+                  for="lanCreateName"
+                >
                   Название
                 </label>
 
@@ -732,9 +868,15 @@
               </div>
             </div>
 
-            <div class="lan-form" id="lanJoinForm">
+            <div
+              class="lan-form"
+              id="lanJoinForm"
+            >
               <div class="field floating-field">
-                <label class="field-label" for="lanJoinCode">
+                <label
+                  class="field-label"
+                  for="lanJoinCode"
+                >
                   Код
                 </label>
 
@@ -761,11 +903,13 @@
                 </button>
               </div>
             </div>
-
           </div>
         </div>
 
-        <div class="panel" id="myNetworksPanel">
+        <div
+          class="panel"
+          id="myNetworksPanel"
+        >
           <div class="panel-head">
             <div>
               <div class="panel-title">Мои сети</div>
@@ -781,56 +925,76 @@
           </div>
 
           <div class="panel-body">
-            <div class="network-list" id="networkList"></div>
+            <div
+              class="network-list"
+              id="networkList"
+            ></div>
           </div>
         </div>
 
-        <div class="panel hidden" id="currentNetworkPanel">
+        <div
+          class="panel hidden"
+          id="currentNetworkPanel"
+        >
           <div class="panel-head">
             <div>
               <div class="panel-title">Текущая сеть</div>
-              <div class="panel-subtitle" id="currentNetworkSubtitle">
+              <div
+                class="panel-subtitle"
+                id="currentNetworkSubtitle"
+              >
                 —
               </div>
             </div>
           </div>
 
           <div class="panel-body">
-
             <div class="current-grid">
-
               <div class="current-item">
                 <div class="current-label">Имя</div>
-                <div class="current-value" id="currentName">
+                <div
+                  class="current-value"
+                  id="currentName"
+                >
                   —
                 </div>
               </div>
 
               <div class="current-item">
                 <div class="current-label">Подсеть</div>
-                <div class="current-value" id="currentSubnet">
+                <div
+                  class="current-value"
+                  id="currentSubnet"
+                >
                   —
                 </div>
               </div>
 
               <div class="current-item">
                 <div class="current-label">Мой IP</div>
-                <div class="current-value" id="currentIp">
+                <div
+                  class="current-value"
+                  id="currentIp"
+                >
                   —
                 </div>
               </div>
 
               <div class="current-item">
                 <div class="current-label">Роль</div>
-                <div class="current-value" id="currentRole">
+                <div
+                  class="current-value"
+                  id="currentRole"
+                >
                   —
                 </div>
               </div>
-
             </div>
 
-            <div class="access-box hidden" id="accessBox">
-
+            <div
+              class="access-box hidden"
+              id="accessBox"
+            >
               <div class="access-head">
                 <div class="access-title">
                   Код для гостей
@@ -845,20 +1009,21 @@
                 </button>
               </div>
 
-              <div class="access-code" id="accessCode">
+              <div
+                class="access-code"
+                id="accessCode"
+              >
                 —
               </div>
             </div>
 
             <div class="config-box">
-
               <div class="config-head">
                 <div class="config-title">
                   WireGuard
                 </div>
 
                 <div class="config-actions">
-
                   <button
                     class="mini-btn"
                     id="copyConfig"
@@ -874,7 +1039,6 @@
                   >
                     Скачать
                   </button>
-
                 </div>
               </div>
 
@@ -885,27 +1049,38 @@
                 spellcheck="false"
                 autocomplete="off"
               ></textarea>
-
             </div>
           </div>
         </div>
 
-        <div class="panel hidden" id="devicesPanel">
+        <div
+          class="panel hidden"
+          id="devicesPanel"
+        >
           <div class="panel-head">
             <div>
               <div class="panel-title">Устройства</div>
-              <div class="panel-subtitle" id="devicesCount">
+              <div
+                class="panel-subtitle"
+                id="devicesCount"
+              >
                 0 устройств
               </div>
             </div>
           </div>
 
           <div class="panel-body">
-            <div class="devices" id="devicesList"></div>
+            <div
+              class="devices"
+              id="devicesList"
+            ></div>
           </div>
         </div>
 
-        <div class="panel hidden" id="networkActionsPanel">
+        <div
+          class="panel hidden"
+          id="networkActionsPanel"
+        >
           <div class="panel-head">
             <div>
               <div class="panel-title">Действия</div>
@@ -917,7 +1092,6 @@
 
           <div class="panel-body">
             <div class="actions one">
-
               <button
                 class="btn btn-secondary"
                 id="leaveLanButton"
@@ -933,11 +1107,9 @@
               >
                 Удалить LAN-сеть
               </button>
-
             </div>
           </div>
         </div>
-
       </section>
     </main>
   </div>
@@ -945,131 +1117,95 @@
   <script>
     'use strict';
 
-    /* ============================================================
-       CONFIG
-    ============================================================ */
+    const API_URL='https://78.17.112.158/api.php';
+    const REQUEST_TIMEOUT_MS=10000;
+    const VPN_TOKEN_MAX_LENGTH=4096;
+    const LAN_NAME_MAX_LENGTH=64;
+    const LAN_JOIN_CODE_MAX_LENGTH=128;
+    const DEVICE_NAME='Limupy Web';
+    const SS_VPN_TOKEN='__limupy_vpn_token';
+    const SS_VPN_HISTORY_TOKEN='__limupy_vpn_history_token';
+    const SS_ACTIVE_NETWORK='limupy_active_network';
+    const SS_LAN_NETWORKS='limupy_lan_networks';
+    const SS_LAN_JOIN_CODES='limupy_lan_join_codes';
+    const SS_DEVICE_ID='limupy_device_id';
+    const ALLOWED_HAPP_HOST='78.17.112.158';
 
-    const API_URL = 'https://78.17.112.158/api.php';
+    let currentMode='vpn';
+    let currentLanTab='create';
+    let currentNetwork=null;
+    let currentConfig='';
+    let vpnData=null;
+    let deviceId='';
 
-    const REQUEST_TIMEOUT_MS = 10000;
-    const VPN_TOKEN_MAX_LENGTH = 4096;
-    const LAN_NAME_MAX_LENGTH = 64;
-    const LAN_JOIN_CODE_MAX_LENGTH = 128;
-    const DEVICE_NAME = 'Limupy Web';
+    const $=id=>document.getElementById(id);
 
-    const SS_VPN_TOKEN = '__limupy_vpn_token';
-    const SS_VPN_HISTORY_TOKEN = '__limupy_vpn_history_token';
-
-    const SS_ACTIVE_NETWORK = 'limupy_active_network';
-    const SS_LAN_NETWORKS = 'limupy_lan_networks';
-    const SS_LAN_JOIN_CODES = 'limupy_lan_join_codes';
-    const SS_DEVICE_ID = 'limupy_device_id';
-
-    const ALLOWED_HAPP_HOST = '78.17.112.158';
-
-    /* ============================================================
-       STATE
-    ============================================================ */
-
-    let currentMode = 'vpn';
-    let currentLanTab = 'create';
-    let currentNetwork = null;
-    let currentConfig = '';
-    let vpnData = null;
-    let deviceId = '';
-
-    const $ = id => document.getElementById(id);
-
-    /* ============================================================
-       SAFE STORAGE
-    ============================================================ */
-
-    function readSessionValue(key, fallback = '') {
-      try {
-        const value = sessionStorage.getItem(key);
-        return value == null ? fallback : value;
-      } catch {
+    function readSessionValue(key,fallback=''){
+      try{
+        const value=sessionStorage.getItem(key);
+        return value==null?fallback:value;
+      }catch{
         return fallback;
       }
     }
 
-    function writeSessionValue(key, value) {
-      try {
-        sessionStorage.setItem(key, String(value));
-      } catch {}
+    function writeSessionValue(key,value){
+      try{
+        sessionStorage.setItem(key,String(value));
+      }catch{}
     }
 
-    function removeSessionValue(key) {
-      try {
+    function removeSessionValue(key){
+      try{
         sessionStorage.removeItem(key);
-      } catch {}
+      }catch{}
     }
 
-    function readSessionJson(key, fallback) {
-      try {
-        const raw = sessionStorage.getItem(key);
-
-        if (!raw) {
-          return fallback;
-        }
-
-        const parsed = JSON.parse(raw);
-
-        return parsed ?? fallback;
-      } catch {
+    function readSessionJson(key,fallback){
+      try{
+        const raw=sessionStorage.getItem(key);
+        if(!raw)return fallback;
+        const parsed=JSON.parse(raw);
+        return parsed??fallback;
+      }catch{
         return fallback;
       }
     }
 
-    function writeSessionJson(key, value) {
-      try {
-        sessionStorage.setItem(
-          key,
-          JSON.stringify(value)
-        );
-      } catch {}
+    function writeSessionJson(key,value){
+      try{
+        sessionStorage.setItem(key,JSON.stringify(value));
+      }catch{}
     }
 
-    /* ============================================================
-       DEVICE ID
-    ============================================================ */
-
-    function bytesToBase64Url(bytes) {
-      let binary = '';
-
-      for (const byte of bytes) {
-        binary += String.fromCharCode(byte);
+    function bytesToBase64Url(bytes){
+      let binary='';
+      for(const byte of bytes){
+        binary+=String.fromCharCode(byte);
       }
-
       return btoa(binary)
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/g, '');
+        .replace(/\+/g,'-')
+        .replace(/\//g,'_')
+        .replace(/=+$/g,'');
     }
 
-    function getDeviceId() {
-      if (deviceId) {
+    function getDeviceId(){
+      if(deviceId)return deviceId;
+
+      const stored=readSessionValue(
+        SS_DEVICE_ID,
+        ''
+      ).trim();
+
+      if(stored){
+        deviceId=stored;
         return deviceId;
       }
 
-      const stored =
-        readSessionValue(
-          SS_DEVICE_ID,
-          ''
-        ).trim();
-
-      if (stored) {
-        deviceId = stored;
-        return deviceId;
-      }
-
-      const bytes =
-        new Uint8Array(32);
-
+      const bytes=new Uint8Array(32);
       crypto.getRandomValues(bytes);
 
-      deviceId =
-        bytesToBase64Url(bytes);
+      deviceId=bytesToBase64Url(bytes);
 
       writeSessionValue(
         SS_DEVICE_ID,
@@ -1079,186 +1215,153 @@
       return deviceId;
     }
 
-    /* ============================================================
-       GENERAL API REQUEST
-    ============================================================ */
+    async function api(action,payload={}){
+      const controller=new AbortController();
 
-    async function api(
-      action,
-      payload = {}
-    ) {
-      const controller =
-        new AbortController();
+      const timeout=setTimeout(
+        ()=>controller.abort(),
+        REQUEST_TIMEOUT_MS
+      );
 
-      const timeout =
-        setTimeout(
-          () => controller.abort(),
-          REQUEST_TIMEOUT_MS
+      try{
+        const response=await fetch(
+          API_URL,
+          {
+            method:'POST',
+            mode:'cors',
+            cache:'no-store',
+            credentials:'omit',
+            redirect:'error',
+            referrerPolicy:'no-referrer',
+            signal:controller.signal,
+            headers:{
+              Accept:'application/json',
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+              action,
+              device_id:getDeviceId(),
+              ...payload
+            })
+          }
         );
 
-      try {
-        const response =
-          await fetch(
-            API_URL,
-            {
-              method: 'POST',
-              mode: 'cors',
-              cache: 'no-store',
-              credentials: 'omit',
-              redirect: 'error',
-              referrerPolicy: 'no-referrer',
-              signal: controller.signal,
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                action,
-                device_id: getDeviceId(),
-                ...payload
-              })
-            }
-          );
+        const text=await response.text();
 
-        const text =
-          await response.text();
+        let data=null;
 
-        let data = null;
-
-        try {
-          data =
-            text
-              ? JSON.parse(text)
-              : null;
-        } catch {
-          data = null;
+        try{
+          data=text?JSON.parse(text):null;
+        }catch{
+          data=null;
         }
 
-        if (!response.ok) {
+        if(!response.ok){
           throw new Error(
-            data?.message ||
-            data?.error ||
+            data?.message||
+            data?.error||
             `Ошибка API ${response.status}`
           );
         }
 
-        if (
+        if(
           data &&
           (
-            data.success === false ||
-            data.ok === false
+            data.success===false||
+            data.ok===false
           )
-        ) {
+        ){
           throw new Error(
-            data.message ||
-            data.error ||
+            data.message||
+            data.error||
             'Ошибка API'
           );
         }
 
-        if (!data) {
+        if(!data){
           throw new Error(
             'Сервер вернул пустой ответ'
           );
         }
 
         return data;
-
-      } finally {
+      }finally{
         clearTimeout(timeout);
       }
     }
 
-    /* ============================================================
-       VPN SECURE REQUEST
-    ============================================================ */
+    async function vpnRequest(token){
+      const controller=new AbortController();
 
-    async function vpnRequest(token) {
-      const controller =
-        new AbortController();
+      const timeout=setTimeout(
+        ()=>controller.abort(),
+        REQUEST_TIMEOUT_MS
+      );
 
-      const timeout =
-        setTimeout(
-          () => controller.abort(),
-          REQUEST_TIMEOUT_MS
+      const started=performance.now();
+
+      try{
+        const response=await fetch(
+          API_URL,
+          {
+            method:'POST',
+            mode:'cors',
+            cache:'no-store',
+            credentials:'omit',
+            redirect:'error',
+            referrerPolicy:'no-referrer',
+            signal:controller.signal,
+            headers:{
+              Authorization:`Bearer ${token}`,
+              Accept:'application/json',
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+              device_id:getDeviceId()
+            })
+          }
         );
 
-      try {
-        const response =
-          await fetch(
-            API_URL,
-            {
-              method: 'POST',
-              mode: 'cors',
-              cache: 'no-store',
-              credentials: 'omit',
-              redirect: 'error',
-              referrerPolicy: 'no-referrer',
-              signal: controller.signal,
-              headers: {
-                'Authorization':
-                  `Bearer ${token}`,
-                'Accept':
-                  'application/json',
-                'Content-Type':
-                  'application/json'
-              },
-              body: JSON.stringify({
-                device_id: getDeviceId()
-              })
-            }
-          );
+        const elapsed=performance.now()-started;
+        const text=await response.text();
 
-        const text =
-          await response.text();
+        let data=null;
 
-        let data = null;
-
-        try {
-          data =
-            text
-              ? JSON.parse(text)
-              : null;
-        } catch {
-          data = null;
+        try{
+          data=text?JSON.parse(text):null;
+        }catch{
+          data=null;
         }
 
-        return {
+        return{
           response,
-          data
+          data,
+          elapsed
         };
-
-      } finally {
+      }finally{
         clearTimeout(timeout);
       }
     }
 
-    /*
-     * Fallback для серверной версии, где VPN
-     * ещё ожидает action=vpn_status / vpn_check.
-     */
-    async function vpnActionFallback(
-      token
-    ) {
-      try {
+    async function vpnActionFallback(token){
+      try{
         return await api(
           'vpn_status',
-          { token }
+          {token}
         );
-      } catch (firstError) {
-        const message =
-          String(
-            firstError?.message || ''
-          );
+      }catch(firstError){
+        const message=String(
+          firstError?.message||''
+        );
 
-        if (
+        if(
           /unknown action|неизвест|not found|404/i.test(
             message
           )
-        ) {
+        ){
           return await api(
             'vpn_check',
-            { token }
+            {token}
           );
         }
 
@@ -1266,67 +1369,58 @@
       }
     }
 
-    /* ============================================================
-       VPN TOKEN STORAGE / HISTORY
-    ============================================================ */
-
-    function getVpnHistoryToken() {
-      try {
-        const state =
-          window.history &&
+    function getVpnHistoryToken(){
+      try{
+        const state=
+          window.history&&
           window.history.state;
 
-        if (
-          !state ||
-          typeof state !== 'object'
-        ) {
+        if(
+          !state||
+          typeof state!=='object'
+        ){
           return '';
         }
 
-        const value =
-          state[
-            SS_VPN_HISTORY_TOKEN
-          ];
+        const value=
+          state[SS_VPN_HISTORY_TOKEN];
 
-        return typeof value === 'string'
-          ? value.trim()
-          : '';
-      } catch {
+        return typeof value==='string'
+          ?value.trim()
+          :'';
+      }catch{
         return '';
       }
     }
 
-    function saveVpnHistoryToken(token) {
-      if (
-        !window.history ||
-        typeof window.history.replaceState !==
-          'function'
-      ) {
+    function saveVpnHistoryToken(token){
+      if(
+        !window.history||
+        typeof window.history.replaceState!=='function'
+      ){
         return;
       }
 
-      try {
-        const currentState =
-          window.history.state &&
-          typeof window.history.state === 'object'
-            ? window.history.state
-            : {};
+      try{
+        const currentState=
+          window.history.state&&
+          typeof window.history.state==='object'
+            ?window.history.state
+            :{};
 
         window.history.replaceState(
           {
             ...currentState,
-            [SS_VPN_HISTORY_TOKEN]: token
+            [SS_VPN_HISTORY_TOKEN]:token
           },
           '',
           window.location.href
         );
-      } catch {}
+      }catch{}
     }
 
-    function saveVpnToken(token) {
-      if (!token) {
-        return;
-      }
+    function saveVpnToken(token){
+      if(!token)return;
 
       writeSessionValue(
         SS_VPN_TOKEN,
@@ -1338,178 +1432,121 @@
       );
     }
 
-    function getSavedVpnToken() {
+    function getSavedVpnToken(){
       return readSessionValue(
         SS_VPN_TOKEN,
         ''
       ).trim();
     }
 
-    function clearVpnToken() {
+    function clearVpnToken(){
       removeSessionValue(
         SS_VPN_TOKEN
       );
     }
 
-    function getTokenFromUrl() {
-      try {
-        const url =
-          new URL(
-            window.location.href
-          );
+    function getTokenFromUrl(){
+      try{
+        const url=new URL(
+          window.location.href
+        );
 
-        /*
-         * Основной безопасный формат:
-         * ?key=...
-         * #key=...
-         */
+        const queryToken=
+          url.searchParams.get('key');
 
-        const queryToken =
-          url.searchParams
-            .get('key');
-
-        if (queryToken) {
+        if(queryToken){
           return queryToken.trim();
         }
 
-        const hash =
-          url.hash.replace(
-            /^#/,
-            ''
-          );
-
-        const hashParams =
-          new URLSearchParams(
-            hash
-          );
-
-        const hashToken =
+        const hash=
+          url.hash.replace(/^#/,'');
+        const hashParams=
+          new URLSearchParams(hash);
+        const hashToken=
           hashParams.get('key');
 
-        if (hashToken) {
+        if(hashToken){
           return hashToken.trim();
         }
 
-        /*
-         * Для обратной совместимости разрешаем
-         * старый формат #TOKEN
-         */
-
-        if (
-          hash &&
-          !hash.includes('=') &&
-          hash.length <= VPN_TOKEN_MAX_LENGTH
-        ) {
+        if(
+          hash&&
+          !hash.includes('=')&&
+          hash.length<=VPN_TOKEN_MAX_LENGTH
+        ){
           return hash.trim();
         }
-
-      } catch {}
+      }catch{}
 
       return '';
     }
 
-    function removeTokenFromUrl() {
-      try {
-        const url =
-          new URL(
-            window.location.href
-          );
-
-        url.searchParams.delete(
-          'key'
+    function removeTokenFromUrl(){
+      try{
+        const url=new URL(
+          window.location.href
         );
 
-        const hashParams =
-          new URLSearchParams(
-            url.hash.replace(
-              /^#/,
-              ''
-            )
-          );
-
-        hashParams.delete(
-          'key'
-        );
-
-        /*
-         * Не сохраняем токен в адресной строке.
-         */
-        url.hash = '';
+        url.searchParams.delete('key');
+        url.hash='';
 
         window.history.replaceState(
           {},
           document.title,
           url.toString()
         );
-      } catch {}
+      }catch{}
     }
 
-    function getInitialVpnToken() {
-      const urlToken =
+    function getInitialVpnToken(){
+      const urlToken=
         getTokenFromUrl();
 
-      if (urlToken) {
-        saveVpnToken(
-          urlToken
-        );
-
+      if(urlToken){
+        saveVpnToken(urlToken);
         removeTokenFromUrl();
-
         return urlToken;
       }
 
-      const historyToken =
+      const historyToken=
         getVpnHistoryToken();
 
-      if (historyToken) {
+      if(historyToken){
         return historyToken;
       }
 
       return getSavedVpnToken();
     }
 
-    /* ============================================================
-       VPN DATA
-    ============================================================ */
-
-    function formatExpiry(value) {
-      if (
-        value === null ||
-        value === undefined ||
-        value === ''
-      ) {
+    function formatExpiry(value){
+      if(
+        value===null||
+        value===undefined||
+        value===''
+      ){
         return '—';
       }
 
       let date;
 
-      if (
-        typeof value === 'number' ||
-        /^\d+$/.test(
-          String(value)
-        )
-      ) {
-        const numeric =
-          Number(value);
+      if(
+        typeof value==='number'||
+        /^\d+$/.test(String(value))
+      ){
+        const numeric=Number(value);
 
-        date =
-          new Date(
-            numeric > 1e12
-              ? numeric
-              : numeric * 1000
-          );
-      } else {
-        date =
-          new Date(
-            String(value)
-          );
+        date=new Date(
+          numeric>1e12
+            ?numeric
+            :numeric*1000
+        );
+      }else{
+        date=new Date(String(value));
       }
 
-      if (
-        Number.isNaN(
-          date.getTime()
-        )
-      ) {
+      if(
+        Number.isNaN(date.getTime())
+      ){
         return String(value);
       }
 
@@ -1518,22 +1555,21 @@
       );
     }
 
-    function formatBytes(value) {
-      const bytes =
-        Number(value);
+    function formatBytes(value){
+      const bytes=Number(value);
 
-      if (
-        !Number.isFinite(bytes) ||
-        bytes < 0
-      ) {
+      if(
+        !Number.isFinite(bytes)||
+        bytes<0
+      ){
         return null;
       }
 
-      if (bytes === 0) {
+      if(bytes===0){
         return '0 B';
       }
 
-      const units = [
+      const units=[
         'B',
         'KB',
         'MB',
@@ -1541,124 +1577,135 @@
         'TB'
       ];
 
-      const index =
-        Math.min(
-          Math.floor(
-            Math.log(bytes) /
-            Math.log(1024)
-          ),
-          units.length - 1
-        );
-
-      return (
-        `${(
-          bytes /
-          (1024 ** index)
-        ).toFixed(
-          index === 0
-            ? 0
-            : 1
-        )} ${units[index]}`
+      const index=Math.min(
+        Math.floor(
+          Math.log(bytes)/
+          Math.log(1024)
+        ),
+        units.length-1
       );
+
+      return `${(
+        bytes/
+        (1024**index)
+      ).toFixed(
+        index===0?0:1
+      )} ${units[index]}`;
     }
 
-    function formatTraffic(data) {
-      const subscription =
-        data?.subscription ||
+    function formatTraffic(data){
+      const subscription=
+        data?.subscription||{};
+
+      const traffic=
+        data?.traffic||
+        subscription.traffic||
         {};
 
-      const traffic =
-        data?.traffic ||
-        subscription.traffic ||
-        {};
-
-      if (
-        typeof traffic === 'string' &&
+      if(
+        typeof traffic==='string'&&
         traffic.trim()
-      ) {
+      ){
+        const normalized=
+          traffic.trim().toLowerCase();
+
+        if(
+          normalized==='0 b'||
+          normalized==='0б'||
+          normalized==='0 б'
+        ){
+          return 'Безлимит';
+        }
+
         return traffic.trim();
       }
 
-      if (
-        typeof traffic === 'number'
-      ) {
-        return (
-          formatBytes(
-            traffic
-          ) || '—'
-        );
+      if(
+        typeof traffic==='number'
+      ){
+        return traffic===0
+          ?'Безлимит'
+          :(formatBytes(traffic)||'—');
       }
 
-      const used =
-        traffic?.used ??
-        traffic?.usage ??
-        data?.traffic_used ??
-        data?.used_traffic ??
-        data?.bytes_used ??
-        subscription.traffic_used ??
+      const used=
+        traffic?.used??
+        traffic?.usage??
+        data?.traffic_used??
+        data?.used_traffic??
+        data?.bytes_used??
+        subscription.traffic_used??
         subscription.used_bytes;
 
-      const limit =
-        traffic?.limit ??
-        traffic?.quota ??
-        data?.traffic_limit ??
-        data?.traffic_total ??
-        subscription.traffic_limit ??
+      const limit=
+        traffic?.limit??
+        traffic?.quota??
+        data?.traffic_limit??
+        data?.traffic_total??
+        subscription.traffic_limit??
         subscription.total_bytes;
 
-      const upload =
-        traffic?.upload ??
-        traffic?.uploaded ??
-        data?.upload ??
-        data?.uploaded;
+      const totalBytes=
+        traffic?.total_bytes??
+        data?.total_bytes??
+        subscription.total_bytes;
 
-      const download =
-        traffic?.download ??
-        traffic?.downloaded ??
-        data?.download ??
-        data?.downloaded;
-
-      if (
-        used != null &&
-        limit != null
-      ) {
-        return (
-          `${formatBytes(used) || used}` +
-          ` / ` +
-          `${formatBytes(limit) || limit}`
-        );
+      if(
+        limit!=null&&
+        Number(limit)===0
+      ){
+        return 'Безлимит';
       }
 
-      if (
-        upload != null ||
-        download != null
-      ) {
-        const down =
-          download != null
-            ? (
-                formatBytes(
-                  download
-                ) || download
-              )
-            : '—';
+      if(
+        totalBytes!=null&&
+        Number(totalBytes)===0
+      ){
+        return 'Безлимит';
+      }
 
-        const up =
-          upload != null
-            ? (
-                formatBytes(
-                  upload
-                ) || upload
-              )
-            : '—';
+      const upload=
+        traffic?.upload??
+        traffic?.uploaded??
+        data?.upload??
+        data?.uploaded;
+
+      const download=
+        traffic?.download??
+        traffic?.downloaded??
+        data?.download??
+        data?.downloaded;
+
+      if(
+        used!=null&&
+        limit!=null
+      ){
+        return `${formatBytes(used)||used} / ${formatBytes(limit)||limit}`;
+      }
+
+      if(
+        upload!=null||
+        download!=null
+      ){
+        const down=
+          download!=null
+            ?(formatBytes(download)||download)
+            :'—';
+
+        const up=
+          upload!=null
+            ?(formatBytes(upload)||upload)
+            :'—';
 
         return `↓${down} ↑${up}`;
       }
 
-      if (used != null) {
-        return (
-          formatBytes(used) ||
-          String(used)
-        );
+      if(used!=null){
+        if(Number(used)===0){
+          return 'Безлимит';
+        }
+
+        return formatBytes(used)||String(used);
       }
 
       return '—';
@@ -1666,40 +1713,32 @@
 
     function setVpnStatus(
       state,
-      expiry = '—',
-      ping = '—',
-      traffic = '—'
-    ) {
-      $('vpnState').textContent =
-        state;
-
-      $('vpnExpiry').textContent =
-        expiry;
-
-      $('vpnPing').textContent =
-        ping;
-
-      $('vpnTraffic').textContent =
-        traffic;
+      expiry='—',
+      ping='—',
+      traffic='—'
+    ){
+      $('vpnState').textContent=state;
+      $('vpnExpiry').textContent=expiry;
+      $('vpnPing').textContent=ping;
+      $('vpnTraffic').textContent=traffic;
     }
 
-    function isVpnActive(data) {
-      const subscription =
-        data?.subscription ||
-        {};
+    function isVpnActive(data){
+      const subscription=
+        data?.subscription||{};
 
       return !(
-        data?.enabled === false ||
-        data?.active === false ||
-        data?.valid === false ||
-        data?.subscription_active === false ||
-        subscription.enabled === false ||
-        subscription.active === false
+        data?.enabled===false||
+        data?.active===false||
+        data?.valid===false||
+        data?.subscription_active===false||
+        subscription.enabled===false||
+        subscription.active===false
       );
     }
 
-    function getHappUrl() {
-      const candidates = [
+    function getHappUrl(){
+      const candidates=[
         vpnData?.launch_url,
         vpnData?.happ_url,
         vpnData?.subscription_url,
@@ -1711,182 +1750,128 @@
         vpnData?.subscription?.url
       ];
 
-      return (
-        candidates
-          .find(
-            value =>
-              typeof value === 'string' &&
-              value.trim()
-          ) ||
-        ''
+      return(
+        candidates.find(
+          value=>
+            typeof value==='string'&&
+            value.trim()
+        )||''
       ).trim();
     }
 
-    /* ============================================================
-       HAPP URL SECURITY
-    ============================================================ */
-
-    function isAllowedHappUrl(value) {
-      if (
-        typeof value !== 'string'
-      ) {
+    function isAllowedHappUrl(value){
+      if(
+        typeof value!=='string'
+      ){
         return false;
       }
 
-      const raw =
-        value.trim();
+      const raw=value.trim();
 
-      if (!raw) {
+      if(!raw){
         return false;
       }
 
-      /*
-       * Прямая подписочная ссылка,
-       * которую разрешает backend.
-       */
-      try {
-        const parsed =
-          new URL(raw);
+      try{
+        const parsed=new URL(raw);
 
-        if (
-          parsed.protocol === 'https:' &&
-          parsed.hostname ===
-            ALLOWED_HAPP_HOST &&
-          parsed.pathname.startsWith(
-            '/DisstVpn/'
-          )
-        ) {
+        if(
+          parsed.protocol==='https:'&&
+          parsed.hostname===ALLOWED_HAPP_HOST&&
+          parsed.pathname.startsWith('/DisstVpn/')
+        ){
           return true;
         }
-      } catch {}
+      }catch{}
 
-      /*
-       * happ://add/https://78.17.112.158/...
-       */
-      if (
+      if(
         /^happ:\/\/add\/https:\/\//i.test(
           raw
         )
-      ) {
-        try {
-          const nested =
+      ){
+        try{
+          const nested=
             raw.replace(
               /^happ:\/\/add\//i,
               ''
             );
 
-          const parsed =
-            new URL(nested);
-
-          return (
-            parsed.protocol === 'https:' &&
-            parsed.hostname ===
-              ALLOWED_HAPP_HOST
+          const parsed=new URL(
+            nested
           );
-        } catch {
+
+          return(
+            parsed.protocol==='https:'&&
+            parsed.hostname===ALLOWED_HAPP_HOST
+          );
+        }catch{
           return false;
         }
       }
 
-      /*
-       * URL encoded вариант.
-       */
-      try {
-        const decoded =
-          decodeURIComponent(
-            raw
-          );
+      try{
+        const decoded=
+          decodeURIComponent(raw);
 
-        if (
-          decoded !== raw
-        ) {
+        if(decoded!==raw){
           return isAllowedHappUrl(
             decoded
           );
         }
-      } catch {}
+      }catch{}
 
       return false;
     }
 
-    function getSafeHappUrl() {
-      const url =
-        getHappUrl();
+    function getSafeHappUrl(){
+      const url=getHappUrl();
 
       return isAllowedHappUrl(url)
-        ? url
-        : '';
+        ?url
+        :'';
     }
 
-    /* ============================================================
-       VPN UI
-    ============================================================ */
-
-    function updateVpnCheckButton() {
-      const token =
+    function updateVpnCheckButton(){
+      const token=
         $('vpnToken')
           .value
           .trim();
 
-      $('vpnCheck').disabled =
-        !token ||
-        token.length >
-          VPN_TOKEN_MAX_LENGTH;
+      $('vpnCheck').disabled=
+        !token||
+        token.length>VPN_TOKEN_MAX_LENGTH;
     }
 
-    function hideVpnActions() {
+    function hideVpnActions(){
       $('vpnActions')
-        .classList.add(
-          'hidden'
-        );
+        .classList.add('hidden');
     }
 
-    function renderVpnActions() {
-      const safeUrl =
+    function renderVpnActions(){
+      const safeUrl=
         getSafeHappUrl();
 
-      if (!safeUrl) {
-        /*
-         * Если сервер не вернул разрешённую
-         * ссылку, действия полностью скрыты.
-         */
+      if(!safeUrl){
         hideVpnActions();
         return;
       }
 
       $('vpnActions')
-        .classList.remove(
-          'hidden'
-        );
-
-      $('happDownload')
-        .classList.remove(
-          'hidden'
-        );
-
-      $('happOpen')
-        .classList.remove(
-          'hidden'
-        );
-
-      $('vpnActions')
-        .classList.remove(
-          'one'
-        );
+        .classList.remove('hidden');
     }
 
-    async function checkVpnToken() {
-      const token =
+    async function checkVpnToken(){
+      const token=
         $('vpnToken')
           .value
           .trim();
 
-      const button =
+      const button=
         $('vpnCheck');
 
       hideVpnActions();
 
-      if (!token) {
+      if(!token){
         setVpnStatus(
           'Введите токен',
           '—',
@@ -1896,10 +1881,10 @@
         return;
       }
 
-      if (
-        token.length >
+      if(
+        token.length>
         VPN_TOKEN_MAX_LENGTH
-      ) {
+      ){
         setVpnStatus(
           'Некорректный токен',
           '—',
@@ -1909,7 +1894,7 @@
         return;
       }
 
-      button.disabled = true;
+      button.disabled=true;
 
       setVpnStatus(
         'Проверка…',
@@ -1918,28 +1903,28 @@
         '—'
       );
 
-      try {
-        let data = null;
+      try{
+        let data=null;
+        let requestElapsed=null;
 
-        /*
-         * Сначала используем защищённую схему:
-         * Authorization: Bearer <token>
-         */
-        try {
-          const result =
+        try{
+          const result=
             await vpnRequest(
               token
             );
 
-          const response =
+          requestElapsed=
+            result.elapsed;
+
+          const response=
             result.response;
 
-          const responseData =
+          const responseData=
             result.data;
 
-          if (
-            response.status === 401
-          ) {
+          if(response.status===401){
+            clearVpnToken();
+
             setVpnStatus(
               'Неверный токен',
               '—',
@@ -1947,14 +1932,10 @@
               '—'
             );
 
-            clearVpnToken();
-
             return;
           }
 
-          if (
-            response.status === 403
-          ) {
+          if(response.status===403){
             setVpnStatus(
               'Доступ запрещён',
               '—',
@@ -1965,9 +1946,7 @@
             return;
           }
 
-          if (
-            response.status === 429
-          ) {
+          if(response.status===429){
             setVpnStatus(
               'Слишком много запросов',
               '—',
@@ -1978,89 +1957,80 @@
             return;
           }
 
-          if (
-            response.ok &&
+          if(
+            response.ok&&
             responseData
-          ) {
-            data =
-              responseData;
-          } else if (
-            response.status === 400 ||
-            response.status === 404 ||
-            response.status === 405
-          ) {
-            data =
+          ){
+            data=responseData;
+          }else if(
+            response.status===400||
+            response.status===404||
+            response.status===405
+          ){
+            data=
               await vpnActionFallback(
                 token
               );
-          } else if (
-            response.status >= 500
-          ) {
+          }else if(
+            response.status>=500
+          ){
             throw new Error(
               'Сервер недоступен'
             );
-          } else {
+          }else{
             throw new Error(
-              responseData?.message ||
-              responseData?.error ||
+              responseData?.message||
+              responseData?.error||
               `Ошибка API ${response.status}`
             );
           }
-
-        } catch (firstError) {
-
-          /*
-           * Fallback нужен только для backend,
-           * который не поддерживает Bearer-схему.
-           */
-          if (
-            firstError?.name ===
-              'AbortError'
-          ) {
+        }catch(firstError){
+          if(
+            firstError?.name==='AbortError'
+          ){
             throw firstError;
           }
 
-          const message =
-            String(
-              firstError?.message || ''
-            );
+          const message=String(
+            firstError?.message||''
+          );
 
-          if (
+          if(
             /сервер недоступен/i.test(
               message
             )
-          ) {
+          ){
             throw firstError;
           }
 
-          data =
+          data=
             await vpnActionFallback(
               token
             );
         }
 
-        if (
-          !data ||
-          data.ok === false ||
-          data.success === false
-        ) {
+        if(
+          !data||
+          data.ok===false||
+          data.success===false
+        ){
           throw new Error(
-            data?.message ||
-            data?.error ||
+            data?.message||
+            data?.error||
             'Не удалось получить данные'
           );
         }
 
-        vpnData = data;
+        vpnData=data;
 
-        const valid =
-          data.valid ??
-          data.active ??
-          data.is_active ??
-          data.subscription_active ??
+        const valid=
+          data.valid??
+          data.active??
+          data.is_active??
+          data.subscription_active??
           isVpnActive(data);
 
-        if (!valid) {
+        if(!valid){
           clearVpnToken();
 
           setVpnStatus(
@@ -2073,19 +2043,47 @@
           return;
         }
 
-        if (!isVpnActive(data)) {
+        const expiry=
+          formatExpiry(
+            data.expires_at||
+            data.expire_at||
+            data.expiry||
+            data.expires||
+            data.subscription?.expires_at||
+            data.subscription?.expire
+          );
+
+        let ping='—';
+
+        if(data.ping!=null){
+          ping=`${data.ping} ms`;
+        }else if(data.latency!=null){
+          ping=`${data.latency} ms`;
+        }else if(data.server_ping!=null){
+          ping=`${data.server_ping} ms`;
+        }else if(
+          Number.isFinite(
+            requestElapsed
+          )
+        ){
+          ping=
+            `${Math.max(
+              1,
+              Math.round(
+                requestElapsed
+              )
+            )} ms`;
+        }
+
+        const traffic=
+          formatTraffic(data);
+
+        if(!isVpnActive(data)){
           setVpnStatus(
             'Отключена',
-            formatExpiry(
-              data.expires_at ||
-              data.expire_at ||
-              data.expiry ||
-              data.expires ||
-              data.subscription?.expires_at ||
-              data.subscription?.expire
-            ),
-            '—',
-            formatTraffic(data)
+            expiry,
+            ping,
+            traffic
           );
 
           renderVpnActions();
@@ -2093,41 +2091,7 @@
           return;
         }
 
-        saveVpnToken(
-          token
-        );
-
-        const expiry =
-          formatExpiry(
-            data.expires_at ||
-            data.expire_at ||
-            data.expiry ||
-            data.expires ||
-            data.subscription?.expires_at ||
-            data.subscription?.expire
-          );
-
-        let ping = '—';
-
-        if (
-          data.ping != null
-        ) {
-          ping =
-            `${data.ping} ms`;
-        } else if (
-          data.latency != null
-        ) {
-          ping =
-            `${data.latency} ms`;
-        } else if (
-          data.server_ping != null
-        ) {
-          ping =
-            `${data.server_ping} ms`;
-        }
-
-        const traffic =
-          formatTraffic(data);
+        saveVpnToken(token);
 
         setVpnStatus(
           'Активна',
@@ -2137,14 +2101,11 @@
         );
 
         renderVpnActions();
-
-      } catch (error) {
-        const message =
-          error?.name ===
-          'AbortError'
-            ? 'Нет ответа'
-            : error?.message ||
-              'Нет связи';
+      }catch(error){
+        const message=
+          error?.name==='AbortError'
+            ?'Нет ответа'
+            :error?.message||'Нет связи';
 
         setVpnStatus(
           message,
@@ -2152,25 +2113,24 @@
           '—',
           '—'
         );
-
-      } finally {
+      }finally{
         updateVpnCheckButton();
       }
     }
 
-    function restoreVpnToken() {
-      const token =
+    function restoreVpnToken(){
+      const token=
         getInitialVpnToken();
 
-      if (token) {
-        $('vpnToken').value =
+      if(token){
+        $('vpnToken').value=
           token;
       }
 
       setVpnStatus(
         token
-          ? 'Не проверен'
-          : 'Нет токена',
+          ?'Не проверен'
+          :'Нет токена',
         '—',
         '—',
         '—'
@@ -2180,54 +2140,31 @@
       updateVpnCheckButton();
     }
 
-    /* ============================================================
-       SAFE TEXT / HTML
-    ============================================================ */
-
-    function escapeHtml(value) {
+    function escapeHtml(value){
       return String(
-        value ?? ''
+        value??''
       )
-        .replaceAll(
-          '&',
-          '&amp;'
-        )
-        .replaceAll(
-          '<',
-          '&lt;'
-        )
-        .replaceAll(
-          '>',
-          '&gt;'
-        )
-        .replaceAll(
-          '"',
-          '&quot;'
-        )
-        .replaceAll(
-          "'",
-          '&#039;'
-        );
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#039;");
     }
 
-    /* ============================================================
-       LAN STORAGE
-    ============================================================ */
-
-    function getActiveNetwork() {
+    function getActiveNetwork(){
       return readSessionJson(
         SS_ACTIVE_NETWORK,
         null
       );
     }
 
-    function saveActiveNetwork(network) {
-      if (!network) {
-        try {
+    function saveActiveNetwork(network){
+      if(!network){
+        try{
           sessionStorage.removeItem(
             SS_ACTIVE_NETWORK
           );
-        } catch {}
+        }catch{}
 
         return;
       }
@@ -2238,433 +2175,361 @@
       );
     }
 
-    function getLanNetworks() {
-      const networks =
+    function getLanNetworks(){
+      const networks=
         readSessionJson(
           SS_LAN_NETWORKS,
           []
         );
 
-      return Array.isArray(
-        networks
-      )
-        ? networks
-        : [];
+      return Array.isArray(networks)
+        ?networks
+        :[];
     }
 
-    function saveLanNetworks(
-      networks
-    ) {
+    function saveLanNetworks(networks){
       writeSessionJson(
         SS_LAN_NETWORKS,
         Array.isArray(networks)
-          ? networks
-          : []
+          ?networks
+          :[]
       );
     }
 
-    function getJoinCodes() {
+    function getJoinCodes(){
       return readSessionJson(
         SS_LAN_JOIN_CODES,
         {}
       );
     }
 
-    function saveJoinCodes(
-      codes
-    ) {
+    function saveJoinCodes(codes){
       writeSessionJson(
         SS_LAN_JOIN_CODES,
-        codes || {}
+        codes||{}
       );
     }
 
     function getJoinCodeForNetwork(
       networkId
-    ) {
-      const codes =
+    ){
+      const codes=
         getJoinCodes();
 
       return codes[
         String(networkId)
-      ] || '';
+      ]||'';
     }
 
     function saveJoinCode(
       networkId,
       code
-    ) {
-      if (
-        networkId == null ||
+    ){
+      if(
+        networkId==null||
         !code
-      ) {
+      ){
         return;
       }
 
-      const codes =
+      const codes=
         getJoinCodes();
 
       codes[
         String(networkId)
-      ] = code;
+      ]=code;
 
-      saveJoinCodes(
-        codes
-      );
+      saveJoinCodes(codes);
     }
 
     function removeJoinCode(
       networkId
-    ) {
-      const codes =
+    ){
+      const codes=
         getJoinCodes();
 
       delete codes[
         String(networkId)
       ];
 
-      saveJoinCodes(
-        codes
-      );
+      saveJoinCodes(codes);
     }
 
-    /* ============================================================
-       LAN VALIDATION
-    ============================================================ */
-
-    function getPublicKey() {
+    function getPublicKey(){
       return $('lanPublicKey')
         .value
         .trim();
     }
 
-    function isValidBase64Key(
-      value
-    ) {
-      if (
-        !value ||
-        typeof value !==
-          'string'
-      ) {
+    function isValidBase64Key(value){
+      if(
+        !value||
+        typeof value!=='string'
+      ){
         return false;
       }
 
-      const normalized =
-        value.replace(
-          /\s/g,
-          ''
-        );
+      const normalized=
+        value.replace(/\s/g,'');
 
-      if (
+      if(
         !/^[A-Za-z0-9+/]{43}=$/.test(
           normalized
         )
-      ) {
+      ){
         return false;
       }
 
-      try {
-        const decoded =
-          atob(normalized);
-
-        return (
-          decoded.length ===
-          32
-        );
-      } catch {
+      try{
+        return atob(normalized).length===32;
+      }catch{
         return false;
       }
     }
 
-    function validateLanName(
-      value
-    ) {
-      const name =
-        String(value || '')
-          .trim();
+    function validateLanName(value){
+      const name=
+        String(value||'').trim();
 
-      if (!name) {
-        return false;
-      }
-
-      return (
-        name.length <=
-        LAN_NAME_MAX_LENGTH
+      return Boolean(
+        name&&
+        name.length<=LAN_NAME_MAX_LENGTH
       );
     }
 
-    function validateJoinCode(
-      value
-    ) {
-      const code =
-        String(value || '')
-          .trim();
+    function validateJoinCode(value){
+      const code=
+        String(value||'').trim();
 
-      if (!code) {
-        return false;
-      }
-
-      if (
-        code.length >
-        LAN_JOIN_CODE_MAX_LENGTH
-      ) {
-        return false;
-      }
-
-      return true;
+      return Boolean(
+        code&&
+        code.length<=LAN_JOIN_CODE_MAX_LENGTH
+      );
     }
 
-    function requirePublicKey() {
-      const key =
+    function requirePublicKey(){
+      const key=
         getPublicKey();
 
-      if (!key) {
+      if(!key){
         updateLanInfo(
           currentNetwork,
           'Не готова'
         );
 
         updateLanControls();
-
         return '';
       }
 
-      if (
-        !isValidBase64Key(
-          key
-        )
-      ) {
+      if(
+        !isValidBase64Key(key)
+      ){
         updateLanInfo(
           currentNetwork,
           'Неверный ключ'
         );
 
         updateLanControls();
-
         return '';
       }
 
       return key;
     }
 
-    /* ============================================================
-       LAN NORMALIZATION
-    ============================================================ */
+    function updateLanControls(){
+      const valid=
+        isValidBase64Key(
+          getPublicKey()
+        );
+
+      $('lanCreateButton')
+        .disabled=!valid;
+
+      $('lanJoinButton')
+        .disabled=!valid;
+
+      $('refreshLan')
+        .disabled=!valid;
+    }
 
     function normalizeNetwork(
       raw,
-      fallback = {},
-      publicKey = ''
-    ) {
-      if (!raw) {
+      fallback={},
+      publicKey=''
+    ){
+      if(!raw){
         return null;
       }
 
-      const ownerKey =
-        raw.owner_public_key ||
-        raw.ownerPublicKey ||
-        fallback.ownerPublicKey ||
+      const ownerKey=
+        raw.owner_public_key||
+        raw.ownerPublicKey||
+        fallback.ownerPublicKey||
         '';
 
-      const id =
-        raw.network_id ??
-        raw.networkId ??
-        raw.id ??
-        fallback.id ??
+      const id=
+        raw.network_id??
+        raw.networkId??
+        raw.id??
+        fallback.id??
         null;
 
-      if (id == null) {
+      if(id==null){
         return null;
       }
 
-      let role =
-        raw.role ||
-        fallback.role ||
+      let role=
+        raw.role||
+        fallback.role||
         '';
 
-      if (!role) {
-        role =
-          ownerKey &&
-          publicKey &&
-          ownerKey === publicKey
-            ? 'owner'
-            : 'member';
+      if(!role){
+        role=
+          ownerKey&&
+          publicKey&&
+          ownerKey===publicKey
+            ?'owner'
+            :'member';
       }
 
-      const joined =
-        raw.joined ??
-        fallback.joined ??
-        true;
-
-      const network = {
+      return{
         id,
         name:
-          raw.name ??
-          raw.network_name ??
-          raw.networkName ??
-          fallback.name ??
+          raw.name??
+          raw.network_name??
+          raw.networkName??
+          fallback.name??
           'LAN',
-
         subnet:
-          raw.subnet ??
-          raw.cidr ??
-          fallback.subnet ??
+          raw.subnet??
+          raw.cidr??
+          fallback.subnet??
           '—',
-
         publicKey:
-          raw.public_key ??
-          raw.publicKey ??
-          fallback.publicKey ??
+          raw.public_key??
+          raw.publicKey??
+          fallback.publicKey??
           publicKey,
-
         ownerPublicKey:
           ownerKey,
-
         role,
-
         myIp:
-          raw.my_ip ??
-          raw.myIp ??
-          raw.ip ??
-          raw.address ??
-          raw.me?.ip ??
-          raw.me?.address ??
-          fallback.myIp ??
+          raw.my_ip??
+          raw.myIp??
+          raw.ip??
+          raw.address??
+          raw.me?.ip??
+          raw.me?.address??
+          fallback.myIp??
           '—',
-
         joinCode:
-          raw.join_code ??
-          raw.joinCode ??
-          raw.code ??
-          fallback.joinCode ??
-          getJoinCodeForNetwork(id) ??
+          raw.join_code??
+          raw.joinCode??
+          raw.code??
+          fallback.joinCode??
+          getJoinCodeForNetwork(id)||
           '',
-
         config:
-          raw.config ??
-          raw.wireguard_config ??
-          raw.wireguardConfig ??
-          fallback.config ??
+          raw.config??
+          raw.wireguard_config??
+          raw.wireguardConfig??
+          fallback.config??
           '',
-
         devices:
-          Array.isArray(
-            raw.devices
-          )
-            ? raw.devices
-            : (
-                Array.isArray(
-                  fallback.devices
-                )
-                  ? fallback.devices
-                  : []
-              ),
-
-        joined: Boolean(
-          joined
-        )
+          Array.isArray(raw.devices)
+            ?raw.devices
+            :(
+              Array.isArray(fallback.devices)
+                ?fallback.devices
+                :[]
+            ),
+        joined:
+          raw.joined??
+          fallback.joined??
+          true
       };
-
-      return network;
     }
 
     function normalizeNetworkCollection(
       data,
       publicKey
-    ) {
-      let rawNetworks = [];
+    ){
+      let rawNetworks=[];
 
-      if (
-        Array.isArray(
-          data?.networks
-        )
-      ) {
-        rawNetworks =
-          data.networks;
-      } else if (
-        Array.isArray(
-          data?.items
-        )
-      ) {
-        rawNetworks =
-          data.items;
-      } else if (
+      if(
+        Array.isArray(data?.networks)
+      ){
+        rawNetworks=data.networks;
+      }else if(
+        Array.isArray(data?.items)
+      ){
+        rawNetworks=data.items;
+      }else if(
         data?.network
-      ) {
-        rawNetworks =
-          [data.network];
-      } else if (
-        data?.network_id != null ||
-        data?.networkId != null ||
-        data?.id != null ||
-        data?.name ||
+      ){
+        rawNetworks=[data.network];
+      }else if(
+        data?.network_id!=null||
+        data?.networkId!=null||
+        data?.id!=null||
+        data?.name||
         data?.config
-      ) {
-        rawNetworks =
-          [data];
+      ){
+        rawNetworks=[data];
       }
 
-      const existing =
+      const existing=
         getLanNetworks();
 
-      const result = [];
+      const result=[];
 
-      for (
-        const raw
-        of rawNetworks
-      ) {
-        if (!raw) {
-          continue;
-        }
+      for(
+        const raw of rawNetworks
+      ){
+        if(!raw)continue;
 
-        const id =
-          raw.network_id ??
-          raw.networkId ??
-          raw.id ??
+        const id=
+          raw.network_id??
+          raw.networkId??
+          raw.id??
           null;
 
-        const fallback =
+        const fallback=
           existing.find(
-            item =>
-              id != null &&
-              String(item.id) ===
-                String(id)
-          ) || {};
+            item=>
+              id!=null&&
+              String(item.id)===
+              String(id)
+          )||{};
 
-        const network =
+        const network=
           normalizeNetwork(
             raw,
             fallback,
             publicKey
           );
 
-        if (network) {
-          result.push(
-            network
-          );
+        if(network){
+          result.push(network);
         }
       }
 
       return result;
     }
 
-    function mergeNetworks(
-      networks
-    ) {
-      const existing =
+    function mergeNetworks(networks){
+      const existing=
         getLanNetworks();
 
-      const map =
-        new Map();
+      const map=new Map();
 
-      for (
-        const item
-        of existing
-      ) {
-        if (
-          item &&
-          item.id != null
-        ) {
+      for(
+        const item of existing
+      ){
+        if(
+          item&&
+          item.id!=null
+        ){
           map.set(
             String(item.id),
             item
@@ -2672,22 +2537,21 @@
         }
       }
 
-      for (
-        const network
-        of networks
-      ) {
-        if (
-          !network ||
-          network.id == null
-        ) {
+      for(
+        const network of networks
+      ){
+        if(
+          !network||
+          network.id==null
+        ){
           continue;
         }
 
-        const key =
+        const key=
           String(network.id);
 
-        const previous =
-          map.get(key) || {};
+        const previous=
+          map.get(key)||{};
 
         map.set(
           key,
@@ -2695,29 +2559,25 @@
             ...previous,
             ...network,
             joinCode:
-              network.joinCode ||
-              previous.joinCode ||
+              network.joinCode||
+              previous.joinCode||
               '',
             config:
-              network.config ||
-              previous.config ||
+              network.config||
+              previous.config||
               '',
             devices:
-              Array.isArray(
-                network.devices
-              ) &&
+              Array.isArray(network.devices)&&
               network.devices.length
-                ? network.devices
-                : (
-                    previous.devices ||
-                    []
-                  )
+                ?network.devices
+                :(previous.devices||[])
           }
         );
       }
 
-      const merged =
-        [...map.values()];
+      const merged=[
+        ...map.values()
+      ];
 
       saveLanNetworks(
         merged
@@ -2726,73 +2586,62 @@
       return merged;
     }
 
-    /* ============================================================
-       LAN UI
-    ============================================================ */
-
     function updateLanInfo(
       network,
-      status = ''
-    ) {
-      const key =
+      status=''
+    ){
+      const key=
         getPublicKey();
 
-      let resolvedStatus =
+      let resolvedStatus=
         status;
 
-      if (!key) {
-        resolvedStatus =
-          'Не готова';
-      } else if (
-        !isValidBase64Key(
-          key
-        )
-      ) {
-        resolvedStatus =
-          'Неверный ключ';
-      } else if (
+      if(!key){
+        resolvedStatus='Не готова';
+      }else if(
+        !isValidBase64Key(key)
+      ){
+        resolvedStatus='Неверный ключ';
+      }else if(
         !resolvedStatus
-      ) {
-        resolvedStatus =
+      ){
+        resolvedStatus=
           network
-            ? 'Подключена'
-            : 'Действительный';
+            ?'Подключена'
+            :'Действительный';
       }
 
       $('lanInfoSubnet')
-        .textContent =
-        network?.subnet ||
-        '—';
+        .textContent=
+        network?.subnet||'—';
 
       $('lanInfoIp')
-        .textContent =
-        network?.myIp ||
-        '—';
+        .textContent=
+        network?.myIp||'—';
 
       $('lanInfoRole')
-        .textContent =
+        .textContent=
         network
-          ? (
-              network.role ===
-              'owner'
-                ? 'Владелец'
-                : 'Участник'
-            )
-          : '—';
+          ?(
+            network.role==='owner'
+              ?'Владелец'
+              :'Участник'
+          )
+          :'—';
 
       $('lanInfoStatus')
-        .textContent =
+        .textContent=
         resolvedStatus;
     }
 
     function setLanStatus(
       message,
-      network = currentNetwork
-    ) {
-      const key =
+      network=currentNetwork
+    ){
+      const key=
         getPublicKey();
 
-      if (!key) {
+      if(!key){
         updateLanInfo(
           network,
           'Не готова'
@@ -2801,11 +2650,9 @@
         return;
       }
 
-      if (
-        !isValidBase64Key(
-          key
-        )
-      ) {
+      if(
+        !isValidBase64Key(key)
+      ){
         updateLanInfo(
           network,
           'Неверный ключ'
@@ -2816,114 +2663,72 @@
 
       updateLanInfo(
         network,
-        message ||
+        message||
         (
           network
-            ? 'Подключена'
-            : 'Действительный'
+            ?'Подключена'
+            :'Действительный'
         )
       );
     }
 
-    function updateLanControls() {
-      const valid =
-        isValidBase64Key(
-          getPublicKey()
-        );
-
-      $('lanCreateButton')
-        .disabled = !valid;
-
-      $('lanJoinButton')
-        .disabled = !valid;
-
-      /*
-       * Обновление без ключа не отправляем.
-       */
-      $('refreshLan')
-        .disabled = !valid;
-    }
-
     function renderNetworkList(
       networks
-    ) {
-      const list =
-        $('networkList');
+    ){
+      const list=$(
+        'networkList'
+      );
 
-      if (
-        !Array.isArray(
-          networks
-        ) ||
+      if(
+        !Array.isArray(networks)||
         !networks.length
-      ) {
-        list.innerHTML =
+      ){
+        list.innerHTML=
           '<div class="empty">Нет сетей</div>';
 
         return;
       }
 
-      list.innerHTML =
-        networks
-          .map(
-            network => {
-              const role =
-                network.role ===
-                'owner'
-                  ? 'Владелец'
-                  : 'Участник';
+      list.innerHTML=
+        networks.map(
+          network=>{
+            const role=
+              network.role==='owner'
+                ?'Владелец'
+                :'Участник';
 
-              return `
-                <button
-                  class="network-item"
-                  type="button"
-                  data-network-id="${escapeHtml(network.id)}"
-                >
-                  <div class="network-main">
-                    <div class="network-name">
-                      ${escapeHtml(network.name)}
-                    </div>
-
-                    <div class="network-meta">
-                      ${escapeHtml(network.subnet)}
-                      ·
-                      ${escapeHtml(role)}
-                      ·
-                      ${escapeHtml(network.myIp || '—')}
-                    </div>
-                  </div>
-
-                  <div class="network-arrow">›</div>
-                </button>
-              `;
-            }
-          )
-          .join('');
+            return`
+              <button class="network-item" type="button" data-network-id="${escapeHtml(network.id)}">
+                <div class="network-main">
+                  <div class="network-name">${escapeHtml(network.name)}</div>
+                  <div class="network-meta">${escapeHtml(network.subnet)} · ${escapeHtml(role)} · ${escapeHtml(network.myIp||'—')}</div>
+                </div>
+                <div class="network-arrow">›</div>
+              </button>
+            `;
+          }
+        ).join('');
 
       list
         .querySelectorAll(
           '.network-item'
         )
         .forEach(
-          button => {
+          button=>{
             button.addEventListener(
               'click',
-              () => {
-                const network =
+              ()=>{
+                const network=
                   networks.find(
-                    item =>
+                    item=>
+                      String(item.id)===
                       String(
-                        item.id
-                      ) ===
-                      String(
-                        button.dataset
-                          .networkId
+                        button.dataset.networkId
                       )
                   );
 
-                if (network) {
-                  openNetwork(
-                    network
-                  );
+                if(network){
+                  openNetwork(network);
                 }
               }
             );
@@ -2933,107 +2738,82 @@
 
     function renderDevices(
       devices
-    ) {
-      const list =
-        $('devicesList');
+    ){
+      const list=$(
+        'devicesList'
+      );
 
-      const safeDevices =
-        Array.isArray(
-          devices
-        )
-          ? devices
-          : [];
+      const safeDevices=
+        Array.isArray(devices)
+          ?devices
+          :[];
 
-      const count =
+      const count=
         safeDevices.length;
 
       $('devicesCount')
-        .textContent =
-        `${count} ${
-          count === 1
-            ? 'устройство'
-            : 'устройств'
-        }`;
+        .textContent=
+        `${count} ${count===1?'устройство':'устройств'}`;
 
-      if (!safeDevices.length) {
-        list.innerHTML =
+      if(!safeDevices.length){
+        list.innerHTML=
           '<div class="empty">Нет устройств</div>';
 
         return;
       }
 
-      const myPublicKey =
+      const myPublicKey=
         getPublicKey();
 
-      list.innerHTML =
-        safeDevices
-          .map(
-            device => {
-              const publicKey =
-                device.public_key ||
-                device.publicKey ||
-                '';
+      list.innerHTML=
+        safeDevices.map(
+          device=>{
+            const publicKey=
+              device.public_key||
+              device.publicKey||
+              '';
 
-              const name =
-                device.name ||
-                (
-                  publicKey ===
-                  myPublicKey
-                    ? 'Это устройство'
-                    : 'Устройство'
-                );
+            const name=
+              device.name||
+              (
+                publicKey===myPublicKey
+                  ?'Это устройство'
+                  :'Устройство'
+              );
 
-              const ip =
-                device.ip ||
-                device.address ||
-                device.client_ip ||
-                '—';
+            const ip=
+              device.ip||
+              device.address||
+              device.client_ip||
+              '—';
 
-              const online =
-                Boolean(
-                  device.online ||
-                  device.is_online ||
-                  device.connected
-                );
+            const online=
+              Boolean(
+                device.online||
+                device.is_online||
+                device.connected
+              );
 
-              return `
-                <div class="device">
-                  <div class="device-main">
-                    <div class="device-name">
-                      ${escapeHtml(name)}
-                    </div>
-
-                    <div class="device-sub">
-                      ${escapeHtml(ip)}
-                    </div>
-                  </div>
-
-                  <div class="device-state">
-                    <span class="device-dot ${
-                      online
-                        ? 'online'
-                        : ''
-                    }"></span>
-
-                    <span>
-                      ${
-                        online
-                          ? 'онлайн'
-                          : 'офлайн'
-                      }
-                    </span>
-                  </div>
+            return`
+              <div class="device">
+                <div class="device-main">
+                  <div class="device-name">${escapeHtml(name)}</div>
+                  <div class="device-sub">${escapeHtml(ip)}</div>
                 </div>
-              `;
-            }
-          )
-          .join('');
+                <div class="device-state">
+                  <span class="device-dot ${online?'online':''}"></span>
+                  <span>${online?'онлайн':'офлайн'}</span>
+                </div>
+              </div>
+            `;
+          }
+        ).join('');
     }
 
     function renderCurrentNetwork(
       network
-    ) {
-      currentNetwork =
+    ){
+      currentNetwork=
         network;
 
       saveActiveNetwork(
@@ -3061,36 +2841,35 @@
         );
 
       $('currentNetworkSubtitle')
-        .textContent =
-        network.name ||
+        .textContent=
+        network.name||
         'LAN';
 
       $('currentName')
-        .textContent =
-        network.name ||
+        .textContent=
+        network.name||
         '—';
 
       $('currentSubnet')
-        .textContent =
-        network.subnet ||
+        .textContent=
+        network.subnet||
         '—';
 
       $('currentIp')
-        .textContent =
-        network.myIp ||
+        .textContent=
+        network.myIp||
         '—';
 
       $('currentRole')
-        .textContent =
-        network.role === 'owner'
-          ? 'Владелец'
-          : 'Участник';
+        .textContent=
+        network.role==='owner'
+          ?'Владелец'
+          :'Участник';
 
-      const owner =
-        network.role ===
-        'owner';
+      const owner=
+        network.role==='owner';
 
-      const hasJoinCode =
+      const hasJoinCode=
         Boolean(
           network.joinCode
         );
@@ -3098,7 +2877,7 @@
       $('accessBox')
         .classList.toggle(
           'hidden',
-          !owner ||
+          !owner||
           !hasJoinCode
         );
 
@@ -3115,17 +2894,16 @@
         );
 
       $('accessCode')
-        .textContent =
-        network.joinCode ||
+        .textContent=
+        network.joinCode||
         '—';
 
-      currentConfig =
-        typeof network.config ===
-          'string'
-          ? network.config
-          : '';
+      currentConfig=
+        typeof network.config==='string'
+          ?network.config
+          :'';
 
-      $('configText').value =
+      $('configText').value=
         currentConfig;
 
       renderDevices(
@@ -3133,12 +2911,9 @@
       );
     }
 
-    function clearCurrentNetwork() {
-      currentNetwork =
-        null;
-
-      currentConfig =
-        '';
+    function clearCurrentNetwork(){
+      currentNetwork=null;
+      currentConfig='';
 
       saveActiveNetwork(
         null
@@ -3169,13 +2944,12 @@
           'hidden'
         );
 
-      $('configText')
-        .value = '';
+      $('configText').value='';
     }
 
     function openNetwork(
       network
-    ) {
+    ){
       renderCurrentNetwork(
         network
       );
@@ -3183,35 +2957,27 @@
       window.scrollTo({
         top:
           $('currentNetworkPanel')
-            .offsetTop - 12,
-        behavior:
-          'smooth'
+            .offsetTop-12,
+        behavior:'smooth'
       });
     }
 
-    /* ============================================================
-       LAN TAB
-    ============================================================ */
-
-    function setLanTab(
-      tab
-    ) {
-      currentLanTab =
-        tab === 'join'
-          ? 'join'
-          : 'create';
+    function setLanTab(tab){
+      currentLanTab=
+        tab==='join'
+          ?'join'
+          :'create';
 
       document
         .querySelectorAll(
           '.lan-tab'
         )
         .forEach(
-          button => {
+          button=>{
             button.classList.toggle(
               'active',
-              button.dataset
-                .lanTab ===
-                currentLanTab
+              button.dataset.lanTab===
+              currentLanTab
             );
           }
         );
@@ -3219,85 +2985,69 @@
       $('lanCreateForm')
         .classList.toggle(
           'active',
-          currentLanTab ===
-            'create'
+          currentLanTab==='create'
         );
 
       $('lanJoinForm')
         .classList.toggle(
           'active',
-          currentLanTab ===
-            'join'
+          currentLanTab==='join'
         );
     }
 
-    /* ============================================================
-       LAN CREATE
-    ============================================================ */
-
-    async function createLan() {
-      const name =
+    async function createLan(){
+      const name=
         $('lanCreateName')
           .value
           .trim();
 
-      if (
-        !validateLanName(
-          name
-        )
-      ) {
+      if(
+        !validateLanName(name)
+      ){
         setLanStatus(
           'Укажите корректное название сети'
         );
-
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
-        return;
-      }
+      if(!publicKey)return;
 
-      const button =
+      const button=
         $('lanCreateButton');
 
-      button.disabled =
-        true;
+      button.disabled=true;
 
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_create',
             {
-              public_key:
-                publicKey,
-
-              device_name:
-                DEVICE_NAME,
-
+              public_key:publicKey,
+              device_name:DEVICE_NAME,
               name
             }
           );
 
-        const rawNetwork =
-          data.network ||
-          data.result ||
+        const rawNetwork=
+          data.network||
+          data.result||
           data;
 
-        let network =
+        let network=
           normalizeNetwork(
             rawNetwork,
             {},
             publicKey
           );
 
-        if (
-          !network &&
-          data.network_id != null
-        ) {
-          network =
+        if(
+          !network&&
+          data.network_id!=null
+        ){
+          network=
             normalizeNetwork(
               {
                 ...data,
@@ -3309,32 +3059,29 @@
             );
         }
 
-        if (!network) {
+        if(!network){
           throw new Error(
             'Сервер не вернул созданную сеть'
           );
         }
 
-        network.role =
-          'owner';
+        network.role='owner';
 
-        network.joinCode =
-          data.join_code ||
-          data.joinCode ||
-          data.code ||
-          network.joinCode ||
+        network.joinCode=
+          data.join_code||
+          data.joinCode||
+          data.code||
+          network.joinCode||
           '';
 
-        if (
-          network.joinCode
-        ) {
+        if(network.joinCode){
           saveJoinCode(
             network.id,
             network.joinCode
           );
         }
 
-        const networks =
+        const networks=
           mergeNetworks(
             [network]
           );
@@ -3351,91 +3098,75 @@
           'Сеть создана',
           network
         );
-
-      } catch (error) {
+      }catch(error){
         setLanStatus(
-          error?.name ===
-            'AbortError'
-            ? 'Нет ответа от сервера'
-            : (
-                error?.message ||
-                'Не удалось создать сеть'
-              )
+          error?.name==='AbortError'
+            ?'Нет ответа от сервера'
+            :(
+              error?.message||
+              'Не удалось создать сеть'
+            )
         );
-
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
 
-    /* ============================================================
-       LAN JOIN
-    ============================================================ */
-
-    async function joinLan() {
-      const joinCode =
+    async function joinLan(){
+      const joinCode=
         $('lanJoinCode')
           .value
           .trim();
 
-      if (
+      if(
         !validateJoinCode(
           joinCode
         )
-      ) {
+      ){
         setLanStatus(
           'Введите корректный код доступа'
         );
-
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
-        return;
-      }
+      if(!publicKey)return;
 
-      const button =
+      const button=
         $('lanJoinButton');
 
-      button.disabled =
-        true;
+      button.disabled=true;
 
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_join',
             {
-              public_key:
-                publicKey,
-
-              device_name:
-                DEVICE_NAME,
-
-              join_code:
-                joinCode
+              public_key:publicKey,
+              device_name:DEVICE_NAME,
+              join_code:joinCode
             }
           );
 
-        const rawNetwork =
-          data.network ||
-          data.result ||
+        const rawNetwork=
+          data.network||
+          data.result||
           data;
 
-        let network =
+        let network=
           normalizeNetwork(
             rawNetwork,
             {},
             publicKey
           );
 
-        if (
-          !network &&
-          data.network_id != null
-        ) {
-          network =
+        if(
+          !network&&
+          data.network_id!=null
+        ){
+          network=
             normalizeNetwork(
               {
                 ...data,
@@ -3447,16 +3178,14 @@
             );
         }
 
-        if (!network) {
+        if(!network){
           throw new Error(
             'Сервер не вернул подключённую сеть'
           );
         }
 
-        network.role =
-          'member';
-
-        network.joinCode =
+        network.role='member';
+        network.joinCode=
           joinCode;
 
         saveJoinCode(
@@ -3464,7 +3193,7 @@
           joinCode
         );
 
-        const networks =
+        const networks=
           mergeNetworks(
             [network]
           );
@@ -3477,108 +3206,94 @@
           network
         );
 
-        $('lanJoinCode')
-          .value = '';
+        $('lanJoinCode').value='';
 
         setLanStatus(
           'Подключена',
           network
         );
-
-      } catch (error) {
+      }catch(error){
         setLanStatus(
-          error?.name ===
-            'AbortError'
-            ? 'Нет ответа от сервера'
-            : (
-                error?.message ||
-                'Не удалось подключиться'
-              )
+          error?.name==='AbortError'
+            ?'Нет ответа от сервера'
+            :(
+              error?.message||
+              'Не удалось подключиться'
+            )
         );
-
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
 
-    /* ============================================================
-       LAN REFRESH
-    ============================================================ */
-
-    async function refreshLanNetwork() {
-      const publicKey =
+    async function refreshLanNetwork(){
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
-        const networks =
+      if(!publicKey){
+        const networks=
           getLanNetworks();
 
         renderNetworkList(
           networks
         );
 
-        const active =
+        const active=
           getActiveNetwork();
 
-        if (active) {
+        if(active){
           renderCurrentNetwork(
             active
           );
-        } else {
+        }else{
           clearCurrentNetwork();
         }
 
         return;
       }
 
-      const active =
+      const active=
         getActiveNetwork();
 
-      const payload = {
-        public_key:
-          publicKey,
-        device_name:
-          DEVICE_NAME
+      const payload={
+        public_key:publicKey,
+        device_name:DEVICE_NAME
       };
 
-      if (
-        active &&
-        active.role !== 'owner' &&
-        active.id != null
-      ) {
-        const joinCode =
+      if(
+        active&&
+        active.role!=='owner'&&
+        active.id!=null
+      ){
+        const joinCode=
           getJoinCodeForNetwork(
             active.id
-          ) ||
-          active.joinCode ||
+          )||
+          active.joinCode||
           '';
 
-        if (joinCode) {
-          payload.join_code =
+        if(joinCode){
+          payload.join_code=
             joinCode;
         }
       }
 
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_status',
             payload
           );
 
-        /*
-         * Backend может вернуть joined=false
-         * при удалённой/отозванной сети.
-         */
-        if (
-          data.joined === false &&
-          active?.id != null
-        ) {
-          const remaining =
+        if(
+          data.joined===false&&
+          active?.id!=null
+        ){
+          const remaining=
             getLanNetworks()
               .filter(
-                item =>
-                  String(item.id) !==
+                item=>
+                  String(item.id)!==
                   String(active.id)
               );
 
@@ -3602,13 +3317,13 @@
           return;
         }
 
-        const networks =
+        const networks=
           normalizeNetworkCollection(
             data,
             publicKey
           );
 
-        const merged =
+        const merged=
           mergeNetworks(
             networks
           );
@@ -3617,51 +3332,46 @@
           merged
         );
 
-        /*
-         * Не затираем локальные сети,
-         * если сервер временно вернул пустой список.
-         */
-        if (!networks.length) {
-          if (active) {
+        if(!networks.length){
+          if(active){
             renderCurrentNetwork(
               active
             );
-          } else {
+          }else{
             clearCurrentNetwork();
           }
 
           return;
         }
 
-        let selected = null;
+        let selected=null;
 
-        if (active?.id != null) {
-          selected =
+        if(active?.id!=null){
+          selected=
             networks.find(
-              item =>
-                String(item.id) ===
+              item=>
+                String(item.id)===
                 String(active.id)
-            ) || null;
+            )||null;
         }
 
-        if (
-          !selected &&
-          networks.length === 1
-        ) {
-          selected =
+        if(
+          !selected&&
+          networks.length===1
+        ){
+          selected=
             networks[0];
         }
 
-        if (selected) {
-          const oldNetwork =
-            getLanNetworks()
-              .find(
-                item =>
-                  String(item.id) ===
-                  String(selected.id)
-              ) || {};
+        if(selected){
+          const oldNetwork=
+            getLanNetworks().find(
+              item=>
+                String(item.id)===
+                String(selected.id)
+            )||{};
 
-          const finalNetwork =
+          const finalNetwork=
             normalizeNetwork(
               selected,
               oldNetwork,
@@ -3680,31 +3390,25 @@
             finalNetwork
           );
         }
-
-      } catch (error) {
-        /*
-         * При временной ошибке API показываем
-         * сохранённое состояние, не удаляя его.
-         */
-        const networks =
+      }catch(error){
+        const networks=
           getLanNetworks();
 
         renderNetworkList(
           networks
         );
 
-        if (active) {
+        if(active){
           renderCurrentNetwork(
             active
           );
-        } else {
+        }else{
           clearCurrentNetwork();
         }
 
-        if (
-          error?.name ===
-          'AbortError'
-        ) {
+        if(
+          error?.name==='AbortError'
+        ){
           setLanStatus(
             'Нет ответа от сервера'
           );
@@ -3712,74 +3416,58 @@
       }
     }
 
-    async function refreshSelectedNetwork() {
-      if (
-        !currentNetwork ||
-        currentNetwork.id == null
-      ) {
+    async function refreshSelectedNetwork(){
+      if(
+        !currentNetwork||
+        currentNetwork.id==null
+      ){
         await refreshLanNetwork();
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
-        return;
-      }
+      if(!publicKey)return;
 
-      const payload = {
-        public_key:
-          publicKey,
-
-        device_name:
-          DEVICE_NAME
+      const payload={
+        public_key:publicKey,
+        device_name:DEVICE_NAME,
+        network_id:currentNetwork.id
       };
 
-      if (
-        currentNetwork.role !==
-        'owner'
-      ) {
-        const joinCode =
+      if(
+        currentNetwork.role!=='owner'
+      ){
+        const joinCode=
           getJoinCodeForNetwork(
             currentNetwork.id
-          ) ||
-          currentNetwork.joinCode ||
+          )||
+          currentNetwork.joinCode||
           '';
 
-        if (joinCode) {
-          payload.join_code =
+        if(joinCode){
+          payload.join_code=
             joinCode;
         }
       }
 
-      /*
-       * Передаём network_id тоже:
-       * backend может использовать один
-       * из этих параметров в зависимости
-       * от роли.
-       */
-      payload.network_id =
-        currentNetwork.id;
-
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_status',
             payload
           );
 
-        if (
-          data.joined === false
-        ) {
-          const remaining =
+        if(
+          data.joined===false
+        ){
+          const remaining=
             getLanNetworks()
               .filter(
-                item =>
-                  String(item.id) !==
-                  String(
-                    currentNetwork.id
-                  )
+                item=>
+                  String(item.id)!==
+                  String(currentNetwork.id)
               );
 
           removeJoinCode(
@@ -3791,6 +3479,7 @@
           );
 
           clearCurrentNetwork();
+
           renderNetworkList(
             remaining
           );
@@ -3802,35 +3491,30 @@
           return;
         }
 
-        const networks =
+        const networks=
           normalizeNetworkCollection(
             data,
             publicKey
           );
 
-        const selected =
+        const selected=
           networks.find(
-            item =>
-              String(item.id) ===
-              String(
-                currentNetwork.id
-              )
+            item=>
+              String(item.id)===
+              String(currentNetwork.id)
           );
 
-        if (!selected) {
-          return;
-        }
+        if(!selected)return;
 
-        const oldNetwork =
-          getLanNetworks()
-            .find(
-              item =>
-                String(item.id) ===
-                String(selected.id)
-            ) ||
-            currentNetwork;
+        const oldNetwork=
+          getLanNetworks().find(
+            item=>
+              String(item.id)===
+              String(selected.id)
+          )||
+          currentNetwork;
 
-        const mergedNetwork =
+        const mergedNetwork=
           normalizeNetwork(
             selected,
             oldNetwork,
@@ -3853,84 +3537,64 @@
           'Обновлено',
           mergedNetwork
         );
-
-      } catch (error) {
-        /*
-         * Ошибка refresh не удаляет рабочее состояние.
-         */
-      }
+      }catch{}
     }
 
-    /* ============================================================
-       LAN LEAVE
-    ============================================================ */
-
-    async function leaveLan() {
-      if (
-        !currentNetwork ||
-        currentNetwork.id == null
-      ) {
+    async function leaveLan(){
+      if(
+        !currentNetwork||
+        currentNetwork.id==null
+      ){
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
-        return;
-      }
+      if(!publicKey)return;
 
-      const joinCode =
+      const joinCode=
         getJoinCodeForNetwork(
           currentNetwork.id
-        ) ||
-        currentNetwork.joinCode ||
+        )||
+        currentNetwork.joinCode||
         '';
 
-      if (!joinCode) {
+      if(!joinCode){
         setLanStatus(
           'Нет кода доступа для выхода из сети'
         );
-
         return;
       }
 
-      const button =
+      const button=
         $('leaveLanButton');
 
-      button.disabled =
-        true;
+      button.disabled=true;
 
-      try {
+      try{
         await api(
           'lan_leave',
           {
-            public_key:
-              publicKey,
-
-            device_name:
-              DEVICE_NAME,
-
-            network_id:
-              currentNetwork.id,
-
-            join_code:
-              joinCode
+            public_key:publicKey,
+            device_name:DEVICE_NAME,
+            network_id:currentNetwork.id,
+            join_code:joinCode
           }
         );
 
-        const removedId =
+        const removedId=
           currentNetwork.id;
 
         removeJoinCode(
           removedId
         );
 
-        const networks =
+        const networks=
           getLanNetworks()
             .filter(
-              item =>
-                String(item.id) !==
+              item=>
+                String(item.id)!==
                 String(removedId)
             );
 
@@ -3939,6 +3603,7 @@
         );
 
         clearCurrentNetwork();
+
         renderNetworkList(
           networks
         );
@@ -3946,82 +3611,66 @@
         setLanStatus(
           'Вы вышли из сети'
         );
-
-      } catch (error) {
+      }catch(error){
         setLanStatus(
-          error?.name ===
-            'AbortError'
-            ? 'Нет ответа от сервера'
-            : (
-                error?.message ||
-                'Не удалось выйти из сети'
-              )
+          error?.name==='AbortError'
+            ?'Нет ответа от сервера'
+            :(
+              error?.message||
+              'Не удалось выйти из сети'
+            )
         );
-
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
 
-    /* ============================================================
-       LAN DELETE
-    ============================================================ */
-
-    async function deleteLan() {
-      if (
-        !currentNetwork ||
-        currentNetwork.id == null
-      ) {
+    async function deleteLan(){
+      if(
+        !currentNetwork||
+        currentNetwork.id==null
+      ){
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
-        return;
-      }
+      if(!publicKey)return;
 
-      const button =
+      const button=
         $('deleteLanButton');
 
-      button.disabled =
-        true;
+      button.disabled=true;
 
-      try {
+      try{
         await api(
           'lan_delete',
           {
-            public_key:
-              publicKey,
-
-            device_name:
-              DEVICE_NAME,
-
-            network_id:
-              currentNetwork.id,
-
+            public_key:publicKey,
+            device_name:DEVICE_NAME,
+            network_id:currentNetwork.id,
             join_code:
-              currentNetwork.joinCode ||
+              currentNetwork.joinCode||
               getJoinCodeForNetwork(
                 currentNetwork.id
-              ) ||
+              )||
               ''
           }
         );
 
-        const removedId =
+        const removedId=
           currentNetwork.id;
 
         removeJoinCode(
           removedId
         );
 
-        const networks =
+        const networks=
           getLanNetworks()
             .filter(
-              item =>
-                String(item.id) !==
+              item=>
+                String(item.id)!==
                 String(removedId)
             );
 
@@ -4030,6 +3679,7 @@
         );
 
         clearCurrentNetwork();
+
         renderNetworkList(
           networks
         );
@@ -4037,64 +3687,49 @@
         setLanStatus(
           'Сеть удалена'
         );
-
-      } catch (error) {
+      }catch(error){
         setLanStatus(
-          error?.name ===
-            'AbortError'
-            ? 'Нет ответа от сервера'
-            : (
-                error?.message ||
-                'Не удалось удалить сеть'
-              )
+          error?.name==='AbortError'
+            ?'Нет ответа от сервера'
+            :(
+              error?.message||
+              'Не удалось удалить сеть'
+            )
         );
-
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
 
-    /* ============================================================
-       COPY / DOWNLOAD
-    ============================================================ */
-
     async function copyText(
       text,
       button
-    ) {
-      if (
-        !text ||
-        text === '—'
-      ) {
+    ){
+      if(
+        !text||
+        text==='—'
+      ){
         return;
       }
 
-      try {
+      try{
         await navigator.clipboard.writeText(
           text
         );
-      } catch {
-        /*
-         * Fallback для старых браузеров.
-         */
-        const area =
+      }catch{
+        const area=
           document.createElement(
             'textarea'
           );
 
-        area.value =
-          text;
-
+        area.value=text;
         area.setAttribute(
           'readonly',
           ''
         );
 
-        area.style.position =
-          'fixed';
-
-        area.style.opacity =
-          '0';
+        area.style.position='fixed';
+        area.style.opacity='0';
 
         document.body.appendChild(
           area
@@ -4102,38 +3737,33 @@
 
         area.select();
 
-        try {
+        try{
           document.execCommand(
             'copy'
           );
-        } catch {}
+        }catch{}
 
         area.remove();
       }
 
-      if (button) {
-        const old =
+      if(button){
+        const old=
           button.textContent;
 
-        button.textContent =
-          'Готово';
+        button.textContent='Готово';
 
         setTimeout(
-          () => {
-            button.textContent =
-              old;
+          ()=>{
+            button.textContent=old;
           },
           1200
         );
       }
     }
 
-    function sanitizeFilename(
-      value
-    ) {
+    function sanitizeFilename(value){
       return String(
-        value ||
-        'limupy'
+        value||'limupy'
       )
         .normalize('NFKC')
         .replace(
@@ -4147,23 +3777,22 @@
         .slice(
           0,
           80
-        ) ||
+        )||
         'limupy';
     }
 
     function downloadText(
       filename,
       text
-    ) {
-      if (
-        typeof text !==
-          'string' ||
+    ){
+      if(
+        typeof text!=='string'||
         !text
-      ) {
+      ){
         return;
       }
 
-      const blob =
+      const blob=
         new Blob(
           [text],
           {
@@ -4172,35 +3801,29 @@
           }
         );
 
-      const url =
+      const url=
         URL.createObjectURL(
           blob
         );
 
-      const anchor =
+      const anchor=
         document.createElement(
           'a'
         );
 
-      anchor.href =
-        url;
-
-      anchor.download =
-        filename;
-
-      anchor.rel =
-        'noopener';
+      anchor.href=url;
+      anchor.download=filename;
+      anchor.rel='noopener';
 
       document.body.appendChild(
         anchor
       );
 
       anchor.click();
-
       anchor.remove();
 
       setTimeout(
-        () => {
+        ()=>{
           URL.revokeObjectURL(
             url
           );
@@ -4209,44 +3832,40 @@
       );
     }
 
-    /* ============================================================
-       MODE MENU
-    ============================================================ */
-
-    function setMode(mode) {
-      currentMode =
-        mode === 'lan'
-          ? 'lan'
-          : 'vpn';
+    function setMode(mode){
+      currentMode=
+        mode==='lan'
+          ?'lan'
+          :'vpn';
 
       $('pageVpn')
         .classList.toggle(
           'active',
-          currentMode === 'vpn'
+          currentMode==='vpn'
         );
 
       $('pageLan')
         .classList.toggle(
           'active',
-          currentMode === 'lan'
+          currentMode==='lan'
         );
 
       $('modeButtonText')
-        .textContent =
-        currentMode === 'vpn'
-          ? 'VPN'
-          : 'LAN';
+        .textContent=
+        currentMode==='vpn'
+          ?'VPN'
+          :'LAN';
 
       document
         .querySelectorAll(
           '.mode-option'
         )
         .forEach(
-          button => {
+          button=>{
             button.classList.toggle(
               'active',
-              button.dataset.mode ===
-                currentMode
+              button.dataset.mode===
+              currentMode
             );
           }
         );
@@ -4262,25 +3881,20 @@
           'false'
         );
 
-      if (
-        currentMode ===
-        'lan'
-      ) {
+      if(
+        currentMode==='lan'
+      ){
         refreshLanNetwork();
       }
     }
 
-    /* ============================================================
-       EVENTS
-    ============================================================ */
-
     $('modeButton')
       .addEventListener(
         'click',
-        event => {
+        event=>{
           event.stopPropagation();
 
-          const open =
+          const open=
             !$('modeMenu')
               .classList.contains(
                 'open'
@@ -4302,7 +3916,7 @@
 
     document.addEventListener(
       'click',
-      () => {
+      ()=>{
         $('modeMenu')
           .classList.remove(
             'open'
@@ -4321,10 +3935,10 @@
         '.mode-option'
       )
       .forEach(
-        button => {
+        button=>{
           button.addEventListener(
             'click',
-            event => {
+            event=>{
               event.stopPropagation();
 
               setMode(
@@ -4340,47 +3954,42 @@
         '.lan-tab'
       )
       .forEach(
-        button => {
+        button=>{
           button.addEventListener(
             'click',
-            () =>
+            ()=>{
               setLanTab(
                 button.dataset.lanTab
-              )
+              );
+            }
           );
         }
       );
 
-    /* ============================================================
-       LAN INPUT
-    ============================================================ */
-
     $('lanPublicKey')
       .addEventListener(
         'input',
-        () => {
-          const value =
+        ()=>{
+          const value=
             $('lanPublicKey')
               .value
               .trim();
 
-          if (!value) {
+          if(!value){
             updateLanInfo(
               currentNetwork,
               'Не готова'
             );
-          } else if (
-            isValidBase64Key(
-              value
-            )
-          ) {
+          }else if(
+            isValidBase64Key(value)
+          ){
             updateLanInfo(
               currentNetwork,
               currentNetwork
-                ? 'Подключена'
-                : 'Действительный'
+                ?'Подключена'
+                :'Действительный'
             );
-          } else {
+          }else{
             updateLanInfo(
               currentNetwork,
               'Неверный ключ'
@@ -4394,18 +4003,17 @@
     $('lanCreateName')
       .addEventListener(
         'keydown',
-        event => {
-          if (
-            event.key ===
-              'Enter' &&
+        event=>{
+          if(
+            event.key==='Enter'&&
             !event.shiftKey
-          ) {
+          ){
             event.preventDefault();
 
-            if (
+            if(
               !$('lanCreateButton')
                 .disabled
-            ) {
+            ){
               createLan();
             }
           }
@@ -4415,13 +4023,8 @@
     $('lanJoinCode')
       .addEventListener(
         'input',
-        event => {
-          /*
-           * Приводим код к одной форме,
-           * но не удаляем разрешённые
-           * серверные символы.
-           */
-          event.target.value =
+        event=>{
+          event.target.value=
             event.target.value
               .trimStart()
               .toUpperCase();
@@ -4431,18 +4034,17 @@
     $('lanJoinCode')
       .addEventListener(
         'keydown',
-        event => {
-          if (
-            event.key ===
-              'Enter' &&
+        event=>{
+          if(
+            event.key==='Enter'&&
             !event.shiftKey
-          ) {
+          ){
             event.preventDefault();
 
-            if (
+            if(
               !$('lanJoinButton')
                 .disabled
-            ) {
+            ){
               joinLan();
             }
           }
@@ -4482,36 +4084,38 @@
     $('copyAccessCode')
       .addEventListener(
         'click',
-        () =>
+        ()=>{
           copyText(
             $('accessCode')
               .textContent,
             $('copyAccessCode')
-          )
+          );
+        }
       );
 
     $('copyConfig')
       .addEventListener(
         'click',
-        () =>
+        ()=>{
           copyText(
             currentConfig,
             $('copyConfig')
-          )
+          );
+        }
       );
 
     $('downloadConfig')
       .addEventListener(
         'click',
-        () => {
-          if (
-            !currentConfig ||
+        ()=>{
+          if(
+            !currentConfig||
             !currentNetwork
-          ) {
+          ){
             return;
           }
 
-          const safeName =
+          const safeName=
             sanitizeFilename(
               currentNetwork.name
             );
@@ -4522,10 +4126,6 @@
           );
         }
       );
-
-    /* ============================================================
-       VPN EVENTS
-    ============================================================ */
 
     $('vpnCheck')
       .addEventListener(
@@ -4542,79 +4142,44 @@
     $('vpnToken')
       .addEventListener(
         'keydown',
-        event => {
-          if (
-            event.key ===
-              'Enter' &&
+        event=>{
+          if(
+            event.key==='Enter'&&
             $('vpnToken')
               .value
               .trim()
-          ) {
+          ){
             event.preventDefault();
-
             checkVpnToken();
           }
-        }
-      );
-
-    $('happDownload')
-      .addEventListener(
-        'click',
-        () => {
-          const url =
-            getSafeHappUrl();
-
-          if (!url) {
-            return;
-          }
-
-          /*
-           * Название кнопки оставляем прежним,
-           * но фактически открывается только
-           * доверенная URL, пришедшая от backend.
-           */
-          window.open(
-            url,
-            '_blank',
-            'noopener,noreferrer'
-          );
         }
       );
 
     $('happOpen')
       .addEventListener(
         'click',
-        () => {
-          const url =
+        ()=>{
+          const url=
             getSafeHappUrl();
 
-          if (!url) {
+          if(!url){
             return;
           }
 
-          /*
-           * Здесь открываем исключительно
-           * разрешённый Happ URL.
-           */
           window.location.assign(
             url
           );
         }
       );
 
-    /* ============================================================
-       URL / HISTORY CHANGES
-    ============================================================ */
-
     window.addEventListener(
       'hashchange',
-      () => {
-        const token =
+      ()=>{
+        const token=
           getTokenFromUrl();
 
-        if (token) {
-          $('vpnToken')
-            .value =
+        if(token){
+          $('vpnToken').value=
             token;
 
           saveVpnToken(
@@ -4622,7 +4187,6 @@
           );
 
           removeTokenFromUrl();
-
           updateVpnCheckButton();
         }
       }
@@ -4630,13 +4194,12 @@
 
     window.addEventListener(
       'popstate',
-      () => {
-        const token =
+      ()=>{
+        const token=
           getInitialVpnToken();
 
-        if (token) {
-          $('vpnToken')
-            .value =
+        if(token){
+          $('vpnToken').value=
             token;
 
           updateVpnCheckButton();
@@ -4644,51 +4207,33 @@
       }
     );
 
-    /* ============================================================
-       INIT
-    ============================================================ */
-
-    function init() {
-      /*
-       * Создаём device_id до первого сетевого запроса.
-       */
+    function init(){
       getDeviceId();
 
-      /*
-       * VPN.
-       */
       restoreVpnToken();
 
-      /*
-       * LAN.
-       */
-      const networks =
+      const networks=
         getLanNetworks();
 
       renderNetworkList(
         networks
       );
 
-      const active =
+      const active=
         getActiveNetwork();
 
-      if (active) {
-        currentNetwork =
+      if(active){
+        currentNetwork=
           active;
 
         renderCurrentNetwork(
           active
         );
-      } else {
+      }else{
         clearCurrentNetwork();
       }
 
       updateLanControls();
-
-      /*
-       * Скрываем произвольные HAPP-действия
-       * до успешной проверки токена.
-       */
       hideVpnActions();
     }
 
