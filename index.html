@@ -22,7 +22,7 @@
       frame-src 'none'
     "
   >
-  <title>Limupy</title>
+  <title>Limupy Services</title>
 
   <style>
     :root{
@@ -126,6 +126,7 @@
 
     .mode-option:hover{background:#1b202b}
     .mode-option.active{background:#202631}
+
     .mode-option span:last-child{
       color:var(--muted);
       font-size:12px;
@@ -165,12 +166,6 @@
     }
 
     .panel-body{padding:18px}
-
-    .mode-label{
-      font-size:13px;
-      color:var(--muted);
-      margin-bottom:8px;
-    }
 
     .mode-value{
       font-size:30px;
@@ -697,6 +692,29 @@
       font-size:12px;
     }
 
+    .profile-grid{
+      display:grid;
+      gap:10px;
+    }
+
+    .profile-item{
+      padding:14px;
+      border:1px solid var(--line);
+      background:var(--panel-2);
+      border-radius:14px;
+    }
+
+    .profile-label{
+      color:var(--muted);
+      font-size:11px;
+      margin-bottom:7px;
+    }
+
+    .profile-value{
+      font-size:14px;
+      font-weight:700;
+    }
+
     .hidden{
       display:none !important;
     }
@@ -760,8 +778,9 @@
 
 <body>
   <div class="app">
+
     <div class="topbar">
-      <div class="brand">Limupy</div>
+      <div class="brand">Limupy Services</div>
 
       <div class="mode-wrap">
         <button
@@ -784,6 +803,7 @@
         </button>
 
         <div class="mode-menu" id="modeMenu">
+
           <button
             class="mode-option active"
             data-mode="vpn"
@@ -801,6 +821,16 @@
             <span>LAN</span>
             <span>Сеть</span>
           </button>
+
+          <button
+            class="mode-option"
+            data-mode="profile"
+            type="button"
+          >
+            <span>PROFILE</span>
+            <span>Профиль</span>
+          </button>
+
         </div>
       </div>
     </div>
@@ -808,10 +838,15 @@
     <main>
 
       <section class="page active" id="pageVpn">
+
         <div class="panel">
           <div class="panel-body">
+
             <div class="mode-value-row">
-              <div class="mode-value">VPN</div>
+              <div class="mode-value">
+                VPN
+              </div>
+
               <div
                 class="service-name hidden"
                 id="vpnSubscriptionName"
@@ -819,28 +854,12 @@
             </div>
 
             <div class="status-grid">
-              <div class="status-item">
-                <div class="status-item-label">Срок</div>
-                <div
-                  class="status-item-value"
-                  id="vpnExpiry"
-                >
-                  —
-                </div>
-              </div>
 
               <div class="status-item">
-                <div class="status-item-label">Пинг</div>
-                <div
-                  class="status-item-value"
-                  id="vpnPing"
-                >
-                  —
+                <div class="status-item-label">
+                  Статус
                 </div>
-              </div>
 
-              <div class="status-item">
-                <div class="status-item-label">Статус</div>
                 <div
                   class="status-item-value"
                   id="vpnState"
@@ -850,7 +869,36 @@
               </div>
 
               <div class="status-item">
-                <div class="status-item-label">Трафик</div>
+                <div class="status-item-label">
+                  Срок
+                </div>
+
+                <div
+                  class="status-item-value"
+                  id="vpnExpiry"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="status-item">
+                <div class="status-item-label">
+                  Пинг
+                </div>
+
+                <div
+                  class="status-item-value"
+                  id="vpnPing"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="status-item">
+                <div class="status-item-label">
+                  Трафик
+                </div>
+
                 <div
                   class="status-item-value"
                   id="vpnTraffic"
@@ -858,19 +906,25 @@
                   —
                 </div>
               </div>
+
             </div>
           </div>
         </div>
 
         <div class="panel">
+
           <div class="panel-head">
             <div>
-              <div class="panel-title">Токен</div>
+              <div class="panel-title">
+                Токен
+              </div>
             </div>
           </div>
 
           <div class="panel-body">
+
             <div class="input-row">
+
               <div class="field floating-field input-field-grow">
                 <label
                   class="field-label"
@@ -899,12 +953,14 @@
               >
                 Проверить
               </button>
+
             </div>
 
             <div
               class="vpn-actions hidden"
               id="vpnActions"
             >
+
               <button
                 class="btn btn-secondary"
                 id="happOpen"
@@ -936,29 +992,43 @@
                   <path d="M5 20h14"/>
                 </svg>
               </a>
+
             </div>
           </div>
         </div>
+
       </section>
 
       <section class="page" id="pageLan">
+
         <div class="lan-wrap">
 
           <div class="lan-content">
 
             <div class="panel">
+
               <div class="panel-body">
+
                 <div class="mode-value-row">
-                  <div class="mode-value">LAN</div>
+
+                  <div class="mode-value">
+                    LAN
+                  </div>
+
                   <div
                     class="service-name hidden"
                     id="lanNetworkName"
                   ></div>
+
                 </div>
 
                 <div class="status-grid">
+
                   <div class="status-item">
-                    <div class="status-item-label">Статус</div>
+                    <div class="status-item-label">
+                      Статус
+                    </div>
+
                     <div
                       class="status-item-value"
                       id="lanInfoStatus"
@@ -968,7 +1038,10 @@
                   </div>
 
                   <div class="status-item">
-                    <div class="status-item-label">Подсеть</div>
+                    <div class="status-item-label">
+                      Подсеть
+                    </div>
+
                     <div
                       class="status-item-value"
                       id="lanInfoSubnet"
@@ -978,7 +1051,10 @@
                   </div>
 
                   <div class="status-item">
-                    <div class="status-item-label">IP</div>
+                    <div class="status-item-label">
+                      IP
+                    </div>
+
                     <div
                       class="status-item-value"
                       id="lanInfoIp"
@@ -988,7 +1064,10 @@
                   </div>
 
                   <div class="status-item">
-                    <div class="status-item-label">Роль</div>
+                    <div class="status-item-label">
+                      Роль
+                    </div>
+
                     <div
                       class="status-item-value"
                       id="lanInfoRole"
@@ -996,19 +1075,25 @@
                       —
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
 
             <div class="panel">
+
               <div class="panel-head">
                 <div>
-                  <div class="panel-title">Подключение</div>
+                  <div class="panel-title">
+                    Подключение
+                  </div>
                 </div>
               </div>
 
               <div class="panel-body">
+
                 <div class="lan-tabs">
+
                   <button
                     class="lan-tab active"
                     data-lan-tab="create"
@@ -1024,9 +1109,11 @@
                   >
                     Подключить
                   </button>
+
                 </div>
 
                 <div class="field floating-field">
+
                   <label
                     class="field-label"
                     for="lanPublicKey"
@@ -1045,13 +1132,16 @@
                     spellcheck="false"
                     maxlength="44"
                   >
+
                 </div>
 
                 <div
                   class="lan-form active"
                   id="lanCreateForm"
                 >
+
                   <div class="field floating-field">
+
                     <label
                       class="field-label"
                       for="lanCreateName"
@@ -1067,9 +1157,11 @@
                       placeholder="Введите название"
                       autocomplete="off"
                     >
+
                   </div>
 
                   <div class="actions one">
+
                     <button
                       class="btn btn-primary"
                       id="lanCreateButton"
@@ -1077,14 +1169,18 @@
                     >
                       Создать
                     </button>
+
                   </div>
+
                 </div>
 
                 <div
                   class="lan-form"
                   id="lanJoinForm"
                 >
+
                   <div class="field floating-field">
+
                     <label
                       class="field-label"
                       for="lanJoinCode"
@@ -1103,9 +1199,11 @@
                       autocorrect="off"
                       spellcheck="false"
                     >
+
                   </div>
 
                   <div class="actions one">
+
                     <button
                       class="btn btn-primary"
                       id="lanJoinButton"
@@ -1113,15 +1211,25 @@
                     >
                       Подключить
                     </button>
+
                   </div>
+
                 </div>
+
               </div>
             </div>
 
-            <div class="panel" id="myNetworksPanel">
+            <div
+              class="panel"
+              id="myNetworksPanel"
+            >
+
               <div class="panel-head">
+
                 <div>
-                  <div class="panel-title">Мои сети</div>
+                  <div class="panel-title">
+                    Мои сети
+                  </div>
                 </div>
 
                 <button
@@ -1131,36 +1239,53 @@
                 >
                   Обновить
                 </button>
+
               </div>
 
               <div class="panel-body">
+
                 <div
                   class="network-list"
                   id="networkList"
                 ></div>
+
               </div>
+
             </div>
 
             <div
               class="panel hidden"
               id="currentNetworkPanel"
             >
+
               <div class="panel-head">
+
                 <div>
-                  <div class="panel-title">Текущая сеть</div>
+
+                  <div class="panel-title">
+                    Текущая сеть
+                  </div>
+
                   <div
                     class="panel-subtitle"
                     id="currentNetworkSubtitle"
                   >
                     —
                   </div>
+
                 </div>
+
               </div>
 
               <div class="panel-body">
+
                 <div class="current-grid">
+
                   <div class="current-item">
-                    <div class="current-label">Имя</div>
+                    <div class="current-label">
+                      Имя
+                    </div>
+
                     <div
                       class="current-value"
                       id="currentName"
@@ -1170,7 +1295,10 @@
                   </div>
 
                   <div class="current-item">
-                    <div class="current-label">Подсеть</div>
+                    <div class="current-label">
+                      Подсеть
+                    </div>
+
                     <div
                       class="current-value"
                       id="currentSubnet"
@@ -1180,7 +1308,10 @@
                   </div>
 
                   <div class="current-item">
-                    <div class="current-label">Мой IP</div>
+                    <div class="current-label">
+                      Мой IP
+                    </div>
+
                     <div
                       class="current-value"
                       id="currentIp"
@@ -1190,7 +1321,10 @@
                   </div>
 
                   <div class="current-item">
-                    <div class="current-label">Роль</div>
+                    <div class="current-label">
+                      Роль
+                    </div>
+
                     <div
                       class="current-value"
                       id="currentRole"
@@ -1198,13 +1332,16 @@
                       —
                     </div>
                   </div>
+
                 </div>
 
                 <div
                   class="access-box hidden"
                   id="accessBox"
                 >
+
                   <div class="access-head">
+
                     <div class="access-title">
                       Код для гостей
                     </div>
@@ -1216,6 +1353,7 @@
                     >
                       Копировать
                     </button>
+
                   </div>
 
                   <div
@@ -1224,15 +1362,19 @@
                   >
                     —
                   </div>
+
                 </div>
 
                 <div class="config-box">
+
                   <div class="config-head">
+
                     <div class="config-title">
                       WireGuard
                     </div>
 
                     <div class="config-actions">
+
                       <button
                         class="mini-btn"
                         id="copyConfig"
@@ -1248,7 +1390,9 @@
                       >
                         Скачать
                       </button>
+
                     </div>
+
                   </div>
 
                   <textarea
@@ -1258,7 +1402,9 @@
                     spellcheck="false"
                     autocomplete="off"
                   ></textarea>
+
                 </div>
+
               </div>
             </div>
 
@@ -1266,8 +1412,11 @@
               class="panel hidden"
               id="devicesPanel"
             >
+
               <div class="panel-head">
+
                 <div>
+
                   <div class="panel-title">
                     Устройства
                   </div>
@@ -1278,23 +1427,31 @@
                   >
                     0 устройств
                   </div>
+
                 </div>
+
               </div>
 
               <div class="panel-body">
+
                 <div
                   class="devices"
                   id="devicesList"
                 ></div>
+
               </div>
+
             </div>
 
             <div
               class="panel hidden"
               id="networkActionsPanel"
             >
+
               <div class="panel-head">
+
                 <div>
+
                   <div class="panel-title">
                     Действия
                   </div>
@@ -1302,11 +1459,15 @@
                   <div class="panel-subtitle">
                     Управление текущей сетью
                   </div>
+
                 </div>
+
               </div>
 
               <div class="panel-body">
+
                 <div class="actions one">
+
                   <button
                     class="btn btn-secondary"
                     id="leaveLanButton"
@@ -1322,8 +1483,11 @@
                   >
                     Удалить LAN-сеть
                   </button>
+
                 </div>
+
               </div>
+
             </div>
 
           </div>
@@ -1333,7 +1497,51 @@
               В разработке
             </div>
           </div>
+
         </div>
+
+      </section>
+
+      <section class="page" id="pageProfile">
+
+        <div class="panel">
+          <div class="panel-body">
+
+            <div class="mode-value-row">
+
+              <div class="mode-value">
+                PROFILE
+              </div>
+
+            </div>
+
+            <div class="profile-grid">
+
+              <div class="profile-item">
+                <div class="profile-label">
+                  STATUS
+                </div>
+
+                <div class="profile-value">
+                  Active
+                </div>
+              </div>
+
+              <div class="profile-item">
+                <div class="profile-label">
+                  SERVICE
+                </div>
+
+                <div class="profile-value">
+                  Limupy Services
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
       </section>
 
     </main>
@@ -1342,104 +1550,122 @@
   <script>
     'use strict';
 
-    const API_URL = 'https://78.17.112.158/api.php';
-    const REQUEST_TIMEOUT_MS = 10000;
-    const VPN_TOKEN_MAX_LENGTH = 4096;
-    const LAN_NAME_MAX_LENGTH = 64;
-    const LAN_JOIN_CODE_MAX_LENGTH = 128;
-    const DEVICE_NAME = 'Limupy Web';
-    const SS_VPN_TOKEN = '__limupy_vpn_token';
-    const SS_VPN_HISTORY_TOKEN = '__limupy_vpn_history_token';
-    const SS_ACTIVE_NETWORK = 'limupy_active_network';
-    const SS_LAN_NETWORKS = 'limupy_lan_networks';
-    const SS_LAN_JOIN_CODES = 'limupy_lan_join_codes';
-    const SS_DEVICE_ID = 'limupy_device_id';
-    const ALLOWED_HAPP_HOST = '78.17.112.158';
+    const API_URL='https://78.17.112.158/api.php';
+    const REQUEST_TIMEOUT_MS=10000;
+    const VPN_TOKEN_MAX_LENGTH=4096;
+    const LAN_NAME_MAX_LENGTH=64;
+    const LAN_JOIN_CODE_MAX_LENGTH=128;
+    const DEVICE_NAME='Limupy Web';
 
-    let currentMode = 'vpn';
-    let currentLanTab = 'create';
-    let currentNetwork = null;
-    let currentConfig = '';
-    let vpnData = null;
-    let deviceId = '';
+    const SS_VPN_TOKEN='__limupy_vpn_token';
+    const SS_VPN_HISTORY_TOKEN='__limupy_vpn_history_token';
+    const SS_ACTIVE_NETWORK='limupy_active_network';
+    const SS_LAN_NETWORKS='limupy_lan_networks';
+    const SS_LAN_JOIN_CODES='limupy_lan_join_codes';
+    const SS_DEVICE_ID='limupy_device_id';
 
-    const $ = id => document.getElementById(id);
+    const ALLOWED_HAPP_HOST='78.17.112.158';
 
-    function readSessionValue(key, fallback = '') {
-      try {
-        const value = sessionStorage.getItem(key);
-        return value == null ? fallback : value;
-      } catch {
+    let currentMode='vpn';
+    let currentLanTab='create';
+    let currentNetwork=null;
+    let currentConfig='';
+    let vpnData=null;
+    let deviceId='';
+
+    const $=id=>document.getElementById(id);
+
+    function readSessionValue(key,fallback=''){
+      try{
+        const value=
+          sessionStorage.getItem(key);
+
+        return value==null
+          ? fallback
+          : value;
+      }catch{
         return fallback;
       }
     }
 
-    function writeSessionValue(key, value) {
-      try {
-        sessionStorage.setItem(key, String(value));
-      } catch {}
+    function writeSessionValue(key,value){
+      try{
+        sessionStorage.setItem(
+          key,
+          String(value)
+        );
+      }catch{}
     }
 
-    function removeSessionValue(key) {
-      try {
+    function removeSessionValue(key){
+      try{
         sessionStorage.removeItem(key);
-      } catch {}
+      }catch{}
     }
 
-    function readSessionJson(key, fallback) {
-      try {
-        const raw = sessionStorage.getItem(key);
-        if (!raw) return fallback;
+    function readSessionJson(key,fallback){
+      try{
+        const raw=
+          sessionStorage.getItem(key);
 
-        const parsed = JSON.parse(raw);
-        return parsed ?? fallback;
-      } catch {
+        if(!raw){
+          return fallback;
+        }
+
+        const parsed=
+          JSON.parse(raw);
+
+        return parsed??fallback;
+
+      }catch{
         return fallback;
       }
     }
 
-    function writeSessionJson(key, value) {
-      try {
+    function writeSessionJson(key,value){
+      try{
         sessionStorage.setItem(
           key,
           JSON.stringify(value)
         );
-      } catch {}
+      }catch{}
     }
 
-    function bytesToBase64Url(bytes) {
-      let binary = '';
+    function bytesToBase64Url(bytes){
+      let binary='';
 
-      for (const byte of bytes) {
-        binary += String.fromCharCode(byte);
+      for(const byte of bytes){
+        binary+=String.fromCharCode(byte);
       }
 
       return btoa(binary)
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/g, '');
+        .replace(/\+/g,'-')
+        .replace(/\//g,'_')
+        .replace(/=+$/g,'');
     }
 
-    function getDeviceId() {
-      if (deviceId) return deviceId;
+    function getDeviceId(){
+      if(deviceId){
+        return deviceId;
+      }
 
-      const stored =
+      const stored=
         readSessionValue(
           SS_DEVICE_ID,
           ''
         ).trim();
 
-      if (stored) {
-        deviceId = stored;
+      if(stored){
+        deviceId=stored;
         return deviceId;
       }
 
-      const bytes =
+      const bytes=
         new Uint8Array(32);
 
       crypto.getRandomValues(bytes);
 
-      deviceId =
+      deviceId=
         bytesToBase64Url(bytes);
 
       writeSessionValue(
@@ -1450,21 +1676,18 @@
       return deviceId;
     }
 
-    async function api(
-      action,
-      payload = {}
-    ) {
-      const controller =
+    async function api(action,payload={}){
+      const controller=
         new AbortController();
 
-      const timeout =
+      const timeout=
         setTimeout(
-          () => controller.abort(),
+          ()=>controller.abort(),
           REQUEST_TIMEOUT_MS
         );
 
-      try {
-        const response =
+      try{
+        const response=
           await fetch(
             API_URL,
             {
@@ -1487,43 +1710,43 @@
             }
           );
 
-        const text =
+        const text=
           await response.text();
 
         let data=null;
 
-        try {
-          data =
+        try{
+          data=
             text
               ? JSON.parse(text)
               : null;
-        } catch {
+        }catch{
           data=null;
         }
 
-        if (!response.ok) {
+        if(!response.ok){
           throw new Error(
-            data?.message ||
-            data?.error ||
+            data?.message||
+            data?.error||
             `Ошибка API ${response.status}`
           );
         }
 
-        if (
+        if(
           data &&
           (
-            data.success===false ||
+            data.success===false||
             data.ok===false
           )
-        ) {
+        ){
           throw new Error(
-            data.message ||
-            data.error ||
+            data.message||
+            data.error||
             'Ошибка API'
           );
         }
 
-        if (!data) {
+        if(!data){
           throw new Error(
             'Сервер вернул пустой ответ'
           );
@@ -1531,26 +1754,26 @@
 
         return data;
 
-      } finally {
+      }finally{
         clearTimeout(timeout);
       }
     }
 
-    async function vpnRequest(token) {
-      const controller =
+    async function vpnRequest(token){
+      const controller=
         new AbortController();
 
-      const timeout =
+      const timeout=
         setTimeout(
-          () => controller.abort(),
+          ()=>controller.abort(),
           REQUEST_TIMEOUT_MS
         );
 
-      const started =
+      const started=
         performance.now();
 
-      try {
-        const response =
+      try{
+        const response=
           await fetch(
             API_URL,
             {
@@ -1570,22 +1793,23 @@
                   'application/json'
               },
               body:JSON.stringify({
-                device_id:getDeviceId()
+                device_id:
+                  getDeviceId()
               })
             }
           );
 
-        const text =
+        const text=
           await response.text();
 
         let data=null;
 
-        try {
-          data =
+        try{
+          data=
             text
               ? JSON.parse(text)
               : null;
-        } catch {
+        }catch{
           data=null;
         }
 
@@ -1593,32 +1817,33 @@
           response,
           data,
           elapsed:
-            performance.now() -
+            performance.now()-
             started
         };
 
-      } finally {
+      }finally{
         clearTimeout(timeout);
       }
     }
 
-    async function vpnActionFallback(token) {
-      try {
+    async function vpnActionFallback(token){
+      try{
         return await api(
           'vpn_status',
           {token}
         );
-      } catch (firstError) {
-        const message =
+      }catch(firstError){
+        const message=
           String(
-            firstError?.message || ''
+            firstError?.message||
+            ''
           );
 
-        if (
+        if(
           /unknown action|неизвест|not found|404/i.test(
             message
           )
-        ) {
+        ){
           return await api(
             'vpn_check',
             {token}
@@ -1629,46 +1854,44 @@
       }
     }
 
-    function getVpnHistoryToken() {
-      try {
-        const state =
-          window.history &&
+    function getVpnHistoryToken(){
+      try{
+        const state=
+          window.history&&
           window.history.state;
 
-        if (
-          !state ||
+        if(
+          !state||
           typeof state!=='object'
-        ) {
+        ){
           return '';
         }
 
-        const value =
+        const value=
           state[
             SS_VPN_HISTORY_TOKEN
           ];
 
-        return typeof value ===
-          'string'
-            ? value.trim()
-            : '';
+        return typeof value==='string'
+          ? value.trim()
+          : '';
 
-      } catch {
+      }catch{
         return '';
       }
     }
 
-    function saveVpnHistoryToken(token) {
-      if (
-        !window.history ||
-        typeof window.history.replaceState !==
-          'function'
-      ) {
+    function saveVpnHistoryToken(token){
+      if(
+        !window.history||
+        typeof window.history.replaceState!=='function'
+      ){
         return;
       }
 
-      try {
-        const currentState =
-          window.history.state &&
+      try{
+        const currentState=
+          window.history.state&&
           typeof window.history.state==='object'
             ? window.history.state
             : {};
@@ -1682,11 +1905,13 @@
           '',
           window.location.href
         );
-      } catch {}
+      }catch{}
     }
 
-    function saveVpnToken(token) {
-      if (!token) return;
+    function saveVpnToken(token){
+      if(!token){
+        return;
+      }
 
       writeSessionValue(
         SS_VPN_TOKEN,
@@ -1698,72 +1923,72 @@
       );
     }
 
-    function getSavedVpnToken() {
+    function getSavedVpnToken(){
       return readSessionValue(
         SS_VPN_TOKEN,
         ''
       ).trim();
     }
 
-    function clearVpnToken() {
+    function clearVpnToken(){
       removeSessionValue(
         SS_VPN_TOKEN
       );
     }
 
-    function getTokenFromUrl() {
-      try {
-        const url =
+    function getTokenFromUrl(){
+      try{
+        const url=
           new URL(
             window.location.href
           );
 
-        const queryToken =
+        const queryToken=
           url.searchParams.get(
             'key'
           );
 
-        if (queryToken) {
+        if(queryToken){
           return queryToken.trim();
         }
 
-        const hash =
+        const hash=
           url.hash.replace(
             /^#/,
             ''
           );
 
-        const hashParams =
+        const hashParams=
           new URLSearchParams(
             hash
           );
 
-        const hashToken =
+        const hashToken=
           hashParams.get(
             'key'
           );
 
-        if (hashToken) {
+        if(hashToken){
           return hashToken.trim();
         }
 
-        if (
-          hash &&
-          !hash.includes('=') &&
-          hash.length <=
+        if(
+          hash&&
+          !hash.includes('=')&&
+          hash.length<=
             VPN_TOKEN_MAX_LENGTH
-        ) {
+        ){
           return hash.trim();
         }
 
-      } catch {}
+      }catch{}
 
       return '';
     }
 
-    function removeTokenFromUrl() {
-      try {
-        const url =
+    function removeTokenFromUrl(){
+      try{
+        const url=
           new URL(
             window.location.href
           );
@@ -1779,14 +2004,14 @@
           document.title,
           url.toString()
         );
-      } catch {}
+      }catch{}
     }
 
-    function getInitialVpnToken() {
-      const urlToken =
+    function getInitialVpnToken(){
+      const urlToken=
         getTokenFromUrl();
 
-      if (urlToken) {
+      if(urlToken){
         saveVpnToken(
           urlToken
         );
@@ -1796,55 +2021,55 @@
         return urlToken;
       }
 
-      const historyToken =
+      const historyToken=
         getVpnHistoryToken();
 
-      if (historyToken) {
+      if(historyToken){
         return historyToken;
       }
 
       return getSavedVpnToken();
     }
 
-    function formatExpiry(value) {
-      if (
-        value===null ||
-        value===undefined ||
+    function formatExpiry(value){
+      if(
+        value===null||
+        value===undefined||
         value===''
-      ) {
+      ){
         return '—';
       }
 
       let date;
 
-      if (
-        typeof value==='number' ||
+      if(
+        typeof value==='number'||
         /^\d+$/.test(
           String(value)
         )
-      ) {
-        const numeric =
+      ){
+        const numeric=
           Number(value);
 
-        date =
+        date=
           new Date(
             numeric>1e12
               ? numeric
               : numeric*1000
           );
 
-      } else {
-        date =
+      }else{
+        date=
           new Date(
             String(value)
           );
       }
 
-      if (
+      if(
         Number.isNaN(
           date.getTime()
         )
-      ) {
+      ){
         return String(value);
       }
 
@@ -1853,15 +2078,19 @@
       );
     }
 
-    function formatBytes(value) {
-      const bytes =
+    function formatBytes(value){
+      const bytes=
         Number(value);
 
-      if (
-        !Number.isFinite(bytes) ||
+      if(
+        !Number.isFinite(bytes)||
         bytes<0
-      ) {
+      ){
         return null;
+      }
+
+      if(bytes===0){
+        return '0 B';
       }
 
       const units=[
@@ -1872,11 +2101,7 @@
         'TB'
       ];
 
-      if (bytes===0) {
-        return '0 B';
-      }
-
-      const index =
+      const index=
         Math.min(
           Math.floor(
             Math.log(bytes)/
@@ -1897,16 +2122,16 @@
       );
     }
 
-    function normalizeTrafficNumber(value) {
-      if (
-        value===null ||
-        value===undefined ||
+    function normalizeTrafficNumber(value){
+      if(
+        value===null||
+        value===undefined||
         value===''
-      ) {
+      ){
         return null;
       }
 
-      const numeric =
+      const numeric=
         Number(value);
 
       return Number.isFinite(
@@ -1916,82 +2141,82 @@
         : null;
     }
 
-    function formatTraffic(data) {
-      const subscription =
-        data?.subscription ||
+    function formatTraffic(data){
+      const subscription=
+        data?.subscription||
         {};
 
-      const traffic =
-        data?.traffic ||
-        subscription.traffic ||
+      const traffic=
+        data?.traffic||
+        subscription.traffic||
         {};
 
-      if (
-        typeof traffic==='string' &&
+      if(
+        typeof traffic==='string'&&
         traffic.trim()
-      ) {
-        const value =
+      ){
+        const value=
           traffic.trim();
 
-        if (
+        if(
           /^0\s*(b|kb|mb|gb|tb)?$/i.test(
             value
           )
-        ) {
+        ){
           return '0 B / ∞';
         }
 
         return value;
       }
 
-      const usedValue =
-        traffic?.used ??
-        traffic?.usage ??
-        data?.traffic_used ??
-        data?.used_traffic ??
-        data?.bytes_used ??
-        subscription.traffic_used ??
-        subscription.used_bytes ??
+      const usedValue=
+        traffic?.used??
+        traffic?.usage??
+        data?.traffic_used??
+        data?.used_traffic??
+        data?.bytes_used??
+        subscription.traffic_used??
+        subscription.used_bytes??
         0;
 
-      const limitValue =
-        traffic?.limit ??
-        traffic?.quota ??
-        data?.traffic_limit ??
-        data?.traffic_total ??
-        subscription.traffic_limit ??
+      const limitValue=
+        traffic?.limit??
+        traffic?.quota??
+        data?.traffic_limit??
+        data?.traffic_total??
+        subscription.traffic_limit??
         subscription.total_bytes;
 
-      const used =
+      const used=
         normalizeTrafficNumber(
           usedValue
         );
 
-      const limit =
+      const limit=
         normalizeTrafficNumber(
           limitValue
         );
 
-      const upload =
+      const upload=
         normalizeTrafficNumber(
-          traffic?.upload ??
-          traffic?.uploaded ??
-          data?.upload ??
+          traffic?.upload??
+          traffic?.uploaded??
+          data?.upload??
           data?.uploaded
         );
 
-      const download =
+      const download=
         normalizeTrafficNumber(
-          traffic?.download ??
-          traffic?.downloaded ??
-          data?.download ??
+          traffic?.download??
+          traffic?.downloaded??
+          data?.download??
           data?.downloaded
         );
 
-      if (
-        limit!==null &&
+      if(
+        limit!==null&&
         limit<=0
-      ) {
+      ){
         return (
           `${formatBytes(
             used||0
@@ -1999,12 +2224,12 @@
         );
       }
 
-      if (
-        used!==null &&
-        limit!==null &&
+      if(
+        used!==null&&
+        limit!==null&&
         limit>0
-      ) {
-        const available =
+      ){
+        const available=
           Math.max(
             0,
             limit-used
@@ -2019,61 +2244,64 @@
         );
       }
 
-      if (
-        used!==null &&
-        limit===null &&
+      if(
+        used!==null&&
+        limit===null&&
         (
-          download!==null ||
+          download!==null||
           upload!==null
         )
-      ) {
-        const totalUsed =
-          download!==null ||
-          upload!==null
-            ? (
-                (download||0)+
-                (upload||0)
-              )
-            : used;
+      ){
+        const totalUsed=
+          (download||0)+
+          (upload||0);
 
-        return `${formatBytes(
-          totalUsed
-        )} / ∞`;
+        return (
+          `${formatBytes(
+            totalUsed
+          )} / ∞`
+        );
       }
 
-      if (
+      if(
         used!==null
-      ) {
-        return `${formatBytes(
-          used
-        )} / ∞`;
+      ){
+        return (
+          `${formatBytes(
+            used
+          )} / ∞`
+        );
       }
 
       return '—';
     }
 
-    function getSubscriptionName(data) {
+    function getSubscriptionName(data){
       return String(
-        data?.subscription_name ||
-        data?.subscription?.name ||
-        data?.name ||
+        data?.subscription_name||
+        data?.subscription?.name||
+        data?.name||
         ''
       ).trim();
     }
 
-    function getNetworkDisplayName(network) {
+    function getNetworkDisplayName(
+      network
+    ){
       return String(
-        network?.name ||
-        network?.network_name ||
+        network?.name||
+        network?.network_name||
         ''
       ).trim();
     }
 
-    function setVpnSubscriptionName(name) {
-      const element =
+    function setVpnSubscriptionName(
+      name
+    ){
+      const element=
         $('vpnSubscriptionName');
 
-      if (!name) {
+      if(!name){
         element.textContent='';
         element.classList.add(
           'hidden'
@@ -2089,11 +2317,13 @@
       );
     }
 
-    function setLanNetworkName(name) {
-      const element =
+    function setLanNetworkName(
+      name
+    ){
+      const element=
         $('lanNetworkName');
 
-      if (!name) {
+      if(!name){
         element.textContent='';
         element.classList.add(
           'hidden'
@@ -2114,36 +2344,40 @@
       expiry='—',
       ping='—',
       traffic='—'
-    ) {
+    ){
       $('vpnState')
-        .textContent=state;
+        .textContent=
+        state;
 
       $('vpnExpiry')
-        .textContent=expiry;
+        .textContent=
+        expiry;
 
       $('vpnPing')
-        .textContent=ping;
+        .textContent=
+        ping;
 
       $('vpnTraffic')
-        .textContent=traffic;
+        .textContent=
+        traffic;
     }
 
-    function isVpnActive(data) {
-      const subscription =
-        data?.subscription ||
+    function isVpnActive(data){
+      const subscription=
+        data?.subscription||
         {};
 
       return !(
-        data?.enabled===false ||
-        data?.active===false ||
-        data?.valid===false ||
-        data?.subscription_active===false ||
-        subscription.enabled===false ||
+        data?.enabled===false||
+        data?.active===false||
+        data?.valid===false||
+        data?.subscription_active===false||
+        subscription.enabled===false||
         subscription.active===false
       );
     }
 
-    function getHappUrl() {
+    function getHappUrl(){
       const candidates=[
         vpnData?.launch_url,
         vpnData?.happ_url,
@@ -2159,94 +2393,90 @@
       return (
         candidates.find(
           value =>
-            typeof value==='string' &&
+            typeof value==='string'&&
             value.trim()
-        ) ||
+        )||
         ''
       ).trim();
     }
 
-    function isAllowedHappUrl(value) {
-      if (
+    function isAllowedHappUrl(value){
+      if(
         typeof value!=='string'
-      ) {
+      ){
         return false;
       }
 
-      const raw =
+      const raw=
         value.trim();
 
-      if (!raw) {
+      if(!raw){
         return false;
       }
 
-      try {
-        const parsed =
-          new URL(
-            raw
-          );
+      try{
+        const parsed=
+          new URL(raw);
 
-        if (
-          parsed.protocol==='https:' &&
+        if(
+          parsed.protocol==='https:'&&
           parsed.hostname===
-            ALLOWED_HAPP_HOST &&
+            ALLOWED_HAPP_HOST&&
           parsed.pathname.startsWith(
             '/DisstVpn/'
           )
-        ) {
+        ){
           return true;
         }
 
-      } catch {}
+      }catch{}
 
-      if (
+      if(
         /^happ:\/\/add\/https:\/\//i.test(
           raw
         )
-      ) {
-        try {
-          const nested =
+      ){
+        try{
+          const nested=
             raw.replace(
               /^happ:\/\/add\//i,
               ''
             );
 
-          const parsed =
-            new URL(
-              nested
-            );
+          const parsed=
+            new URL(nested);
 
           return (
-            parsed.protocol==='https:' &&
+            parsed.protocol==='https:'&&
             parsed.hostname===
               ALLOWED_HAPP_HOST
           );
 
-        } catch {
+        }catch{
           return false;
         }
       }
 
-      try {
-        const decoded =
+      try{
+        const decoded=
           decodeURIComponent(
             raw
           );
 
-        if (
+        if(
           decoded!==raw
-        ) {
+        ){
           return isAllowedHappUrl(
             decoded
           );
         }
-      } catch {}
+      }catch{}
 
       return false;
     }
 
-    function getSafeHappUrl() {
-      const url =
+    function getSafeHappUrl(){
+      const url=
         getHappUrl();
 
       return isAllowedHappUrl(
@@ -2256,30 +2486,30 @@
         : '';
     }
 
-    function updateVpnCheckButton() {
-      const token =
+    function updateVpnCheckButton(){
+      const token=
         $('vpnToken')
           .value
           .trim();
 
-      $('vpnCheck').disabled =
-        !token ||
+      $('vpnCheck').disabled=
+        !token||
         token.length>
           VPN_TOKEN_MAX_LENGTH;
     }
 
-    function hideVpnActions() {
+    function hideVpnActions(){
       $('vpnActions')
         .classList.add(
           'hidden'
         );
     }
 
-    function renderVpnActions() {
-      const safeUrl =
+    function renderVpnActions(){
+      const safeUrl=
         getSafeHappUrl();
 
-      if (!safeUrl) {
+      if(!safeUrl){
         hideVpnActions();
         return;
       }
@@ -2290,18 +2520,18 @@
         );
     }
 
-    async function checkVpnToken() {
-      const token =
+    async function checkVpnToken(){
+      const token=
         $('vpnToken')
           .value
           .trim();
 
-      const button =
+      const button=
         $('vpnCheck');
 
       hideVpnActions();
 
-      if (!token) {
+      if(!token){
         setVpnSubscriptionName(
           ''
         );
@@ -2316,10 +2546,10 @@
         return;
       }
 
-      if (
+      if(
         token.length>
         VPN_TOKEN_MAX_LENGTH
-      ) {
+      ){
         setVpnSubscriptionName(
           ''
         );
@@ -2334,7 +2564,8 @@
         return;
       }
 
-      button.disabled=true;
+      button.disabled=
+        true;
 
       setVpnStatus(
         'Проверка…',
@@ -2343,28 +2574,28 @@
         '—'
       );
 
-      try {
+      try{
         let data=null;
         let elapsed=0;
 
-        try {
-          const result =
+        try{
+          const result=
             await vpnRequest(
               token
             );
 
-          elapsed =
+          elapsed=
             result.elapsed;
 
-          const response =
+          const response=
             result.response;
 
-          const responseData =
+          const responseData=
             result.data;
 
-          if (
+          if(
             response.status===401
-          ) {
+          ){
             clearVpnToken();
 
             setVpnSubscriptionName(
@@ -2381,9 +2612,9 @@
             return;
           }
 
-          if (
+          if(
             response.status===403
-          ) {
+          ){
             setVpnSubscriptionName(
               ''
             );
@@ -2398,9 +2629,9 @@
             return;
           }
 
-          if (
+          if(
             response.status===429
-          ) {
+          ){
             setVpnStatus(
               'Слишком много запросов',
               '—',
@@ -2411,106 +2642,106 @@
             return;
           }
 
-          if (
-            response.ok &&
+          if(
+            response.ok&&
             responseData
-          ) {
-            data =
+          ){
+            data=
               responseData;
 
-          } else if (
-            response.status===400 ||
-            response.status===404 ||
+          }else if(
+            response.status===400||
+            response.status===404||
             response.status===405
-          ) {
-            const fallbackStarted =
+          ){
+            const fallbackStarted=
               performance.now();
 
-            data =
+            data=
               await vpnActionFallback(
                 token
               );
 
-            if (!elapsed) {
-              elapsed =
+            if(!elapsed){
+              elapsed=
                 performance.now()-
                 fallbackStarted;
             }
 
-          } else if (
+          }else if(
             response.status>=500
-          ) {
+          ){
             throw new Error(
               'Сервер недоступен'
             );
 
-          } else {
+          }else{
             throw new Error(
-              responseData?.message ||
-              responseData?.error ||
+              responseData?.message||
+              responseData?.error||
               `Ошибка API ${response.status}`
             );
           }
 
-        } catch(firstError) {
-          if (
+        }catch(firstError){
+          if(
             firstError?.name===
               'AbortError'
-          ) {
+          ){
             throw firstError;
           }
 
-          if (
+          if(
             /сервер недоступен/i.test(
               String(
-                firstError?.message ||
+                firstError?.message||
                 ''
               )
             )
-          ) {
+          ){
             throw firstError;
           }
 
-          const fallbackStarted =
+          const fallbackStarted=
             performance.now();
 
-          data =
+          data=
             await vpnActionFallback(
               token
             );
 
-          if (!elapsed) {
-            elapsed =
+          if(!elapsed){
+            elapsed=
               performance.now()-
               fallbackStarted;
           }
         }
 
-        if (
-          !data ||
-          data.ok===false ||
+        if(
+          !data||
+          data.ok===false||
           data.success===false
-        ) {
+        ){
           throw new Error(
-            data?.message ||
-            data?.error ||
+            data?.message||
+            data?.error||
             'Не удалось получить данные'
           );
         }
 
-        vpnData =
+        vpnData=
           data;
 
-        const valid =
-          data.valid ??
-          data.active ??
-          data.is_active ??
-          data.subscription_active ??
+        const valid=
+          data.valid??
+          data.active??
+          data.is_active??
+          data.subscription_active??
           isVpnActive(
             data
           );
 
-        if (!valid) {
+        if(!valid){
           clearVpnToken();
 
           setVpnSubscriptionName(
@@ -2533,25 +2764,25 @@
           )
         );
 
-        const expiry =
+        const expiry=
           formatExpiry(
-            data.expires_at ||
-            data.expire_at ||
-            data.expiry ||
-            data.expires ||
-            data.subscription?.expires_at ||
+            data.expires_at||
+            data.expire_at||
+            data.expiry||
+            data.expires||
+            data.subscription?.expires_at||
             data.subscription?.expire
           );
 
-        const serverPing =
-          data.ping ??
-          data.latency ??
-          data.server_ping ??
-          data.subscription?.ping ??
+        const serverPing=
+          data.ping??
+          data.latency??
+          data.server_ping??
+          data.subscription?.ping??
           null;
 
-        const ping =
-          serverPing!==null &&
+        const ping=
+          serverPing!==null&&
           Number.isFinite(
             Number(
               serverPing
@@ -2572,16 +2803,16 @@
                 )
               )} ms`;
 
-        const traffic =
+        const traffic=
           formatTraffic(
             data
           );
 
-        if (
+        if(
           !isVpnActive(
             data
           )
-        ) {
+        ){
           setVpnStatus(
             'Отключена',
             expiry,
@@ -2607,17 +2838,16 @@
 
         renderVpnActions();
 
-      } catch(error) {
+      }catch(error){
         setVpnSubscriptionName(
           ''
         );
 
         setVpnStatus(
-          error?.name===
-            'AbortError'
+          error?.name==='AbortError'
             ? 'Нет ответа'
             : (
-                error?.message ||
+                error?.message||
                 'Нет связи'
               ),
           '—',
@@ -2625,18 +2855,19 @@
           '—'
         );
 
-      } finally {
+      }finally{
         updateVpnCheckButton();
       }
     }
 
-    function restoreVpnToken() {
-      const token =
+    function restoreVpnToken(){
+      const token=
         getInitialVpnToken();
 
-      if (token) {
+      if(token){
         $('vpnToken')
-          .value=token;
+          .value=
+          token;
       }
 
       setVpnSubscriptionName(
@@ -2653,12 +2884,13 @@
       );
 
       hideVpnActions();
+
       updateVpnCheckButton();
     }
 
-    function escapeHtml(value) {
+    function escapeHtml(value){
       return String(
-        value ?? ''
+        value??''
       )
         .replaceAll(
           '&',
@@ -2682,7 +2914,7 @@
         );
     }
 
-    function getActiveNetwork() {
+    function getActiveNetwork(){
       return readSessionJson(
         SS_ACTIVE_NETWORK,
         null
@@ -2691,13 +2923,13 @@
 
     function saveActiveNetwork(
       network
-    ) {
-      if (!network) {
-        try {
+    ){
+      if(!network){
+        try{
           sessionStorage.removeItem(
             SS_ACTIVE_NETWORK
           );
-        } catch {}
+        }catch{}
 
         return;
       }
@@ -2708,8 +2940,8 @@
       );
     }
 
-    function getLanNetworks() {
-      const networks =
+    function getLanNetworks(){
+      const networks=
         readSessionJson(
           SS_LAN_NETWORKS,
           []
@@ -2724,16 +2956,18 @@
 
     function saveLanNetworks(
       networks
-    ) {
+    ){
       writeSessionJson(
         SS_LAN_NETWORKS,
-        Array.isArray(networks)
+        Array.isArray(
+          networks
+        )
           ? networks
           : []
       );
     }
 
-    function getJoinCodes() {
+    function getJoinCodes(){
       return readSessionJson(
         SS_LAN_JOIN_CODES,
         {}
@@ -2742,36 +2976,36 @@
 
     function saveJoinCodes(
       codes
-    ) {
+    ){
       writeSessionJson(
         SS_LAN_JOIN_CODES,
-        codes || {}
+        codes||{}
       );
     }
 
     function getJoinCodeForNetwork(
       networkId
-    ) {
-      const codes =
+    ){
+      const codes=
         getJoinCodes();
 
       return codes[
         String(networkId)
-      ] || '';
+      ]||'';
     }
 
     function saveJoinCode(
       networkId,
       code
-    ) {
-      if (
-        networkId==null ||
+    ){
+      if(
+        networkId==null||
         !code
-      ) {
+      ){
         return;
       }
 
-      const codes =
+      const codes=
         getJoinCodes();
 
       codes[
@@ -2785,8 +3019,8 @@
 
     function removeJoinCode(
       networkId
-    ) {
-      const codes =
+    ){
+      const codes=
         getJoinCodes();
 
       delete codes[
@@ -2798,7 +3032,7 @@
       );
     }
 
-    function getPublicKey() {
+    function getPublicKey(){
       return $('lanPublicKey')
         .value
         .trim();
@@ -2806,47 +3040,47 @@
 
     function isValidBase64Key(
       value
-    ) {
-      if (
-        !value ||
+    ){
+      if(
+        !value||
         typeof value!=='string'
-      ) {
+      ){
         return false;
       }
 
-      const normalized =
+      const normalized=
         value.replace(
           /\s/g,
           ''
         );
 
-      if (
+      if(
         !/^[A-Za-z0-9+/]{43}=$/.test(
           normalized
         )
-      ) {
+      ){
         return false;
       }
 
-      try {
+      try{
         return atob(
           normalized
         ).length===32;
-      } catch {
+      }catch{
         return false;
       }
     }
 
     function validateLanName(
       value
-    ) {
-      const name =
+    ){
+      const name=
         String(
           value||''
         ).trim();
 
       return Boolean(
-        name &&
+        name&&
         name.length<=
           LAN_NAME_MAX_LENGTH
       );
@@ -2854,24 +3088,24 @@
 
     function validateJoinCode(
       value
-    ) {
-      const code =
+    ){
+      const code=
         String(
           value||''
         ).trim();
 
       return Boolean(
-        code &&
+        code&&
         code.length<=
           LAN_JOIN_CODE_MAX_LENGTH
       );
     }
 
-    function requirePublicKey() {
-      const key =
+    function requirePublicKey(){
+      const key=
         getPublicKey();
 
-      if (!key) {
+      if(!key){
         updateLanInfo(
           currentNetwork,
           'Не готова'
@@ -2882,11 +3116,11 @@
         return '';
       }
 
-      if (
+      if(
         !isValidBase64Key(
           key
         )
-      ) {
+      ){
         updateLanInfo(
           currentNetwork,
           'Неверный ключ'
@@ -2904,37 +3138,37 @@
       raw,
       fallback={},
       publicKey=''
-    ) {
-      if (!raw) {
+    ){
+      if(!raw){
         return null;
       }
 
-      const ownerKey =
-        raw.owner_public_key ||
-        raw.ownerPublicKey ||
-        fallback.ownerPublicKey ||
+      const ownerKey=
+        raw.owner_public_key||
+        raw.ownerPublicKey||
+        fallback.ownerPublicKey||
         '';
 
-      const id =
-        raw.network_id ??
-        raw.networkId ??
-        raw.id ??
-        fallback.id ??
+      const id=
+        raw.network_id??
+        raw.networkId??
+        raw.id??
+        fallback.id??
         null;
 
-      if (id==null) {
+      if(id==null){
         return null;
       }
 
-      let role =
-        raw.role ||
-        fallback.role ||
+      let role=
+        raw.role||
+        fallback.role||
         '';
 
-      if (!role) {
-        role =
-          ownerKey &&
-          publicKey &&
+      if(!role){
+        role=
+          ownerKey&&
+          publicKey&&
           ownerKey===publicKey
             ? 'owner'
             : 'member';
@@ -2944,22 +3178,22 @@
         id,
 
         name:
-          raw.name ??
-          raw.network_name ??
-          raw.networkName ??
-          fallback.name ??
+          raw.name??
+          raw.network_name??
+          raw.networkName??
+          fallback.name||
           'LAN',
 
         subnet:
-          raw.subnet ??
-          raw.cidr ??
-          fallback.subnet ??
+          raw.subnet??
+          raw.cidr??
+          fallback.subnet||
           '—',
 
         publicKey:
-          raw.public_key ??
-          raw.publicKey ??
-          fallback.publicKey ??
+          raw.public_key??
+          raw.publicKey??
+          fallback.publicKey||
           publicKey,
 
         ownerPublicKey:
@@ -2968,30 +3202,28 @@
         role,
 
         myIp:
-          raw.my_ip ??
-          raw.myIp ??
-          raw.ip ??
-          raw.address ??
-          raw.me?.ip ??
-          raw.me?.address ??
-          fallback.myIp ??
+          raw.my_ip??
+          raw.myIp??
+          raw.ip??
+          raw.address??
+          raw.me?.ip??
+          raw.me?.address??
+          fallback.myIp||
           '—',
 
         joinCode:
-          raw.join_code ??
-          raw.joinCode ??
-          raw.code ??
-          fallback.joinCode ??
-          getJoinCodeForNetwork(
-            id
-          ) ??
+          raw.join_code??
+          raw.joinCode??
+          raw.code??
+          fallback.joinCode||
+          getJoinCodeForNetwork(id)||
           '',
 
         config:
-          raw.config ??
-          raw.wireguard_config ??
-          raw.wireguardConfig ??
-          fallback.config ??
+          raw.config??
+          raw.wireguard_config??
+          raw.wireguardConfig??
+          fallback.config||
           '',
 
         devices:
@@ -3008,8 +3240,8 @@
               ),
 
         joined:
-          raw.joined ??
-          fallback.joined ??
+          raw.joined??
+          fallback.joined??
           true
       };
     }
@@ -3017,39 +3249,39 @@
     function normalizeNetworkCollection(
       data,
       publicKey
-    ) {
+    ){
       let rawNetworks=[];
 
-      if (
+      if(
         Array.isArray(
           data?.networks
         )
-      ) {
+      ){
         rawNetworks=
           data.networks;
 
-      } else if (
+      }else if(
         Array.isArray(
           data?.items
         )
-      ) {
+      ){
         rawNetworks=
           data.items;
 
-      } else if (
+      }else if(
         data?.network
-      ) {
+      ){
         rawNetworks=[
           data.network
         ];
 
-      } else if (
-        data?.network_id!=null ||
-        data?.networkId!=null ||
-        data?.id!=null ||
-        data?.name ||
+      }else if(
+        data?.network_id!=null||
+        data?.networkId!=null||
+        data?.id!=null||
+        data?.name||
         data?.config
-      ) {
+      ){
         rawNetworks=[
           data
         ];
@@ -3063,33 +3295,35 @@
       for(
         const raw
         of rawNetworks
-      ) {
-        if (!raw) {
+      ){
+        if(!raw){
           continue;
         }
 
-        const id =
-          raw.network_id ??
-          raw.networkId ??
-          raw.id ??
+        const id=
+          raw.network_id??
+          raw.networkId??
+          raw.id??
           null;
 
-        const fallback =
+        const fallback=
           existing.find(
             item =>
-              id!=null &&
-              String(item.id)===
-                String(id)
-          ) || {};
+              id!=null&&
+              String(
+                item.id
+              )===
+              String(id)
+          )||{};
 
-        const network =
+        const network=
           normalizeNetwork(
             raw,
             fallback,
             publicKey
           );
 
-        if (network) {
+        if(network){
           result.push(
             network
           );
@@ -3101,21 +3335,21 @@
 
     function mergeNetworks(
       networks
-    ) {
-      const existing =
+    ){
+      const existing=
         getLanNetworks();
 
-      const map =
+      const map=
         new Map();
 
       for(
         const item
         of existing
-      ) {
-        if (
-          item &&
+      ){
+        if(
+          item&&
           item.id!=null
-        ) {
+        ){
           map.set(
             String(item.id),
             item
@@ -3126,23 +3360,23 @@
       for(
         const network
         of networks
-      ) {
-        if (
-          !network ||
+      ){
+        if(
+          !network||
           network.id==null
-        ) {
+        ){
           continue;
         }
 
-        const key =
+        const key=
           String(
             network.id
           );
 
-        const previous =
+        const previous=
           map.get(
             key
-          ) || {};
+          )||{};
 
         map.set(
           key,
@@ -3150,29 +3384,30 @@
             ...previous,
             ...network,
             joinCode:
-              network.joinCode ||
-              previous.joinCode ||
+              network.joinCode||
+              previous.joinCode||
               '',
             config:
-              network.config ||
-              previous.config ||
+              network.config||
+              previous.config||
               '',
             devices:
               Array.isArray(
                 network.devices
-              ) &&
+              )&&
               network.devices.length
                 ? network.devices
                 : (
-                    previous.devices ||
+                    previous.devices||
                     []
                   )
           }
         );
       }
 
-      const merged =
-        [...map.values()];
+      const merged=[
+        ...map.values()
+      ];
 
       saveLanNetworks(
         merged
@@ -3184,46 +3419,46 @@
     function updateLanInfo(
       network,
       status=''
-    ) {
-      const key =
+    ){
+      const key=
         getPublicKey();
 
-      let resolvedStatus =
+      let resolvedStatus=
         status;
 
-      if (!key) {
+      if(!key){
         resolvedStatus=
           'Не готова';
 
-      } else if (
+      }else if(
         !isValidBase64Key(
           key
         )
-      ) {
+      ){
         resolvedStatus=
           'Неверный ключ';
 
-      } else if (
+      }else if(
         !resolvedStatus
-      ) {
-        resolvedStatus =
+      ){
+        resolvedStatus=
           network
             ? 'Подключена'
             : 'Действительный';
       }
 
       $('lanInfoSubnet')
-        .textContent =
-        network?.subnet ||
+        .textContent=
+        network?.subnet||
         '—';
 
       $('lanInfoIp')
-        .textContent =
-        network?.myIp ||
+        .textContent=
+        network?.myIp||
         '—';
 
       $('lanInfoRole')
-        .textContent =
+        .textContent=
         network
           ? (
               network.role===
@@ -3234,7 +3469,7 @@
           : '—';
 
       $('lanInfoStatus')
-        .textContent =
+        .textContent=
         resolvedStatus;
 
       setLanNetworkName(
@@ -3246,11 +3481,11 @@
 
     function setLanNetworkName(
       name
-    ) {
-      const element =
+    ){
+      const element=
         $('lanNetworkName');
 
-      if (!name) {
+      if(!name){
         element.textContent='';
         element.classList.add(
           'hidden'
@@ -3269,33 +3504,35 @@
     function setLanStatus(
       message,
       network=currentNetwork
-    ) {
-      const key =
+    ){
+      const key=
         getPublicKey();
 
-      if (!key) {
+      if(!key){
         updateLanInfo(
           network,
           'Не готова'
         );
+
         return;
       }
 
-      if (
+      if(
         !isValidBase64Key(
           key
         )
-      ) {
+      ){
         updateLanInfo(
           network,
           'Неверный ключ'
         );
+
         return;
       }
 
       updateLanInfo(
         network,
-        message ||
+        message||
         (
           network
             ? 'Подключена'
@@ -3304,45 +3541,48 @@
       );
     }
 
-    function updateLanControls() {
-      const valid =
+    function updateLanControls(){
+      const valid=
         isValidBase64Key(
           getPublicKey()
         );
 
       $('lanCreateButton')
-        .disabled=!valid;
+        .disabled=
+        !valid;
 
       $('lanJoinButton')
-        .disabled=!valid;
+        .disabled=
+        !valid;
 
       $('refreshLan')
-        .disabled=!valid;
+        .disabled=
+        !valid;
     }
 
     function renderNetworkList(
       networks
-    ) {
-      const list =
+    ){
+      const list=
         $('networkList');
 
-      if (
+      if(
         !Array.isArray(
           networks
-        ) ||
+        )||
         !networks.length
-      ) {
+      ){
         list.innerHTML=
           '<div class="empty">Нет сетей</div>';
 
         return;
       }
 
-      list.innerHTML =
+      list.innerHTML=
         networks
           .map(
-            network => {
-              const role =
+            network=>{
+              const role=
                 network.role===
                   'owner'
                   ? 'Владелец'
@@ -3373,7 +3613,8 @@
                       )}
                       ·
                       ${escapeHtml(
-                        network.myIp||'—'
+                        network.myIp||
+                        '—'
                       )}
                     </div>
                   </div>
@@ -3392,11 +3633,11 @@
           '.network-item'
         )
         .forEach(
-          button => {
+          button=>{
             button.addEventListener(
               'click',
-              () => {
-                const network =
+              ()=>{
+                const network=
                   networks.find(
                     item =>
                       String(
@@ -3408,7 +3649,7 @@
                       )
                   );
 
-                if (network) {
+                if(network){
                   openNetwork(
                     network
                   );
@@ -3421,31 +3662,32 @@
 
     function renderDevices(
       devices
-    ) {
-      const list =
+    ){
+      const list=
         $('devicesList');
 
-      const safeDevices =
+      const safeDevices=
         Array.isArray(
           devices
         )
           ? devices
           : [];
 
-      const count =
+      const count=
         safeDevices.length;
 
       $('devicesCount')
-        .textContent =
+        .textContent=
         `${count} ${
           count===1
             ? 'устройство'
             : 'устройств'
         }`;
 
-      if (!safeDevices.length) {
+      if(!safeDevices.length){
         list.innerHTML=
           '<div class="empty">Нет устройств</div>';
+
         return;
       }
 
@@ -3455,14 +3697,14 @@
       list.innerHTML=
         safeDevices
           .map(
-            device => {
-              const publicKey =
-                device.public_key ||
-                device.publicKey ||
+            device=>{
+              const publicKey=
+                device.public_key||
+                device.publicKey||
                 '';
 
-              const name =
-                device.name ||
+              const name=
+                device.name||
                 (
                   publicKey===
                   myPublicKey
@@ -3470,22 +3712,24 @@
                     : 'Устройство'
                 );
 
-              const ip =
-                device.ip ||
-                device.address ||
-                device.client_ip ||
+              const ip=
+                device.ip||
+                device.address||
+                device.client_ip||
                 '—';
 
-              const online =
+              const online=
                 Boolean(
-                  device.online ||
-                  device.is_online ||
+                  device.online||
+                  device.is_online||
                   device.connected
                 );
 
               return `
                 <div class="device">
+
                   <div class="device-main">
+
                     <div class="device-name">
                       ${escapeHtml(
                         name
@@ -3497,14 +3741,18 @@
                         ip
                       )}
                     </div>
+
                   </div>
 
                   <div class="device-state">
-                    <span class="device-dot ${
-                      online
-                        ? 'online'
-                        : ''
-                    }"></span>
+
+                    <span
+                      class="device-dot ${
+                        online
+                          ? 'online'
+                          : ''
+                      }"
+                    ></span>
 
                     <span>
                       ${
@@ -3513,7 +3761,9 @@
                           : 'офлайн'
                       }
                     </span>
+
                   </div>
+
                 </div>
               `;
             }
@@ -3523,7 +3773,7 @@
 
     function renderCurrentNetwork(
       network
-    ) {
+    ){
       currentNetwork=
         network;
 
@@ -3552,36 +3802,37 @@
         );
 
       $('currentNetworkSubtitle')
-        .textContent =
-        network.name ||
+        .textContent=
+        network.name||
         'LAN';
 
       $('currentName')
-        .textContent =
-        network.name ||
+        .textContent=
+        network.name||
         '—';
 
       $('currentSubnet')
-        .textContent =
-        network.subnet ||
+        .textContent=
+        network.subnet||
         '—';
 
       $('currentIp')
-        .textContent =
-        network.myIp ||
+        .textContent=
+        network.myIp||
         '—';
 
       $('currentRole')
-        .textContent =
+        .textContent=
         network.role===
           'owner'
           ? 'Владелец'
           : 'Участник';
 
-      const owner =
-        network.role==='owner';
+      const owner=
+        network.role===
+          'owner';
 
-      const hasJoinCode =
+      const hasJoinCode=
         Boolean(
           network.joinCode
         );
@@ -3606,18 +3857,18 @@
         );
 
       $('accessCode')
-        .textContent =
+        .textContent=
         network.joinCode||
         '—';
 
-      currentConfig =
+      currentConfig=
         typeof network.config===
           'string'
             ? network.config
             : '';
 
       $('configText')
-        .value =
+        .value=
         currentConfig;
 
       renderDevices(
@@ -3625,7 +3876,7 @@
       );
     }
 
-    function clearCurrentNetwork() {
+    function clearCurrentNetwork(){
       currentNetwork=
         null;
 
@@ -3671,7 +3922,7 @@
 
     function openNetwork(
       network
-    ) {
+    ){
       renderCurrentNetwork(
         network
       );
@@ -3687,8 +3938,8 @@
 
     function setLanTab(
       tab
-    ) {
-      currentLanTab =
+    ){
+      currentLanTab=
         tab==='join'
           ? 'join'
           : 'create';
@@ -3698,7 +3949,7 @@
           '.lan-tab'
         )
         .forEach(
-          button => {
+          button=>{
             button.classList.toggle(
               'active',
               button.dataset
@@ -3721,17 +3972,17 @@
         );
     }
 
-    async function createLan() {
-      const name =
+    async function createLan(){
+      const name=
         $('lanCreateName')
           .value
           .trim();
 
-      if (
+      if(
         !validateLanName(
           name
         )
-      ) {
+      ){
         setLanStatus(
           'Укажите корректное название сети'
         );
@@ -3739,51 +3990,49 @@
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
+      if(!publicKey){
         return;
       }
 
-      const button =
+      const button=
         $('lanCreateButton');
 
       button.disabled=
         true;
 
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_create',
             {
               public_key:
                 publicKey,
-
               device_name:
                 DEVICE_NAME,
-
               name
             }
           );
 
-        const rawNetwork =
+        const rawNetwork=
           data.network||
           data.result||
           data;
 
-        let network =
+        let network=
           normalizeNetwork(
             rawNetwork,
             {},
             publicKey
           );
 
-        if (
-          !network &&
+        if(
+          !network&&
           data.network_id!=null
-        ) {
-          network =
+        ){
+          network=
             normalizeNetwork(
               {
                 ...data,
@@ -3795,7 +4044,7 @@
             );
         }
 
-        if (!network) {
+        if(!network){
           throw new Error(
             'Сервер не вернул созданную сеть'
           );
@@ -3811,16 +4060,16 @@
           network.joinCode||
           '';
 
-        if (
+        if(
           network.joinCode
-        ) {
+        ){
           saveJoinCode(
             network.id,
             network.joinCode
           );
         }
 
-        const networks =
+        const networks=
           mergeNetworks([
             network
           ]);
@@ -3838,7 +4087,7 @@
           network
         );
 
-      } catch(error) {
+      }catch(error){
         setLanStatus(
           error?.name===
             'AbortError'
@@ -3849,22 +4098,22 @@
               )
         );
 
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
 
-    async function joinLan() {
-      const joinCode =
+    async function joinLan(){
+      const joinCode=
         $('lanJoinCode')
           .value
           .trim();
 
-      if (
+      if(
         !validateJoinCode(
           joinCode
         )
-      ) {
+      ){
         setLanStatus(
           'Введите корректный код доступа'
         );
@@ -3872,52 +4121,50 @@
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
+      if(!publicKey){
         return;
       }
 
-      const button =
+      const button=
         $('lanJoinButton');
 
       button.disabled=
         true;
 
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_join',
             {
               public_key:
                 publicKey,
-
               device_name:
                 DEVICE_NAME,
-
               join_code:
                 joinCode
             }
           );
 
-        const rawNetwork =
+        const rawNetwork=
           data.network||
           data.result||
           data;
 
-        let network =
+        let network=
           normalizeNetwork(
             rawNetwork,
             {},
             publicKey
           );
 
-        if (
-          !network &&
+        if(
+          !network&&
           data.network_id!=null
-        ) {
-          network =
+        ){
+          network=
             normalizeNetwork(
               {
                 ...data,
@@ -3929,7 +4176,7 @@
             );
         }
 
-        if (!network) {
+        if(!network){
           throw new Error(
             'Сервер не вернул подключённую сеть'
           );
@@ -3946,7 +4193,7 @@
           joinCode
         );
 
-        const networks =
+        const networks=
           mergeNetworks([
             network
           ]);
@@ -3967,7 +4214,7 @@
           network
         );
 
-      } catch(error) {
+      }catch(error){
         setLanStatus(
           error?.name===
             'AbortError'
@@ -3978,83 +4225,86 @@
               )
         );
 
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
 
-    async function refreshLanNetwork() {
-      const publicKey =
+    async function refreshLanNetwork(){
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
-        const networks =
+      if(!publicKey){
+        const networks=
           getLanNetworks();
 
         renderNetworkList(
           networks
         );
 
-        const active =
+        const active=
           getActiveNetwork();
 
-        if (active) {
+        if(active){
           renderCurrentNetwork(
             active
           );
-        } else {
+        }else{
           clearCurrentNetwork();
         }
 
         return;
       }
 
-      const active =
+      const active=
         getActiveNetwork();
 
       const payload={
         public_key:
           publicKey,
-
         device_name:
           DEVICE_NAME
       };
 
-      if (
-        active &&
-        active.role!=='owner' &&
+      if(
+        active&&
+        active.role!=='owner'&&
         active.id!=null
-      ) {
-        const joinCode =
+      ){
+        const joinCode=
           getJoinCodeForNetwork(
             active.id
           )||
           active.joinCode||
           '';
 
-        if (joinCode) {
+        if(joinCode){
           payload.join_code=
             joinCode;
         }
       }
 
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_status',
             payload
           );
 
-        if (
-          data.joined===false &&
+        if(
+          data.joined===false&&
           active?.id!=null
-        ) {
-          const remaining =
+        ){
+          const remaining=
             getLanNetworks()
               .filter(
                 item =>
-                  String(item.id)!==
-                    String(active.id)
+                  String(
+                    item.id
+                  )!==
+                  String(
+                    active.id
+                  )
               );
 
           saveLanNetworks(
@@ -4078,13 +4328,13 @@
           return;
         }
 
-        const networks =
+        const networks=
           normalizeNetworkCollection(
             data,
             publicKey
           );
 
-        const merged =
+        const merged=
           mergeNetworks(
             networks
           );
@@ -4093,12 +4343,12 @@
           merged
         );
 
-        if (!networks.length) {
-          if (active) {
+        if(!networks.length){
+          if(active){
             renderCurrentNetwork(
               active
             );
-          } else {
+          }else{
             clearCurrentNetwork();
           }
 
@@ -4107,33 +4357,43 @@
 
         let selected=null;
 
-        if (active?.id!=null) {
-          selected =
+        if(
+          active?.id!=null
+        ){
+          selected=
             networks.find(
               item =>
-                String(item.id)===
-                  String(active.id)
+                String(
+                  item.id
+                )===
+                String(
+                  active.id
+                )
             )||null;
         }
 
-        if (
-          !selected &&
+        if(
+          !selected&&
           networks.length===1
-        ) {
+        ){
           selected=
             networks[0];
         }
 
-        if (selected) {
-          const oldNetwork =
+        if(selected){
+          const oldNetwork=
             getLanNetworks()
               .find(
                 item =>
-                  String(item.id)===
-                    String(selected.id)
+                  String(
+                    item.id
+                  )===
+                  String(
+                    selected.id
+                  )
               )||{};
 
-          const finalNetwork =
+          const finalNetwork=
             normalizeNetwork(
               selected,
               oldNetwork,
@@ -4153,26 +4413,26 @@
           );
         }
 
-      } catch(error) {
-        const networks =
+      }catch(error){
+        const networks=
           getLanNetworks();
 
         renderNetworkList(
           networks
         );
 
-        if (active) {
+        if(active){
           renderCurrentNetwork(
             active
           );
-        } else {
+        }else{
           clearCurrentNetwork();
         }
 
-        if (
+        if(
           error?.name===
             'AbortError'
-        ) {
+        ){
           setLanStatus(
             'Нет ответа от сервера'
           );
@@ -4180,67 +4440,67 @@
       }
     }
 
-    async function refreshSelectedNetwork() {
-      if (
-        !currentNetwork ||
+    async function refreshSelectedNetwork(){
+      if(
+        !currentNetwork||
         currentNetwork.id==null
-      ) {
+      ){
         await refreshLanNetwork();
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
+      if(!publicKey){
         return;
       }
 
       const payload={
         public_key:
           publicKey,
-
         device_name:
           DEVICE_NAME,
-
         network_id:
           currentNetwork.id
       };
 
-      if (
+      if(
         currentNetwork.role!=='owner'
-      ) {
-        const joinCode =
+      ){
+        const joinCode=
           getJoinCodeForNetwork(
             currentNetwork.id
           )||
           currentNetwork.joinCode||
           '';
 
-        if (joinCode) {
+        if(joinCode){
           payload.join_code=
             joinCode;
         }
       }
 
-      try {
-        const data =
+      try{
+        const data=
           await api(
             'lan_status',
             payload
           );
 
-        if (
+        if(
           data.joined===false
-        ) {
-          const remaining =
+        ){
+          const remaining=
             getLanNetworks()
               .filter(
                 item =>
-                  String(item.id)!==
-                    String(
-                      currentNetwork.id
-                    )
+                  String(
+                    item.id
+                  )!==
+                  String(
+                    currentNetwork.id
+                  )
               );
 
           removeJoinCode(
@@ -4264,37 +4524,41 @@
           return;
         }
 
-        const networks =
+        const networks=
           normalizeNetworkCollection(
             data,
             publicKey
           );
 
-        const selected =
+        const selected=
           networks.find(
             item =>
-              String(item.id)===
-                String(
-                  currentNetwork.id
-                )
+              String(
+                item.id
+              )===
+              String(
+                currentNetwork.id
+              )
           );
 
-        if (!selected) {
+        if(!selected){
           return;
         }
 
-        const oldNetwork =
+        const oldNetwork=
           getLanNetworks()
             .find(
               item =>
-                String(item.id)===
-                  String(
-                    selected.id
-                  )
+                String(
+                  item.id
+                )===
+                String(
+                  selected.id
+                )
             )||
             currentNetwork;
 
-        const mergedNetwork =
+        const mergedNetwork=
           normalizeNetwork(
             selected,
             oldNetwork,
@@ -4318,32 +4582,32 @@
           mergedNetwork
         );
 
-      } catch {}
+      }catch{}
     }
 
-    async function leaveLan() {
-      if (
-        !currentNetwork ||
+    async function leaveLan(){
+      if(
+        !currentNetwork||
         currentNetwork.id==null
-      ) {
+      ){
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
+      if(!publicKey){
         return;
       }
 
-      const joinCode =
+      const joinCode=
         getJoinCodeForNetwork(
           currentNetwork.id
         )||
         currentNetwork.joinCode||
         '';
 
-      if (!joinCode) {
+      if(!joinCode){
         setLanStatus(
           'Нет кода доступа для выхода из сети'
         );
@@ -4351,43 +4615,44 @@
         return;
       }
 
-      const button =
+      const button=
         $('leaveLanButton');
 
       button.disabled=
         true;
 
-      try {
+      try{
         await api(
           'lan_leave',
           {
             public_key:
               publicKey,
-
             device_name:
               DEVICE_NAME,
-
             network_id:
               currentNetwork.id,
-
             join_code:
               joinCode
           }
         );
 
-        const removedId =
+        const removedId=
           currentNetwork.id;
 
         removeJoinCode(
           removedId
         );
 
-        const networks =
+        const networks=
           getLanNetworks()
             .filter(
               item =>
-                String(item.id)!==
-                  String(removedId)
+                String(
+                  item.id
+                )!==
+                String(
+                  removedId
+                )
             );
 
         saveLanNetworks(
@@ -4404,7 +4669,7 @@
           'Вы вышли из сети'
         );
 
-      } catch(error) {
+      }catch(error){
         setLanStatus(
           error?.name===
             'AbortError'
@@ -4415,45 +4680,42 @@
               )
         );
 
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
 
-    async function deleteLan() {
-      if (
-        !currentNetwork ||
+    async function deleteLan(){
+      if(
+        !currentNetwork||
         currentNetwork.id==null
-      ) {
+      ){
         return;
       }
 
-      const publicKey =
+      const publicKey=
         requirePublicKey();
 
-      if (!publicKey) {
+      if(!publicKey){
         return;
       }
 
-      const button =
+      const button=
         $('deleteLanButton');
 
       button.disabled=
         true;
 
-      try {
+      try{
         await api(
           'lan_delete',
           {
             public_key:
               publicKey,
-
             device_name:
               DEVICE_NAME,
-
             network_id:
               currentNetwork.id,
-
             join_code:
               currentNetwork.joinCode||
               getJoinCodeForNetwork(
@@ -4463,19 +4725,23 @@
           }
         );
 
-        const removedId =
+        const removedId=
           currentNetwork.id;
 
         removeJoinCode(
           removedId
         );
 
-        const networks =
+        const networks=
           getLanNetworks()
             .filter(
               item =>
-                String(item.id)!==
-                  String(removedId)
+                String(
+                  item.id
+                )!==
+                String(
+                  removedId
+                )
             );
 
         saveLanNetworks(
@@ -4492,7 +4758,7 @@
           'Сеть удалена'
         );
 
-      } catch(error) {
+      }catch(error){
         setLanStatus(
           error?.name===
             'AbortError'
@@ -4503,7 +4769,7 @@
               )
         );
 
-      } finally {
+      }finally{
         updateLanControls();
       }
     }
@@ -4511,20 +4777,21 @@
     async function copyText(
       text,
       button
-    ) {
-      if (
-        !text ||
+    ){
+      if(
+        !text||
         text==='—'
-      ) {
+      ){
         return;
       }
 
-      try {
+      try{
         await navigator.clipboard.writeText(
           text
         );
-      } catch {
-        const area =
+
+      }catch{
+        const area=
           document.createElement(
             'textarea'
           );
@@ -4549,24 +4816,24 @@
 
         area.select();
 
-        try {
+        try{
           document.execCommand(
             'copy'
           );
-        } catch {}
+        }catch{}
 
         area.remove();
       }
 
-      if (button) {
-        const old =
+      if(button){
+        const old=
           button.textContent;
 
         button.textContent=
           'Готово';
 
         setTimeout(
-          () => {
+          ()=>{
             button.textContent=
               old;
           },
@@ -4577,7 +4844,7 @@
 
     function sanitizeFilename(
       value
-    ) {
+    ){
       return String(
         value||
         'limupy'
@@ -4603,15 +4870,15 @@
     function downloadText(
       filename,
       text
-    ) {
-      if (
-        typeof text!=='string' ||
+    ){
+      if(
+        typeof text!=='string'||
         !text
-      ) {
+      ){
         return;
       }
 
-      const blob =
+      const blob=
         new Blob(
           [text],
           {
@@ -4620,12 +4887,12 @@
           }
         );
 
-      const url =
+      const url=
         URL.createObjectURL(
           blob
         );
 
-      const anchor =
+      const anchor=
         document.createElement(
           'a'
         );
@@ -4647,7 +4914,7 @@
       anchor.remove();
 
       setTimeout(
-        () => {
+        ()=>{
           URL.revokeObjectURL(
             url
           );
@@ -4658,11 +4925,13 @@
 
     function setMode(
       mode
-    ) {
-      currentMode =
+    ){
+      currentMode=
         mode==='lan'
           ? 'lan'
-          : 'vpn';
+          : mode==='profile'
+            ? 'profile'
+            : 'vpn';
 
       $('pageVpn')
         .classList.toggle(
@@ -4676,18 +4945,26 @@
           currentMode==='lan'
         );
 
+      $('pageProfile')
+        .classList.toggle(
+          'active',
+          currentMode==='profile'
+        );
+
       $('modeButtonText')
-        .textContent =
+        .textContent=
         currentMode==='vpn'
           ? 'VPN'
-          : 'LAN';
+          : currentMode==='lan'
+            ? 'LAN'
+            : 'PROFILE';
 
       document
         .querySelectorAll(
           '.mode-option'
         )
         .forEach(
-          button => {
+          button=>{
             button.classList.toggle(
               'active',
               button.dataset.mode===
@@ -4707,9 +4984,9 @@
           'false'
         );
 
-      if (
+      if(
         currentMode==='lan'
-      ) {
+      ){
         refreshLanNetwork();
       }
     }
@@ -4717,10 +4994,10 @@
     $('modeButton')
       .addEventListener(
         'click',
-        event => {
+        event=>{
           event.stopPropagation();
 
-          const open =
+          const open=
             !$('modeMenu')
               .classList.contains(
                 'open'
@@ -4742,7 +5019,7 @@
 
     document.addEventListener(
       'click',
-      () => {
+      ()=>{
         $('modeMenu')
           .classList.remove(
             'open'
@@ -4761,10 +5038,10 @@
         '.mode-option'
       )
       .forEach(
-        button => {
+        button=>{
           button.addEventListener(
             'click',
-            event => {
+            event=>{
               event.stopPropagation();
 
               setMode(
@@ -4780,13 +5057,14 @@
         '.lan-tab'
       )
       .forEach(
-        button => {
+        button=>{
           button.addEventListener(
             'click',
-            () =>
+            ()=>{
               setLanTab(
                 button.dataset.lanTab
-              )
+              );
+            }
           );
         }
       );
@@ -4794,29 +5072,31 @@
     $('lanPublicKey')
       .addEventListener(
         'input',
-        () => {
-          const value =
+        ()=>{
+          const value=
             $('lanPublicKey')
               .value
               .trim();
 
-          if (!value) {
+          if(!value){
             updateLanInfo(
               currentNetwork,
               'Не готова'
             );
-          } else if (
+
+          }else if(
             isValidBase64Key(
               value
             )
-          ) {
+          ){
             updateLanInfo(
               currentNetwork,
               currentNetwork
                 ? 'Подключена'
                 : 'Действительный'
             );
-          } else {
+
+          }else{
             updateLanInfo(
               currentNetwork,
               'Неверный ключ'
@@ -4830,13 +5110,13 @@
     $('lanCreateName')
       .addEventListener(
         'keydown',
-        event => {
-          if (
-            event.key==='Enter' &&
-            !event.shiftKey &&
+        event=>{
+          if(
+            event.key==='Enter'&&
+            !event.shiftKey&&
             !$('lanCreateButton')
               .disabled
-          ) {
+          ){
             event.preventDefault();
             createLan();
           }
@@ -4846,8 +5126,8 @@
     $('lanJoinCode')
       .addEventListener(
         'input',
-        event => {
-          event.target.value =
+        event=>{
+          event.target.value=
             event.target.value
               .trimStart()
               .toUpperCase();
@@ -4857,13 +5137,13 @@
     $('lanJoinCode')
       .addEventListener(
         'keydown',
-        event => {
-          if (
-            event.key==='Enter' &&
-            !event.shiftKey &&
+        event=>{
+          if(
+            event.key==='Enter'&&
+            !event.shiftKey&&
             !$('lanJoinButton')
               .disabled
-          ) {
+          ){
             event.preventDefault();
             joinLan();
           }
@@ -4903,7 +5183,7 @@
     $('copyAccessCode')
       .addEventListener(
         'click',
-        () =>
+        ()=>
           copyText(
             $('accessCode')
               .textContent,
@@ -4914,7 +5194,7 @@
     $('copyConfig')
       .addEventListener(
         'click',
-        () =>
+        ()=>
           copyText(
             currentConfig,
             $('copyConfig')
@@ -4924,15 +5204,15 @@
     $('downloadConfig')
       .addEventListener(
         'click',
-        () => {
-          if (
-            !currentConfig ||
+        ()=>{
+          if(
+            !currentConfig||
             !currentNetwork
-          ) {
+          ){
             return;
           }
 
-          const safeName =
+          const safeName=
             sanitizeFilename(
               currentNetwork.name
             );
@@ -4959,13 +5239,13 @@
     $('vpnToken')
       .addEventListener(
         'keydown',
-        event => {
-          if (
-            event.key==='Enter' &&
+        event=>{
+          if(
+            event.key==='Enter'&&
             $('vpnToken')
               .value
               .trim()
-          ) {
+          ){
             event.preventDefault();
             checkVpnToken();
           }
@@ -4975,11 +5255,11 @@
     $('happOpen')
       .addEventListener(
         'click',
-        () => {
-          const url =
+        ()=>{
+          const url=
             getSafeHappUrl();
 
-          if (!url) {
+          if(!url){
             return;
           }
 
@@ -4989,22 +5269,22 @@
         }
       );
 
-    function init() {
+    function init(){
       getDeviceId();
 
       restoreVpnToken();
 
-      const networks =
+      const networks=
         getLanNetworks();
 
       renderNetworkList(
         networks
       );
 
-      const active =
+      const active=
         getActiveNetwork();
 
-      if (active) {
+      if(active){
         currentNetwork=
           active;
 
@@ -5012,14 +5292,15 @@
           active
         );
 
-      } else {
+      }else{
         clearCurrentNetwork();
       }
 
       updateLanControls();
       hideVpnActions();
+
       setLanNetworkName(
-        active?.name ||
+        active?.name||
         ''
       );
     }
