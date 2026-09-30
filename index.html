@@ -73,6 +73,28 @@
       letter-spacing:-.03em;
     }
 
+    .mode-controls{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:8px;
+      min-width:0;
+    }
+
+    .mode-context{
+      max-width:180px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:650;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .mode-context.hidden{
+      display:none;
+    }
+
     .mode-wrap{position:relative}
 
     .mode-button{
@@ -88,11 +110,7 @@
       font-weight:700;
     }
 
-    .mode-button svg{
-      width:15px;
-      height:15px;
-      opacity:.7;
-    }
+    .mode-button svg{width:15px;height:15px;opacity:.7}
 
     .mode-menu{
       position:absolute;
@@ -124,10 +142,7 @@
 
     .mode-option:hover{background:#1b202b}
     .mode-option.active{background:#202631}
-    .mode-option span:last-child{
-      color:var(--muted);
-      font-size:12px;
-    }
+    .mode-option span:last-child{color:var(--muted);font-size:12px}
 
     .page{display:none}
     .page.active{display:block}
@@ -248,39 +263,27 @@
       white-space:nowrap;
     }
 
-    .btn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-    }
-
-    .btn-primary{
-      background:#fff;
-      color:#111;
-    }
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .btn-primary{background:#fff;color:#111}
 
     .vpn-check-btn{
       min-height:56px;
       height:56px;
     }
 
-    .btn-primary:hover:not(:disabled){
-      background:#e9ebef;
-    }
-
+    .btn-primary:hover:not(:disabled){background:#e9ebef}
     .btn-secondary{
       background:var(--panel-2);
       border:1px solid var(--line);
-      color:var(--text);
+      color:var(--text)
     }
 
-    .btn-secondary:hover:not(:disabled){
-      background:#1a1f29;
-    }
+    .btn-secondary:hover:not(:disabled){background:#1a1f29}
 
     .btn-danger{
       background:rgba(255,104,104,.08);
       border:1px solid rgba(255,104,104,.22);
-      color:var(--danger);
+      color:var(--danger)
     }
 
     .actions{
@@ -290,33 +293,32 @@
       margin-top:12px;
     }
 
-    .actions.one{
-      grid-template-columns:1fr;
-    }
+    .actions.one{grid-template-columns:1fr}
 
-    .happ-actions{
+    .vpn-actions-row{
       display:grid;
-      grid-template-columns:minmax(0,1fr) 40px;
+      grid-template-columns:minmax(0,1fr) auto;
       gap:8px;
-      align-items:stretch;
+      margin-top:12px;
     }
 
-    .happ-actions.hidden{
-      display:none !important;
+    .vpn-actions-row .btn{
+      width:100%;
     }
 
-    .happ-site-btn{
-      width:40px;
-      min-width:40px;
-      height:46px;
-      min-height:46px;
+    .happ-download{
+      width:46px !important;
+      min-width:46px;
       padding:0;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:18px;
-      line-height:1;
-      text-decoration:none;
+    }
+
+    .happ-download svg{
+      width:18px;
+      height:18px;
+      stroke:currentColor;
     }
 
     .notice{
@@ -333,13 +335,52 @@
     .notice.error{
       color:var(--muted);
       border-color:var(--line);
-      background:var(--panel-2);
+      background:var(--panel-2)
     }
 
     .notice.success{
       color:#a3e9ba;
       border-color:rgba(103,211,145,.22);
-      background:rgba(103,211,145,.05);
+      background:rgba(103,211,145,.05)
+    }
+
+    .lan-page{
+      position:relative;
+      min-height:200px;
+    }
+
+    .lan-blur{
+      filter:blur(8px);
+      opacity:.55;
+      pointer-events:none;
+      user-select:none;
+      transform:scale(.995);
+    }
+
+    .lan-development-overlay{
+      position:absolute;
+      inset:0;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:7px;
+      min-height:100%;
+      border-radius:18px;
+      background:rgba(11,13,18,.28);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      pointer-events:auto;
+    }
+
+    .lan-development-title{
+      color:#fff;
+      font-size:28px;
+      line-height:1;
+      font-weight:850;
+      letter-spacing:-.04em;
+      text-shadow:0 8px 30px rgba(0,0,0,.35);
     }
 
     .lan-tabs{
@@ -361,11 +402,7 @@
       font-weight:700;
     }
 
-    .lan-tab.active{
-      background:#202631;
-      color:var(--text);
-    }
-
+    .lan-tab.active{background:#202631;color:var(--text)}
     .lan-form{display:none}
     .lan-form.active{display:block}
 
@@ -423,9 +460,7 @@
       align-items:stretch;
     }
 
-    .key-row .input{
-      min-width:0;
-    }
+    .key-row .input{min-width:0}
 
     .mini-btn{
       flex:0 0 auto;
@@ -439,10 +474,7 @@
       font-weight:700;
     }
 
-    .network-list{
-      display:grid;
-      gap:8px;
-    }
+    .network-list{display:grid;gap:8px}
 
     .network-item{
       width:100%;
@@ -458,30 +490,24 @@
       border-radius:12px;
     }
 
-    .network-item:hover{
-      background:#191e27;
-    }
-
-    .network-main{
-      min-width:0;
-    }
-
+    .network-item:hover{background:#191e27}
+    .network-main{min-width:0}
     .network-name{
       font-weight:750;
       overflow:hidden;
       text-overflow:ellipsis;
-      white-space:nowrap;
+      white-space:nowrap
     }
 
     .network-meta{
       margin-top:4px;
       color:var(--muted);
-      font-size:11px;
+      font-size:11px
     }
 
     .network-arrow{
       color:var(--muted);
-      font-size:18px;
+      font-size:18px
     }
 
     .current-grid{
@@ -500,13 +526,13 @@
     .current-label{
       color:var(--muted);
       font-size:11px;
-      margin-bottom:7px;
+      margin-bottom:7px
     }
 
     .current-value{
       font-weight:700;
       font-size:14px;
-      word-break:break-word;
+      word-break:break-word
     }
 
     .access-box{
@@ -522,12 +548,12 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      margin-bottom:10px;
+      margin-bottom:10px
     }
 
     .access-title{
       font-size:12px;
-      color:var(--muted);
+      color:var(--muted)
     }
 
     .access-code{
@@ -555,17 +581,17 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      margin-bottom:10px;
+      margin-bottom:10px
     }
 
     .config-title{
       font-weight:750;
-      font-size:13px;
+      font-size:13px
     }
 
     .config-actions{
       display:flex;
-      gap:8px;
+      gap:8px
     }
 
     .config-text{
@@ -581,10 +607,7 @@
       outline:none;
     }
 
-    .devices{
-      display:grid;
-      gap:8px;
-    }
+    .devices{display:grid;gap:8px}
 
     .device{
       display:flex;
@@ -597,21 +620,19 @@
       border-radius:12px;
     }
 
-    .device-main{
-      min-width:0;
-    }
+    .device-main{min-width:0}
 
     .device-name{
       font-weight:700;
       overflow:hidden;
       text-overflow:ellipsis;
-      white-space:nowrap;
+      white-space:nowrap
     }
 
     .device-sub{
       margin-top:4px;
       color:var(--muted);
-      font-size:11px;
+      font-size:11px
     }
 
     .device-state{
@@ -620,18 +641,18 @@
       gap:7px;
       font-size:11px;
       color:var(--muted);
-      flex:0 0 auto;
+      flex:0 0 auto
     }
 
     .device-dot{
       width:7px;
       height:7px;
       border-radius:50%;
-      background:#666e7d;
+      background:#666e7d
     }
 
     .device-dot.online{
-      background:var(--success);
+      background:var(--success)
     }
 
     .empty{
@@ -644,47 +665,61 @@
     }
 
     .hidden{
-      display:none !important;
+      display:none !important
     }
 
     @media (max-width:700px){
       .status-grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
+        grid-template-columns:repeat(2,minmax(0,1fr))
+      }
+
+      .mode-context{
+        max-width:135px;
+        font-size:11px
       }
     }
 
     @media (max-width:620px){
       .app{
-        padding:16px 12px 28px;
+        padding:16px 12px 28px
+      }
+
+      .mode-controls{
+        gap:6px
+      }
+
+      .mode-context{
+        max-width:110px;
+        font-size:10px
       }
 
       .input-row{
-        flex-direction:column;
+        flex-direction:column
       }
 
       .actions{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr
       }
 
       .config-head{
         align-items:flex-start;
-        flex-direction:column;
+        flex-direction:column
       }
 
       .config-actions{
-        width:100%;
+        width:100%
       }
 
       .config-actions .mini-btn{
-        flex:1;
+        flex:1
       }
 
       .key-row{
-        flex-direction:column;
+        flex-direction:column
       }
 
-      .happ-actions{
-        grid-template-columns:minmax(0,1fr) 40px;
+      .lan-development-title{
+        font-size:24px
       }
     }
   </style>
@@ -695,54 +730,36 @@
     <div class="topbar">
       <div class="brand">Limupy</div>
 
-      <div class="mode-wrap">
-        <button
-          class="mode-button"
-          id="modeButton"
-          type="button"
-          aria-expanded="false"
-        >
-          <span id="modeButtonText">VPN</span>
+      <div class="mode-controls">
+        <span class="mode-context hidden" id="modeContext"></span>
 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            aria-hidden="true"
-          >
-            <path d="m6 9 6 6 6-6"/>
-          </svg>
-        </button>
+        <div class="mode-wrap">
+          <button class="mode-button" id="modeButton" type="button" aria-expanded="false">
+            <span id="modeButtonText">VPN</span>
 
-        <div class="mode-menu" id="modeMenu">
-          <button
-            class="mode-option active"
-            data-mode="vpn"
-            type="button"
-          >
-            <span>VPN</span>
-            <span>Сервис</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
           </button>
 
-          <button
-            class="mode-option"
-            data-mode="lan"
-            type="button"
-          >
-            <span>LAN</span>
-            <span>Сеть</span>
-          </button>
+          <div class="mode-menu" id="modeMenu">
+            <button class="mode-option active" data-mode="vpn" type="button">
+              <span>VPN</span>
+              <span>Сервис</span>
+            </button>
+
+            <button class="mode-option" data-mode="lan" type="button">
+              <span>LAN</span>
+              <span>Сеть</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <main>
 
-      <section
-        class="page active"
-        id="pageVpn"
-      >
+      <section class="page active" id="pageVpn">
         <div class="panel">
           <div class="panel-body">
             <div class="mode-value">VPN</div>
@@ -750,42 +767,22 @@
             <div class="status-grid">
               <div class="status-item">
                 <div class="status-item-label">Срок</div>
-                <div
-                  class="status-item-value"
-                  id="vpnExpiry"
-                >
-                  —
-                </div>
+                <div class="status-item-value" id="vpnExpiry">—</div>
               </div>
 
               <div class="status-item">
                 <div class="status-item-label">Пинг</div>
-                <div
-                  class="status-item-value"
-                  id="vpnPing"
-                >
-                  —
-                </div>
+                <div class="status-item-value" id="vpnPing">—</div>
               </div>
 
               <div class="status-item">
                 <div class="status-item-label">Статус</div>
-                <div
-                  class="status-item-value"
-                  id="vpnState"
-                >
-                  —
-                </div>
+                <div class="status-item-value" id="vpnState">—</div>
               </div>
 
               <div class="status-item">
                 <div class="status-item-label">Трафик</div>
-                <div
-                  class="status-item-value"
-                  id="vpnTraffic"
-                >
-                  —
-                </div>
+                <div class="status-item-value" id="vpnTraffic">—</div>
               </div>
             </div>
           </div>
@@ -801,12 +798,7 @@
           <div class="panel-body">
             <div class="input-row">
               <div class="field floating-field input-field-grow">
-                <label
-                  class="field-label"
-                  for="vpnToken"
-                >
-                  Токен
-                </label>
+                <label class="field-label" for="vpnToken">Токен</label>
 
                 <input
                   class="input"
@@ -830,10 +822,7 @@
               </button>
             </div>
 
-            <div
-              class="happ-actions hidden"
-              id="vpnActions"
-            >
+            <div class="vpn-actions-row hidden" id="vpnActions">
               <button
                 class="btn btn-secondary"
                 id="happOpen"
@@ -843,400 +832,348 @@
               </button>
 
               <a
-                class="mini-btn happ-site-btn"
-                id="happSite"
+                class="btn btn-secondary happ-download"
+                id="happDownload"
                 href="https://happ.info/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Скачать Happ"
                 title="Скачать Happ"
               >
-                ↓
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 3v11"/>
+                  <path d="m7 10 5 5 5-5"/>
+                  <path d="M5 21h14"/>
+                </svg>
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section
-        class="page"
-        id="pageLan"
-      >
-        <div class="panel">
-          <div class="panel-body">
-            <div class="mode-value">LAN</div>
+      <section class="page lan-page" id="pageLan">
 
-            <div class="status-grid">
-              <div class="status-item">
-                <div class="status-item-label">Статус</div>
-                <div
-                  class="status-item-value"
-                  id="lanInfoStatus"
-                >
-                  Не готова
+        <div class="lan-blur" id="lanBlur">
+
+          <div class="panel">
+            <div class="panel-body">
+              <div class="mode-value">LAN</div>
+
+              <div class="status-grid">
+                <div class="status-item">
+                  <div class="status-item-label">Статус</div>
+                  <div class="status-item-value" id="lanInfoStatus">
+                    Не готова
+                  </div>
                 </div>
-              </div>
 
-              <div class="status-item">
-                <div class="status-item-label">Подсеть</div>
-                <div
-                  class="status-item-value"
-                  id="lanInfoSubnet"
-                >
-                  —
+                <div class="status-item">
+                  <div class="status-item-label">Подсеть</div>
+                  <div class="status-item-value" id="lanInfoSubnet">
+                    —
+                  </div>
                 </div>
-              </div>
 
-              <div class="status-item">
-                <div class="status-item-label">IP</div>
-                <div
-                  class="status-item-value"
-                  id="lanInfoIp"
-                >
-                  —
+                <div class="status-item">
+                  <div class="status-item-label">IP</div>
+                  <div class="status-item-value" id="lanInfoIp">
+                    —
+                  </div>
                 </div>
-              </div>
 
-              <div class="status-item">
-                <div class="status-item-label">Роль</div>
-                <div
-                  class="status-item-value"
-                  id="lanInfoRole"
-                >
-                  —
+                <div class="status-item">
+                  <div class="status-item-label">Роль</div>
+                  <div class="status-item-value" id="lanInfoRole">
+                    —
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="panel">
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">Подключение</div>
-            </div>
-          </div>
-
-          <div class="panel-body">
-            <div class="lan-tabs">
-              <button
-                class="lan-tab active"
-                data-lan-tab="create"
-                type="button"
-              >
-                Создать
-              </button>
-
-              <button
-                class="lan-tab"
-                data-lan-tab="join"
-                type="button"
-              >
-                Подключить
-              </button>
-            </div>
-
-            <div class="field floating-field">
-              <label
-                class="field-label"
-                for="lanPublicKey"
-              >
-                Ключ
-              </label>
-
-              <input
-                class="input"
-                id="lanPublicKey"
-                type="text"
-                placeholder="Введите ключ"
-                autocomplete="off"
-                autocapitalize="off"
-                autocorrect="off"
-                spellcheck="false"
-                maxlength="44"
-              >
-            </div>
-
-            <div
-              class="lan-form active"
-              id="lanCreateForm"
-            >
-              <div class="field floating-field">
-                <label
-                  class="field-label"
-                  for="lanCreateName"
-                >
-                  Название
-                </label>
-
-                <input
-                  class="input"
-                  id="lanCreateName"
-                  type="text"
-                  maxlength="64"
-                  placeholder="Введите название"
-                  autocomplete="off"
-                >
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Подключение</div>
               </div>
+            </div>
 
-              <div class="actions one">
-                <button
-                  class="btn btn-primary"
-                  id="lanCreateButton"
-                  type="button"
-                >
+            <div class="panel-body">
+              <div class="lan-tabs">
+                <button class="lan-tab active" data-lan-tab="create" type="button">
                   Создать
                 </button>
-              </div>
-            </div>
 
-            <div
-              class="lan-form"
-              id="lanJoinForm"
-            >
-              <div class="field floating-field">
-                <label
-                  class="field-label"
-                  for="lanJoinCode"
-                >
-                  Код
-                </label>
-
-                <input
-                  class="input"
-                  id="lanJoinCode"
-                  type="text"
-                  maxlength="128"
-                  placeholder="Введите код"
-                  autocomplete="off"
-                  autocapitalize="characters"
-                  autocorrect="off"
-                  spellcheck="false"
-                >
-              </div>
-
-              <div class="actions one">
-                <button
-                  class="btn btn-primary"
-                  id="lanJoinButton"
-                  type="button"
-                >
+                <button class="lan-tab" data-lan-tab="join" type="button">
                   Подключить
                 </button>
               </div>
+
+              <div class="field floating-field">
+                <label class="field-label" for="lanPublicKey">
+                  Ключ
+                </label>
+
+                <input
+                  class="input"
+                  id="lanPublicKey"
+                  type="text"
+                  placeholder="Введите ключ"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  spellcheck="false"
+                  maxlength="44"
+                >
+              </div>
+
+              <div class="lan-form active" id="lanCreateForm">
+                <div class="field floating-field">
+                  <label class="field-label" for="lanCreateName">
+                    Название
+                  </label>
+
+                  <input
+                    class="input"
+                    id="lanCreateName"
+                    type="text"
+                    maxlength="64"
+                    placeholder="Введите название"
+                    autocomplete="off"
+                  >
+                </div>
+
+                <div class="actions one">
+                  <button
+                    class="btn btn-primary"
+                    id="lanCreateButton"
+                    type="button"
+                  >
+                    Создать
+                  </button>
+                </div>
+              </div>
+
+              <div class="lan-form" id="lanJoinForm">
+                <div class="field floating-field">
+                  <label class="field-label" for="lanJoinCode">
+                    Код
+                  </label>
+
+                  <input
+                    class="input"
+                    id="lanJoinCode"
+                    type="text"
+                    maxlength="128"
+                    placeholder="Введите код"
+                    autocomplete="off"
+                    autocapitalize="characters"
+                    autocorrect="off"
+                    spellcheck="false"
+                  >
+                </div>
+
+                <div class="actions one">
+                  <button
+                    class="btn btn-primary"
+                    id="lanJoinButton"
+                    type="button"
+                  >
+                    Подключить
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div
-          class="panel"
-          id="myNetworksPanel"
-        >
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">Мои сети</div>
-            </div>
+          <div class="panel" id="myNetworksPanel">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Мои сети</div>
+              </div>
 
-            <button
-              class="mini-btn"
-              id="refreshLan"
-              type="button"
-            >
-              Обновить
-            </button>
-          </div>
-
-          <div class="panel-body">
-            <div
-              class="network-list"
-              id="networkList"
-            ></div>
-          </div>
-        </div>
-
-        <div
-          class="panel hidden"
-          id="currentNetworkPanel"
-        >
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">Текущая сеть</div>
-
-              <div
-                class="panel-subtitle"
-                id="currentNetworkSubtitle"
+              <button
+                class="mini-btn"
+                id="refreshLan"
+                type="button"
               >
-                —
-              </div>
+                Обновить
+              </button>
+            </div>
+
+            <div class="panel-body">
+              <div class="network-list" id="networkList"></div>
             </div>
           </div>
 
-          <div class="panel-body">
-            <div class="current-grid">
-              <div class="current-item">
-                <div class="current-label">Имя</div>
-                <div
-                  class="current-value"
-                  id="currentName"
-                >
-                  —
-                </div>
-              </div>
-
-              <div class="current-item">
-                <div class="current-label">Подсеть</div>
-                <div
-                  class="current-value"
-                  id="currentSubnet"
-                >
-                  —
-                </div>
-              </div>
-
-              <div class="current-item">
-                <div class="current-label">Мой IP</div>
-                <div
-                  class="current-value"
-                  id="currentIp"
-                >
-                  —
-                </div>
-              </div>
-
-              <div class="current-item">
-                <div class="current-label">Роль</div>
-                <div
-                  class="current-value"
-                  id="currentRole"
-                >
+          <div class="panel hidden" id="currentNetworkPanel">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Текущая сеть</div>
+                <div class="panel-subtitle" id="currentNetworkSubtitle">
                   —
                 </div>
               </div>
             </div>
 
-            <div
-              class="access-box hidden"
-              id="accessBox"
-            >
-              <div class="access-head">
-                <div class="access-title">
-                  Код для гостей
+            <div class="panel-body">
+              <div class="current-grid">
+
+                <div class="current-item">
+                  <div class="current-label">Имя</div>
+                  <div class="current-value" id="currentName">
+                    —
+                  </div>
                 </div>
 
-                <button
-                  class="mini-btn"
-                  id="copyAccessCode"
-                  type="button"
-                >
-                  Копировать
-                </button>
-              </div>
-
-              <div
-                class="access-code"
-                id="accessCode"
-              >
-                —
-              </div>
-            </div>
-
-            <div class="config-box">
-              <div class="config-head">
-                <div class="config-title">
-                  WireGuard
+                <div class="current-item">
+                  <div class="current-label">Подсеть</div>
+                  <div class="current-value" id="currentSubnet">
+                    —
+                  </div>
                 </div>
 
-                <div class="config-actions">
+                <div class="current-item">
+                  <div class="current-label">Мой IP</div>
+                  <div class="current-value" id="currentIp">
+                    —
+                  </div>
+                </div>
+
+                <div class="current-item">
+                  <div class="current-label">Роль</div>
+                  <div class="current-value" id="currentRole">
+                    —
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="access-box hidden" id="accessBox">
+
+                <div class="access-head">
+                  <div class="access-title">
+                    Код для гостей
+                  </div>
+
                   <button
                     class="mini-btn"
-                    id="copyConfig"
+                    id="copyAccessCode"
                     type="button"
                   >
                     Копировать
                   </button>
+                </div>
 
-                  <button
-                    class="mini-btn"
-                    id="downloadConfig"
-                    type="button"
-                  >
-                    Скачать
-                  </button>
+                <div class="access-code" id="accessCode">
+                  —
                 </div>
               </div>
 
-              <textarea
-                class="config-text"
-                id="configText"
-                readonly
-                spellcheck="false"
-                autocomplete="off"
-              ></textarea>
-            </div>
-          </div>
-        </div>
+              <div class="config-box">
 
-        <div
-          class="panel hidden"
-          id="devicesPanel"
-        >
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">Устройства</div>
+                <div class="config-head">
+                  <div class="config-title">
+                    WireGuard
+                  </div>
 
-              <div
-                class="panel-subtitle"
-                id="devicesCount"
-              >
-                0 устройств
+                  <div class="config-actions">
+
+                    <button
+                      class="mini-btn"
+                      id="copyConfig"
+                      type="button"
+                    >
+                      Копировать
+                    </button>
+
+                    <button
+                      class="mini-btn"
+                      id="downloadConfig"
+                      type="button"
+                    >
+                      Скачать
+                    </button>
+
+                  </div>
+                </div>
+
+                <textarea
+                  class="config-text"
+                  id="configText"
+                  readonly
+                  spellcheck="false"
+                  autocomplete="off"
+                ></textarea>
+
               </div>
             </div>
           </div>
 
-          <div class="panel-body">
-            <div
-              class="devices"
-              id="devicesList"
-            ></div>
-          </div>
-        </div>
-
-        <div
-          class="panel hidden"
-          id="networkActionsPanel"
-        >
-          <div class="panel-head">
-            <div>
-              <div class="panel-title">
-                Действия
+          <div class="panel hidden" id="devicesPanel">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Устройства</div>
+                <div class="panel-subtitle" id="devicesCount">
+                  0 устройств
+                </div>
               </div>
+            </div>
 
-              <div class="panel-subtitle">
-                Управление текущей сетью
+            <div class="panel-body">
+              <div class="devices" id="devicesList"></div>
+            </div>
+          </div>
+
+          <div class="panel hidden" id="networkActionsPanel">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Действия</div>
+                <div class="panel-subtitle">
+                  Управление текущей сетью
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-body">
+              <div class="actions one">
+
+                <button
+                  class="btn btn-secondary"
+                  id="leaveLanButton"
+                  type="button"
+                >
+                  Выйти из сети
+                </button>
+
+                <button
+                  class="btn btn-danger hidden"
+                  id="deleteLanButton"
+                  type="button"
+                >
+                  Удалить LAN-сеть
+                </button>
+
               </div>
             </div>
           </div>
 
-          <div class="panel-body">
-            <div class="actions one">
-              <button
-                class="btn btn-secondary"
-                id="leaveLanButton"
-                type="button"
-              >
-                Выйти из сети
-              </button>
+        </div>
 
-              <button
-                class="btn btn-danger hidden"
-                id="deleteLanButton"
-                type="button"
-              >
-                Удалить LAN-сеть
-              </button>
-            </div>
+        <div class="lan-development-overlay">
+          <div class="lan-development-title">
+            В разработке
           </div>
         </div>
+
       </section>
     </main>
   </div>
@@ -1267,34 +1204,20 @@
     let vpnData = null;
     let deviceId = '';
 
-    const $ = id =>
-      document.getElementById(id);
+    const $ = id => document.getElementById(id);
 
-    function readSessionValue(
-      key,
-      fallback = ''
-    ) {
+    function readSessionValue(key, fallback = '') {
       try {
-        const value =
-          sessionStorage.getItem(key);
-
-        return value == null
-          ? fallback
-          : value;
+        const value = sessionStorage.getItem(key);
+        return value == null ? fallback : value;
       } catch {
         return fallback;
       }
     }
 
-    function writeSessionValue(
-      key,
-      value
-    ) {
+    function writeSessionValue(key, value) {
       try {
-        sessionStorage.setItem(
-          key,
-          String(value)
-        );
+        sessionStorage.setItem(key, String(value));
       } catch {}
     }
 
@@ -1304,20 +1227,15 @@
       } catch {}
     }
 
-    function readSessionJson(
-      key,
-      fallback
-    ) {
+    function readSessionJson(key, fallback) {
       try {
-        const raw =
-          sessionStorage.getItem(key);
+        const raw = sessionStorage.getItem(key);
 
         if (!raw) {
           return fallback;
         }
 
-        const parsed =
-          JSON.parse(raw);
+        const parsed = JSON.parse(raw);
 
         return parsed ?? fallback;
       } catch {
@@ -1325,10 +1243,7 @@
       }
     }
 
-    function writeSessionJson(
-      key,
-      value
-    ) {
+    function writeSessionJson(key, value) {
       try {
         sessionStorage.setItem(
           key,
@@ -1337,19 +1252,11 @@
       } catch {}
     }
 
-    function bytesToBase64Url(
-      bytes
-    ) {
+    function bytesToBase64Url(bytes) {
       let binary = '';
 
-      for (
-        const byte
-        of bytes
-      ) {
-        binary +=
-          String.fromCharCode(
-            byte
-          );
+      for (const byte of bytes) {
+        binary += String.fromCharCode(byte);
       }
 
       return btoa(binary)
@@ -1377,14 +1284,10 @@
       const bytes =
         new Uint8Array(32);
 
-      crypto.getRandomValues(
-        bytes
-      );
+      crypto.getRandomValues(bytes);
 
       deviceId =
-        bytesToBase64Url(
-          bytes
-        );
+        bytesToBase64Url(bytes);
 
       writeSessionValue(
         SS_DEVICE_ID,
@@ -1403,8 +1306,7 @@
 
       const timeout =
         setTimeout(
-          () =>
-            controller.abort(),
+          () => controller.abort(),
           REQUEST_TIMEOUT_MS
         );
 
@@ -1421,7 +1323,7 @@
               referrerPolicy:'no-referrer',
               signal:controller.signal,
               headers:{
-                'Accept':'application/json',
+                Accept:'application/json',
                 'Content-Type':'application/json'
               },
               body:JSON.stringify({
@@ -1475,6 +1377,7 @@
         }
 
         return data;
+
       } finally {
         clearTimeout(timeout);
       }
@@ -1488,8 +1391,7 @@
 
       const timeout =
         setTimeout(
-          () =>
-            controller.abort(),
+          () => controller.abort(),
           REQUEST_TIMEOUT_MS
         );
 
@@ -1509,12 +1411,10 @@
               referrerPolicy:'no-referrer',
               signal:controller.signal,
               headers:{
-                'Authorization':
+                Authorization:
                   `Bearer ${token}`,
-                'Accept':
-                  'application/json',
-                'Content-Type':
-                  'application/json'
+                Accept:'application/json',
+                'Content-Type':'application/json'
               },
               body:JSON.stringify({
                 device_id:getDeviceId()
@@ -1543,6 +1443,7 @@
             performance.now() -
             started
         };
+
       } finally {
         clearTimeout(timeout);
       }
@@ -1556,9 +1457,7 @@
           'vpn_status',
           {token}
         );
-      } catch (
-        firstError
-      ) {
+      } catch (firstError) {
         const message =
           String(
             firstError?.message ||
@@ -1588,8 +1487,7 @@
 
         if (
           !state ||
-          typeof state !==
-            'object'
+          typeof state !== 'object'
         ) {
           return '';
         }
@@ -1599,10 +1497,10 @@
             SS_VPN_HISTORY_TOKEN
           ];
 
-        return typeof value ===
-          'string'
-            ? value.trim()
-            : '';
+        return typeof value === 'string'
+          ? value.trim()
+          : '';
+
       } catch {
         return '';
       }
@@ -1613,8 +1511,7 @@
     ) {
       if (
         !window.history ||
-        typeof window.history
-          .replaceState !==
+        typeof window.history.replaceState !==
           'function'
       ) {
         return;
@@ -1714,6 +1611,7 @@
         ) {
           return hash.trim();
         }
+
       } catch {}
 
       return '';
@@ -1764,9 +1662,7 @@
       return getSavedVpnToken();
     }
 
-    function formatExpiry(
-      value
-    ) {
+    function formatExpiry(value) {
       if (
         value === null ||
         value === undefined ||
@@ -1778,8 +1674,7 @@
       let date;
 
       if (
-        typeof value ===
-          'number' ||
+        typeof value === 'number' ||
         /^\d+$/.test(
           String(value)
         )
@@ -1813,9 +1708,7 @@
       );
     }
 
-    function formatBytes(
-      value
-    ) {
+    function formatBytes(value) {
       const bytes =
         Number(value);
 
@@ -1847,19 +1740,19 @@
           units.length - 1
         );
 
-      return `${(
-        bytes /
-        (1024 ** index)
-      ).toFixed(
-        index === 0
-          ? 0
-          : 1
-      )} ${units[index]}`;
+      return `${
+        (
+          bytes /
+          (1024 ** index)
+        ).toFixed(
+          index === 0
+            ? 0
+            : 1
+        )
+      } ${units[index]}`;
     }
 
-    function formatTraffic(
-      data
-    ) {
+    function formatTraffic(data) {
       const subscription =
         data?.subscription ||
         {};
@@ -1870,8 +1763,7 @@
         {};
 
       if (
-        typeof traffic ===
-          'string' &&
+        typeof traffic === 'string' &&
         traffic.trim()
       ) {
         const normalized =
@@ -1889,13 +1781,13 @@
       }
 
       if (
-        typeof traffic ===
-          'number'
+        typeof traffic === 'number'
       ) {
         return (
           formatBytes(
             traffic
-          ) || '—'
+          ) ||
+          '—'
         );
       }
 
@@ -1965,7 +1857,8 @@
             ? (
                 formatBytes(
                   download
-                ) || download
+                ) ||
+                download
               )
             : '—';
 
@@ -1974,15 +1867,14 @@
             ? (
                 formatBytes(
                   upload
-                ) || upload
+                ) ||
+                upload
               )
             : '—';
 
         if (
-          Number(download || 0) ===
-            0 &&
-          Number(upload || 0) ===
-            0
+          Number(download || 0) === 0 &&
+          Number(upload || 0) === 0
         ) {
           return '∞';
         }
@@ -1990,9 +1882,7 @@
         return `↓${down} ↑${up}`;
       }
 
-      if (
-        used != null
-      ) {
+      if (used != null) {
         return (
           formatBytes(
             used
@@ -2006,30 +1896,24 @@
 
     function setVpnStatus(
       state,
-      expiry = '—',
-      ping = '—',
-      traffic = '—'
+      expiry='—',
+      ping='—',
+      traffic='—'
     ) {
       $('vpnState')
-        .textContent =
-        state;
+        .textContent = state;
 
       $('vpnExpiry')
-        .textContent =
-        expiry;
+        .textContent = expiry;
 
       $('vpnPing')
-        .textContent =
-        ping;
+        .textContent = ping;
 
       $('vpnTraffic')
-        .textContent =
-        traffic;
+        .textContent = traffic;
     }
 
-    function isVpnActive(
-      data
-    ) {
+    function isVpnActive(data) {
       const subscription =
         data?.subscription ||
         {};
@@ -2038,13 +1922,29 @@
         data?.enabled === false ||
         data?.active === false ||
         data?.valid === false ||
-        data?.subscription_active ===
-          false ||
-        subscription.enabled ===
-          false ||
-        subscription.active ===
-          false
+        data?.subscription_active === false ||
+        subscription.enabled === false ||
+        subscription.active === false
       );
+    }
+
+    function getSubscriptionName() {
+      const candidates = [
+        vpnData?.subscription_name,
+        vpnData?.subscription?.name,
+        vpnData?.name,
+        vpnData?.subscription?.title,
+        vpnData?.title
+      ];
+
+      return (
+        candidates.find(
+          value =>
+            typeof value === 'string' &&
+            value.trim()
+        ) ||
+        ''
+      ).trim();
     }
 
     function getHappUrl() {
@@ -2063,10 +1963,10 @@
       return (
         candidates.find(
           value =>
-            typeof value ===
-              'string' &&
+            typeof value === 'string' &&
             value.trim()
-        ) || ''
+        ) ||
+        ''
       ).trim();
     }
 
@@ -2074,8 +1974,7 @@
       value
     ) {
       if (
-        typeof value !==
-          'string'
+        typeof value !== 'string'
       ) {
         return false;
       }
@@ -2092,8 +1991,7 @@
           new URL(raw);
 
         if (
-          parsed.protocol ===
-            'https:' &&
+          parsed.protocol === 'https:' &&
           parsed.hostname ===
             ALLOWED_HAPP_HOST &&
           parsed.pathname.startsWith(
@@ -2159,14 +2057,43 @@
         : '';
     }
 
+    function updateModeContext() {
+      const context =
+        $('modeContext');
+
+      let value = '';
+
+      if (currentMode === 'vpn') {
+        value =
+          getSubscriptionName();
+      } else if (
+        currentMode === 'lan'
+      ) {
+        value =
+          currentNetwork?.name ||
+          '';
+      }
+
+      value =
+        String(value || '')
+          .trim();
+
+      context.textContent =
+        value;
+
+      context.classList.toggle(
+        'hidden',
+        !value
+      );
+    }
+
     function updateVpnCheckButton() {
       const token =
         $('vpnToken')
           .value
           .trim();
 
-      $('vpnCheck')
-        .disabled =
+      $('vpnCheck').disabled =
         !token ||
         token.length >
           VPN_TOKEN_MAX_LENGTH;
@@ -2192,10 +2119,6 @@
         .classList.remove(
           'hidden'
         );
-
-      $('happSite')
-        .href =
-        'https://happ.info/';
     }
 
     async function checkVpnToken() {
@@ -2217,12 +2140,14 @@
           '—'
         );
 
+        updateModeContext();
+
         return;
       }
 
       if (
         token.length >
-          VPN_TOKEN_MAX_LENGTH
+        VPN_TOKEN_MAX_LENGTH
       ) {
         setVpnStatus(
           'Некорректный токен',
@@ -2230,6 +2155,8 @@
           '—',
           '—'
         );
+
+        updateModeContext();
 
         return;
       }
@@ -2245,11 +2172,8 @@
       );
 
       try {
-        let data =
-          null;
-
-        let elapsed =
-          0;
+        let data = null;
+        let elapsed = 0;
 
         try {
           const result =
@@ -2278,6 +2202,7 @@
             );
 
             clearVpnToken();
+            updateModeContext();
 
             return;
           }
@@ -2293,6 +2218,8 @@
               '—'
             );
 
+            updateModeContext();
+
             return;
           }
 
@@ -2307,6 +2234,8 @@
               '—'
             );
 
+            updateModeContext();
+
             return;
           }
 
@@ -2316,14 +2245,10 @@
           ) {
             data =
               responseData;
-
           } else if (
-            response.status ===
-              400 ||
-            response.status ===
-              404 ||
-            response.status ===
-              405
+            response.status === 400 ||
+            response.status === 404 ||
+            response.status === 405
           ) {
             const fallbackStarted =
               performance.now();
@@ -2338,7 +2263,6 @@
                 performance.now() -
                 fallbackStarted;
             }
-
           } else if (
             response.status >=
             500
@@ -2346,7 +2270,6 @@
             throw new Error(
               'Сервер недоступен'
             );
-
           } else {
             throw new Error(
               responseData?.message ||
@@ -2355,9 +2278,7 @@
             );
           }
 
-        } catch (
-          firstError
-        ) {
+        } catch (firstError) {
           if (
             firstError?.name ===
             'AbortError'
@@ -2423,6 +2344,8 @@
             '—'
           );
 
+          updateModeContext();
+
           return;
         }
 
@@ -2443,35 +2366,26 @@
           data.subscription?.ping ??
           null;
 
-        const numericServerPing =
-          Number(serverPing);
-
         const ping =
           serverPing != null &&
           Number.isFinite(
-            numericServerPing
+            Number(serverPing)
           )
             ? `${Math.max(
                 1,
                 Math.round(
-                  numericServerPing
+                  Number(serverPing)
                 )
               )} ms`
             : `${Math.max(
                 1,
-                Math.round(
-                  elapsed
-                )
+                Math.round(elapsed)
               )} ms`;
 
         const traffic =
-          formatTraffic(
-            data
-          );
+          formatTraffic(data);
 
-        if (
-          !isVpnActive(data)
-        ) {
+        if (!isVpnActive(data)) {
           setVpnStatus(
             'Отключена',
             expiry,
@@ -2479,6 +2393,7 @@
             traffic
           );
 
+          updateModeContext();
           renderVpnActions();
 
           return;
@@ -2495,17 +2410,18 @@
           traffic
         );
 
+        updateModeContext();
         renderVpnActions();
 
-      } catch (
-        error
-      ) {
+      } catch (error) {
         const message =
           error?.name ===
           'AbortError'
             ? 'Нет ответа'
-            : error?.message ||
-              'Нет связи';
+            : (
+                error?.message ||
+                'Нет связи'
+              );
 
         setVpnStatus(
           message,
@@ -2513,6 +2429,8 @@
           '—',
           '—'
         );
+
+        updateModeContext();
 
       } finally {
         updateVpnCheckButton();
@@ -2540,11 +2458,10 @@
 
       hideVpnActions();
       updateVpnCheckButton();
+      updateModeContext();
     }
 
-    function escapeHtml(
-      value
-    ) {
+    function escapeHtml(value) {
       return String(
         value ?? ''
       )
@@ -2615,9 +2532,7 @@
     ) {
       writeSessionJson(
         SS_LAN_NETWORKS,
-        Array.isArray(
-          networks
-        )
+        Array.isArray(networks)
           ? networks
           : []
       );
@@ -2645,11 +2560,9 @@
       const codes =
         getJoinCodes();
 
-      return (
-        codes[
-          String(networkId)
-        ] || ''
-      );
+      return codes[
+        String(networkId)
+      ] || '';
     }
 
     function saveJoinCode(
@@ -2723,10 +2636,8 @@
 
       try {
         return (
-          atob(
-            normalized
-          ).length ===
-          32
+          atob(normalized)
+            .length === 32
         );
       } catch {
         return false;
@@ -2737,8 +2648,9 @@
       value
     ) {
       const name =
-        String(value || '')
-          .trim();
+        String(
+          value || ''
+        ).trim();
 
       return Boolean(
         name &&
@@ -2751,8 +2663,9 @@
       value
     ) {
       const code =
-        String(value || '')
-          .trim();
+        String(
+          value || ''
+        ).trim();
 
       return Boolean(
         code &&
@@ -2796,8 +2709,8 @@
 
     function normalizeNetwork(
       raw,
-      fallback = {},
-      publicKey = ''
+      fallback={},
+      publicKey=''
     ) {
       if (!raw) {
         return null;
@@ -2876,9 +2789,7 @@
           raw.joinCode ??
           raw.code ??
           fallback.joinCode ??
-          getJoinCodeForNetwork(
-            id
-          ) ??
+          getJoinCodeForNetwork(id) ??
           '',
 
         config:
@@ -2910,8 +2821,7 @@
       data,
       publicKey
     ) {
-      let rawNetworks =
-        [];
+      let rawNetworks = [];
 
       if (
         Array.isArray(
@@ -2920,7 +2830,6 @@
       ) {
         rawNetworks =
           data.networks;
-
       } else if (
         Array.isArray(
           data?.items
@@ -2928,20 +2837,15 @@
       ) {
         rawNetworks =
           data.items;
-
       } else if (
         data?.network
       ) {
         rawNetworks =
           [data.network];
-
       } else if (
-        data?.network_id !=
-          null ||
-        data?.networkId !=
-          null ||
-        data?.id !=
-          null ||
+        data?.network_id != null ||
+        data?.networkId != null ||
+        data?.id != null ||
         data?.name ||
         data?.config
       ) {
@@ -3029,27 +2933,27 @@
         }
 
         const key =
-          String(
-            network.id
-          );
+          String(network.id);
 
         const previous =
-          map.get(key) ||
-          {};
+          map.get(key) || {};
 
         map.set(
           key,
           {
             ...previous,
             ...network,
+
             joinCode:
               network.joinCode ||
               previous.joinCode ||
               '',
+
             config:
               network.config ||
               previous.config ||
               '',
+
             devices:
               Array.isArray(
                 network.devices
@@ -3076,7 +2980,7 @@
 
     function updateLanInfo(
       network,
-      status = ''
+      status=''
     ) {
       const key =
         getPublicKey();
@@ -3087,7 +2991,6 @@
       if (!key) {
         resolvedStatus =
           'Не готова';
-
       } else if (
         !isValidBase64Key(
           key
@@ -3095,7 +2998,6 @@
       ) {
         resolvedStatus =
           'Неверный ключ';
-
       } else if (
         !resolvedStatus
       ) {
@@ -3133,7 +3035,7 @@
 
     function setLanStatus(
       message,
-      network = currentNetwork
+      network=currentNetwork
     ) {
       const key =
         getPublicKey();
@@ -3209,52 +3111,39 @@
       }
 
       list.innerHTML =
-        networks
-          .map(
-            network => {
-              const role =
-                network.role ===
-                'owner'
-                  ? 'Владелец'
-                  : 'Участник';
+        networks.map(
+          network => {
+            const role =
+              network.role ===
+              'owner'
+                ? 'Владелец'
+                : 'Участник';
 
-              return `
-                <button
-                  class="network-item"
-                  type="button"
-                  data-network-id="${escapeHtml(network.id)}"
-                >
-                  <div class="network-main">
-                    <div class="network-name">
-                      ${escapeHtml(
-                        network.name
-                      )}
-                    </div>
-
-                    <div class="network-meta">
-                      ${escapeHtml(
-                        network.subnet
-                      )}
-                      ·
-                      ${escapeHtml(
-                        role
-                      )}
-                      ·
-                      ${escapeHtml(
-                        network.myIp ||
-                        '—'
-                      )}
-                    </div>
+            return `
+              <button
+                class="network-item"
+                type="button"
+                data-network-id="${escapeHtml(network.id)}"
+              >
+                <div class="network-main">
+                  <div class="network-name">
+                    ${escapeHtml(network.name)}
                   </div>
 
-                  <div class="network-arrow">
-                    ›
+                  <div class="network-meta">
+                    ${escapeHtml(network.subnet)}
+                    ·
+                    ${escapeHtml(role)}
+                    ·
+                    ${escapeHtml(network.myIp || '—')}
                   </div>
-                </button>
-              `;
-            }
-          )
-          .join('');
+                </div>
+
+                <div class="network-arrow">›</div>
+              </button>
+            `;
+          }
+        ).join('');
 
       list
         .querySelectorAll(
@@ -3272,8 +3161,7 @@
                         item.id
                       ) ===
                       String(
-                        button.dataset
-                          .networkId
+                        button.dataset.networkId
                       )
                   );
 
@@ -3323,68 +3211,66 @@
         getPublicKey();
 
       list.innerHTML =
-        safeDevices
-          .map(
-            device => {
-              const publicKey =
-                device.public_key ||
-                device.publicKey ||
-                '';
+        safeDevices.map(
+          device => {
+            const publicKey =
+              device.public_key ||
+              device.publicKey ||
+              '';
 
-              const name =
-                device.name ||
-                (
-                  publicKey ===
-                  myPublicKey
-                    ? 'Это устройство'
-                    : 'Устройство'
-                );
+            const name =
+              device.name ||
+              (
+                publicKey ===
+                myPublicKey
+                  ? 'Это устройство'
+                  : 'Устройство'
+              );
 
-              const ip =
-                device.ip ||
-                device.address ||
-                device.client_ip ||
-                '—';
+            const ip =
+              device.ip ||
+              device.address ||
+              device.client_ip ||
+              '—';
 
-              const online =
-                Boolean(
-                  device.online ||
-                  device.is_online ||
-                  device.connected
-                );
+            const online =
+              Boolean(
+                device.online ||
+                device.is_online ||
+                device.connected
+              );
 
-              return `
-                <div class="device">
-                  <div class="device-main">
-                    <div class="device-name">
-                      ${escapeHtml(name)}
-                    </div>
-
-                    <div class="device-sub">
-                      ${escapeHtml(ip)}
-                    </div>
+            return `
+              <div class="device">
+                <div class="device-main">
+                  <div class="device-name">
+                    ${escapeHtml(name)}
                   </div>
 
-                  <div class="device-state">
-                    <span class="device-dot ${
-                      online
-                        ? 'online'
-                        : ''
-                    }"></span>
-
-                    <span>
-                      ${
-                        online
-                          ? 'онлайн'
-                          : 'офлайн'
-                      }
-                    </span>
+                  <div class="device-sub">
+                    ${escapeHtml(ip)}
                   </div>
                 </div>
-              `;
-            }
-          )
-          .join('');
+
+                <div class="device-state">
+                  <span class="device-dot ${
+                    online
+                      ? 'online'
+                      : ''
+                  }"></span>
+
+                  <span>
+                    ${
+                      online
+                        ? 'онлайн'
+                        : 'офлайн'
+                    }
+                  </span>
+                </div>
+              </div>
+            `;
+          }
+        ).join('');
     }
 
     function renderCurrentNetwork(
@@ -3401,6 +3287,8 @@
         network,
         'Подключена'
       );
+
+      updateModeContext();
 
       $('currentNetworkPanel')
         .classList.remove(
@@ -3439,8 +3327,7 @@
 
       $('currentRole')
         .textContent =
-        network.role ===
-        'owner'
+        network.role === 'owner'
           ? 'Владелец'
           : 'Участник';
 
@@ -3483,7 +3370,8 @@
           ? network.config
           : '';
 
-      $('configText').value =
+      $('configText')
+        .value =
         currentConfig;
 
       renderDevices(
@@ -3501,6 +3389,8 @@
       saveActiveNetwork(
         null
       );
+
+      updateModeContext();
 
       updateLanInfo(
         null,
@@ -3528,8 +3418,7 @@
         );
 
       $('configText')
-        .value =
-        '';
+        .value = '';
     }
 
     function openNetwork(
@@ -3564,8 +3453,7 @@
           button => {
             button.classList.toggle(
               'active',
-              button.dataset
-                .lanTab ===
+              button.dataset.lanTab ===
                 currentLanTab
             );
           }
@@ -3646,8 +3534,7 @@
 
         if (
           !network &&
-          data.network_id !=
-            null
+          data.network_id != null
         ) {
           network =
             normalizeNetwork(
@@ -3704,9 +3591,7 @@
           network
         );
 
-      } catch (
-        error
-      ) {
+      } catch (error) {
         setLanStatus(
           error?.name ===
             'AbortError'
@@ -3783,8 +3668,7 @@
 
         if (
           !network &&
-          data.network_id !=
-            null
+          data.network_id != null
         ) {
           network =
             normalizeNetwork(
@@ -3829,17 +3713,14 @@
         );
 
         $('lanJoinCode')
-          .value =
-          '';
+          .value = '';
 
         setLanStatus(
           'Подключена',
           network
         );
 
-      } catch (
-        error
-      ) {
+      } catch (error) {
         setLanStatus(
           error?.name ===
             'AbortError'
@@ -3919,21 +3800,15 @@
           );
 
         if (
-          data.joined ===
-            false &&
-          active?.id !=
-            null
+          data.joined === false &&
+          active?.id != null
         ) {
           const remaining =
             getLanNetworks()
               .filter(
                 item =>
-                  String(
-                    item.id
-                  ) !==
-                  String(
-                    active.id
-                  )
+                  String(item.id) !==
+                  String(active.id)
               );
 
           saveLanNetworks(
@@ -3972,9 +3847,7 @@
           merged
         );
 
-        if (
-          !networks.length
-        ) {
+        if (!networks.length) {
           if (active) {
             renderCurrentNetwork(
               active
@@ -3986,29 +3859,20 @@
           return;
         }
 
-        let selected =
-          null;
+        let selected = null;
 
-        if (
-          active?.id !=
-          null
-        ) {
+        if (active?.id != null) {
           selected =
             networks.find(
               item =>
-                String(
-                  item.id
-                ) ===
-                String(
-                  active.id
-                )
+                String(item.id) ===
+                String(active.id)
             ) || null;
         }
 
         if (
           !selected &&
-          networks.length ===
-            1
+          networks.length === 1
         ) {
           selected =
             networks[0];
@@ -4019,12 +3883,8 @@
             getLanNetworks()
               .find(
                 item =>
-                  String(
-                    item.id
-                  ) ===
-                  String(
-                    selected.id
-                  )
+                  String(item.id) ===
+                  String(selected.id)
               ) || {};
 
           const finalNetwork =
@@ -4047,9 +3907,7 @@
           );
         }
 
-      } catch (
-        error
-      ) {
+      } catch (error) {
         const networks =
           getLanNetworks();
 
@@ -4105,7 +3963,7 @@
 
       if (
         currentNetwork.role !==
-          'owner'
+        'owner'
       ) {
         const joinCode =
           getJoinCodeForNetwork(
@@ -4129,15 +3987,13 @@
 
         if (
           data.joined ===
-            false
+          false
         ) {
           const remaining =
             getLanNetworks()
               .filter(
                 item =>
-                  String(
-                    item.id
-                  ) !==
+                  String(item.id) !==
                   String(
                     currentNetwork.id
                   )
@@ -4173,9 +4029,7 @@
         const selected =
           networks.find(
             item =>
-              String(
-                item.id
-              ) ===
+              String(item.id) ===
               String(
                 currentNetwork.id
               )
@@ -4189,12 +4043,8 @@
           getLanNetworks()
             .find(
               item =>
-                String(
-                  item.id
-                ) ===
-                String(
-                  selected.id
-                )
+                String(item.id) ===
+                String(selected.id)
             ) ||
             currentNetwork;
 
@@ -4290,12 +4140,8 @@
           getLanNetworks()
             .filter(
               item =>
-                String(
-                  item.id
-                ) !==
-                String(
-                  removedId
-                )
+                String(item.id) !==
+                String(removedId)
             );
 
         saveLanNetworks(
@@ -4312,9 +4158,7 @@
           'Вы вышли из сети'
         );
 
-      } catch (
-        error
-      ) {
+      } catch (error) {
         setLanStatus(
           error?.name ===
             'AbortError'
@@ -4384,12 +4228,8 @@
           getLanNetworks()
             .filter(
               item =>
-                String(
-                  item.id
-                ) !==
-                String(
-                  removedId
-                )
+                String(item.id) !==
+                String(removedId)
             );
 
         saveLanNetworks(
@@ -4406,9 +4246,7 @@
           'Сеть удалена'
         );
 
-      } catch (
-        error
-      ) {
+      } catch (error) {
         setLanStatus(
           error?.name ===
             'AbortError'
@@ -4439,7 +4277,6 @@
         await navigator.clipboard.writeText(
           text
         );
-
       } catch {
         const area =
           document.createElement(
@@ -4499,9 +4336,7 @@
         value ||
         'limupy'
       )
-        .normalize(
-          'NFKC'
-        )
+        .normalize('NFKC')
         .replace(
           /[^\p{L}\p{N}._-]+/gu,
           '_'
@@ -4599,8 +4434,7 @@
 
       $('modeButtonText')
         .textContent =
-        currentMode ===
-          'vpn'
+        currentMode === 'vpn'
           ? 'VPN'
           : 'LAN';
 
@@ -4629,9 +4463,11 @@
           'false'
         );
 
+      updateModeContext();
+
       if (
         currentMode ===
-          'lan'
+        'lan'
       ) {
         refreshLanNetwork();
       }
@@ -4728,7 +4564,6 @@
               currentNetwork,
               'Не готова'
             );
-
           } else if (
             isValidBase64Key(
               value
@@ -4740,7 +4575,6 @@
                 ? 'Подключена'
                 : 'Действительный'
             );
-
           } else {
             updateLanInfo(
               currentNetwork,
@@ -4764,7 +4598,6 @@
               .disabled
           ) {
             event.preventDefault();
-
             createLan();
           }
         }
@@ -4793,7 +4626,6 @@
               .disabled
           ) {
             event.preventDefault();
-
             joinLan();
           }
         }
@@ -4882,7 +4714,21 @@
     $('vpnToken')
       .addEventListener(
         'input',
-        updateVpnCheckButton
+        () => {
+          vpnData =
+            null;
+
+          $('modeContext')
+            .textContent = '';
+
+          $('modeContext')
+            .classList.add(
+              'hidden'
+            );
+
+          hideVpnActions();
+          updateVpnCheckButton();
+        }
       );
 
     $('vpnToken')
@@ -4897,17 +4743,8 @@
               .trim()
           ) {
             event.preventDefault();
-
             checkVpnToken();
           }
-        }
-      );
-
-    $('happSite')
-      .addEventListener(
-        'click',
-        event => {
-          event.stopPropagation();
         }
       );
 
@@ -4944,8 +4781,8 @@
           );
 
           removeTokenFromUrl();
-
           updateVpnCheckButton();
+          updateModeContext();
         }
       }
     );
@@ -4962,6 +4799,7 @@
             token;
 
           updateVpnCheckButton();
+          updateModeContext();
         }
       }
     );
@@ -4993,7 +4831,7 @@
       }
 
       updateLanControls();
-
+      updateModeContext();
       hideVpnActions();
     }
 
