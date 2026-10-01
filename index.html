@@ -1,1451 +1,1078 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020">
-<meta name="color-scheme" content="dark">
-<title>Limupy</title>
-<style>
-:root{
-    --bg:#070b14;
-    --bg2:#0b1120;
-    --card:rgba(17,24,39,.72);
-    --card2:rgba(13,19,32,.88);
-    --stroke:rgba(255,255,255,.09);
-    --stroke2:rgba(255,255,255,.14);
-    --text:#f5f7fb;
-    --muted:#9ca8bb;
-    --blue:#4f8cff;
-    --blue2:#6ca4ff;
-    --green:#45d483;
-    --red:#ff6478;
-    --yellow:#f0c35a;
-    --shadow:0 24px 80px rgba(0,0,0,.4);
-    --radius:24px;
-}
-
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-html{
-    min-height:100%;
-    background:var(--bg);
-}
-
-body{
-    margin:0;
-    min-height:100%;
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Segoe UI,Roboto,Arial,sans-serif;
-    background:
-        radial-gradient(circle at 15% 0%,rgba(79,140,255,.16),transparent 28%),
-        radial-gradient(circle at 88% 12%,rgba(99,102,241,.11),transparent 25%),
-        linear-gradient(180deg,#080c16 0%,#070b14 100%);
-}
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background:
-        linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);
-    background-size:32px 32px;
-    mask-image:linear-gradient(to bottom,rgba(0,0,0,.5),transparent);
-}
-
-button,input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.app{
-    width:min(1040px,100%);
-    margin:0 auto;
-    padding:18px 16px 48px;
-}
-
-.header{
-    position:sticky;
-    top:0;
-    z-index:20;
-    padding:8px 0 16px;
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
-}
-
-.header-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    min-height:58px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    min-width:0;
-}
-
-.brand-mark{
-    width:42px;
-    height:42px;
-    border-radius:13px;
-    display:grid;
-    place-items:center;
-    font-weight:800;
-    font-size:17px;
-    background:linear-gradient(145deg,#5d9aff,#3e73ff);
-    color:#fff;
-    box-shadow:
-        0 8px 26px rgba(63,119,255,.3),
-        inset 0 1px 0 rgba(255,255,255,.26);
-}
-
-.brand-title{
-    font-size:18px;
-    font-weight:750;
-    letter-spacing:-.03em;
-}
-
-.brand-sub{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:2px;
-}
-
-.window-switch{
-    position:relative;
-    width:52px;
-    height:52px;
-    padding:0;
-    border:1px solid rgba(126,166,255,.38);
-    border-radius:16px;
-    background:
-        radial-gradient(circle at 30% 20%,rgba(255,255,255,.24),transparent 34%),
-        linear-gradient(145deg,#3e7dff,#2559dd);
-    box-shadow:
-        0 10px 28px rgba(47,100,242,.25),
-        inset 0 1px 1px rgba(255,255,255,.3),
-        inset 0 -8px 16px rgba(0,0,0,.12);
-    overflow:hidden;
-    isolation:isolate;
-    transition:
-        transform .22s cubic-bezier(.22,1,.36,1),
-        box-shadow .22s ease,
-        border-color .22s ease;
-}
-
-.window-switch::before{
-    content:"";
-    position:absolute;
-    width:80px;
-    height:80px;
-    left:-22px;
-    top:-48px;
-    background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.24) 50%,transparent 70%);
-    transform:rotate(18deg);
-    transition:transform .55s ease;
-}
-
-.window-switch::after{
-    content:"";
-    position:absolute;
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    right:8px;
-    top:8px;
-    background:#dbe8ff;
-    box-shadow:0 0 12px rgba(255,255,255,.75);
-    opacity:.88;
-}
-
-.window-switch .sq{
-    position:absolute;
-    border:1.5px solid rgba(255,255,255,.82);
-    border-radius:5px;
-    width:15px;
-    height:15px;
-    transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease;
-}
-
-.window-switch .sq-a{
-    left:14px;
-    top:14px;
-}
-
-.window-switch .sq-b{
-    right:12px;
-    bottom:12px;
-    opacity:.65;
-}
-
-.window-switch .sq-c{
-    right:14px;
-    top:14px;
-    width:9px;
-    height:9px;
-    border-radius:3px;
-    opacity:.42;
-}
-
-.window-switch:active{
-    transform:scale(.92) rotate(-2deg);
-    box-shadow:
-        0 5px 16px rgba(47,100,242,.2),
-        inset 0 3px 8px rgba(0,0,0,.16);
-}
-
-.window-switch.press{
-    animation:windowPulse .58s cubic-bezier(.22,1,.36,1);
-}
-
-.window-switch.press::before{
-    transform:translateX(74px) rotate(18deg);
-}
-
-.window-switch.press .sq-a{
-    transform:translate(8px,8px) rotate(90deg);
-}
-
-.window-switch.press .sq-b{
-    transform:translate(-8px,-8px) rotate(-90deg);
-}
-
-.window-switch.press .sq-c{
-    transform:scale(1.55);
-}
-
-@keyframes windowPulse{
-    0%{transform:scale(1)}
-    22%{transform:scale(.89) rotate(-4deg)}
-    54%{transform:scale(1.08) rotate(2deg)}
-    78%{transform:scale(.97) rotate(-1deg)}
-    100%{transform:scale(1) rotate(0)}
-}
-
-.nav{
-    display:flex;
-    gap:8px;
-    margin-top:2px;
-    padding:7px;
-    border:1px solid var(--stroke);
-    border-radius:18px;
-    background:rgba(10,15,27,.7);
-    box-shadow:0 16px 50px rgba(0,0,0,.18);
-}
-
-.nav-btn{
-    flex:1;
-    min-height:42px;
-    border:0;
-    border-radius:13px;
-    color:var(--muted);
-    background:transparent;
-    font-weight:700;
-    transition:background .2s ease,color .2s ease,transform .2s ease;
-}
-
-.nav-btn:hover{
-    color:var(--text);
-}
-
-.nav-btn.active{
-    color:#fff;
-    background:linear-gradient(145deg,rgba(75,134,255,.28),rgba(52,96,203,.18));
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
-}
-
-.page{
-    display:none;
-    animation:pageIn .34s ease;
-}
-
-.page.active{
-    display:block;
-}
-
-@keyframes pageIn{
-    from{opacity:0;transform:translateY(8px)}
-    to{opacity:1;transform:translateY(0)}
-}
-
-.hero{
-    padding:28px 2px 18px;
-}
-
-.hero h1{
-    margin:0;
-    font-size:clamp(30px,6vw,48px);
-    line-height:1.02;
-    letter-spacing:-.055em;
-}
-
-.hero p{
-    margin:10px 0 0;
-    color:var(--muted);
-    font-size:15px;
-    line-height:1.55;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:12px;
-}
-
-.metric{
-    min-height:116px;
-    padding:17px;
-    border:1px solid var(--stroke);
-    border-radius:20px;
-    background:linear-gradient(180deg,rgba(21,29,46,.76),rgba(11,17,29,.78));
-    box-shadow:0 12px 36px rgba(0,0,0,.18);
-}
-
-.metric-label{
-    color:var(--muted);
-    font-size:12px;
-    font-weight:650;
-}
-
-.metric-value{
-    margin-top:10px;
-    font-size:20px;
-    font-weight:780;
-    letter-spacing:-.03em;
-    word-break:break-word;
-}
-
-.card{
-    margin-top:14px;
-    padding:20px;
-    border:1px solid var(--stroke);
-    border-radius:var(--radius);
-    background:
-        linear-gradient(180deg,rgba(18,26,42,.82),rgba(11,17,29,.86));
-    box-shadow:var(--shadow);
-    overflow:hidden;
-}
-
-.card-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.card-title{
-    font-size:16px;
-    font-weight:780;
-    letter-spacing:-.02em;
-}
-
-.card-sub{
-    color:var(--muted);
-    font-size:12px;
-}
-
-.row{
-    display:grid;
-    grid-template-columns:1fr auto;
-    gap:10px;
-    align-items:center;
-}
-
-.input{
-    width:100%;
-    min-height:48px;
-    padding:0 15px;
-    border:1px solid var(--stroke2);
-    border-radius:14px;
-    outline:none;
-    color:var(--text);
-    background:rgba(4,8,15,.62);
-    transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
-}
-
-.input:focus{
-    border-color:rgba(88,145,255,.72);
-    box-shadow:0 0 0 4px rgba(79,140,255,.11);
-    background:rgba(6,11,20,.78);
-}
-
-.input::placeholder{
-    color:#67748a;
-}
-
-.btn{
-    min-height:48px;
-    padding:0 16px;
-    border:1px solid transparent;
-    border-radius:14px;
-    font-weight:760;
-    color:#fff;
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease,
-        border-color .2s ease,
-        opacity .2s ease;
-}
-
-.btn:active{
-    transform:scale(.97);
-}
-
-.btn.primary{
-    background:linear-gradient(145deg,#5b97ff,#3a71ed);
-    box-shadow:0 10px 28px rgba(59,113,237,.25),inset 0 1px 0 rgba(255,255,255,.18);
-}
-
-.btn.primary:hover{
-    box-shadow:0 14px 34px rgba(59,113,237,.33),inset 0 1px 0 rgba(255,255,255,.24);
-}
-
-.btn.secondary{
-    background:rgba(255,255,255,.05);
-    border-color:var(--stroke2);
-}
-
-.btn.success{
-    background:linear-gradient(145deg,#48d788,#2fae68);
-    box-shadow:0 10px 28px rgba(48,177,105,.22);
-}
-
-.btn.danger{
-    background:rgba(255,96,120,.1);
-    border-color:rgba(255,96,120,.22);
-    color:#ff9dad;
-}
-
-.btn:disabled{
-    opacity:.48;
-    cursor:not-allowed;
-    transform:none;
-    box-shadow:none;
-}
-
-.happ-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    width:100%;
-    min-height:56px;
-    margin-top:12px;
-    border:1px solid rgba(114,163,255,.28);
-    border-radius:16px;
-    color:#fff;
-    background:
-        radial-gradient(circle at 20% 20%,rgba(255,255,255,.14),transparent 26%),
-        linear-gradient(145deg,#4f8cff,#315fda);
-    box-shadow:
-        0 14px 32px rgba(53,104,230,.25),
-        inset 0 1px 0 rgba(255,255,255,.2);
-    font-weight:800;
-    letter-spacing:-.01em;
-    transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;
-}
-
-.happ-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:
-        0 18px 38px rgba(53,104,230,.34),
-        inset 0 1px 0 rgba(255,255,255,.22);
-    filter:saturate(1.06);
-}
-
-.happ-btn:active{
-    transform:scale(.985);
-}
-
-.happ-icon{
-    width:22px;
-    height:22px;
-    border:2px solid rgba(255,255,255,.95);
-    border-radius:7px;
-    position:relative;
-}
-
-.happ-icon::before,
-.happ-icon::after{
-    content:"";
-    position:absolute;
-    background:rgba(255,255,255,.95);
-    border-radius:2px;
-}
-
-.happ-icon::before{
-    width:7px;
-    height:2px;
-    left:5px;
-    top:8px;
-}
-
-.happ-icon::after{
-    width:2px;
-    height:7px;
-    left:8px;
-    top:5px;
-}
-
-.notice{
-    margin-top:14px;
-    padding:16px 17px;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
-    color:#a9b4c6;
-    background:rgba(10,15,26,.68);
-    font-size:13px;
-    line-height:1.6;
-}
-
-.status-line{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    color:var(--muted);
-    font-size:13px;
-}
-
-.dot{
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:#67748a;
-    box-shadow:0 0 0 5px rgba(103,116,138,.08);
-}
-
-.dot.ok{
-    background:var(--green);
-    box-shadow:0 0 0 5px rgba(69,212,131,.1),0 0 15px rgba(69,212,131,.4);
-}
-
-.dot.bad{
-    background:var(--red);
-    box-shadow:0 0 0 5px rgba(255,100,120,.08),0 0 15px rgba(255,100,120,.35);
-}
-
-.dot.warn{
-    background:var(--yellow);
-    box-shadow:0 0 0 5px rgba(240,195,90,.08),0 0 15px rgba(240,195,90,.3);
-}
-
-.mini-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
-}
-
-.mini{
-    padding:14px;
-    border:1px solid var(--stroke);
-    border-radius:16px;
-    background:rgba(255,255,255,.025);
-}
-
-.mini-label{
-    font-size:11px;
-    color:var(--muted);
-}
-
-.mini-value{
-    margin-top:6px;
-    font-size:14px;
-    font-weight:720;
-    word-break:break-word;
-}
-
-.segment{
-    display:flex;
-    gap:7px;
-    padding:5px;
-    border-radius:14px;
-    background:rgba(255,255,255,.035);
-    border:1px solid var(--stroke);
-}
-
-.segment button{
-    flex:1;
-    border:0;
-    min-height:38px;
-    border-radius:10px;
-    color:var(--muted);
-    background:transparent;
-    font-weight:700;
-}
-
-.segment button.active{
-    color:#fff;
-    background:rgba(79,140,255,.2);
-}
-
-.stack{
-    display:grid;
-    gap:10px;
-}
-
-.hidden{
-    display:none!important;
-}
-
-.loading{
-    position:relative;
-    overflow:hidden;
-}
-
-.loading::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(100deg,transparent,rgba(255,255,255,.05),transparent);
-    transform:translateX(-100%);
-    animation:shine 1.1s infinite;
-}
-
-@keyframes shine{
-    to{transform:translateX(100%)}
-}
-
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:22px;
-    z-index:100;
-    transform:translate(-50%,20px) scale(.96);
-    opacity:0;
-    pointer-events:none;
-    min-width:min(92vw,360px);
-    padding:13px 16px;
-    border:1px solid var(--stroke2);
-    border-radius:14px;
-    background:rgba(9,14,24,.92);
-    box-shadow:0 20px 60px rgba(0,0,0,.4);
-    color:#fff;
-    text-align:center;
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    transition:opacity .22s ease,transform .22s ease;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0) scale(1);
-}
-
-.toast.ok{
-    border-color:rgba(69,212,131,.28);
-}
-
-.toast.bad{
-    border-color:rgba(255,100,120,.28);
-}
-
-.lan-status{
-    display:grid;
-    gap:10px;
-}
-
-.code-box{
-    padding:14px;
-    border:1px solid var(--stroke);
-    border-radius:16px;
-    background:rgba(2,6,12,.55);
-    font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-    font-size:13px;
-    color:#d9e3f5;
-    word-break:break-all;
-}
-
-.footer{
-    padding:18px 2px 0;
-    color:#69768b;
-    text-align:center;
-    font-size:11px;
-}
-
-@media(max-width:820px){
-    .grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-    }
-}
-
-@media(max-width:620px){
-    .app{
-        padding:12px 12px 34px;
-    }
-
-    .header{
-        padding-top:4px;
-    }
-
-    .hero{
-        padding-top:22px;
-    }
-
-    .hero h1{
-        font-size:36px;
-    }
-
-    .row{
-        grid-template-columns:1fr;
-    }
-
-    .btn{
-        width:100%;
-    }
-
-    .card{
-        padding:16px;
-        border-radius:21px;
-    }
-
-    .grid{
-        gap:9px;
-    }
-
-    .metric{
-        min-height:102px;
-        padding:14px;
-    }
-
-    .metric-value{
-        font-size:18px;
-    }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1020">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236ea8fe'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='38' font-weight='800' fill='white'%3EL%3C/text%3E%3C/svg%3E">
+  <title>Limupy</title>
+  <style>
+    :root{--bg:#0b1020;--card:rgba(20,27,48,.9);--line:rgba(255,255,255,.08);--text:#f4f7fb;--muted:#9aa6bd;--accent:#6ea8fe;--accent-2:#8b7cff;--ok:#41d392;--bad:#ff657a;--warn:#ffc857;--shadow:0 20px 60px rgba(0,0,0,.35);--radius:22px}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 500px at 10% -10%,rgba(110,168,254,.16),transparent 55%),radial-gradient(700px 450px at 100% 0%,rgba(139,124,255,.13),transparent 50%),var(--bg);color:var(--text);padding:clamp(16px,4vw,28px) clamp(10px,2.5vw,16px) 34px}.wrap{width:min(760px,100%);margin:0 auto}.header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;box-shadow:0 10px 30px rgba(110,168,254,.24)}h1{margin:0;font-size:24px;line-height:1.1}.subtitle{margin-top:4px;color:var(--muted);font-size:13px}.mode-switch{display:flex;gap:5px;padding:4px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.045);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 24px rgba(0,0,0,.18);position:relative;isolation:isolate}.mode-btn{appearance:none;border:0;cursor:pointer;color:var(--muted);background:transparent;border-radius:12px;padding:0;width:40px;height:40px;display:grid;place-items:center;position:relative;overflow:hidden;transition:transform .22s cubic-bezier(.2,.8,.2,1),color .22s ease,box-shadow .28s ease}.mode-btn::before{content:"";position:absolute;inset:3px;border-radius:10px;background:linear-gradient(135deg,#72adff,#8f82ff);opacity:0;transform:scale(.72);box-shadow:0 8px 22px rgba(110,168,254,.3);transition:opacity .28s ease,transform .32s cubic-bezier(.2,.8,.2,1);z-index:-1}.mode-btn.active{color:#fff;transform:translateY(-1px);box-shadow:0 5px 16px rgba(110,168,254,.22)}.mode-btn.active::before{opacity:1;transform:scale(1);animation:modeGlow 2.5s ease-in-out infinite}.mode-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s cubic-bezier(.2,.8,.2,1),filter .3s ease}.mode-btn.active svg{transform:scale(1.08);filter:drop-shadow(0 2px 6px rgba(255,255,255,.22))}.mode-btn:hover{color:var(--text);transform:translateY(-1px)}.mode-btn:active{transform:scale(.9)}.mode-btn:active svg{transform:scale(.9) rotate(-3deg)}@keyframes modeGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.08)}}.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(16px)}.hero{padding:11px 18px;border-bottom:1px solid var(--line)}.status-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0;min-height:22px}.label{color:var(--muted);font-size:13px}.status{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;padding:4px 7px;min-height:22px;max-width:76%;border-radius:999px;font-size:11px;line-height:1.15;font-weight:700;background:rgba(255,255,255,.06);text-align:right;overflow-wrap:anywhere}.status::before{content:"";width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:currentColor}.status.ok{color:var(--ok);background:rgba(65,211,146,.1)}.status.bad{color:var(--bad);background:rgba(255,101,122,.1)}.status.wait{color:#c5cde0}.status.warn{color:var(--warn);background:rgba(255,200,87,.1)}.rows{padding:6px 22px 14px}.row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,1.5fr);gap:18px;align-items:center;min-height:62px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.value{text-align:right;font-weight:650;overflow-wrap:anywhere}.protocols{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:7px}.protocol{padding:6px 9px;border-radius:9px;border:1px solid rgba(110,168,254,.22);background:rgba(110,168,254,.1);color:#dce9ff;font-size:12px;font-weight:700;letter-spacing:.01em}.actions{display:grid;grid-template-columns:minmax(0,2.1fr) auto minmax(120px,.9fr) minmax(120px,.9fr);gap:10px;padding:11px 22px 20px;align-items:stretch}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(140px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(140px,.9fr)}.btn{appearance:none;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 16px;border-radius:13px;text-decoration:none;font-weight:750;font-size:14px;transition:transform .15s ease,opacity .15s ease,background .15s ease}.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0)}.btn.primary{color:#07101f;background:linear-gradient(135deg,#86b8ff,#8f84ff)}.btn.secondary{color:var(--text);background:rgba(255,255,255,.07);border:1px solid var(--line)}.btn.danger{color:#fff;background:rgba(255,101,122,.16);border:1px solid rgba(255,101,122,.25)}.btn.small{min-height:38px;padding:0 12px;font-size:12px}.btn[hidden],.field[hidden],.section[hidden],.panel[hidden]{display:none}.token-entry,.input-row{position:relative;min-width:0;width:100%;height:44px;display:flex;align-items:stretch;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid var(--line);overflow:visible}.token-entry input,.input-row input{min-width:0;flex:1 1 auto;width:100%;height:42px;border:0;outline:0;padding:5px 12px 0;background:transparent;color:var(--text);font:inherit;font-size:14px;font-weight:500;text-overflow:clip}.token-entry input::placeholder,.input-row input::placeholder{color:transparent;opacity:0}.token-entry:focus-within,.input-row:focus-within{border-color:rgba(110,168,254,.55)}.float-label{position:absolute;top:-8px;left:10px;z-index:2;padding:0 4px;background:var(--card);border-radius:0;box-shadow:none;color:#aeb8cc;font-size:10px;line-height:16px;font-weight:750;letter-spacing:.01em;pointer-events:none;white-space:nowrap}.token-entry:focus-within .float-label,.input-row:focus-within .float-label{color:var(--accent)}.actions>.btn{height:44px;min-height:44px;min-width:0;white-space:nowrap}.vpn-actions #tokenEntry{width:100%;min-width:0}.vpn-actions{align-items:stretch}.vpn-actions #happDownload,.vpn-actions #happConnect{width:100%}.vpn-actions .token-submit{width:auto}.token-submit{width:auto;min-width:116px;height:44px;min-height:44px;margin:0;align-self:center;border-radius:13px;padding:0 16px}.token-submit:disabled{opacity:.45;cursor:default}.section{padding:18px 22px;border-bottom:1px solid var(--line);min-width:0}.section:last-child{border-bottom:0}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.section-title{font-size:14px;font-weight:800}.field-label{display:block;margin:0 0 6px 2px;color:var(--muted);font-size:11px;font-weight:700}.muted{color:var(--muted);font-size:12px;line-height:1.45}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.field.full{grid-column:1/-1}.field input,.field select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);outline:0;padding:0 12px;font:inherit}.field select option{background:#141b30;color:var(--text)}.field input:focus,.field select:focus{border-color:rgba(110,168,254,.55)}.split-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.control-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:stretch}.control-btn{height:44px;min-height:44px;padding:0 16px;white-space:nowrap;min-width:max-content}.identity-grid .input-row{height:44px}.identity-grid .input-row input{height:42px}@media (max-width:640px){body{padding-left:10px;padding-right:10px}.wrap{width:100%}.header{gap:8px}.logo{width:40px;height:40px;border-radius:13px}h1{font-size:21px}.subtitle{font-size:12px}.mode-switch{gap:3px;padding:3px}.mode-btn{width:36px;height:36px;padding:0}.card{border-radius:18px}.hero{padding:10px 14px}.rows{padding:4px 14px 10px}.row{grid-template-columns:minmax(86px,.9fr) minmax(0,1.5fr);gap:10px;min-height:54px}.status{max-width:70%}.actions{grid-template-columns:minmax(0,2.1fr) auto minmax(92px,.9fr) minmax(92px,.9fr);gap:7px;padding:10px 14px 14px}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(110px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(110px,.9fr)}.actions>.btn{font-size:11px;padding:0 7px;white-space:nowrap;line-height:1.15}.token-entry,.input-row{height:42px}.token-entry input,.input-row input{height:40px;padding:5px 10px 0;font-size:13px}.float-label{top:-8px;left:9px;font-size:9px;line-height:16px;padding:0 3px}.token-submit{min-width:0!important;padding:0 7px!important}.section{padding:14px}.identity-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.control-row{grid-template-columns:minmax(0,1fr) auto}.control-btn{width:auto;min-width:max-content;padding:0 11px}.network-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.network-toolbar{grid-template-columns:minmax(0,1fr) auto}.footer-note{font-size:11px}}@media (max-width:390px){.header{gap:6px}.logo{width:38px;height:38px;border-radius:12px}h1{font-size:20px}.subtitle{font-size:11px}.mode-switch{gap:2px;padding:3px}.mode-btn{width:34px;height:34px;padding:0}.actions{grid-template-columns:minmax(0,2fr) auto minmax(78px,.9fr) minmax(78px,.9fr);gap:6px}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(96px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(96px,.9fr)}.actions>.btn{font-size:10px;padding:0 6px}.token-entry input,.input-row input{font-size:12px}.network-toolbar{grid-template-columns:minmax(0,1fr) auto}.identity-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.control-row{grid-template-columns:minmax(0,1fr) auto}.control-btn{padding:0 8px}.status{max-width:64%}}.network-select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 12px;font:inherit}.network-select:focus{outline:0;border-color:rgba(110,168,254,.55)}.network-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.network-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.mini{padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035);min-width:0}.mini-label{font-size:11px;color:var(--muted);margin-bottom:4px}.mini-value{font-size:13px;font-weight:750;overflow-wrap:anywhere}.info-line{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035)}.info-line .info-copy{min-width:0}.info-line .info-value{font-size:12px;font-weight:750;overflow-wrap:anywhere}.fold{margin-top:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.02);overflow:hidden}.fold summary{cursor:pointer;padding:11px 13px;font-size:12px;font-weight:800;list-style:none}.fold summary::-webkit-details-marker{display:none}.fold summary::after{content:'+';float:right;color:var(--muted);font-size:15px;line-height:1}.fold[open] summary::after{content:'-';}.fold-content{padding:0 12px 12px}.code-box{display:flex;gap:8px;align-items:stretch;margin-top:10px}.code-box input{flex:1;min-width:0;height:42px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 11px;font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace}.config-box{margin-top:12px;position:relative}.config-box pre{margin:0;max-height:270px;overflow:auto;padding:14px;border:1px solid var(--line);border-radius:13px;background:rgba(4,8,18,.65);color:#dfe7f6;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.device-list{display:grid;gap:8px;margin-top:10px}.device{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.035)}.device-main{min-width:0}.device-name{font-weight:800;overflow-wrap:anywhere}.device-meta{margin-top:3px;color:var(--muted);font-size:11px;line-height:1.35;overflow-wrap:anywhere}.device-side{text-align:right;font-size:11px;font-weight:750}.online{color:var(--ok)}.offline{color:var(--muted)}.footer-note{margin-top:13px;color:var(--muted);font-size:12px;line-height:1.45;text-align:center;max-width:680px;margin-left:auto;margin-right:auto}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#151d31;color:var(--text);border:1px solid var(--line);border-radius:13px;padding:10px 13px;font-size:12px;box-shadow:var(--shadow);transition:opacity .18s ease,transform .18s ease;z-index:10}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:680px){.header{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}.mode-switch{width:auto;flex:0 0 auto}.mode-btn{padding:8px 10px;font-size:12px}.form-grid,.network-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:6px;padding:13px 0;min-height:auto}.value{text-align:left}.protocols{justify-content:flex-start}.status-row{align-items:center}.status{max-width:70%}.device{grid-template-columns:1fr}.device-side{text-align:left}}.float-label{background:var(--card);border-radius:999px;padding:0 6px;line-height:16px}.vpn-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}.vpn-token-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:stretch}.vpn-buttons-row{display:flex;gap:10px;justify-content:flex-start}.vpn-buttons-row .btn{flex:0 0 auto;min-width:140px}.token-entry,.input-row{height:44px;display:flex;align-items:stretch;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.07)}.token-entry input,.input-row input{height:42px}.input-row .float-label,.token-entry .float-label{background:var(--card);border-radius:999px;padding:0 6px}.lan-download-wrap{display:flex;gap:8px;align-items:center}@media (max-width:640px){.vpn-token-row{grid-template-columns:minmax(0,1fr) auto}.vpn-buttons-row{display:grid;grid-template-columns:1fr 1fr}.vpn-buttons-row .btn{min-width:0;width:100%}.vpn-actions{padding-left:14px;padding-right:14px}.float-label{padding:0 5px}}@media (max-width:390px){.vpn-buttons-row{gap:6px}.vpn-buttons-row .btn{font-size:10px;padding:0 8px}.vpn-token-row{gap:6px}.token-submit{min-width:92px!important}}
+  </style>
 </head>
 <body>
-<div class="app">
-    <header class="header">
-        <div class="header-inner">
-            <div class="brand">
-                <div class="brand-mark">L</div>
-                <div>
-                    <div class="brand-title">Limupy</div>
-                    <div class="brand-sub">VPN и LAN</div>
-                </div>
-            </div>
-            <button class="window-switch" id="windowSwitch" type="button" aria-label="Переключить окно">
-                <span class="sq sq-a"></span>
-                <span class="sq sq-b"></span>
-                <span class="sq sq-c"></span>
-            </button>
+  <main class="wrap">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">L</div>
+        <div>
+          <h1>Limupy</h1>
+          <div id="subtitle" class="subtitle">VPN-подписка</div>
         </div>
-        <nav class="nav">
-            <button class="nav-btn active" data-page="vpn" type="button">VPN</button>
-            <button class="nav-btn" data-page="lan" type="button">LAN</button>
-        </nav>
-    </header>
+      </div>
+      <div class="mode-switch" role="tablist" aria-label="Раздел">
+        <button id="modeVpn" class="mode-btn active" type="button" aria-label="VPN" title="VPN" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-3 8.3-7 10-4-1.7-7-5.2-7-10V6l7-3z"></path><path d="M9.5 12.2l1.7 1.7 3.6-3.8"></path></svg>
+        </button>
+        <button id="modeLan" class="mode-btn" type="button" aria-label="LAN" title="LAN" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="6" rx="1.5"></rect><rect x="3" y="15" width="6" height="6" rx="1.5"></rect><rect x="15" y="15" width="6" height="6" rx="1.5"></rect><path d="M12 9v3M6 15v-3h12v3"></path></svg>
+        </button>
+      </div>
+    </div>
 
-    <main>
-        <section class="page active" id="page-vpn">
-            <div class="hero">
-                <h1>VPN</h1>
-                <p>Проверка подписки и быстрый запуск VPN в Happ.</p>
+    <section id="vpnPanel" class="panel active">
+      <div class="card" aria-live="polite">
+        <div class="hero">
+          <div class="status-row">
+            <span class="label">Статус VPN</span>
+            <span id="status" class="status wait">Проверка…</span>
+          </div>
+        </div>
+        <div class="rows">
+          <div class="row"><div class="label">Подписка</div><div id="subscription" class="value">—</div></div>
+          <div class="row"><div class="label">Сервер</div><div id="server" class="value">—</div></div>
+          <div class="row"><div class="label">Протоколы</div><div id="protocols" class="value">—</div></div>
+          <div class="row"><div class="label">Трафик</div><div id="traffic" class="value">—</div></div>
+          <div class="row"><div class="label">Срок действия</div><div id="expire" class="value">—</div></div>
+          <div class="row"><div class="label">Задержка</div><div id="latency" class="value">—</div></div>
+        </div>
+        <div class="actions vpn-actions">
+          <div class="vpn-token-row">
+            <div id="tokenEntry" class="token-entry" hidden>
+              <label class="float-label" for="tokenInput">Токен подписки</label>
+              <input id="tokenInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
             </div>
+            <button id="tokenSubmit" class="btn primary control-btn token-submit" type="button">Проверить</button>
+          </div>
+          <div class="vpn-buttons-row">
+            <a id="happDownload" class="btn secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer">Скачать Happ</a>
+            <a id="happConnect" class="btn primary" href="#" rel="noopener noreferrer" hidden>Открыть в Happ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-note">Не передавайте токен подписки и ссылку с токеном третьим лицам. VPN не обеспечивает абсолютную анонимность. Сервер может видеть технические данные соединения — время, объём трафика и сетевые направления, а также данные, которые не защищены шифрованием.</div>
+    </section>
 
-            <div class="grid">
-                <div class="metric">
-                    <div class="metric-label">Статус</div>
-                    <div class="metric-value" id="vpnStatus">—</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Срок</div>
-                    <div class="metric-value" id="vpnExpiry">—</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Пинг</div>
-                    <div class="metric-value" id="vpnPing">—</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Трафик</div>
-                    <div class="metric-value" id="vpnTraffic">—</div>
-                </div>
-            </div>
+    <section id="lanPanel" class="panel">
+      <div class="card" aria-live="polite">
+        <div class="hero">
+          <div class="status-row">
+            <span class="label">Статус LAN</span>
+            <span id="lanStatus" class="status wait">Создайте или подключитесь к сети</span>
+          </div>
+        </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Токен</div>
-                        <div class="card-sub">Введите токен подписки</div>
-                    </div>
-                    <div class="status-line">
-                        <span class="dot" id="vpnDot"></span>
-                        <span id="vpnStatusHint">Не проверен</span>
-                    </div>
-                </div>
+        <div class="section">
+          <div class="section-head"><div><div class="section-title">Ваше устройство</div><div class="muted">Public Key нужен серверу для идентификации устройства. Private Key остаётся только у вас.</div></div></div>
+          <div class="form-grid identity-grid" style="margin-top:12px">
+            <div class="field"><div class="input-row"><label class="float-label" for="lanPublicKey">Public Key</label><input id="lanPublicKey" maxlength="44" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></div></div>
+            <div class="field"><div class="input-row"><label class="float-label" for="lanDeviceName">Имя устройства</label><input id="lanDeviceName" maxlength="48" autocomplete="off"></div></div>
+          </div>
+        </div>
 
-                <div class="row">
-                    <input class="input" id="vpnToken" type="password" autocomplete="off" spellcheck="false" placeholder="Введите токен">
-                    <button class="btn primary" id="vpnCheck" type="button">Проверить</button>
-                </div>
+        <div class="section">
+          <div class="section-head"><div><div class="section-title">Создать сеть</div><div class="muted">Создайте свою LAN и получите код для других участников.</div></div></div>
+          <div class="control-row">
+            <div class="field"><div class="input-row"><label class="float-label" for="lanName">Название сети</label><input id="lanName" maxlength="64" autocomplete="off"></div></div>
+            <button id="lanCreate" class="btn primary control-btn" type="button">Создать сеть</button>
+          </div>
+        </div>
 
-                <button class="happ-btn" id="happOpen" type="button" disabled>
-                    <span class="happ-icon"></span>
-                    <span>Открыть в Happ</span>
-                </button>
-            </div>
+        <div class="section">
+          <div class="section-head"><div><div class="section-title">Подключиться к сети</div><div class="muted">Введите код, который выдал владелец LAN.</div></div></div>
+          <div class="control-row">
+            <div class="field"><div class="input-row"><label class="float-label" for="lanJoinCode">Код LAN</label><input id="lanJoinCode" maxlength="64" autocomplete="off" autocapitalize="characters" spellcheck="false"></div></div>
+            <button id="lanJoin" class="btn primary control-btn" type="button">Подключиться</button>
+          </div>
+        </div>
 
-            <div class="card hidden" id="vpnInfoCard">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title" id="vpnName">Limupy</div>
-                        <div class="card-sub">Информация о подписке</div>
-                    </div>
-                </div>
+        <div id="lanNetworksSection" class="section" hidden>
+          <div class="section-head"><div><div class="section-title">Мои сети</div><div class="muted">Выберите сеть, чтобы посмотреть её участников и настройки.</div></div></div>
+          <div class="network-toolbar"><select id="lanNetworkSelect" class="network-select"></select><button id="lanRefresh" class="btn secondary small" type="button">Обновить</button></div>
+        </div>
 
-                <div class="mini-grid">
-                    <div class="mini">
-                        <div class="mini-label">Статус</div>
-                        <div class="mini-value" id="infoStatus">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Срок</div>
-                        <div class="mini-value" id="infoExpiry">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Пинг</div>
-                        <div class="mini-value" id="infoPing">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Трафик</div>
-                        <div class="mini-value" id="infoTraffic">—</div>
-                    </div>
-                </div>
-            </div>
+        <div id="lanDetailsSection" class="section" hidden>
+          <div class="section-head"><div><div class="section-title">Текущая сеть</div><div class="muted">Данные этой сети и ваш доступ.</div></div></div>
+          <div class="network-grid">
+            <div class="mini"><div class="mini-label">Название</div><div id="lanDetailName" class="mini-value">—</div></div>
+            <div class="mini"><div class="mini-label">Подсеть</div><div id="lanDetailSubnet" class="mini-value">—</div></div>
+            <div class="mini"><div class="mini-label">Мой IP</div><div id="lanDetailIp" class="mini-value">—</div></div>
+            <div class="mini"><div class="mini-label">Роль</div><div id="lanDetailRole" class="mini-value">—</div></div>
+          </div>
+          <div id="lanOwnerCode" class="info-line" hidden><div class="info-copy"><div class="mini-label">Код для подключения</div><div id="lanJoinCodeText" class="info-value">—</div></div><button id="lanCopyCode" class="btn secondary small" type="button">Копировать</button><input id="lanJoinCodeView" type="hidden" value=""></div>
+          <details class="fold"><summary>Конфигурация WireGuard</summary><div class="fold-content"><div class="status-row" style="margin-bottom:8px"><span class="label">Конфигурация для этого устройства</span><div style="display:flex;gap:8px;align-items:center"><button id="lanCopyConfig" class="btn secondary small" type="button">Копировать</button><button id="lanDownloadConfig" class="btn secondary small" type="button">Скачать WireGuard</button></div></div><div class="config-box" style="margin-top:0"><pre id="lanConfig">—</pre></div></div></details>
+        </div>
 
-            <div class="notice">
-                Не передавайте токен подписки и ссылку с токеном третьим лицам. VPN не обеспечивает абсолютную анонимность. Сервер может видеть технические данные соединения — время, объём трафика и сетевые направления, а также данные, которые не защищены шифрованием.
-            </div>
-        </section>
+        <div id="lanDevicesSection" class="section" hidden>
+          <div class="section-head"><div><div class="section-title">Устройства</div><div id="lanDevicesHint" class="muted">Участники этой сети</div></div></div>
+          <div id="lanDevices" class="device-list"></div>
+        </div>
 
-        <section class="page" id="page-lan">
-            <div class="hero">
-                <h1>LAN</h1>
-                <p>Создание и подключение к приватной сети Limupy.</p>
-            </div>
+        <div class="section">
+          <div class="split-actions">
+            <button id="lanLeave" class="btn danger" type="button" hidden>Выйти из LAN</button>
+            <button id="lanDelete" class="btn danger" type="button" hidden>Удалить LAN</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Статус</div>
-                        <div class="card-sub">Состояние LAN и WireGuard</div>
-                    </div>
-                    <div class="status-line">
-                        <span class="dot" id="lanDot"></span>
-                        <span id="lanStatusText">Не готова</span>
-                    </div>
-                </div>
+    <div id="error" class="error" hidden></div>
+    <div id="toast" class="toast"></div>
+  </main>
 
-                <div class="mini-grid">
-                    <div class="mini">
-                        <div class="mini-label">Подсеть</div>
-                        <div class="mini-value" id="lanSubnet">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">IP</div>
-                        <div class="mini-value" id="lanIp">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Роль</div>
-                        <div class="mini-value" id="lanRole">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Имя</div>
-                        <div class="mini-value" id="lanCurrentName">—</div>
-                    </div>
-                </div>
-            </div>
+  <script>
+    const API_URL='https://78.17.112.158/api.php';
+    const HAPP_DOWNLOAD_URL='https://happ.info/';
+    const REQUEST_TIMEOUT_MS=12000;
+    const HASH_CHANGE_DELAY_MS=150;
+    const TOKEN_HISTORY_KEY='limupy_token_history';
+    const LAN_SESSION_KEY='limupy_lan_networks';
+    const LAN_PUBLIC_KEY_KEY='limupy_lan_public_key';
+    const LAN_DEVICE_NAME_KEY='limupy_lan_device_name';
+    const MODE_KEY='limupy_mode';
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Подключение</div>
-                        <div class="card-sub">Создать новую сеть или подключиться по коду</div>
-                    </div>
-                </div>
+    let activeToken='';
+    let tokenWasProvidedInUrl=false;
+    let hashTimer=null;
+    let activeLoadPromise=null;
+    let lanNetworks=[];
+    let activeLanId=null;
+    let toastTimer=null;
 
-                <div class="segment">
-                    <button class="active" id="lanCreateTab" type="button">Создать</button>
-                    <button id="lanJoinTab" type="button">Подключить</button>
-                </div>
+    const $=id=>document.getElementById(id);
 
-                <div class="stack" id="lanCreatePanel" style="margin-top:12px">
-                    <input class="input" id="lanCreateName" type="text" maxlength="64" placeholder="Название">
-                    <button class="btn primary" id="lanCreateBtn" type="button">Создать</button>
-                </div>
-
-                <div class="stack hidden" id="lanJoinPanel" style="margin-top:12px">
-                    <input class="input" id="lanJoinCode" type="text" maxlength="256" placeholder="Введите код">
-                    <button class="btn primary" id="lanJoinBtn" type="button">Подключить</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Моя сеть</div>
-                        <div class="card-sub">Текущая LAN-конфигурация</div>
-                    </div>
-                    <button class="btn secondary" id="lanRefreshBtn" type="button">Обновить</button>
-                </div>
-
-                <div class="mini-grid">
-                    <div class="mini">
-                        <div class="mini-label">Имя</div>
-                        <div class="mini-value" id="lanNetName">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Подсеть</div>
-                        <div class="mini-value" id="lanNetSubnet">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Мой IP</div>
-                        <div class="mini-value" id="lanNetIp">—</div>
-                    </div>
-                    <div class="mini">
-                        <div class="mini-label">Роль</div>
-                        <div class="mini-value" id="lanNetRole">—</div>
-                    </div>
-                </div>
-
-                <div class="stack" style="margin-top:12px">
-                    <button class="btn secondary" id="lanCopyBtn" type="button">Копировать конфигурацию</button>
-                    <button class="btn secondary" id="lanDownloadBtn" type="button">Скачать конфигурацию</button>
-                    <button class="btn danger" id="lanLeaveBtn" type="button">Покинуть сеть</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">WireGuard</div>
-                        <div class="card-sub">Текущая конфигурация</div>
-                    </div>
-                </div>
-                <div class="code-box" id="lanConfigBox">—</div>
-            </div>
-        </section>
-    </main>
-
-    <div class="footer">Limupy</div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-const API_URL='https://78.17.112.158/api.php';
-const DEVICE_KEY='limupy_device_id';
-const TOKEN_KEY='limupy_vpn_token';
-
-let currentHappUrl='';
-let currentLaunchUrl='';
-let currentLanConfig='';
-let toastTimer=0;
-
-const $=id=>document.getElementById(id);
-
-function getDeviceId(){
-    let id=localStorage.getItem(DEVICE_KEY);
-    if(!id){
-        const source=crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`;
-        id=source.replace(/[^a-zA-Z0-9_-]/g,'').slice(0,64);
-        localStorage.setItem(DEVICE_KEY,id);
-    }
-    return id;
-}
-
-function getToken(){
-    return ($('vpnToken').value||'').trim();
-}
-
-function saveToken(token){
-    localStorage.setItem(TOKEN_KEY,token);
-}
-
-function loadToken(){
-    const token=localStorage.getItem(TOKEN_KEY)||'';
-    $('vpnToken').value=token;
-    return token;
-}
-
-function showToast(message,type=''){
-    const el=$('toast');
-    el.textContent=message;
-    el.className=`toast show ${type}`.trim();
-    clearTimeout(toastTimer);
-    toastTimer=setTimeout(()=>el.className='toast',2800);
-}
-
-async function apiRequest(action,payload={},token=''){
-    const headers={
-        Accept:'application/json',
-        'Content-Type':'application/json'
-    };
-
-    if(token){
-        headers.Authorization=`Bearer ${token}`;
+    function getUrlToken(){
+      const hash=window.location.hash.replace(/^#/,'');
+      const params=new URLSearchParams(hash);
+      return String(params.get('key')||'').trim();
     }
 
-    const response=await fetch(API_URL,{
-        method:'POST',
-        mode:'cors',
-        credentials:'omit',
-        cache:'no-store',
-        headers,
-        body:JSON.stringify({
-            action,
-            device_id:getDeviceId(),
-            ...payload
-        })
-    });
-
-    let data=null;
-    try{
-        data=await response.json();
-    }catch{
-        data=null;
+    function getHistoryTokens(){
+      try{
+        const raw=localStorage.getItem(TOKEN_HISTORY_KEY)||'[]';
+        const parsed=JSON.parse(raw);
+        return Array.isArray(parsed)?parsed.filter(x=>typeof x==='string'&&x.trim()).map(x=>x.trim()):[];
+      }catch(_){return []}
     }
 
-    if(!response.ok){
-        throw new Error(data?.error||`HTTP ${response.status}`);
+    function saveTokenToHistory(token){
+      const value=String(token||'').trim();
+      if(!value)return;
+      try{
+        const list=getHistoryTokens().filter(item=>item!==value);
+        list.unshift(value);
+        localStorage.setItem(TOKEN_HISTORY_KEY,JSON.stringify(list.slice(0,5)));
+      }catch(_){}
     }
 
-    if(data?.ok===false){
-        throw new Error(data?.error||'Ошибка API');
+    function getHistoryToken(){
+      const list=getHistoryTokens();
+      return list[0]||'';
     }
 
-    return data||{};
-}
+    function adoptToken(){
+      const urlToken=getUrlToken();
+      if(urlToken){
+        tokenWasProvidedInUrl=true;
+        activeToken=urlToken;
+        saveTokenToHistory(activeToken);
+        return activeToken;
+      }
+      tokenWasProvidedInUrl=false;
+      if(activeToken)return activeToken;
+      const stored=getHistoryToken();
+      if(stored){
+        activeToken=stored;
+        return activeToken;
+      }
+      return '';
+    }
 
-function setVpnState(kind,text,hint){
-    const dot=$('vpnDot');
-    dot.className='dot';
-    if(kind==='ok')dot.classList.add('ok');
-    if(kind==='bad')dot.classList.add('bad');
-    if(kind==='warn')dot.classList.add('warn');
-    $('vpnStatusHint').textContent=hint;
-    $('vpnStatus').textContent=text;
-}
-
-function formatDate(value){
-    if(value===undefined||value===null||value==='')return '—';
-
-    if(typeof value==='number'){
-        const ms=value<100000000000?value*1000:value;
-        const date=new Date(ms);
-        if(!Number.isNaN(date.getTime())){
-            return date.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'});
+    function getDeviceId(){
+      const key='limupy_device_id';
+      try{
+        let id=localStorage.getItem(key)||'';
+        if(!id){
+          id=crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`;
+          localStorage.setItem(key,id);
         }
+        return id;
+      }catch(_){
+        return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      }
     }
 
-    const numeric=Number(value);
-    if(Number.isFinite(numeric)&&numeric>0){
-        const ms=numeric<100000000000?numeric*1000:numeric;
-        const date=new Date(ms);
-        if(!Number.isNaN(date.getTime())){
-            return date.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'});
-        }
+    function setStatus(type,text){
+      const el=$('status');
+      el.className='status '+type;
+      el.textContent=text;
     }
 
-    const date=new Date(value);
-    if(!Number.isNaN(date.getTime())){
-        return date.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'});
+    function setLanStatus(type,text){
+      const el=$('lanStatus');
+      el.className='status '+type;
+      el.textContent=text;
     }
 
-    return String(value);
-}
+    function showToast(text){
+      const el=$('toast');
+      el.textContent=String(text||'');
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
+    }
 
-function formatBytes(value){
-    const n=Number(value);
-    if(!Number.isFinite(n)||n<0)return '—';
-    if(n<1024)return `${Math.round(n)} B`;
-    const units=['KB','MB','GB','TB','PB'];
-    let x=n;
-    let i=-1;
-    do{
+    function resetFields(){
+      $('subscription').textContent='—';
+      $('server').textContent='—';
+      $('protocols').textContent='—';
+      $('traffic').textContent='—';
+      $('expire').textContent='—';
+      $('latency').textContent='—';
+      $('happConnect').hidden=true;
+      $('happConnect').removeAttribute('href');
+      showTokenEntry();
+    }
+
+    function bytes(value){
+      const n=Number(value||0);
+      if(!Number.isFinite(n)||n<=0)return '0 Б';
+      const units=['Б','КБ','МБ','ГБ','ТБ'];
+      let x=n;
+      let i=0;
+      while(x>=1024&&i<units.length-1){
         x/=1024;
         i++;
-    }while(x>=1024&&i<units.length-1);
-    return `${x.toFixed(x>=100?0:x>=10?1:2)} ${units[i]}`;
-}
-
-function formatTraffic(info){
-    if(!info)return '—';
-
-    const upload=Number(info.upload??info.up??info.u??0);
-    const download=Number(info.download??info.down??info.d??0);
-    const total=Number(info.total??info.traffic??0);
-
-    if(upload||download){
-        return `${formatBytes(download+upload)}`;
+      }
+      const digits=x>=100?0:x>=10?1:2;
+      return `${x.toFixed(digits)} ${units[i]}`;
     }
 
-    if(total)return formatBytes(total);
-
-    return '—';
-}
-
-function pick(obj,...keys){
-    for(const key of keys){
-        if(obj&&obj[key]!==undefined&&obj[key]!==null&&obj[key]!=='')return obj[key];
-    }
-    return null;
-}
-
-function subscriptionObject(data){
-    return data?.subscription||data?.data?.subscription||data?.result?.subscription||{};
-}
-
-function upstreamObject(data){
-    return data?.upstream||data?.data?.upstream||data?.result?.upstream||{};
-}
-
-function makeHappImportUrl(raw){
-    const value=String(raw||'').trim();
-    if(!value)return '';
-
-    if(/^happ:\/\/add\/https:\/\//i.test(value)){
-        return value;
+    function trafficText(sub){
+      const total=Number(sub.total_bytes||0);
+      const used=Number(sub.used_bytes||0);
+      if(!total)return `Использовано ${bytes(used)} · без лимита`;
+      const remaining=Number(sub.remaining_bytes??Math.max(0,total-used));
+      return `${bytes(used)} из ${bytes(total)} · осталось ${bytes(remaining)}`;
     }
 
-    if(/^happ:\/\/add\/http:\/\//i.test(value)){
-        return '';
+    function expireText(timestamp){
+      const ts=Number(timestamp||0);
+      if(!ts)return 'Бессрочно';
+      const d=new Date(ts>1e12?ts:ts*1000);
+      if(Number.isNaN(d.getTime()))return '—';
+      return d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'});
     }
 
-    let parsed;
-    try{
-        parsed=new URL(value);
-    }catch{
-        return '';
+    function getHappTarget(value){
+      if(typeof value!=='string')return '';
+      let raw=value.trim();
+      if(/^happ:\/\/add\//i.test(raw))raw=raw.slice('happ://add/'.length);
+      try{return decodeURIComponent(raw)}catch(_){return raw}
     }
 
-    if(parsed.protocol!=='https:')return '';
-
-    const apiOrigin=new URL(API_URL).origin;
-    if(parsed.origin!==apiOrigin)return '';
-
-    if(parsed.pathname!=='/api.php'&&!parsed.pathname.startsWith('/DisstVpn/'))return '';
-
-    return `happ://add/${value}`;
-}
-
-function updateVpnInfo(data){
-    const subscription=subscriptionObject(data);
-    const upstream=upstreamObject(data);
-
-    const status=pick(subscription,'status')||pick(data,'status')||'Активна';
-    const expires=pick(subscription,'expires_at','expire_at','expiry','expires','expiration');
-    const rtt=pick(upstream,'rtt_ms','ping','latency');
-    const traffic=pick(subscription,'userinfo','subscription_userinfo','traffic');
-
-    $('vpnStatus').textContent=String(status);
-    $('vpnExpiry').textContent=formatDate(expires);
-    $('vpnPing').textContent=rtt!==null?`${rtt} мс`:'—';
-
-    if(typeof traffic==='object'){
-        $('vpnTraffic').textContent=formatTraffic(traffic);
-        $('infoTraffic').textContent=formatTraffic(traffic);
-    }else{
-        $('vpnTraffic').textContent=traffic!==null?String(traffic):'—';
-        $('infoTraffic').textContent=traffic!==null?String(traffic):'—';
+    function isAllowedHappUrl(value){
+      const target=getHappTarget(value);
+      if(!target||!/^https:\/\//i.test(target))return false;
+      try{
+        const url=new URL(target);
+        if(url.protocol!=='https:')return false;
+        if(url.hostname!=='78.17.112.158')return false;
+        return url.pathname==='/api.php'||/^\/DisstVpn(?:\/|$)/i.test(url.pathname);
+      }catch(_){return false}
     }
 
-    $('vpnName').textContent=pick(subscription,'name','title')||'Limupy';
-    $('infoStatus').textContent=String(status);
-    $('infoExpiry').textContent=formatDate(expires);
-    $('infoPing').textContent=rtt!==null?`${rtt} мс`:'—';
-
-    $('vpnInfoCard').classList.remove('hidden');
-
-    const rawLaunch=pick(data,'launch_url','happ_url','subscription_url','url','link')
-        ||pick(subscription,'launch_url','happ_url','subscription_url','url','link');
-
-    currentLaunchUrl=String(rawLaunch||'');
-    currentHappUrl=makeHappImportUrl(currentLaunchUrl);
-
-    $('happOpen').disabled=!currentHappUrl;
-
-    if(currentHappUrl){
-        setVpnState('ok','Активна','Подписка проверена');
-    }else{
-        setVpnState('warn','Активна','Ссылка Happ не получена');
+    function getHappImportUrl(value){
+      const raw=String(value||'').trim();
+      if(!raw)return '';
+      if(/^happ:\/\/add\//i.test(raw))return raw;
+      return `happ://add/${raw}`;
     }
-}
 
-async function checkVpn(){
-    const token=getToken();
+    function updateVpnActionLayout(){
+      const actions=document.querySelector('.vpn-actions');
+      if(!actions)return;
+      actions.classList.toggle('no-connect',$('happConnect').hidden);
+      actions.classList.toggle('has-connect',!$('happConnect').hidden);
+      actions.classList.toggle('no-token',$('tokenEntry').hidden&&$('tokenSubmit').hidden);
+    }
 
-    if(!token){
-        showToast('Введите токен','bad');
-        $('vpnToken').focus();
+    function showTokenEntry(){
+      if(tokenWasProvidedInUrl){
+        $('tokenEntry').hidden=true;
+        $('tokenSubmit').hidden=true;
+        $('happConnect').hidden=true;
+        updateVpnActionLayout();
         return;
+      }
+      $('tokenEntry').hidden=false;
+      $('tokenSubmit').hidden=false;
+      $('happConnect').hidden=true;
+      updateVpnActionLayout();
     }
 
-    saveToken(token);
-    $('vpnCheck').disabled=true;
-    $('vpnCheck').textContent='Проверка...';
-    setVpnState('warn','Проверка...','Получаем подписку');
-
-    try{
-        const data=await apiRequest('subscription',{},token);
-        updateVpnInfo(data);
-        showToast('Подписка проверена','ok');
-    }catch(error){
-        currentHappUrl='';
-        currentLaunchUrl='';
-        $('happOpen').disabled=true;
-        $('vpnInfoCard').classList.add('hidden');
-        $('vpnStatus').textContent='Ошибка';
-        $('vpnExpiry').textContent='—';
-        $('vpnPing').textContent='—';
-        $('vpnTraffic').textContent='—';
-        setVpnState('bad','Ошибка','Не удалось проверить токен');
-        showToast(error.message||'Ошибка проверки','bad');
-    }finally{
-        $('vpnCheck').disabled=false;
-        $('vpnCheck').textContent='Проверить';
+    function hideTokenEntry(){
+      $('tokenEntry').hidden=true;
+      $('tokenSubmit').hidden=true;
+      updateVpnActionLayout();
     }
-}
 
-function openHapp(){
-    if(!currentHappUrl){
-        showToast('Сначала проверьте токен','bad');
+    function showHappButton(url){
+      const importUrl=getHappImportUrl(url);
+      if(!isAllowedHappUrl(importUrl)){
+        showTokenEntry();
         return;
+      }
+      $('happConnect').setAttribute('href',importUrl);
+      $('happConnect').hidden=false;
+      $('tokenEntry').hidden=true;
+      $('tokenSubmit').hidden=true;
+      updateVpnActionLayout();
     }
 
-    const btn=$('happOpen');
-    btn.disabled=true;
-
-    try{
-        window.location.assign(currentHappUrl);
-    }finally{
-        setTimeout(()=>{
-            btn.disabled=false;
-        },1800);
+    async function postApi(token){
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),REQUEST_TIMEOUT_MS);
+      try{
+        return await fetch(API_URL,{method:'POST',mode:'cors',cache:'no-store',credentials:'omit',redirect:'error',signal:controller.signal,headers:{Authorization:`Bearer ${token}`,Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({device_id:getDeviceId()})});
+      }finally{
+        clearTimeout(timeout);
+      }
     }
-}
 
-function setPage(name){
-    document.querySelectorAll('.nav-btn').forEach(btn=>{
-        btn.classList.toggle('active',btn.dataset.page===name);
+    async function fetchSubscription(token){
+      const started=performance.now();
+      const res=await postApi(token);
+      let data=null;
+      try{data=await res.json()}catch(_){data=null}
+      return {res,data,elapsed:performance.now()-started};
+    }
+
+    function renderProtocols(protocols){
+      const el=$('protocols');
+      el.textContent='';
+      const arr=Array.isArray(protocols)?protocols:String(protocols||'').split(',').map(s=>s.trim()).filter(Boolean);
+      if(!arr.length){
+        el.textContent='—';
+        return;
+      }
+      const wrapper=document.createElement('div');
+      wrapper.className='protocols';
+      for(const protocol of arr){
+        const item=document.createElement('span');
+        item.className='protocol';
+        item.textContent=String(protocol);
+        wrapper.appendChild(item);
+      }
+      el.appendChild(wrapper);
+    }
+
+    function isSubscriptionActive(data){
+      const sub=data?.subscription||{};
+      return !(sub.enabled===false||sub.active===false||data?.enabled===false||data?.active===false);
+    }
+
+    function renderActive(data,elapsed){
+      const sub=data?.subscription||{};
+      $('subscription').textContent=String(data.subscription_name||sub.name||data.name||'VPN-подписка');
+      $('server').textContent='Финляндия';
+      renderProtocols(sub.protocols||data.protocols||[]);
+      $('traffic').textContent=trafficText(sub);
+      $('expire').textContent=expireText(sub.expire);
+      $('latency').textContent=`${Math.max(1,Math.round(elapsed))} мс`;
+      if(typeof data.launch_url==='string'&&data.launch_url.trim()!==''&&isAllowedHappUrl(data.launch_url))showHappButton(data.launch_url.trim());
+      else showTokenEntry();
+    }
+
+    async function checkToken(token,preserveInput=true){
+      const normalizedToken=String(token||'').trim();
+      if(!normalizedToken){
+        if(tokenWasProvidedInUrl){
+          setStatus('bad','Токен отсутствует.');
+          hideTokenEntry();
+        }else{
+          setStatus('bad','Введите токен.');
+          showTokenEntry();
+        }
+        return false;
+      }
+
+      hideTokenEntry();
+      setStatus('wait','Проверка…');
+      $('tokenSubmit').disabled=true;
+
+      try{
+        const {res,data,elapsed}=await fetchSubscription(normalizedToken);
+
+        if(res.status===401){
+          setStatus('bad','Неверный токен.');
+          if(tokenWasProvidedInUrl)hideTokenEntry();
+          else{
+            showTokenEntry();
+            if(preserveInput)$('tokenInput').value=normalizedToken;
+          }
+          return false;
+        }
+
+        if(res.status===403){
+          setStatus('bad','Доступ запрещён.');
+          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
+          return false;
+        }
+
+        if(res.status===429){
+          const retryAfter=Number(res.headers.get('Retry-After'));
+          setStatus('warn',Number.isFinite(retryAfter)&&retryAfter>0?`Повторите через ${Math.ceil(retryAfter)} сек.`:'Слишком много запросов.');
+          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
+          return false;
+        }
+
+        if(res.status===502||res.status===503||res.status===504){
+          setStatus('bad','Сервер недоступен.');
+          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
+          return false;
+        }
+
+        if(!res.ok||!data||data.ok===false){
+          setStatus('bad','Не удалось получить данные.');
+          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
+          return false;
+        }
+
+        if(!isSubscriptionActive(data)){
+          setStatus('bad','Подписка отключена.');
+          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
+          return false;
+        }
+
+        activeToken=normalizedToken;
+        saveTokenToHistory(activeToken);
+        setStatus('ok','Активно');
+        renderActive(data,elapsed);
+        return true;
+      }catch(error){
+        setStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':'Нет связи с сервером.');
+        tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
+        return false;
+      }finally{
+        $('tokenSubmit').disabled=false;
+      }
+    }
+
+    async function loadInternal(){
+      const token=adoptToken();
+      resetFields();
+
+      if(!token){
+        setStatus('bad','Нет токена подписки.');
+        showTokenEntry();
+        return;
+      }
+
+      hideTokenEntry();
+      setStatus('wait','Проверка…');
+      await checkToken(token,false);
+    }
+
+    function load(){
+      if(activeLoadPromise)return activeLoadPromise;
+      activeLoadPromise=loadInternal().finally(()=>{activeLoadPromise=null});
+      return activeLoadPromise;
+    }
+
+    function validPublicKey(value){
+      const raw=String(value||'').trim();
+      if(!/^[A-Za-z0-9+/]{43}=$/.test(raw))return false;
+      try{return atob(raw).length===32}catch(_){return false}
+    }
+
+    function loadLanState(){
+      try{
+        const raw=sessionStorage.getItem(LAN_SESSION_KEY)||'[]';
+        const parsed=JSON.parse(raw);
+        lanNetworks=Array.isArray(parsed)?parsed.filter(item=>item&&item.id&&item.joinCode&&item.publicKey):[];
+      }catch(_){
+        lanNetworks=[];
+      }
+
+      const storedKey=localStorage.getItem(LAN_PUBLIC_KEY_KEY)||'';
+      const storedName=localStorage.getItem(LAN_DEVICE_NAME_KEY)||'';
+
+      if(storedKey)$('lanPublicKey').value=storedKey;
+      if(storedName)$('lanDeviceName').value=storedName;
+
+      renderLanNetworkSelector();
+    }
+
+    function saveLanState(){
+      try{sessionStorage.setItem(LAN_SESSION_KEY,JSON.stringify(lanNetworks))}catch(_){}
+    }
+
+    function saveLanIdentity(){
+      try{
+        localStorage.setItem(LAN_PUBLIC_KEY_KEY,$('lanPublicKey').value.trim());
+        localStorage.setItem(LAN_DEVICE_NAME_KEY,$('lanDeviceName').value.trim());
+      }catch(_){}
+    }
+
+    function renderLanNetworkSelector(){
+      const section=$('lanNetworksSection');
+      const select=$('lanNetworkSelect');
+      select.textContent='';
+
+      if(!lanNetworks.length){
+        section.hidden=true;
+        $('lanDetailsSection').hidden=true;
+        $('lanDevicesSection').hidden=true;
+        activeLanId=null;
+        setLanStatus('wait','Создайте или подключитесь к сети');
+        return;
+      }
+
+      section.hidden=false;
+
+      for(const network of lanNetworks){
+        const option=document.createElement('option');
+        option.value=String(network.id);
+        option.textContent=`${network.name} · ${network.subnet}`;
+        select.appendChild(option);
+      }
+
+      if(!activeLanId||!lanNetworks.some(item=>String(item.id)===String(activeLanId)))activeLanId=lanNetworks[0].id;
+
+      select.value=String(activeLanId);
+      renderActiveLan();
+    }
+
+    function findActiveLan(){
+      return lanNetworks.find(item=>String(item.id)===String(activeLanId))||null;
+    }
+
+    function upsertLan(network){
+      const index=lanNetworks.findIndex(item=>String(item.id)===String(network.id));
+      if(index===-1)lanNetworks.push(network);
+      else lanNetworks[index]={...lanNetworks[index],...network};
+
+      activeLanId=network.id;
+      saveLanState();
+      renderLanNetworkSelector();
+    }
+
+    function removeLan(id){
+      lanNetworks=lanNetworks.filter(item=>String(item.id)!==String(id));
+      if(String(activeLanId)===String(id))activeLanId=lanNetworks[0]?.id||null;
+      saveLanState();
+      renderLanNetworkSelector();
+    }
+
+    function renderActiveLan(){
+      const network=findActiveLan();
+
+      if(!network){
+        $('lanDetailsSection').hidden=true;
+        $('lanDevicesSection').hidden=true;
+        return;
+      }
+
+      $('lanDetailsSection').hidden=false;
+      $('lanDetailName').textContent=network.name||'—';
+      $('lanDetailSubnet').textContent=network.subnet||'—';
+      $('lanDetailIp').textContent=network.ip||'—';
+      $('lanDetailRole').textContent=network.role==='owner'?'Владелец':'Участник';
+
+      const owner=network.role==='owner';
+
+      $('lanOwnerCode').hidden=!owner;
+      $('lanJoinCodeView').value=network.joinCode||'';
+      $('lanJoinCodeText').textContent=network.joinCode||'—';
+      $('lanLeave').hidden=owner;
+      $('lanDelete').hidden=!owner;
+      $('lanConfig').textContent=network.config||'—';
+
+      const devices=network.devices||[];
+      $('lanDevicesHint').textContent=`Участники этой сети · ${devices.length}`;
+
+      renderLanDevices(devices);
+    }
+
+    function renderLanDevices(devices){
+      const section=$('lanDevicesSection');
+      const list=$('lanDevices');
+      list.textContent='';
+
+      if(!Array.isArray(devices)){
+        section.hidden=true;
+        return;
+      }
+
+      section.hidden=false;
+
+      if(!devices.length){
+        const empty=document.createElement('div');
+        empty.className='muted';
+        empty.textContent='Устройств пока нет.';
+        list.appendChild(empty);
+        return;
+      }
+
+      for(const device of devices){
+        const row=document.createElement('div');
+        row.className='device';
+
+        const main=document.createElement('div');
+        main.className='device-main';
+
+        const name=document.createElement('div');
+        name.className='device-name';
+
+        const meta=document.createElement('div');
+        meta.className='device-meta';
+
+        const key=String(device.public_key||'');
+        const shortKey=key.length>16?`${key.slice(0,8)}…${key.slice(-8)}`:key;
+        const last=device.last_seen?new Date(Number(device.last_seen)*1000).toLocaleString('ru-RU'):'Нет handshake';
+        const own=key===String((findActiveLan()?.publicKey)||'');
+
+        name.textContent=own?`${String(device.name||'Устройство')} · вы`:String(device.name||'Устройство');
+        meta.textContent=`${device.ip||'—'} · ${device.role==='owner'?'владелец':'участник'} · ${shortKey} · ${last}`;
+
+        main.appendChild(name);
+        main.appendChild(meta);
+
+        const side=document.createElement('div');
+        side.className='device-side '+(device.online?'online':'offline');
+        side.textContent=device.online?'Онлайн':'Офлайн';
+
+        row.appendChild(main);
+        row.appendChild(side);
+        list.appendChild(row);
+      }
+    }
+
+    function updateLanConnectionState(devices){
+      const network=findActiveLan();
+
+      if(!network){
+        setLanStatus('wait','Создайте или подключитесь к сети');
+        return;
+      }
+
+      const publicKey=network.publicKey||$('lanPublicKey').value.trim();
+      const own=Array.isArray(devices)?devices.find(device=>String(device.public_key||'')===publicKey):null;
+      setLanStatus('ok',own?.online?'Подключено':'Активно');
+    }
+
+    async function lanRequest(action,payload={}){
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),REQUEST_TIMEOUT_MS);
+
+      try{
+        const res=await fetch(API_URL,{
+          method:'POST',
+          mode:'cors',
+          cache:'no-store',
+          credentials:'omit',
+          redirect:'error',
+          signal:controller.signal,
+          headers:{
+            Accept:'application/json',
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({action,device_id:getDeviceId(),...payload})
+        });
+
+        let data=null;
+        try{data=await res.json()}catch(_){data=null}
+
+        if(!res.ok||!data||data.ok===false)throw new Error(data?.error||`Ошибка API ${res.status}`);
+
+        return data;
+      }finally{
+        clearTimeout(timeout);
+      }
+    }
+
+    function currentLanKey(){
+      return findActiveLan()?.publicKey||$('lanPublicKey').value.trim();
+    }
+
+    function validateLanInputs(action){
+      const publicKey=$('lanPublicKey').value.trim();
+      const deviceName=$('lanDeviceName').value.trim();
+
+      if(!validPublicKey(publicKey)){
+        setLanStatus('bad','Некорректный Public Key.');
+        return null;
+      }
+
+      if(!deviceName||deviceName.length<1){
+        setLanStatus('bad','Укажи название устройства.');
+        return null;
+      }
+
+      if(action==='create'){
+        const name=$('lanName').value.trim();
+
+        if(name.length<4){
+          setLanStatus('bad','Имя LAN должно быть не короче 4 символов.');
+          return null;
+        }
+
+        return {publicKey,deviceName,name};
+      }
+
+      const joinCode=$('lanJoinCode').value.trim();
+
+      if(!joinCode||joinCode.length>64){
+        setLanStatus('bad','Укажи корректный код сети.');
+        return null;
+      }
+
+      return {publicKey,deviceName,joinCode};
+    }
+
+    async function createLan(){
+      const input=validateLanInputs('create');
+      if(!input)return;
+
+      saveLanIdentity();
+      $('lanCreate').disabled=true;
+      setLanStatus('wait','Создание…');
+
+      try{
+        const data=await lanRequest('lan_create',{
+          name:input.name,
+          device_name:input.deviceName,
+          public_key:input.publicKey
+        });
+
+        upsertLan({
+          id:data.network.id,
+          name:data.network.name,
+          subnet:data.network.subnet,
+          joinCode:data.join_code,
+          publicKey:data.me.public_key,
+          deviceName:input.deviceName,
+          ip:data.me.ip,
+          role:data.me.role||'owner',
+          config:data.config,
+          devices:data.devices||[]
+        });
+
+        updateLanConnectionState(data.devices||[]);
+        showToast('LAN создана');
+        await refreshLanNetwork(false);
+      }catch(error){
+        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось создать LAN.');
+      }finally{
+        $('lanCreate').disabled=false;
+      }
+    }
+
+    async function joinLan(){
+      const input=validateLanInputs('join');
+      if(!input)return;
+
+      saveLanIdentity();
+      $('lanJoin').disabled=true;
+      setLanStatus('wait','Подключение…');
+
+      try{
+        const data=await lanRequest('lan_join',{
+          join_code:input.joinCode,
+          device_name:input.deviceName,
+          public_key:input.publicKey
+        });
+
+        upsertLan({
+          id:data.network.id,
+          name:data.network.name,
+          subnet:data.network.subnet,
+          joinCode:input.joinCode,
+          publicKey:data.me.public_key,
+          deviceName:input.deviceName,
+          ip:data.me.ip,
+          role:data.me.role||'member',
+          config:data.config,
+          devices:data.devices||[]
+        });
+
+        updateLanConnectionState(data.devices||[]);
+        showToast('Устройство добавлено в LAN');
+        await refreshLanNetwork(false);
+      }catch(error){
+        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось подключиться.');
+      }finally{
+        $('lanJoin').disabled=false;
+      }
+    }
+
+    async function refreshLanNetwork(showState=true){
+      const network=findActiveLan();
+      if(!network)return;
+
+      if(showState)setLanStatus('wait','Обновление…');
+
+      try{
+        const data=await lanRequest('lan_status',{
+          join_code:network.joinCode,
+          public_key:network.publicKey
+        });
+
+        if(!data.joined){
+          removeLan(network.id);
+          setLanStatus('warn','Устройство не входит в эту LAN.');
+          return;
+        }
+
+        const merged={
+          ...network,
+          name:data.name,
+          subnet:data.subnet,
+          ip:data.me?.ip||network.ip,
+          role:data.me?.role||network.role,
+          config:data.config||network.config,
+          devices:data.devices||[]
+        };
+
+        upsertLan(merged);
+        updateLanConnectionState(data.devices||[]);
+      }catch(error){
+        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось обновить LAN.');
+      }
+    }
+
+    async function leaveLan(){
+      const network=findActiveLan();
+      if(!network)return;
+
+      $('lanLeave').disabled=true;
+      setLanStatus('wait','Выход…');
+
+      try{
+        await lanRequest('lan_leave',{
+          join_code:network.joinCode,
+          public_key:network.publicKey
+        });
+
+        removeLan(network.id);
+        showToast('Вы вышли из LAN');
+      }catch(error){
+        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось выйти из LAN.');
+      }finally{
+        $('lanLeave').disabled=false;
+      }
+    }
+
+    async function deleteLan(){
+      const network=findActiveLan();
+      if(!network)return;
+
+      if(!window.confirm(`Удалить LAN «${network.name}»? Все участники будут отключены.`))return;
+
+      $('lanDelete').disabled=true;
+      setLanStatus('wait','Удаление…');
+
+      try{
+        await lanRequest('lan_delete',{
+          join_code:network.joinCode,
+          public_key:network.publicKey
+        });
+
+        removeLan(network.id);
+        showToast('LAN удалена');
+      }catch(error){
+        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось удалить LAN.');
+      }finally{
+        $('lanDelete').disabled=false;
+      }
+    }
+
+    async function copyText(value,success){
+      if(!value)return;
+
+      try{
+        await navigator.clipboard.writeText(value);
+        showToast(success||'Скопировано');
+      }catch(_){
+        showToast('Не удалось скопировать');
+      }
+    }
+
+    function downloadText(filename,text){
+      if(!text||text==='—')return;
+
+      const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+
+      a.href=url;
+      a.download=filename;
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+
+    function setMode(mode){
+      const lan=mode==='lan';
+
+      $('modeVpn').classList.toggle('active',!lan);
+      $('modeLan').classList.toggle('active',lan);
+
+      $('vpnPanel').classList.toggle('active',!lan);
+      $('lanPanel').classList.toggle('active',lan);
+
+      $('modeVpn').setAttribute('aria-selected',lan?'false':'true');
+      $('modeLan').setAttribute('aria-selected',lan?'true':'false');
+
+      $('subtitle').textContent=lan?'LAN':'VPN';
+
+      try{localStorage.setItem(MODE_KEY,mode)}catch(_){}
+
+      if(lan){
+        loadLanState();
+        const network=findActiveLan();
+        if(network)refreshLanNetwork(false);
+      }
+    }
+
+    $('modeVpn').addEventListener('click',()=>setMode('vpn'));
+    $('modeLan').addEventListener('click',()=>setMode('lan'));
+
+    $('lanCreate').addEventListener('click',createLan);
+    $('lanJoin').addEventListener('click',joinLan);
+    $('lanRefresh').addEventListener('click',()=>refreshLanNetwork(true));
+    $('lanLeave').addEventListener('click',leaveLan);
+    $('lanDelete').addEventListener('click',deleteLan);
+
+    $('lanCopyCode').addEventListener('click',()=>copyText($('lanJoinCodeView').value,'Код LAN скопирован'));
+    $('lanCopyConfig').addEventListener('click',()=>copyText($('lanConfig').textContent,'Конфигурация скопирована'));
+
+    $('lanDownloadConfig').addEventListener('click',()=>{
+      const network=findActiveLan();
+      const name=String(network?.name||'limupy-lan')
+        .replace(/[^a-zA-Z0-9а-яА-ЯёЁ._-]+/g,'-')
+        .replace(/^-+|-+$/g,'')||'limupy-lan';
+
+      downloadText(`${name}.conf`,$('lanConfig').textContent);
     });
 
-    document.querySelectorAll('.page').forEach(page=>{
-        page.classList.toggle('active',page.id===`page-${name}`);
+    $('lanNetworkSelect').addEventListener('change',()=>{
+      activeLanId=$('lanNetworkSelect').value;
+      renderActiveLan();
+      refreshLanNetwork(true);
     });
-}
 
-async function lanRequest(action,payload={}){
-    return apiRequest(action,payload);
-}
+    $('lanPublicKey').addEventListener('input',saveLanIdentity);
+    $('lanDeviceName').addEventListener('input',saveLanIdentity);
 
-function updateLanState(data){
-    const source=data?.lan||data?.data?.lan||data?.result?.lan||data||{};
-    const status=pick(source,'status','state')||'Не готова';
-    const subnet=pick(source,'subnet','network','pool');
-    const ip=pick(source,'ip','client_ip','address');
-    const role=pick(source,'role');
-    const name=pick(source,'name','network_name');
-
-    $('lanStatusText').textContent=String(status);
-    $('lanSubnet').textContent=subnet||'—';
-    $('lanIp').textContent=ip||'—';
-    $('lanRole').textContent=role||'—';
-    $('lanCurrentName').textContent=name||'—';
-
-    $('lanNetName').textContent=name||'—';
-    $('lanNetSubnet').textContent=subnet||'—';
-    $('lanNetIp').textContent=ip||'—';
-    $('lanNetRole').textContent=role||'—';
-
-    const active=['active','connected','ready','online','ok'].includes(String(status).toLowerCase());
-    $('lanDot').className=`dot ${active?'ok':'warn'}`;
-
-    const config=pick(source,'config','wg_config','wireguard_config');
-    if(config){
-        currentLanConfig=String(config);
-        $('lanConfigBox').textContent=currentLanConfig;
-    }
-}
-
-async function loadLanStatus(){
-    try{
-        const data=await lanRequest('lan_status');
-        updateLanState(data);
-    }catch(error){
-        $('lanStatusText').textContent='Ошибка';
-        $('lanDot').className='dot bad';
-        showToast(error.message||'Ошибка LAN','bad');
-    }
-}
-
-async function createLan(){
-    const name=$('lanCreateName').value.trim();
-
-    if(!name){
-        showToast('Введите название','bad');
-        return;
-    }
-
-    const btn=$('lanCreateBtn');
-    btn.disabled=true;
-    btn.textContent='Создание...';
-
-    try{
-        const data=await lanRequest('lan_create',{name});
-        updateLanState(data);
-        showToast('Сеть создана','ok');
-        await loadLanStatus();
-    }catch(error){
-        showToast(error.message||'Не удалось создать сеть','bad');
-    }finally{
-        btn.disabled=false;
-        btn.textContent='Создать';
-    }
-}
-
-async function joinLan(){
-    const code=$('lanJoinCode').value.trim();
-
-    if(!code){
-        showToast('Введите код','bad');
-        return;
-    }
-
-    const btn=$('lanJoinBtn');
-    btn.disabled=true;
-    btn.textContent='Подключение...';
-
-    try{
-        const data=await lanRequest('lan_join',{code});
-        updateLanState(data);
-        showToast('Подключение выполнено','ok');
-        await loadLanStatus();
-    }catch(error){
-        showToast(error.message||'Не удалось подключиться','bad');
-    }finally{
-        btn.disabled=false;
-        btn.textContent='Подключить';
-    }
-}
-
-async function leaveLan(){
-    try{
-        await lanRequest('lan_leave');
-        currentLanConfig='';
-        $('lanConfigBox').textContent='—';
-        await loadLanStatus();
-        showToast('Вы вышли из сети','ok');
-    }catch(error){
-        showToast(error.message||'Не удалось выйти из сети','bad');
-    }
-}
-
-async function copyLanConfig(){
-    if(!currentLanConfig){
-        showToast('Конфигурация пока недоступна','bad');
-        return;
-    }
-
-    try{
-        await navigator.clipboard.writeText(currentLanConfig);
-        showToast('Конфигурация скопирована','ok');
-    }catch{
-        showToast('Не удалось скопировать','bad');
-    }
-}
-
-function downloadLanConfig(){
-    if(!currentLanConfig){
-        showToast('Конфигурация пока недоступна','bad');
-        return;
-    }
-
-    const blob=new Blob([currentLanConfig],{type:'text/plain;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download='limupy.conf';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
-
-$('windowSwitch').addEventListener('click',()=>{
-    const btn=$('windowSwitch');
-    btn.classList.remove('press');
-    void btn.offsetWidth;
-    btn.classList.add('press');
-    const current=document.querySelector('.nav-btn.active')?.dataset.page||'vpn';
-    setPage(current==='vpn'?'lan':'vpn');
-});
-
-document.querySelectorAll('.nav-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        setPage(btn.dataset.page);
+    $('lanJoinCode').addEventListener('input',event=>{
+      event.target.value=event.target.value.toUpperCase();
     });
-});
 
-$('vpnCheck').addEventListener('click',checkVpn);
+    $('lanJoinCode').addEventListener('keydown',event=>{
+      if(event.key==='Enter'){
+        event.preventDefault();
+        joinLan();
+      }
+    });
 
-$('vpnToken').addEventListener('keydown',event=>{
-    if(event.key==='Enter')checkVpn();
-});
+    $('lanName').addEventListener('keydown',event=>{
+      if(event.key==='Enter'){
+        event.preventDefault();
+        createLan();
+      }
+    });
 
-$('vpnToken').addEventListener('input',()=>{
-    currentHappUrl='';
-    $('happOpen').disabled=true;
-});
+    $('tokenSubmit').addEventListener('click',()=>{
+      tokenWasProvidedInUrl=false;
+      checkToken($('tokenInput').value);
+    });
 
-$('happOpen').addEventListener('click',openHapp);
+    $('tokenInput').addEventListener('keydown',event=>{
+      if(event.key==='Enter'){
+        event.preventDefault();
+        tokenWasProvidedInUrl=false;
+        checkToken($('tokenInput').value);
+      }
+    });
 
-$('lanCreateTab').addEventListener('click',()=>{
-    $('lanCreateTab').classList.add('active');
-    $('lanJoinTab').classList.remove('active');
-    $('lanCreatePanel').classList.remove('hidden');
-    $('lanJoinPanel').classList.add('hidden');
-});
+    $('happConnect').addEventListener('click',event=>{
+      const href=$('happConnect').getAttribute('href');
+      if(!href||href==='#'||!isAllowedHappUrl(href))event.preventDefault();
+    });
 
-$('lanJoinTab').addEventListener('click',()=>{
-    $('lanJoinTab').classList.add('active');
-    $('lanCreateTab').classList.remove('active');
-    $('lanJoinPanel').classList.remove('hidden');
-    $('lanCreatePanel').classList.add('hidden');
-});
+    window.addEventListener('hashchange',()=>{
+      const urlToken=getUrlToken();
+      tokenWasProvidedInUrl=Boolean(urlToken);
 
-$('lanCreateBtn').addEventListener('click',createLan);
-$('lanJoinBtn').addEventListener('click',joinLan);
-$('lanRefreshBtn').addEventListener('click',loadLanStatus);
-$('lanCopyBtn').addEventListener('click',copyLanConfig);
-$('lanDownloadBtn').addEventListener('click',downloadLanConfig);
-$('lanLeaveBtn').addEventListener('click',leaveLan);
+      if(urlToken){
+        activeToken=urlToken;
+        saveTokenToHistory(activeToken);
+        hideTokenEntry();
+      }else{
+        activeToken=getHistoryToken();
+        if(!activeToken)showTokenEntry();
+      }
 
-(async function init(){
-    getDeviceId();
+      clearTimeout(hashTimer);
+      hashTimer=setTimeout(()=>load(),HASH_CHANGE_DELAY_MS);
+    });
 
-    const token=loadToken();
+    window.addEventListener('popstate',()=>{
+      const urlToken=getUrlToken();
+      tokenWasProvidedInUrl=Boolean(urlToken);
+      activeToken=urlToken||getHistoryToken();
 
-    if(token){
-        await checkVpn();
-    }
+      activeToken?hideTokenEntry():showTokenEntry();
+      load();
+    });
 
-    await loadLanStatus();
-})();
-</script>
+    window.addEventListener('load',()=>{
+      $('happDownload').href=HAPP_DOWNLOAD_URL;
+      loadLanState();
+
+      let savedMode='vpn';
+      try{
+        savedMode=localStorage.getItem(MODE_KEY)==='lan'?'lan':'vpn';
+      }catch(_){}
+
+      setMode(savedMode);
+
+      if(savedMode!=='lan'){
+        const urlToken=getUrlToken();
+        tokenWasProvidedInUrl=Boolean(urlToken);
+
+        const token=adoptToken();
+
+        if(token){
+          hideTokenEntry();
+          setStatus('wait','Проверка…');
+          load();
+        }else{
+          showTokenEntry();
+          setStatus('bad','Нет токена подписки.');
+        }
+      }
+    });
+  </script>
 </body>
 </html>
