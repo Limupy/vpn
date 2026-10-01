@@ -35,8 +35,6 @@
       --muted:#8f97a8;
       --danger:#ff6868;
       --success:#67d391;
-      --blue:#3f8cff;
-      --blue-2:#1768f2;
       --shadow:0 20px 60px rgba(0,0,0,.28);
       --radius:18px;
     }
@@ -53,8 +51,26 @@
     }
 
     body{min-height:100vh}
-    button,input,textarea{font:inherit}
-    button{border:0;cursor:pointer}
+
+    button,input,textarea{
+      font:inherit;
+    }
+
+    button,a{
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+      outline:none;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+
+    button:focus{
+      outline:none;
+    }
 
     .app{
       width:min(700px,100%);
@@ -76,111 +92,52 @@
       letter-spacing:-.03em;
     }
 
-    .mode-wrap{position:relative}
-
-    .mode-button{
+    .mode-wrap{
       position:relative;
-      isolation:isolate;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      min-height:40px;
-      min-width:92px;
-      padding:0 14px;
-      border:1px solid rgba(63,140,255,.32);
-      border-radius:13px;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(63,140,255,.22),
-          rgba(23,104,242,.1)
-        ),
-        var(--panel);
-      color:var(--text);
-      font-weight:800;
-      overflow:hidden;
-      box-shadow:
-        0 8px 24px rgba(23,104,242,.08),
-        inset 0 1px 0 rgba(255,255,255,.05);
-      transform:translateZ(0);
-      transition:
-        transform .18s cubic-bezier(.2,.8,.2,1),
-        box-shadow .22s ease,
-        border-color .22s ease,
-        background .22s ease;
     }
 
-    .mode-button::before{
-      content:"";
-      position:absolute;
-      width:140%;
-      height:220%;
-      left:-20%;
-      top:-150%;
-      background:
-        radial-gradient(
-          circle,
-          rgba(125,181,255,.42) 0%,
-          rgba(63,140,255,.16) 28%,
-          rgba(63,140,255,0) 68%
-        );
-      opacity:0;
-      transform:scale(.65);
+    .mode-button{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-height:40px;
+      padding:0 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:var(--panel);
+      color:var(--text);
+      font-weight:700;
+      position:relative;
+      z-index:50;
       transition:
-        opacity .22s ease,
-        transform .35s cubic-bezier(.22,1,.36,1);
-      pointer-events:none;
-      z-index:-1;
+        transform .16s ease,
+        background .16s ease,
+        border-color .16s ease,
+        box-shadow .16s ease;
     }
 
     .mode-button:hover{
-      border-color:rgba(63,140,255,.6);
-      box-shadow:
-        0 12px 30px rgba(23,104,242,.18),
-        inset 0 1px 0 rgba(255,255,255,.06);
-      transform:translateY(-1px);
+      background:#171b24;
+      border-color:#303746;
     }
 
     .mode-button:active{
-      transform:scale(.94);
-      box-shadow:
-        0 5px 12px rgba(23,104,242,.12),
-        inset 0 1px 0 rgba(255,255,255,.04);
+      transform:scale(.96);
     }
 
-    .mode-button:active::before{
-      opacity:1;
-      transform:scale(1);
-      transition:none;
-    }
-
-    .mode-button[aria-expanded="true"]{
-      border-color:rgba(63,140,255,.72);
-      background:
-        linear-gradient(
-          180deg,
-          rgba(63,140,255,.3),
-          rgba(23,104,242,.14)
-        ),
-        var(--panel);
-      box-shadow:
-        0 14px 34px rgba(23,104,242,.2),
-        inset 0 1px 0 rgba(255,255,255,.06);
+    .mode-button:focus-visible{
+      box-shadow:0 0 0 3px rgba(255,255,255,.07);
     }
 
     .mode-button svg{
       width:15px;
       height:15px;
-      opacity:.82;
-      transition:
-        transform .24s ease,
-        opacity .2s ease;
+      opacity:.7;
+      transition:transform .18s ease;
     }
 
     .mode-button[aria-expanded="true"] svg{
       transform:rotate(180deg);
-      opacity:1;
     }
 
     .mode-menu{
@@ -188,22 +145,21 @@
       right:0;
       top:48px;
       z-index:60;
-      width:170px;
-      padding:6px;
+      width:104px;
+      padding:5px;
       background:var(--panel-2);
       border:1px solid var(--line);
-      border-radius:14px;
+      border-radius:13px;
       box-shadow:var(--shadow);
-      display:block;
       opacity:0;
       visibility:hidden;
       pointer-events:none;
-      transform:translateY(-8px) scale(.96);
+      transform:translateY(-5px) scale(.97);
       transform-origin:top right;
       transition:
-        opacity .18s ease,
-        visibility .18s ease,
-        transform .2s cubic-bezier(.2,.8,.2,1);
+        opacity .16s ease,
+        transform .16s ease,
+        visibility 0s linear .16s;
     }
 
     .mode-menu.open{
@@ -211,46 +167,48 @@
       visibility:visible;
       pointer-events:auto;
       transform:translateY(0) scale(1);
+      transition-delay:0s;
     }
 
     .mode-option{
       width:100%;
       display:flex;
       align-items:center;
-      justify-content:flex-start;
-      padding:11px 12px;
-      border-radius:10px;
+      justify-content:center;
+      padding:9px 10px;
+      border-radius:9px;
       background:transparent;
       color:var(--text);
-      text-align:left;
-      font-weight:750;
+      text-align:center;
       transition:
-        background .18s ease,
-        transform .18s ease;
+        transform .14s ease,
+        background .14s ease,
+        color .14s ease;
     }
 
     .mode-option:hover{
       background:#1b202b;
-      transform:translateX(2px);
+      transform:translateY(-1px);
     }
 
     .mode-option:active{
-      transform:scale(.98);
+      background:#222936;
+      transform:scale(.96);
+    }
+
+    .mode-option:focus-visible{
+      box-shadow:0 0 0 2px rgba(255,255,255,.06) inset;
     }
 
     .mode-option.active{
-      background:
-        linear-gradient(
-          90deg,
-          rgba(63,140,255,.16),
-          rgba(63,140,255,.04)
-        );
-      box-shadow:
-        inset 0 0 0 1px rgba(63,140,255,.12);
+      background:#202631;
     }
 
     .page{display:none}
-    .page.active{display:block}
+
+    .page.active{
+      display:block;
+    }
 
     .panel{
       background:var(--panel);
@@ -260,7 +218,9 @@
       overflow:hidden;
     }
 
-    .panel + .panel{margin-top:12px}
+    .panel + .panel{
+      margin-top:12px;
+    }
 
     .panel-head{
       padding:18px 18px 12px;
@@ -282,7 +242,9 @@
       margin-top:3px;
     }
 
-    .panel-body{padding:18px}
+    .panel-body{
+      padding:18px;
+    }
 
     .mode-label{
       font-size:13px;
@@ -377,8 +339,13 @@
       color:var(--text);
     }
 
-    .input:focus{border-color:#454d5d}
-    .input::placeholder{color:#687080}
+    .input:focus{
+      border-color:#454d5d;
+    }
+
+    .input::placeholder{
+      color:#687080;
+    }
 
     .btn{
       min-height:46px;
@@ -387,6 +354,14 @@
       font-weight:750;
       transition:.18s ease;
       white-space:nowrap;
+    }
+
+    .btn:focus{
+      outline:none;
+    }
+
+    .btn:active:not(:disabled){
+      transform:scale(.985);
     }
 
     .btn:disabled{
@@ -533,6 +508,16 @@
       background:transparent;
       color:var(--muted);
       font-weight:700;
+      outline:none;
+      -webkit-tap-highlight-color:transparent;
+      transition:
+        transform .14s ease,
+        background .14s ease,
+        color .14s ease;
+    }
+
+    .lan-tab:active{
+      transform:scale(.97);
     }
 
     .lan-tab.active{
@@ -541,9 +526,14 @@
     }
 
     .lan-form{display:none}
-    .lan-form.active{display:block}
 
-    .field{margin-bottom:12px}
+    .lan-form.active{
+      display:block;
+    }
+
+    .field{
+      margin-bottom:12px;
+    }
 
     .field-label{
       font-size:12px;
@@ -597,7 +587,9 @@
       align-items:stretch;
     }
 
-    .key-row .input{min-width:0}
+    .key-row .input{
+      min-width:0;
+    }
 
     .mini-btn{
       flex:0 0 auto;
@@ -609,6 +601,13 @@
       border:1px solid var(--line);
       font-size:12px;
       font-weight:700;
+      outline:none;
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .14s ease,background .14s ease;
+    }
+
+    .mini-btn:active{
+      transform:scale(.97);
     }
 
     .network-list{
@@ -628,10 +627,17 @@
       background:var(--panel-2);
       color:var(--text);
       border-radius:12px;
+      outline:none;
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .14s ease,background .14s ease;
     }
 
     .network-item:hover{
       background:#191e27;
+    }
+
+    .network-item:active{
+      transform:scale(.99);
     }
 
     .network-main{
@@ -1486,9 +1492,8 @@
     const SS_LAN_NETWORKS='limupy_lan_networks';
     const SS_LAN_JOIN_CODES='limupy_lan_join_codes';
     const SS_DEVICE_ID='limupy_device_id';
-    const ALLOWED_HAPP_HOST='78.17.112.158';
-    const ALLOWED_HAPP_SUBSCRIPTION_PATH='/DisstVpn/';
-    const ALLOWED_HAPP_API_PATH='/api.php';
+    const ALLOWED_HAPP_HOST=new URL(API_URL).hostname;
+    const ALLOWED_HAPP_PATH=new URL(API_URL).pathname;
 
     let currentMode='vpn';
     let currentLanTab='create';
@@ -2255,11 +2260,15 @@
         vpnData?.launch_url,
         vpnData?.happ_url,
         vpnData?.subscription_url,
+        vpnData?.proxy_url,
+        vpnData?.happ_subscription_url,
         vpnData?.happ,
         vpnData?.url,
         vpnData?.link,
         vpnData?.subscription?.launch_url,
         vpnData?.subscription?.happ_url,
+        vpnData?.subscription?.subscription_url,
+        vpnData?.subscription?.proxy_url,
         vpnData?.subscription?.url
       ];
 
@@ -2273,46 +2282,47 @@
       ).trim();
     }
 
-    function isAllowedHappHttpUrl(parsed){
+    function isAllowedHappHttpUrl(value){
       if(
-        parsed.protocol!=='https:'||
-        parsed.hostname!==ALLOWED_HAPP_HOST
+        typeof value!=='string'
       ){
         return false;
       }
 
-      if(
-        parsed.pathname.startsWith(
-          ALLOWED_HAPP_SUBSCRIPTION_PATH
-        )
-      ){
-        return true;
-      }
-
-      if(
-        parsed.pathname===ALLOWED_HAPP_API_PATH
-      ){
-        const subscriptionId=
-          parsed.searchParams.get(
-            'subscription'
+      try{
+        const parsed=
+          new URL(
+            value.trim()
           );
 
-        const signature=
-          parsed.searchParams.get(
-            'sig'
-          );
+        if(
+          parsed.protocol!=='https:'||
+          parsed.hostname!==ALLOWED_HAPP_HOST
+        ){
+          return false;
+        }
 
-        return Boolean(
-          subscriptionId&&
-          /^[a-f0-9]{8,128}$/i.test(
-            subscriptionId
-          )&&
-          signature&&
-          /^[a-f0-9]{32,128}$/i.test(
-            signature
+        if(
+          parsed.pathname.startsWith(
+            '/DisstVpn/'
           )
-        );
-      }
+        ){
+          return true;
+        }
+
+        if(
+          parsed.pathname===ALLOWED_HAPP_PATH
+        ){
+          return Boolean(
+            parsed.searchParams.get(
+              'subscription'
+            )&&
+            parsed.searchParams.get(
+              'sig'
+            )
+          );
+        }
+      }catch{}
 
       return false;
     }
@@ -2343,32 +2353,28 @@
               ''
             );
 
-          const parsed=
-            new URL(
-              nested
-            );
-
           return isAllowedHappHttpUrl(
-            parsed
+            nested
           );
         }catch{
           return false;
         }
       }
 
-      if(/^https:\/\//i.test(raw)){
-        try{
-          const parsed=
-            new URL(
-              raw
-            );
+      if(
+        /^happ:\/\/add\//i.test(
+          raw
+        )
+      ){
+        return false;
+      }
 
-          return isAllowedHappHttpUrl(
-            parsed
-          );
-        }catch{
-          return false;
-        }
+      if(
+        isAllowedHappHttpUrl(
+          raw
+        )
+      ){
+        return true;
       }
 
       try{
@@ -2438,7 +2444,7 @@
 
     function renderVpnActions(){
       const safeUrl=
-        getHappImportUrl();
+        getSafeHappUrl();
 
       if(!safeUrl){
         hideVpnActions();
@@ -3403,6 +3409,28 @@
         getNetworkDisplayName(
           network
         )
+      );
+    }
+
+    function setLanNetworkName(
+      name
+    ){
+      const element=
+        $('lanNetworkName');
+
+      if(!name){
+        element.textContent='';
+        element.classList.add(
+          'hidden'
+        );
+        return;
+      }
+
+      element.textContent=
+        name;
+
+      element.classList.remove(
+        'hidden'
       );
     }
 
