@@ -50,7 +50,9 @@
       -webkit-font-smoothing:antialiased;
     }
 
-    body{min-height:100vh}
+    body{
+      min-height:100vh;
+    }
 
     button,input,textarea{
       font:inherit;
@@ -74,8 +76,11 @@
 
     .app{
       width:min(700px,100%);
+      min-height:100vh;
       margin:0 auto;
-      padding:24px 16px 40px;
+      padding:24px 16px 18px;
+      display:flex;
+      flex-direction:column;
     }
 
     .topbar{
@@ -202,6 +207,10 @@
 
     .mode-option.active{
       background:#202631;
+    }
+
+    main{
+      flex:1;
     }
 
     .page{
@@ -434,27 +443,13 @@
       stroke:currentColor;
     }
 
-    .notice{
-      margin-top:10px;
-      padding:11px 12px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:12px;
+    .security-notice{
+      margin-top:18px;
+      padding:8px 4px 0;
+      color:#747d8e;
+      font-size:10px;
       line-height:1.45;
-      background:var(--panel-2);
-    }
-
-    .notice.error{
-      color:var(--muted);
-      border-color:var(--line);
-      background:var(--panel-2);
-    }
-
-    .notice.success{
-      color:#a3e9ba;
-      border-color:rgba(103,211,145,.22);
-      background:rgba(103,211,145,.05);
+      text-align:center;
     }
 
     .lan-wrap{
@@ -841,7 +836,7 @@
 
     @media (max-width:620px){
       .app{
-        padding:16px 12px 28px;
+        padding:16px 12px 14px;
       }
 
       .input-row{
@@ -882,6 +877,11 @@
         font-size:18px;
         padding:14px 20px;
       }
+
+      .security-notice{
+        font-size:9px;
+        padding-top:10px;
+      }
     }
   </style>
 
@@ -892,7 +892,7 @@
     <div class="topbar">
       <div class="brand">Limupy</div>
 
-
+```
   <div class="mode-wrap">
     <button
       class="mode-button"
@@ -934,7 +934,6 @@
 </div>
 
 <main>
-
   <section class="page active" id="pageVpn">
     <div class="panel">
       <div class="panel-body">
@@ -994,7 +993,7 @@
     <div class="panel">
       <div class="panel-head">
         <div>
-          <div class="panel-title">Токен</div>
+          <div class="panel-title">Моя подписка</div>
         </div>
       </div>
 
@@ -1068,17 +1067,11 @@
         </div>
       </div>
     </div>
-
-    <div class="notice">
-      Не передавайте токен подписки и ссылку с токеном третьим лицам. VPN не обеспечивает абсолютную анонимность. Сервер может видеть технические данные соединения — время, объём трафика и сетевые направления, а также данные, которые не защищены шифрованием.
-    </div>
   </section>
 
   <section class="page" id="pageLan">
     <div class="lan-wrap">
-
       <div class="lan-content">
-
         <div class="panel">
           <div class="panel-body">
             <div class="mode-value-row">
@@ -1464,7 +1457,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="lan-content-overlay">
@@ -1474,9 +1466,12 @@
       </div>
     </div>
   </section>
-
 </main>
 
+<div class="security-notice">
+  Не передавайте токен подписки и ссылку с токеном третьим лицам. VPN не обеспечивает абсолютную анонимность. Сервер может видеть технические данные соединения — время, объём трафика и сетевые направления, а также данные, которые не защищены шифрованием.
+</div>
+```
 
   </div>
 
@@ -2594,7 +2589,6 @@
           ){
             data=
               responseData;
-
           }else if(
             response.status===400||
             response.status===404||
@@ -2613,14 +2607,12 @@
                 performance.now()-
                 fallbackStarted;
             }
-
           }else if(
             response.status>=500
           ){
             throw new Error(
               'Сервер недоступен'
             );
-
           }else{
             throw new Error(
               responseData?.message||
@@ -2628,7 +2620,6 @@
               `Ошибка API ${response.status}`
             );
           }
-
         }catch(firstError){
           if(
             firstError?.name===
@@ -2783,7 +2774,6 @@
         );
 
         renderVpnActions();
-
       }catch(error){
         setVpnSubscriptionName(
           ''
@@ -2801,7 +2791,6 @@
           '—',
           '—'
         );
-
       }finally{
         updateVpnCheckButton();
       }
@@ -3206,7 +3195,6 @@
       ){
         rawNetworks=
           data.networks;
-
       }else if(
         Array.isArray(
           data?.items
@@ -3214,14 +3202,12 @@
       ){
         rawNetworks=
           data.items;
-
       }else if(
         data?.network
       ){
         rawNetworks=[
           data.network
         ];
-
       }else if(
         data?.network_id!=null||
         data?.networkId!=null||
@@ -3373,7 +3359,6 @@
       if(!key){
         resolvedStatus=
           'Не готова';
-
       }else if(
         !isValidBase64Key(
           key
@@ -3381,7 +3366,6 @@
       ){
         resolvedStatus=
           'Неверный ключ';
-
       }else if(
         !resolvedStatus
       ){
@@ -3991,7 +3975,6 @@
           'Сеть создана',
           network
         );
-
       }catch(error){
         setLanStatus(
           error?.name===
@@ -4002,7 +3985,6 @@
                 'Не удалось создать сеть'
               )
         );
-
       }finally{
         updateLanControls();
       }
@@ -4119,7 +4101,6 @@
           'Подключена',
           network
         );
-
       }catch(error){
         setLanStatus(
           error?.name===
@@ -4130,7 +4111,6 @@
                 'Не удалось подключиться'
               )
         );
-
       }finally{
         updateLanControls();
       }
@@ -4305,7 +4285,6 @@
             finalNetwork
           );
         }
-
       }catch(error){
         const networks=
           getLanNetworks();
@@ -4470,7 +4449,6 @@
           'Обновлено',
           mergedNetwork
         );
-
       }catch{}
     }
 
@@ -4557,7 +4535,6 @@
         setLanStatus(
           'Вы вышли из сети'
         );
-
       }catch(error){
         setLanStatus(
           error?.name==='AbortError'
@@ -4567,7 +4544,6 @@
                 'Не удалось выйти из сети'
               )
         );
-
       }finally{
         updateLanControls();
       }
@@ -4645,7 +4621,6 @@
         setLanStatus(
           'Сеть удалена'
         );
-
       }catch(error){
         setLanStatus(
           error?.name==='AbortError'
@@ -4655,7 +4630,6 @@
                 'Не удалось удалить сеть'
               )
         );
-
       }finally{
         updateLanControls();
       }
