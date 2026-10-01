@@ -1,705 +1,1666 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="referrer" content="no-referrer">
-  <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#0b1020">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://78.17.112.158; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; media-src 'none'">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236ea8fe'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='38' font-weight='800' fill='white'%3EL%3C/text%3E%3C/svg%3E">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0d12">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      connect-src https://78.17.112.158;
+      img-src 'self' data:;
+      style-src 'self' 'unsafe-inline';
+      script-src 'self' 'unsafe-inline';
+      font-src 'self';
+      object-src 'none';
+      base-uri 'none';
+      form-action 'none';
+      media-src 'none';
+      frame-src 'none'
+    "
+  >
   <title>Limupy</title>
+
   <style>
-    :root{--bg:#0b1020;--card:rgba(20,27,48,.9);--line:rgba(255,255,255,.08);--text:#f4f7fb;--muted:#9aa6bd;--accent:#6ea8fe;--accent-2:#8b7cff;--ok:#41d392;--bad:#ff657a;--warn:#ffc857;--shadow:0 20px 60px rgba(0,0,0,.35);--radius:22px}
-    *{box-sizing:border-box}html,body{margin:0;min-height:100%}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 500px at 10% -10%,rgba(110,168,254,.16),transparent 55%),radial-gradient(700px 450px at 100% 0%,rgba(139,124,255,.13),transparent 50%),var(--bg);color:var(--text);padding:clamp(16px,4vw,28px) clamp(10px,2.5vw,16px) 34px}.wrap{width:min(760px,100%);margin:0 auto}.header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;box-shadow:0 10px 30px rgba(110,168,254,.24)}h1{margin:0;font-size:24px;line-height:1.1}.subtitle{margin-top:4px;color:var(--muted);font-size:13px}.mode-switch{display:flex;gap:5px;padding:4px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.045);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 24px rgba(0,0,0,.18);position:relative;isolation:isolate}.mode-btn{appearance:none;border:0;cursor:pointer;color:var(--muted);background:transparent;border-radius:12px;padding:0;width:40px;height:40px;display:grid;place-items:center;position:relative;overflow:hidden;transition:transform .22s cubic-bezier(.2,.8,.2,1),color .22s ease,box-shadow .28s ease}.mode-btn::before{content:"";position:absolute;inset:3px;border-radius:10px;background:linear-gradient(135deg,#72adff,#8f82ff);opacity:0;transform:scale(.72);box-shadow:0 8px 22px rgba(110,168,254,.3);transition:opacity .28s ease,transform .32s cubic-bezier(.2,.8,.2,1);z-index:-1}.mode-btn.active{color:#fff;transform:translateY(-1px);box-shadow:0 5px 16px rgba(110,168,254,.22)}.mode-btn.active::before{opacity:1;transform:scale(1);animation:modeGlow 2.5s ease-in-out infinite}.mode-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s cubic-bezier(.2,.8,.2,1),filter .3s ease}.mode-btn.active svg{transform:scale(1.08);filter:drop-shadow(0 2px 6px rgba(255,255,255,.22))}.mode-btn:hover{color:var(--text);transform:translateY(-1px)}.mode-btn:active{transform:scale(.9)}.mode-btn:active svg{transform:scale(.9) rotate(-3deg)}@keyframes modeGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.08)}}.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(16px)}.hero{padding:11px 18px;border-bottom:1px solid var(--line)}.status-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0;min-height:22px}.label{color:var(--muted);font-size:13px}.status{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;padding:4px 7px;min-height:22px;max-width:76%;border-radius:999px;font-size:11px;line-height:1.15;font-weight:700;background:rgba(255,255,255,.06);text-align:right;overflow-wrap:anywhere}.status::before{content:"";width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:currentColor}.status.ok{color:var(--ok);background:rgba(65,211,146,.1)}.status.bad{color:var(--bad);background:rgba(255,101,122,.1)}.status.wait{color:#c5cde0}.status.warn{color:var(--warn);background:rgba(255,200,87,.1)}.rows{padding:6px 22px 14px}.row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,1.5fr);gap:18px;align-items:center;min-height:62px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.value{text-align:right;font-weight:650;overflow-wrap:anywhere}.protocols{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:7px}.protocol{padding:6px 9px;border-radius:9px;border:1px solid rgba(110,168,254,.22);background:rgba(110,168,254,.1);color:#dce9ff;font-size:12px;font-weight:700;letter-spacing:.01em}.actions{display:grid;grid-template-columns:minmax(0,2.1fr) auto minmax(120px,.9fr) minmax(120px,.9fr);gap:10px;padding:11px 22px 20px;align-items:stretch}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(140px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(140px,.9fr)}.btn{appearance:none;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 16px;border-radius:13px;text-decoration:none;font-weight:750;font-size:14px;transition:transform .15s ease,opacity .15s ease,background .15s ease}.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0)}.btn.primary{color:#07101f;background:linear-gradient(135deg,#86b8ff,#8f84ff)}.btn.secondary{color:var(--text);background:rgba(255,255,255,.07);border:1px solid var(--line)}.btn.danger{color:#fff;background:rgba(255,101,122,.16);border:1px solid rgba(255,101,122,.25)}.btn.small{min-height:38px;padding:0 12px;font-size:12px}.btn[hidden],.field[hidden],.section[hidden],.panel[hidden]{display:none}.token-entry,.input-row{position:relative;min-width:0;width:100%;height:44px;display:flex;align-items:stretch;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid var(--line);overflow:visible}.token-entry input,.input-row input{min-width:0;flex:1 1 auto;width:100%;height:42px;border:0;outline:0;padding:5px 12px 0;background:transparent;color:var(--text);font:inherit;font-size:14px;font-weight:500;text-overflow:clip}.token-entry input::placeholder,.input-row input::placeholder{color:transparent;opacity:0}.token-entry:focus-within,.input-row:focus-within{border-color:rgba(110,168,254,.55)}.float-label{position:absolute;top:-8px;left:10px;z-index:2;padding:0 4px;background:var(--card);border-radius:0;box-shadow:none;color:#aeb8cc;font-size:10px;line-height:16px;font-weight:750;letter-spacing:.01em;pointer-events:none;white-space:nowrap}.token-entry:focus-within .float-label,.input-row:focus-within .float-label{color:var(--accent)}.actions>.btn{height:44px;min-height:44px;min-width:0;white-space:nowrap}.vpn-actions #tokenEntry{width:100%;min-width:0}.vpn-actions{align-items:stretch}.vpn-actions #happDownload,.vpn-actions #happConnect{width:100%}.vpn-actions .token-submit{width:auto}.token-submit{width:auto;min-width:116px;height:44px;min-height:44px;margin:0;align-self:center;border-radius:13px;padding:0 16px}.token-submit:disabled{opacity:.45;cursor:default}.section{padding:18px 22px;border-bottom:1px solid var(--line);min-width:0}.section:last-child{border-bottom:0}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.section-title{font-size:14px;font-weight:800}.field-label{display:block;margin:0 0 6px 2px;color:var(--muted);font-size:11px;font-weight:700}.muted{color:var(--muted);font-size:12px;line-height:1.45}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.field.full{grid-column:1/-1}.field input,.field select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);outline:0;padding:0 12px;font:inherit}.field select option{background:#141b30;color:var(--text)}.field input:focus,.field select:focus{border-color:rgba(110,168,254,.55)}.split-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.control-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:stretch}.control-btn{height:44px;min-height:44px;padding:0 16px;white-space:nowrap;min-width:max-content}.identity-grid .input-row{height:44px}.identity-grid .input-row input{height:42px}@media (max-width:640px){body{padding-left:10px;padding-right:10px}.wrap{width:100%}.header{gap:8px}.logo{width:40px;height:40px;border-radius:13px}h1{font-size:21px}.subtitle{font-size:12px}.mode-switch{gap:3px;padding:3px}.mode-btn{width:36px;height:36px;padding:0}.card{border-radius:18px}.hero{padding:10px 14px}.rows{padding:4px 14px 10px}.row{grid-template-columns:minmax(86px,.9fr) minmax(0,1.5fr);gap:10px;min-height:54px}.status{max-width:70%}.actions{grid-template-columns:minmax(0,2.1fr) auto minmax(92px,.9fr) minmax(92px,.9fr);gap:7px;padding:10px 14px 14px}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(110px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(110px,.9fr)}.actions>.btn{font-size:11px;padding:0 7px;white-space:nowrap;line-height:1.15}.token-entry,.input-row{height:42px}.token-entry input,.input-row input{height:40px;padding:5px 10px 0;font-size:13px}.float-label{top:-8px;left:9px;font-size:9px;line-height:16px;padding:0 3px}.token-submit{min-width:0!important;padding:0 7px!important}.section{padding:14px}.identity-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.control-row{grid-template-columns:minmax(0,1fr) auto}.control-btn{width:auto;min-width:max-content;padding:0 11px}.network-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.network-toolbar{grid-template-columns:minmax(0,1fr) auto}.footer-note{font-size:11px}}@media (max-width:390px){.header{gap:6px}.logo{width:38px;height:38px;border-radius:12px}h1{font-size:20px}.subtitle{font-size:11px}.mode-switch{gap:2px;padding:3px}.mode-btn{width:34px;height:34px;padding:0}.actions{grid-template-columns:minmax(0,2fr) auto minmax(78px,.9fr) minmax(78px,.9fr);gap:6px}.vpn-actions.no-connect{grid-template-columns:minmax(0,1fr) auto minmax(96px,.9fr)}.vpn-actions.no-token{grid-template-columns:minmax(0,1fr)}.vpn-actions.has-connect.no-token{grid-template-columns:minmax(0,1fr) minmax(96px,.9fr)}.actions>.btn{font-size:10px;padding:0 6px}.token-entry input,.input-row input{font-size:12px}.network-toolbar{grid-template-columns:minmax(0,1fr) auto}.identity-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.control-row{grid-template-columns:minmax(0,1fr) auto}.control-btn{padding:0 8px}.status{max-width:64%}}.network-select{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 12px;font:inherit}.network-select:focus{outline:0;border-color:rgba(110,168,254,.55)}.network-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.network-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.mini{padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035);min-width:0}.mini-label{font-size:11px;color:var(--muted);margin-bottom:4px}.mini-value{font-size:13px;font-weight:750;overflow-wrap:anywhere}.info-line{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035)}.info-line .info-copy{min-width:0}.info-line .info-value{font-size:12px;font-weight:750;overflow-wrap:anywhere}.fold{margin-top:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.02);overflow:hidden}.fold summary{cursor:pointer;padding:11px 13px;font-size:12px;font-weight:800;list-style:none}.fold summary::-webkit-details-marker{display:none}.fold summary::after{content:'+';float:right;color:var(--muted);font-size:15px;line-height:1}.fold[open] summary::after{content:'-';}.fold-content{padding:0 12px 12px}.code-box{display:flex;gap:8px;align-items:stretch;margin-top:10px}.code-box input{flex:1;min-width:0;height:42px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:0 11px;font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace}.config-box{margin-top:12px;position:relative}.config-box pre{margin:0;max-height:270px;overflow:auto;padding:14px;border:1px solid var(--line);border-radius:13px;background:rgba(4,8,18,.65);color:#dfe7f6;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.device-list{display:grid;gap:8px;margin-top:10px}.device{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.035)}.device-main{min-width:0}.device-name{font-weight:800;overflow-wrap:anywhere}.device-meta{margin-top:3px;color:var(--muted);font-size:11px;line-height:1.35;overflow-wrap:anywhere}.device-side{text-align:right;font-size:11px;font-weight:750}.online{color:var(--ok)}.offline{color:var(--muted)}.footer-note{margin-top:13px;color:var(--muted);font-size:12px;line-height:1.45;text-align:center;max-width:680px;margin-left:auto;margin-right:auto}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#151d31;color:var(--text);border:1px solid var(--line);border-radius:13px;padding:10px 13px;font-size:12px;box-shadow:var(--shadow);transition:opacity .18s ease,transform .18s ease;z-index:10}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:680px){.header{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}.mode-switch{width:auto;flex:0 0 auto}.mode-btn{padding:8px 10px;font-size:12px}.form-grid,.network-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:6px;padding:13px 0;min-height:auto}.value{text-align:left}.protocols{justify-content:flex-start}.status-row{align-items:center}.status{max-width:70%}.device{grid-template-columns:1fr}.device-side{text-align:left}}.float-label{background:var(--card);border-radius:999px;padding:0 6px;line-height:16px}.vpn-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}.vpn-token-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:stretch}.vpn-buttons-row{display:flex;gap:10px;justify-content:flex-start}.vpn-buttons-row .btn{flex:0 0 auto;min-width:140px}.token-entry,.input-row{height:44px;display:flex;align-items:stretch;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.07)}.token-entry input,.input-row input{height:42px}.input-row .float-label,.token-entry .float-label{background:var(--card);border-radius:999px;padding:0 6px}.lan-download-wrap{display:flex;gap:8px;align-items:center}@media (max-width:640px){.vpn-token-row{grid-template-columns:minmax(0,1fr) auto}.vpn-buttons-row{display:grid;grid-template-columns:1fr 1fr}.vpn-buttons-row .btn{min-width:0;width:100%}.vpn-actions{padding-left:14px;padding-right:14px}.float-label{padding:0 5px}}@media (max-width:390px){.vpn-buttons-row{gap:6px}.vpn-buttons-row .btn{font-size:10px;padding:0 8px}.vpn-token-row{gap:6px}.token-submit{min-width:92px!important}}
+    :root{
+      --bg:#0b0d12;
+      --panel:#11141b;
+      --panel-2:#151923;
+      --line:#262b36;
+      --text:#f5f7fb;
+      --muted:#8f97a8;
+      --danger:#ff6868;
+      --success:#67d391;
+      --blue:#3f8cff;
+      --blue-2:#1768f2;
+      --shadow:0 20px 60px rgba(0,0,0,.28);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    body{min-height:100vh}
+    button,input,textarea{font:inherit}
+    button{border:0;cursor:pointer}
+
+    .app{
+      width:min(700px,100%);
+      margin:0 auto;
+      padding:24px 16px 40px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      font-size:22px;
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+
+    .mode-wrap{position:relative}
+
+    .mode-button{
+      position:relative;
+      isolation:isolate;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:40px;
+      min-width:92px;
+      padding:0 14px;
+      border:1px solid rgba(63,140,255,.32);
+      border-radius:13px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(63,140,255,.22),
+          rgba(23,104,242,.1)
+        ),
+        var(--panel);
+      color:var(--text);
+      font-weight:800;
+      overflow:hidden;
+      box-shadow:
+        0 8px 24px rgba(23,104,242,.08),
+        inset 0 1px 0 rgba(255,255,255,.05);
+      transform:translateZ(0);
+      transition:
+        transform .18s cubic-bezier(.2,.8,.2,1),
+        box-shadow .22s ease,
+        border-color .22s ease,
+        background .22s ease;
+    }
+
+    .mode-button::before{
+      content:"";
+      position:absolute;
+      width:140%;
+      height:220%;
+      left:-20%;
+      top:-150%;
+      background:
+        radial-gradient(
+          circle,
+          rgba(125,181,255,.42) 0%,
+          rgba(63,140,255,.16) 28%,
+          rgba(63,140,255,0) 68%
+        );
+      opacity:0;
+      transform:scale(.65);
+      transition:
+        opacity .22s ease,
+        transform .35s cubic-bezier(.22,1,.36,1);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .mode-button:hover{
+      border-color:rgba(63,140,255,.6);
+      box-shadow:
+        0 12px 30px rgba(23,104,242,.18),
+        inset 0 1px 0 rgba(255,255,255,.06);
+      transform:translateY(-1px);
+    }
+
+    .mode-button:active{
+      transform:scale(.94);
+      box-shadow:
+        0 5px 12px rgba(23,104,242,.12),
+        inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .mode-button:active::before{
+      opacity:1;
+      transform:scale(1);
+      transition:none;
+    }
+
+    .mode-button[aria-expanded="true"]{
+      border-color:rgba(63,140,255,.72);
+      background:
+        linear-gradient(
+          180deg,
+          rgba(63,140,255,.3),
+          rgba(23,104,242,.14)
+        ),
+        var(--panel);
+      box-shadow:
+        0 14px 34px rgba(23,104,242,.2),
+        inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .mode-button svg{
+      width:15px;
+      height:15px;
+      opacity:.82;
+      transition:
+        transform .24s ease,
+        opacity .2s ease;
+    }
+
+    .mode-button[aria-expanded="true"] svg{
+      transform:rotate(180deg);
+      opacity:1;
+    }
+
+    .mode-menu{
+      position:absolute;
+      right:0;
+      top:48px;
+      z-index:60;
+      width:170px;
+      padding:6px;
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      display:block;
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transform:translateY(-8px) scale(.96);
+      transform-origin:top right;
+      transition:
+        opacity .18s ease,
+        visibility .18s ease,
+        transform .2s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .mode-menu.open{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:translateY(0) scale(1);
+    }
+
+    .mode-option{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      padding:11px 12px;
+      border-radius:10px;
+      background:transparent;
+      color:var(--text);
+      text-align:left;
+      font-weight:750;
+      transition:
+        background .18s ease,
+        transform .18s ease;
+    }
+
+    .mode-option:hover{
+      background:#1b202b;
+      transform:translateX(2px);
+    }
+
+    .mode-option:active{
+      transform:scale(.98);
+    }
+
+    .mode-option.active{
+      background:
+        linear-gradient(
+          90deg,
+          rgba(63,140,255,.16),
+          rgba(63,140,255,.04)
+        );
+      box-shadow:
+        inset 0 0 0 1px rgba(63,140,255,.12);
+    }
+
+    .page{display:none}
+    .page.active{display:block}
+
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .panel + .panel{margin-top:12px}
+
+    .panel-head{
+      padding:18px 18px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .panel-title{
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .panel-subtitle{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:3px;
+    }
+
+    .panel-body{padding:18px}
+
+    .mode-label{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+
+    .mode-value{
+      font-size:30px;
+      line-height:1;
+      font-weight:800;
+      letter-spacing:-.04em;
+    }
+
+    .mode-value-row{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:14px;
+      min-width:0;
+    }
+
+    .service-name{
+      min-width:0;
+      max-width:62%;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:650;
+      line-height:1.2;
+      text-align:right;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .status-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .status-item{
+      padding:13px;
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      min-width:0;
+    }
+
+    .status-item-label{
+      color:var(--muted);
+      font-size:11px;
+      margin-bottom:7px;
+    }
+
+    .status-item-value{
+      font-size:14px;
+      font-weight:700;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .input-row{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:stretch;
+    }
+
+    .input-row #vpnCheck{
+      min-height:46px;
+      height:46px;
+      width:100%;
+      align-self:stretch;
+      font-size:16px;
+      font-weight:800;
+    }
+
+    .input{
+      width:100%;
+      height:46px;
+      min-height:46px;
+      padding:0 14px;
+      text-align:left;
+      line-height:normal;
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      border-radius:12px;
+      outline:none;
+      color:var(--text);
+    }
+
+    .input:focus{border-color:#454d5d}
+    .input::placeholder{color:#687080}
+
+    .btn{
+      min-height:46px;
+      padding:0 16px;
+      border-radius:12px;
+      font-weight:750;
+      transition:.18s ease;
+      white-space:nowrap;
+    }
+
+    .btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:#111;
+    }
+
+    .vpn-check-btn{
+      min-height:56px;
+      height:56px;
+    }
+
+    .btn-primary:hover:not(:disabled){
+      background:#e9ebef;
+    }
+
+    .btn-secondary{
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+
+    .btn-secondary:hover:not(:disabled){
+      background:#1a1f29;
+    }
+
+    .btn-danger{
+      background:rgba(255,104,104,.08);
+      border:1px solid rgba(255,104,104,.22);
+      color:var(--danger);
+    }
+
+    .actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .actions.one{
+      grid-template-columns:1fr;
+    }
+
+    .vpn-actions{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 42px;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .happ-download{
+      width:42px;
+      min-width:42px;
+      padding:0;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .happ-download svg{
+      width:17px;
+      height:17px;
+      stroke:currentColor;
+    }
+
+    .notice{
+      margin-top:10px;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+      background:var(--panel-2);
+    }
+
+    .notice.error{
+      color:var(--muted);
+      border-color:var(--line);
+      background:var(--panel-2);
+    }
+
+    .notice.success{
+      color:#a3e9ba;
+      border-color:rgba(103,211,145,.22);
+      background:rgba(103,211,145,.05);
+    }
+
+    .lan-wrap{
+      position:relative;
+    }
+
+    .lan-content{
+      filter:blur(5px);
+      opacity:.45;
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .lan-content-overlay{
+      position:absolute;
+      inset:0;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+    }
+
+    .lan-coming{
+      padding:16px 24px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      background:rgba(17,20,27,.68);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      color:var(--text);
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:-.025em;
+      text-align:center;
+      box-shadow:0 18px 55px rgba(0,0,0,.26);
+    }
+
+    .lan-tabs{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
+      padding:5px;
+      border:1px solid var(--line);
+      background:var(--panel-2);
+      border-radius:13px;
+      margin-bottom:12px;
+    }
+
+    .lan-tab{
+      min-height:38px;
+      border-radius:9px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .lan-tab.active{
+      background:#202631;
+      color:var(--text);
+    }
+
+    .lan-form{display:none}
+    .lan-form.active{display:block}
+
+    .field{margin-bottom:12px}
+
+    .field-label{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:7px;
+      display:block;
+    }
+
+    .floating-field{
+      position:relative;
+      padding-top:5px;
+    }
+
+    .floating-field .field-label{
+      position:absolute;
+      top:0;
+      left:12px;
+      z-index:1;
+      margin:0;
+      padding:0 5px;
+      background:var(--panel);
+      transform:translateY(-50%);
+      line-height:1;
+    }
+
+    .floating-field .input{
+      min-height:52px;
+      height:52px;
+      padding:0 14px;
+      line-height:normal;
+    }
+
+    .input-field-grow{
+      flex:1;
+      margin-bottom:0;
+      min-width:0;
+    }
+
+    .input-field-grow .field-label{
+      background:var(--panel);
+    }
+
+    .input-row > .btn{
+      flex:0 0 auto;
+      align-self:stretch;
+    }
+
+    .key-row{
+      display:flex;
+      gap:10px;
+      align-items:stretch;
+    }
+
+    .key-row .input{min-width:0}
+
+    .mini-btn{
+      flex:0 0 auto;
+      min-height:40px;
+      padding:8px 10px;
+      border-radius:9px;
+      background:#202631;
+      color:var(--text);
+      border:1px solid var(--line);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .network-list{
+      display:grid;
+      gap:8px;
+    }
+
+    .network-item{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      text-align:left;
+      padding:13px 14px;
+      border:1px solid var(--line);
+      background:var(--panel-2);
+      color:var(--text);
+      border-radius:12px;
+    }
+
+    .network-item:hover{
+      background:#191e27;
+    }
+
+    .network-main{
+      min-width:0;
+    }
+
+    .network-name{
+      font-weight:750;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .network-meta{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .network-arrow{
+      color:var(--muted);
+      font-size:18px;
+    }
+
+    .current-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .current-item{
+      padding:13px;
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      border-radius:12px;
+    }
+
+    .current-label{
+      color:var(--muted);
+      font-size:11px;
+      margin-bottom:7px;
+    }
+
+    .current-value{
+      font-weight:700;
+      font-size:14px;
+      word-break:break-word;
+    }
+
+    .access-box{
+      margin-top:12px;
+      padding:14px;
+      border:1px solid var(--line);
+      background:var(--panel-2);
+      border-radius:14px;
+    }
+
+    .access-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .access-title{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .access-code{
+      padding:11px 12px;
+      border-radius:10px;
+      border:1px dashed #3a4250;
+      background:#0f1218;
+      color:var(--text);
+      font:700 15px ui-monospace,SFMono-Regular,Menlo,monospace;
+      letter-spacing:.04em;
+      word-break:break-all;
+      user-select:text;
+    }
+
+    .config-box{
+      margin-top:12px;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--panel-2);
+    }
+
+    .config-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .config-title{
+      font-weight:750;
+      font-size:13px;
+    }
+
+    .config-actions{
+      display:flex;
+      gap:8px;
+    }
+
+    .config-text{
+      width:100%;
+      min-height:220px;
+      resize:vertical;
+      padding:12px;
+      border-radius:11px;
+      border:1px solid var(--line);
+      background:#0c0f14;
+      color:#d9dde5;
+      font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+      outline:none;
+    }
+
+    .devices{
+      display:grid;
+      gap:8px;
+    }
+
+    .device{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 13px;
+      border:1px solid var(--line);
+      background:var(--panel-2);
+      border-radius:12px;
+    }
+
+    .device-main{
+      min-width:0;
+    }
+
+    .device-name{
+      font-weight:700;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .device-sub{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .device-state{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:11px;
+      color:var(--muted);
+      flex:0 0 auto;
+    }
+
+    .device-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#666e7d;
+    }
+
+    .device-dot.online{
+      background:var(--success);
+    }
+
+    .empty{
+      padding:18px;
+      text-align:center;
+      color:var(--muted);
+      border:1px dashed var(--line);
+      border-radius:12px;
+      font-size:12px;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    @media (max-width:700px){
+      .status-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .service-name{
+        max-width:55%;
+      }
+    }
+
+    @media (max-width:620px){
+      .app{
+        padding:16px 12px 28px;
+      }
+
+      .input-row{
+        flex-direction:column;
+      }
+
+      .actions{
+        grid-template-columns:1fr;
+      }
+
+      .vpn-actions{
+        grid-template-columns:minmax(0,1fr) 42px;
+      }
+
+      .config-head{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .config-actions{
+        width:100%;
+      }
+
+      .config-actions .mini-btn{
+        flex:1;
+      }
+
+      .key-row{
+        flex-direction:column;
+      }
+
+      .service-name{
+        max-width:52%;
+        font-size:12px;
+      }
+
+      .lan-coming{
+        font-size:18px;
+        padding:14px 20px;
+      }
+    }
   </style>
+
 </head>
+
 <body>
-  <main class="wrap">
-    <div class="header">
-      <div class="brand">
-        <div class="logo">L</div>
-        <div>
-          <h1>Limupy</h1>
-          <div id="subtitle" class="subtitle">VPN-подписка</div>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">Limupy</div>
+
+```
+  <div class="mode-wrap">
+    <button
+      class="mode-button"
+      id="modeButton"
+      type="button"
+      aria-expanded="false"
+    >
+      <span id="modeButtonText">VPN</span>
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </button>
+
+    <div class="mode-menu" id="modeMenu">
+      <button
+        class="mode-option active"
+        data-mode="vpn"
+        type="button"
+      >
+        <span>VPN</span>
+      </button>
+
+      <button
+        class="mode-option"
+        data-mode="lan"
+        type="button"
+      >
+        <span>LAN</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <section class="page active" id="pageVpn">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="mode-value-row">
+          <div class="mode-value">VPN</div>
+
+          <div
+            class="service-name hidden"
+            id="vpnSubscriptionName"
+          ></div>
         </div>
-      </div>
-      <div class="mode-switch" role="tablist" aria-label="Раздел">
-        <button id="modeVpn" class="mode-btn active" type="button" aria-label="VPN" title="VPN" role="tab" aria-selected="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-3 8.3-7 10-4-1.7-7-5.2-7-10V6l7-3z"></path><path d="M9.5 12.2l1.7 1.7 3.6-3.8"></path></svg>
-        </button>
-        <button id="modeLan" class="mode-btn" type="button" aria-label="LAN" title="LAN" role="tab" aria-selected="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="6" rx="1.5"></rect><rect x="3" y="15" width="6" height="6" rx="1.5"></rect><rect x="15" y="15" width="6" height="6" rx="1.5"></rect><path d="M12 9v3M6 15v-3h12v3"></path></svg>
-        </button>
+
+        <div class="status-grid">
+          <div class="status-item">
+            <div class="status-item-label">Статус</div>
+            <div
+              class="status-item-value"
+              id="vpnState"
+            >
+              —
+            </div>
+          </div>
+
+          <div class="status-item">
+            <div class="status-item-label">Срок</div>
+            <div
+              class="status-item-value"
+              id="vpnExpiry"
+            >
+              —
+            </div>
+          </div>
+
+          <div class="status-item">
+            <div class="status-item-label">Пинг</div>
+            <div
+              class="status-item-value"
+              id="vpnPing"
+            >
+              —
+            </div>
+          </div>
+
+          <div class="status-item">
+            <div class="status-item-label">Трафик</div>
+            <div
+              class="status-item-value"
+              id="vpnTraffic"
+            >
+              —
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <section id="vpnPanel" class="panel active">
-      <div class="card" aria-live="polite">
-        <div class="hero">
-          <div class="status-row">
-            <span class="label">Статус VPN</span>
-            <span id="status" class="status wait">Проверка…</span>
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Токен</div>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <div class="input-row">
+          <div class="field floating-field input-field-grow">
+            <label
+              class="field-label"
+              for="vpnToken"
+            >
+              Токен
+            </label>
+
+            <input
+              class="input"
+              id="vpnToken"
+              type="text"
+              placeholder="Введите токен"
+              autocomplete="off"
+              autocapitalize="off"
+              autocorrect="off"
+              spellcheck="false"
+              maxlength="4096"
+            >
           </div>
+
+          <button
+            class="btn btn-primary vpn-check-btn"
+            id="vpnCheck"
+            type="button"
+          >
+            Проверить
+          </button>
         </div>
-        <div class="rows">
-          <div class="row"><div class="label">Подписка</div><div id="subscription" class="value">—</div></div>
-          <div class="row"><div class="label">Сервер</div><div id="server" class="value">—</div></div>
-          <div class="row"><div class="label">Протоколы</div><div id="protocols" class="value">—</div></div>
-          <div class="row"><div class="label">Трафик</div><div id="traffic" class="value">—</div></div>
-          <div class="row"><div class="label">Срок действия</div><div id="expire" class="value">—</div></div>
-          <div class="row"><div class="label">Задержка</div><div id="latency" class="value">—</div></div>
+
+        <div
+          class="vpn-actions hidden"
+          id="vpnActions"
+        >
+          <button
+            class="btn btn-secondary"
+            id="happOpen"
+            type="button"
+          >
+            Открыть в Happ
+          </button>
+
+          <a
+            class="btn btn-secondary happ-download"
+            id="happDownload"
+            href="https://happ.info/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Скачать Happ"
+            title="Скачать Happ"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 3v11"/>
+              <path d="m7 10 5 5 5-5"/>
+              <path d="M5 20h14"/>
+            </svg>
+          </a>
         </div>
-        <div class="actions vpn-actions">
-          <div class="vpn-token-row">
-            <div id="tokenEntry" class="token-entry" hidden>
-              <label class="float-label" for="tokenInput">Токен подписки</label>
-              <input id="tokenInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="notice">
+      Не передавайте токен подписки и ссылку с токеном третьим лицам. VPN не обеспечивает абсолютную анонимность. Сервер может видеть технические данные соединения — время, объём трафика и сетевые направления, а также данные, которые не защищены шифрованием.
+    </div>
+  </section>
+
+  <section class="page" id="pageLan">
+    <div class="lan-wrap">
+
+      <div class="lan-content">
+
+        <div class="panel">
+          <div class="panel-body">
+            <div class="mode-value-row">
+              <div class="mode-value">LAN</div>
+
+              <div
+                class="service-name hidden"
+                id="lanNetworkName"
+              ></div>
             </div>
-            <button id="tokenSubmit" class="btn primary control-btn token-submit" type="button">Проверить</button>
+
+            <div class="status-grid">
+              <div class="status-item">
+                <div class="status-item-label">Статус</div>
+                <div
+                  class="status-item-value"
+                  id="lanInfoStatus"
+                >
+                  Не готова
+                </div>
+              </div>
+
+              <div class="status-item">
+                <div class="status-item-label">Подсеть</div>
+                <div
+                  class="status-item-value"
+                  id="lanInfoSubnet"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="status-item">
+                <div class="status-item-label">IP</div>
+                <div
+                  class="status-item-value"
+                  id="lanInfoIp"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="status-item">
+                <div class="status-item-label">Роль</div>
+                <div
+                  class="status-item-value"
+                  id="lanInfoRole"
+                >
+                  —
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="vpn-buttons-row">
-            <a id="happDownload" class="btn secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer">Скачать Happ</a>
-            <a id="happConnect" class="btn primary" href="#" rel="noopener noreferrer" hidden>Открыть в Happ</a>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Подключение</div>
+            </div>
           </div>
+
+          <div class="panel-body">
+            <div class="lan-tabs">
+              <button
+                class="lan-tab active"
+                data-lan-tab="create"
+                type="button"
+              >
+                Создать
+              </button>
+
+              <button
+                class="lan-tab"
+                data-lan-tab="join"
+                type="button"
+              >
+                Подключить
+              </button>
+            </div>
+
+            <div class="field floating-field">
+              <label
+                class="field-label"
+                for="lanPublicKey"
+              >
+                Ключ
+              </label>
+
+              <input
+                class="input"
+                id="lanPublicKey"
+                type="text"
+                placeholder="Введите ключ"
+                autocomplete="off"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+                maxlength="44"
+              >
+            </div>
+
+            <div
+              class="lan-form active"
+              id="lanCreateForm"
+            >
+              <div class="field floating-field">
+                <label
+                  class="field-label"
+                  for="lanCreateName"
+                >
+                  Название
+                </label>
+
+                <input
+                  class="input"
+                  id="lanCreateName"
+                  type="text"
+                  maxlength="64"
+                  placeholder="Введите название"
+                  autocomplete="off"
+                >
+              </div>
+
+              <div class="actions one">
+                <button
+                  class="btn btn-primary"
+                  id="lanCreateButton"
+                  type="button"
+                >
+                  Создать
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="lan-form"
+              id="lanJoinForm"
+            >
+              <div class="field floating-field">
+                <label
+                  class="field-label"
+                  for="lanJoinCode"
+                >
+                  Код
+                </label>
+
+                <input
+                  class="input"
+                  id="lanJoinCode"
+                  type="text"
+                  maxlength="128"
+                  placeholder="Введите код"
+                  autocomplete="off"
+                  autocapitalize="characters"
+                  autocorrect="off"
+                  spellcheck="false"
+                >
+              </div>
+
+              <div class="actions one">
+                <button
+                  class="btn btn-primary"
+                  id="lanJoinButton"
+                  type="button"
+                >
+                  Подключить
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="myNetworksPanel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Мои сети</div>
+            </div>
+
+            <button
+              class="mini-btn"
+              id="refreshLan"
+              type="button"
+            >
+              Обновить
+            </button>
+          </div>
+
+          <div class="panel-body">
+            <div
+              class="network-list"
+              id="networkList"
+            ></div>
+          </div>
+        </div>
+
+        <div
+          class="panel hidden"
+          id="currentNetworkPanel"
+        >
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Текущая сеть</div>
+
+              <div
+                class="panel-subtitle"
+                id="currentNetworkSubtitle"
+              >
+                —
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-body">
+
+            <div class="current-grid">
+              <div class="current-item">
+                <div class="current-label">Имя</div>
+
+                <div
+                  class="current-value"
+                  id="currentName"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="current-item">
+                <div class="current-label">Подсеть</div>
+
+                <div
+                  class="current-value"
+                  id="currentSubnet"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="current-item">
+                <div class="current-label">Мой IP</div>
+
+                <div
+                  class="current-value"
+                  id="currentIp"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="current-item">
+                <div class="current-label">Роль</div>
+
+                <div
+                  class="current-value"
+                  id="currentRole"
+                >
+                  —
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="access-box hidden"
+              id="accessBox"
+            >
+              <div class="access-head">
+                <div class="access-title">
+                  Код для гостей
+                </div>
+
+                <button
+                  class="mini-btn"
+                  id="copyAccessCode"
+                  type="button"
+                >
+                  Копировать
+                </button>
+              </div>
+
+              <div
+                class="access-code"
+                id="accessCode"
+              >
+                —
+              </div>
+            </div>
+
+            <div class="config-box">
+              <div class="config-head">
+                <div class="config-title">
+                  WireGuard
+                </div>
+
+                <div class="config-actions">
+                  <button
+                    class="mini-btn"
+                    id="copyConfig"
+                    type="button"
+                  >
+                    Копировать
+                  </button>
+
+                  <button
+                    class="mini-btn"
+                    id="downloadConfig"
+                    type="button"
+                  >
+                    Скачать
+                  </button>
+                </div>
+              </div>
+
+              <textarea
+                class="config-text"
+                id="configText"
+                readonly
+                spellcheck="false"
+                autocomplete="off"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="panel hidden"
+          id="devicesPanel"
+        >
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">
+                Устройства
+              </div>
+
+              <div
+                class="panel-subtitle"
+                id="devicesCount"
+              >
+                0 устройств
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div
+              class="devices"
+              id="devicesList"
+            ></div>
+          </div>
+        </div>
+
+        <div
+          class="panel hidden"
+          id="networkActionsPanel"
+        >
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">
+                Действия
+              </div>
+
+              <div class="panel-subtitle">
+                Управление текущей сетью
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="actions one">
+              <button
+                class="btn btn-secondary"
+                id="leaveLanButton"
+                type="button"
+              >
+                Выйти из сети
+              </button>
+
+              <button
+                class="btn btn-danger hidden"
+                id="deleteLanButton"
+                type="button"
+              >
+                Удалить LAN-сеть
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lan-content-overlay">
+        <div class="lan-coming">
+          В разработке
         </div>
       </div>
-      <div class="footer-note">Не передавайте токен подписки и ссылку с токеном третьим лицам. VPN не обеспечивает абсолютную анонимность. Сервер может видеть технические данные соединения — время, объём трафика и сетевые направления, а также данные, которые не защищены шифрованием.</div>
-    </section>
+    </div>
+  </section>
 
-    <section id="lanPanel" class="panel">
-      <div class="card" aria-live="polite">
-        <div class="hero">
-          <div class="status-row">
-            <span class="label">Статус LAN</span>
-            <span id="lanStatus" class="status wait">Создайте или подключитесь к сети</span>
-          </div>
-        </div>
+</main>
+```
 
-        <div class="section">
-          <div class="section-head"><div><div class="section-title">Ваше устройство</div><div class="muted">Public Key нужен серверу для идентификации устройства. Private Key остаётся только у вас.</div></div></div>
-          <div class="form-grid identity-grid" style="margin-top:12px">
-            <div class="field"><div class="input-row"><label class="float-label" for="lanPublicKey">Public Key</label><input id="lanPublicKey" maxlength="44" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></div></div>
-            <div class="field"><div class="input-row"><label class="float-label" for="lanDeviceName">Имя устройства</label><input id="lanDeviceName" maxlength="48" autocomplete="off"></div></div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-head"><div><div class="section-title">Создать сеть</div><div class="muted">Создайте свою LAN и получите код для других участников.</div></div></div>
-          <div class="control-row">
-            <div class="field"><div class="input-row"><label class="float-label" for="lanName">Название сети</label><input id="lanName" maxlength="64" autocomplete="off"></div></div>
-            <button id="lanCreate" class="btn primary control-btn" type="button">Создать сеть</button>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-head"><div><div class="section-title">Подключиться к сети</div><div class="muted">Введите код, который выдал владелец LAN.</div></div></div>
-          <div class="control-row">
-            <div class="field"><div class="input-row"><label class="float-label" for="lanJoinCode">Код LAN</label><input id="lanJoinCode" maxlength="64" autocomplete="off" autocapitalize="characters" spellcheck="false"></div></div>
-            <button id="lanJoin" class="btn primary control-btn" type="button">Подключиться</button>
-          </div>
-        </div>
-
-        <div id="lanNetworksSection" class="section" hidden>
-          <div class="section-head"><div><div class="section-title">Мои сети</div><div class="muted">Выберите сеть, чтобы посмотреть её участников и настройки.</div></div></div>
-          <div class="network-toolbar"><select id="lanNetworkSelect" class="network-select"></select><button id="lanRefresh" class="btn secondary small" type="button">Обновить</button></div>
-        </div>
-
-        <div id="lanDetailsSection" class="section" hidden>
-          <div class="section-head"><div><div class="section-title">Текущая сеть</div><div class="muted">Данные этой сети и ваш доступ.</div></div></div>
-          <div class="network-grid">
-            <div class="mini"><div class="mini-label">Название</div><div id="lanDetailName" class="mini-value">—</div></div>
-            <div class="mini"><div class="mini-label">Подсеть</div><div id="lanDetailSubnet" class="mini-value">—</div></div>
-            <div class="mini"><div class="mini-label">Мой IP</div><div id="lanDetailIp" class="mini-value">—</div></div>
-            <div class="mini"><div class="mini-label">Роль</div><div id="lanDetailRole" class="mini-value">—</div></div>
-          </div>
-          <div id="lanOwnerCode" class="info-line" hidden><div class="info-copy"><div class="mini-label">Код для подключения</div><div id="lanJoinCodeText" class="info-value">—</div></div><button id="lanCopyCode" class="btn secondary small" type="button">Копировать</button><input id="lanJoinCodeView" type="hidden" value=""></div>
-          <details class="fold"><summary>Конфигурация WireGuard</summary><div class="fold-content"><div class="status-row" style="margin-bottom:8px"><span class="label">Конфигурация для этого устройства</span><div style="display:flex;gap:8px;align-items:center"><button id="lanCopyConfig" class="btn secondary small" type="button">Копировать</button><button id="lanDownloadConfig" class="btn secondary small" type="button">Скачать WireGuard</button></div></div><div class="config-box" style="margin-top:0"><pre id="lanConfig">—</pre></div></div></details>
-        </div>
-
-        <div id="lanDevicesSection" class="section" hidden>
-          <div class="section-head"><div><div class="section-title">Устройства</div><div id="lanDevicesHint" class="muted">Участники этой сети</div></div></div>
-          <div id="lanDevices" class="device-list"></div>
-        </div>
-
-        <div class="section">
-          <div class="split-actions">
-            <button id="lanLeave" class="btn danger" type="button" hidden>Выйти из LAN</button>
-            <button id="lanDelete" class="btn danger" type="button" hidden>Удалить LAN</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div id="error" class="error" hidden></div>
-    <div id="toast" class="toast"></div>
-  </main>
+  </div>
 
   <script>
-    const API_URL='https://78.17.112.158/api.php';
-    const HAPP_DOWNLOAD_URL='https://happ.info/';
-    const REQUEST_TIMEOUT_MS=12000;
-    const HASH_CHANGE_DELAY_MS=150;
-    const TOKEN_HISTORY_KEY='limupy_token_history';
-    const LAN_SESSION_KEY='limupy_lan_networks';
-    const LAN_PUBLIC_KEY_KEY='limupy_lan_public_key';
-    const LAN_DEVICE_NAME_KEY='limupy_lan_device_name';
-    const MODE_KEY='limupy_mode';
+    'use strict';
 
-    let activeToken='';
-    let tokenWasProvidedInUrl=false;
-    let hashTimer=null;
-    let activeLoadPromise=null;
-    let lanNetworks=[];
-    let activeLanId=null;
-    let toastTimer=null;
+    const API_URL='https://78.17.112.158/api.php';
+    const REQUEST_TIMEOUT_MS=10000;
+    const VPN_TOKEN_MAX_LENGTH=4096;
+    const LAN_NAME_MAX_LENGTH=64;
+    const LAN_JOIN_CODE_MAX_LENGTH=128;
+    const DEVICE_NAME='Limupy Web';
+    const SS_VPN_TOKEN='__limupy_vpn_token';
+    const SS_VPN_HISTORY_TOKEN='__limupy_vpn_history_token';
+    const SS_ACTIVE_NETWORK='limupy_active_network';
+    const SS_LAN_NETWORKS='limupy_lan_networks';
+    const SS_LAN_JOIN_CODES='limupy_lan_join_codes';
+    const SS_DEVICE_ID='limupy_device_id';
+    const ALLOWED_HAPP_HOST='78.17.112.158';
+    const ALLOWED_HAPP_SUBSCRIPTION_PATH='/DisstVpn/';
+    const ALLOWED_HAPP_API_PATH='/api.php';
+
+    let currentMode='vpn';
+    let currentLanTab='create';
+    let currentNetwork=null;
+    let currentConfig='';
+    let vpnData=null;
+    let deviceId='';
 
     const $=id=>document.getElementById(id);
 
-    function getUrlToken(){
-      const hash=window.location.hash.replace(/^#/,'');
-      const params=new URLSearchParams(hash);
-      return String(params.get('key')||'').trim();
+    function readSessionValue(key,fallback=''){
+      try{
+        const value=sessionStorage.getItem(key);
+        return value==null?fallback:value;
+      }catch{
+        return fallback;
+      }
     }
 
-    function getHistoryTokens(){
+    function writeSessionValue(key,value){
       try{
-        const raw=localStorage.getItem(TOKEN_HISTORY_KEY)||'[]';
+        sessionStorage.setItem(key,String(value));
+      }catch{}
+    }
+
+    function removeSessionValue(key){
+      try{
+        sessionStorage.removeItem(key);
+      }catch{}
+    }
+
+    function readSessionJson(key,fallback){
+      try{
+        const raw=sessionStorage.getItem(key);
+        if(!raw)return fallback;
         const parsed=JSON.parse(raw);
-        return Array.isArray(parsed)?parsed.filter(x=>typeof x==='string'&&x.trim()).map(x=>x.trim()):[];
-      }catch(_){return []}
+        return parsed??fallback;
+      }catch{
+        return fallback;
+      }
     }
 
-    function saveTokenToHistory(token){
-      const value=String(token||'').trim();
-      if(!value)return;
+    function writeSessionJson(key,value){
       try{
-        const list=getHistoryTokens().filter(item=>item!==value);
-        list.unshift(value);
-        localStorage.setItem(TOKEN_HISTORY_KEY,JSON.stringify(list.slice(0,5)));
-      }catch(_){}
+        sessionStorage.setItem(
+          key,
+          JSON.stringify(value)
+        );
+      }catch{}
     }
 
-    function getHistoryToken(){
-      const list=getHistoryTokens();
-      return list[0]||'';
-    }
+    function bytesToBase64Url(bytes){
+      let binary='';
 
-    function adoptToken(){
-      const urlToken=getUrlToken();
-      if(urlToken){
-        tokenWasProvidedInUrl=true;
-        activeToken=urlToken;
-        saveTokenToHistory(activeToken);
-        return activeToken;
+      for(const byte of bytes){
+        binary+=String.fromCharCode(byte);
       }
-      tokenWasProvidedInUrl=false;
-      if(activeToken)return activeToken;
-      const stored=getHistoryToken();
-      if(stored){
-        activeToken=stored;
-        return activeToken;
-      }
-      return '';
+
+      return btoa(binary)
+        .replace(/\+/g,'-')
+        .replace(/\//g,'_')
+        .replace(/=+$/g,'');
     }
 
     function getDeviceId(){
-      const key='limupy_device_id';
-      try{
-        let id=localStorage.getItem(key)||'';
-        if(!id){
-          id=crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`;
-          localStorage.setItem(key,id);
-        }
-        return id;
-      }catch(_){
-        return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      }
-    }
+      if(deviceId)return deviceId;
 
-    function setStatus(type,text){
-      const el=$('status');
-      el.className='status '+type;
-      el.textContent=text;
-    }
+      const stored=
+        readSessionValue(
+          SS_DEVICE_ID,
+          ''
+        ).trim();
 
-    function setLanStatus(type,text){
-      const el=$('lanStatus');
-      el.className='status '+type;
-      el.textContent=text;
-    }
-
-    function showToast(text){
-      const el=$('toast');
-      el.textContent=String(text||'');
-      el.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
-    }
-
-    function resetFields(){
-      $('subscription').textContent='—';
-      $('server').textContent='—';
-      $('protocols').textContent='—';
-      $('traffic').textContent='—';
-      $('expire').textContent='—';
-      $('latency').textContent='—';
-      $('happConnect').hidden=true;
-      $('happConnect').removeAttribute('href');
-      showTokenEntry();
-    }
-
-    function bytes(value){
-      const n=Number(value||0);
-      if(!Number.isFinite(n)||n<=0)return '0 Б';
-      const units=['Б','КБ','МБ','ГБ','ТБ'];
-      let x=n;
-      let i=0;
-      while(x>=1024&&i<units.length-1){
-        x/=1024;
-        i++;
-      }
-      const digits=x>=100?0:x>=10?1:2;
-      return `${x.toFixed(digits)} ${units[i]}`;
-    }
-
-    function trafficText(sub){
-      const total=Number(sub.total_bytes||0);
-      const used=Number(sub.used_bytes||0);
-      if(!total)return `Использовано ${bytes(used)} · без лимита`;
-      const remaining=Number(sub.remaining_bytes??Math.max(0,total-used));
-      return `${bytes(used)} из ${bytes(total)} · осталось ${bytes(remaining)}`;
-    }
-
-    function expireText(timestamp){
-      const ts=Number(timestamp||0);
-      if(!ts)return 'Бессрочно';
-      const d=new Date(ts>1e12?ts:ts*1000);
-      if(Number.isNaN(d.getTime()))return '—';
-      return d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'});
-    }
-
-    function getHappTarget(value){
-      if(typeof value!=='string')return '';
-      let raw=value.trim();
-      if(/^happ:\/\/add\//i.test(raw))raw=raw.slice('happ://add/'.length);
-      try{return decodeURIComponent(raw)}catch(_){return raw}
-    }
-
-    function isAllowedHappUrl(value){
-      const target=getHappTarget(value);
-      if(!target||!/^https:\/\//i.test(target))return false;
-      try{
-        const url=new URL(target);
-        if(url.protocol!=='https:')return false;
-        if(url.hostname!=='78.17.112.158')return false;
-        return url.pathname==='/api.php'||/^\/DisstVpn(?:\/|$)/i.test(url.pathname);
-      }catch(_){return false}
-    }
-
-    function getHappImportUrl(value){
-      const raw=String(value||'').trim();
-      if(!raw)return '';
-      if(/^happ:\/\/add\//i.test(raw))return raw;
-      return `happ://add/${raw}`;
-    }
-
-    function updateVpnActionLayout(){
-      const actions=document.querySelector('.vpn-actions');
-      if(!actions)return;
-      actions.classList.toggle('no-connect',$('happConnect').hidden);
-      actions.classList.toggle('has-connect',!$('happConnect').hidden);
-      actions.classList.toggle('no-token',$('tokenEntry').hidden&&$('tokenSubmit').hidden);
-    }
-
-    function showTokenEntry(){
-      if(tokenWasProvidedInUrl){
-        $('tokenEntry').hidden=true;
-        $('tokenSubmit').hidden=true;
-        $('happConnect').hidden=true;
-        updateVpnActionLayout();
-        return;
-      }
-      $('tokenEntry').hidden=false;
-      $('tokenSubmit').hidden=false;
-      $('happConnect').hidden=true;
-      updateVpnActionLayout();
-    }
-
-    function hideTokenEntry(){
-      $('tokenEntry').hidden=true;
-      $('tokenSubmit').hidden=true;
-      updateVpnActionLayout();
-    }
-
-    function showHappButton(url){
-      const importUrl=getHappImportUrl(url);
-      if(!isAllowedHappUrl(importUrl)){
-        showTokenEntry();
-        return;
-      }
-      $('happConnect').setAttribute('href',importUrl);
-      $('happConnect').hidden=false;
-      $('tokenEntry').hidden=true;
-      $('tokenSubmit').hidden=true;
-      updateVpnActionLayout();
-    }
-
-    async function postApi(token){
-      const controller=new AbortController();
-      const timeout=setTimeout(()=>controller.abort(),REQUEST_TIMEOUT_MS);
-      try{
-        return await fetch(API_URL,{method:'POST',mode:'cors',cache:'no-store',credentials:'omit',redirect:'error',signal:controller.signal,headers:{Authorization:`Bearer ${token}`,Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({device_id:getDeviceId()})});
-      }finally{
-        clearTimeout(timeout);
-      }
-    }
-
-    async function fetchSubscription(token){
-      const started=performance.now();
-      const res=await postApi(token);
-      let data=null;
-      try{data=await res.json()}catch(_){data=null}
-      return {res,data,elapsed:performance.now()-started};
-    }
-
-    function renderProtocols(protocols){
-      const el=$('protocols');
-      el.textContent='';
-      const arr=Array.isArray(protocols)?protocols:String(protocols||'').split(',').map(s=>s.trim()).filter(Boolean);
-      if(!arr.length){
-        el.textContent='—';
-        return;
-      }
-      const wrapper=document.createElement('div');
-      wrapper.className='protocols';
-      for(const protocol of arr){
-        const item=document.createElement('span');
-        item.className='protocol';
-        item.textContent=String(protocol);
-        wrapper.appendChild(item);
-      }
-      el.appendChild(wrapper);
-    }
-
-    function isSubscriptionActive(data){
-      const sub=data?.subscription||{};
-      return !(sub.enabled===false||sub.active===false||data?.enabled===false||data?.active===false);
-    }
-
-    function renderActive(data,elapsed){
-      const sub=data?.subscription||{};
-      $('subscription').textContent=String(data.subscription_name||sub.name||data.name||'VPN-подписка');
-      $('server').textContent='Финляндия';
-      renderProtocols(sub.protocols||data.protocols||[]);
-      $('traffic').textContent=trafficText(sub);
-      $('expire').textContent=expireText(sub.expire);
-      $('latency').textContent=`${Math.max(1,Math.round(elapsed))} мс`;
-      if(typeof data.launch_url==='string'&&data.launch_url.trim()!==''&&isAllowedHappUrl(data.launch_url))showHappButton(data.launch_url.trim());
-      else showTokenEntry();
-    }
-
-    async function checkToken(token,preserveInput=true){
-      const normalizedToken=String(token||'').trim();
-      if(!normalizedToken){
-        if(tokenWasProvidedInUrl){
-          setStatus('bad','Токен отсутствует.');
-          hideTokenEntry();
-        }else{
-          setStatus('bad','Введите токен.');
-          showTokenEntry();
-        }
-        return false;
+      if(stored){
+        deviceId=stored;
+        return deviceId;
       }
 
-      hideTokenEntry();
-      setStatus('wait','Проверка…');
-      $('tokenSubmit').disabled=true;
+      const bytes=
+        new Uint8Array(32);
+
+      crypto.getRandomValues(bytes);
+
+      deviceId=
+        bytesToBase64Url(bytes);
+
+      writeSessionValue(
+        SS_DEVICE_ID,
+        deviceId
+      );
+
+      return deviceId;
+    }
+
+    async function api(
+      action,
+      payload={}
+    ){
+      const controller=
+        new AbortController();
+
+      const timeout=
+        setTimeout(
+          ()=>controller.abort(),
+          REQUEST_TIMEOUT_MS
+        );
 
       try{
-        const {res,data,elapsed}=await fetchSubscription(normalizedToken);
+        const response=
+          await fetch(
+            API_URL,
+            {
+              method:'POST',
+              mode:'cors',
+              cache:'no-store',
+              credentials:'omit',
+              redirect:'error',
+              referrerPolicy:'no-referrer',
+              signal:controller.signal,
+              headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+              },
+              body:JSON.stringify({
+                action,
+                device_id:getDeviceId(),
+                ...payload
+              })
+            }
+          );
 
-        if(res.status===401){
-          setStatus('bad','Неверный токен.');
-          if(tokenWasProvidedInUrl)hideTokenEntry();
-          else{
-            showTokenEntry();
-            if(preserveInput)$('tokenInput').value=normalizedToken;
-          }
-          return false;
-        }
-
-        if(res.status===403){
-          setStatus('bad','Доступ запрещён.');
-          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
-          return false;
-        }
-
-        if(res.status===429){
-          const retryAfter=Number(res.headers.get('Retry-After'));
-          setStatus('warn',Number.isFinite(retryAfter)&&retryAfter>0?`Повторите через ${Math.ceil(retryAfter)} сек.`:'Слишком много запросов.');
-          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
-          return false;
-        }
-
-        if(res.status===502||res.status===503||res.status===504){
-          setStatus('bad','Сервер недоступен.');
-          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
-          return false;
-        }
-
-        if(!res.ok||!data||data.ok===false){
-          setStatus('bad','Не удалось получить данные.');
-          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
-          return false;
-        }
-
-        if(!isSubscriptionActive(data)){
-          setStatus('bad','Подписка отключена.');
-          tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
-          return false;
-        }
-
-        activeToken=normalizedToken;
-        saveTokenToHistory(activeToken);
-        setStatus('ok','Активно');
-        renderActive(data,elapsed);
-        return true;
-      }catch(error){
-        setStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':'Нет связи с сервером.');
-        tokenWasProvidedInUrl?hideTokenEntry():showTokenEntry();
-        return false;
-      }finally{
-        $('tokenSubmit').disabled=false;
-      }
-    }
-
-    async function loadInternal(){
-      const token=adoptToken();
-      resetFields();
-
-      if(!token){
-        setStatus('bad','Нет токена подписки.');
-        showTokenEntry();
-        return;
-      }
-
-      hideTokenEntry();
-      setStatus('wait','Проверка…');
-      await checkToken(token,false);
-    }
-
-    function load(){
-      if(activeLoadPromise)return activeLoadPromise;
-      activeLoadPromise=loadInternal().finally(()=>{activeLoadPromise=null});
-      return activeLoadPromise;
-    }
-
-    function validPublicKey(value){
-      const raw=String(value||'').trim();
-      if(!/^[A-Za-z0-9+/]{43}=$/.test(raw))return false;
-      try{return atob(raw).length===32}catch(_){return false}
-    }
-
-    function loadLanState(){
-      try{
-        const raw=sessionStorage.getItem(LAN_SESSION_KEY)||'[]';
-        const parsed=JSON.parse(raw);
-        lanNetworks=Array.isArray(parsed)?parsed.filter(item=>item&&item.id&&item.joinCode&&item.publicKey):[];
-      }catch(_){
-        lanNetworks=[];
-      }
-
-      const storedKey=localStorage.getItem(LAN_PUBLIC_KEY_KEY)||'';
-      const storedName=localStorage.getItem(LAN_DEVICE_NAME_KEY)||'';
-
-      if(storedKey)$('lanPublicKey').value=storedKey;
-      if(storedName)$('lanDeviceName').value=storedName;
-
-      renderLanNetworkSelector();
-    }
-
-    function saveLanState(){
-      try{sessionStorage.setItem(LAN_SESSION_KEY,JSON.stringify(lanNetworks))}catch(_){}
-    }
-
-    function saveLanIdentity(){
-      try{
-        localStorage.setItem(LAN_PUBLIC_KEY_KEY,$('lanPublicKey').value.trim());
-        localStorage.setItem(LAN_DEVICE_NAME_KEY,$('lanDeviceName').value.trim());
-      }catch(_){}
-    }
-
-    function renderLanNetworkSelector(){
-      const section=$('lanNetworksSection');
-      const select=$('lanNetworkSelect');
-      select.textContent='';
-
-      if(!lanNetworks.length){
-        section.hidden=true;
-        $('lanDetailsSection').hidden=true;
-        $('lanDevicesSection').hidden=true;
-        activeLanId=null;
-        setLanStatus('wait','Создайте или подключитесь к сети');
-        return;
-      }
-
-      section.hidden=false;
-
-      for(const network of lanNetworks){
-        const option=document.createElement('option');
-        option.value=String(network.id);
-        option.textContent=`${network.name} · ${network.subnet}`;
-        select.appendChild(option);
-      }
-
-      if(!activeLanId||!lanNetworks.some(item=>String(item.id)===String(activeLanId)))activeLanId=lanNetworks[0].id;
-
-      select.value=String(activeLanId);
-      renderActiveLan();
-    }
-
-    function findActiveLan(){
-      return lanNetworks.find(item=>String(item.id)===String(activeLanId))||null;
-    }
-
-    function upsertLan(network){
-      const index=lanNetworks.findIndex(item=>String(item.id)===String(network.id));
-      if(index===-1)lanNetworks.push(network);
-      else lanNetworks[index]={...lanNetworks[index],...network};
-
-      activeLanId=network.id;
-      saveLanState();
-      renderLanNetworkSelector();
-    }
-
-    function removeLan(id){
-      lanNetworks=lanNetworks.filter(item=>String(item.id)!==String(id));
-      if(String(activeLanId)===String(id))activeLanId=lanNetworks[0]?.id||null;
-      saveLanState();
-      renderLanNetworkSelector();
-    }
-
-    function renderActiveLan(){
-      const network=findActiveLan();
-
-      if(!network){
-        $('lanDetailsSection').hidden=true;
-        $('lanDevicesSection').hidden=true;
-        return;
-      }
-
-      $('lanDetailsSection').hidden=false;
-      $('lanDetailName').textContent=network.name||'—';
-      $('lanDetailSubnet').textContent=network.subnet||'—';
-      $('lanDetailIp').textContent=network.ip||'—';
-      $('lanDetailRole').textContent=network.role==='owner'?'Владелец':'Участник';
-
-      const owner=network.role==='owner';
-
-      $('lanOwnerCode').hidden=!owner;
-      $('lanJoinCodeView').value=network.joinCode||'';
-      $('lanJoinCodeText').textContent=network.joinCode||'—';
-      $('lanLeave').hidden=owner;
-      $('lanDelete').hidden=!owner;
-      $('lanConfig').textContent=network.config||'—';
-
-      const devices=network.devices||[];
-      $('lanDevicesHint').textContent=`Участники этой сети · ${devices.length}`;
-
-      renderLanDevices(devices);
-    }
-
-    function renderLanDevices(devices){
-      const section=$('lanDevicesSection');
-      const list=$('lanDevices');
-      list.textContent='';
-
-      if(!Array.isArray(devices)){
-        section.hidden=true;
-        return;
-      }
-
-      section.hidden=false;
-
-      if(!devices.length){
-        const empty=document.createElement('div');
-        empty.className='muted';
-        empty.textContent='Устройств пока нет.';
-        list.appendChild(empty);
-        return;
-      }
-
-      for(const device of devices){
-        const row=document.createElement('div');
-        row.className='device';
-
-        const main=document.createElement('div');
-        main.className='device-main';
-
-        const name=document.createElement('div');
-        name.className='device-name';
-
-        const meta=document.createElement('div');
-        meta.className='device-meta';
-
-        const key=String(device.public_key||'');
-        const shortKey=key.length>16?`${key.slice(0,8)}…${key.slice(-8)}`:key;
-        const last=device.last_seen?new Date(Number(device.last_seen)*1000).toLocaleString('ru-RU'):'Нет handshake';
-        const own=key===String((findActiveLan()?.publicKey)||'');
-
-        name.textContent=own?`${String(device.name||'Устройство')} · вы`:String(device.name||'Устройство');
-        meta.textContent=`${device.ip||'—'} · ${device.role==='owner'?'владелец':'участник'} · ${shortKey} · ${last}`;
-
-        main.appendChild(name);
-        main.appendChild(meta);
-
-        const side=document.createElement('div');
-        side.className='device-side '+(device.online?'online':'offline');
-        side.textContent=device.online?'Онлайн':'Офлайн';
-
-        row.appendChild(main);
-        row.appendChild(side);
-        list.appendChild(row);
-      }
-    }
-
-    function updateLanConnectionState(devices){
-      const network=findActiveLan();
-
-      if(!network){
-        setLanStatus('wait','Создайте или подключитесь к сети');
-        return;
-      }
-
-      const publicKey=network.publicKey||$('lanPublicKey').value.trim();
-      const own=Array.isArray(devices)?devices.find(device=>String(device.public_key||'')===publicKey):null;
-      setLanStatus('ok',own?.online?'Подключено':'Активно');
-    }
-
-    async function lanRequest(action,payload={}){
-      const controller=new AbortController();
-      const timeout=setTimeout(()=>controller.abort(),REQUEST_TIMEOUT_MS);
-
-      try{
-        const res=await fetch(API_URL,{
-          method:'POST',
-          mode:'cors',
-          cache:'no-store',
-          credentials:'omit',
-          redirect:'error',
-          signal:controller.signal,
-          headers:{
-            Accept:'application/json',
-            'Content-Type':'application/json'
-          },
-          body:JSON.stringify({action,device_id:getDeviceId(),...payload})
-        });
+        const text=
+          await response.text();
 
         let data=null;
-        try{data=await res.json()}catch(_){data=null}
 
-        if(!res.ok||!data||data.ok===false)throw new Error(data?.error||`Ошибка API ${res.status}`);
+        try{
+          data=
+            text
+              ?JSON.parse(text)
+              :null;
+        }catch{
+          data=null;
+        }
+
+        if(!response.ok){
+          throw new Error(
+            data?.message||
+            data?.error||
+            `Ошибка API ${response.status}`
+          );
+        }
+
+        if(
+          data&&
+          (
+            data.success===false||
+            data.ok===false
+          )
+        ){
+          throw new Error(
+            data.message||
+            data.error||
+            'Ошибка API'
+          );
+        }
+
+        if(!data){
+          throw new Error(
+            'Сервер вернул пустой ответ'
+          );
+        }
 
         return data;
       }finally{
@@ -707,372 +1668,3499 @@
       }
     }
 
-    function currentLanKey(){
-      return findActiveLan()?.publicKey||$('lanPublicKey').value.trim();
-    }
+    async function vpnRequest(token){
+      const controller=
+        new AbortController();
 
-    function validateLanInputs(action){
-      const publicKey=$('lanPublicKey').value.trim();
-      const deviceName=$('lanDeviceName').value.trim();
+      const timeout=
+        setTimeout(
+          ()=>controller.abort(),
+          REQUEST_TIMEOUT_MS
+        );
 
-      if(!validPublicKey(publicKey)){
-        setLanStatus('bad','Некорректный Public Key.');
-        return null;
-      }
+      const started=
+        performance.now();
 
-      if(!deviceName||deviceName.length<1){
-        setLanStatus('bad','Укажи название устройства.');
-        return null;
-      }
+      try{
+        const response=
+          await fetch(
+            API_URL,
+            {
+              method:'POST',
+              mode:'cors',
+              cache:'no-store',
+              credentials:'omit',
+              redirect:'error',
+              referrerPolicy:'no-referrer',
+              signal:controller.signal,
+              headers:{
+                'Authorization':
+                  `Bearer ${token}`,
+                'Accept':
+                  'application/json',
+                'Content-Type':
+                  'application/json'
+              },
+              body:JSON.stringify({
+                device_id:getDeviceId()
+              })
+            }
+          );
 
-      if(action==='create'){
-        const name=$('lanName').value.trim();
+        const text=
+          await response.text();
 
-        if(name.length<4){
-          setLanStatus('bad','Имя LAN должно быть не короче 4 символов.');
-          return null;
+        let data=null;
+
+        try{
+          data=
+            text
+              ?JSON.parse(text)
+              :null;
+        }catch{
+          data=null;
         }
 
-        return {publicKey,deviceName,name};
+        return {
+          response,
+          data,
+          elapsed:
+            performance.now()-started
+        };
+      }finally{
+        clearTimeout(timeout);
+      }
+    }
+
+    async function vpnActionFallback(token){
+      try{
+        return await api(
+          'vpn_status',
+          {token}
+        );
+      }catch(firstError){
+        const message=
+          String(
+            firstError?.message||''
+          );
+
+        if(
+          /unknown action|неизвест|not found|404/i.test(
+            message
+          )
+        ){
+          return await api(
+            'vpn_check',
+            {token}
+          );
+        }
+
+        throw firstError;
+      }
+    }
+
+    function getVpnHistoryToken(){
+      try{
+        const state=
+          window.history&&
+          window.history.state;
+
+        if(
+          !state||
+          typeof state!=='object'
+        ){
+          return '';
+        }
+
+        const value=
+          state[
+            SS_VPN_HISTORY_TOKEN
+          ];
+
+        return typeof value==='string'
+          ?value.trim()
+          :'';
+      }catch{
+        return '';
+      }
+    }
+
+    function saveVpnHistoryToken(token){
+      if(
+        !window.history||
+        typeof window.history.replaceState!=='function'
+      ){
+        return;
       }
 
-      const joinCode=$('lanJoinCode').value.trim();
+      try{
+        const currentState=
+          window.history.state&&
+          typeof window.history.state==='object'
+            ?window.history.state
+            :{};
 
-      if(!joinCode||joinCode.length>64){
-        setLanStatus('bad','Укажи корректный код сети.');
+        window.history.replaceState(
+          {
+            ...currentState,
+            [SS_VPN_HISTORY_TOKEN]:
+              token
+          },
+          '',
+          window.location.href
+        );
+      }catch{}
+    }
+
+    function saveVpnToken(token){
+      if(!token)return;
+
+      writeSessionValue(
+        SS_VPN_TOKEN,
+        token
+      );
+
+      saveVpnHistoryToken(token);
+    }
+
+    function getSavedVpnToken(){
+      return readSessionValue(
+        SS_VPN_TOKEN,
+        ''
+      ).trim();
+    }
+
+    function clearVpnToken(){
+      removeSessionValue(
+        SS_VPN_TOKEN
+      );
+    }
+
+    function getTokenFromUrl(){
+      try{
+        const url=
+          new URL(
+            window.location.href
+          );
+
+        const queryToken=
+          url.searchParams.get('key');
+
+        if(queryToken){
+          return queryToken.trim();
+        }
+
+        const hash=
+          url.hash.replace(
+            /^#/,
+            ''
+          );
+
+        const hashParams=
+          new URLSearchParams(
+            hash
+          );
+
+        const hashToken=
+          hashParams.get('key');
+
+        if(hashToken){
+          return hashToken.trim();
+        }
+
+        if(
+          hash&&
+          !hash.includes('=')&&
+          hash.length<=VPN_TOKEN_MAX_LENGTH
+        ){
+          return hash.trim();
+        }
+      }catch{}
+
+      return '';
+    }
+
+    function removeTokenFromUrl(){
+      try{
+        const url=
+          new URL(
+            window.location.href
+          );
+
+        url.searchParams.delete(
+          'key'
+        );
+
+        url.hash='';
+
+        window.history.replaceState(
+          {},
+          document.title,
+          url.toString()
+        );
+      }catch{}
+    }
+
+    function getInitialVpnToken(){
+      const urlToken=
+        getTokenFromUrl();
+
+      if(urlToken){
+        saveVpnToken(urlToken);
+        removeTokenFromUrl();
+        return urlToken;
+      }
+
+      const historyToken=
+        getVpnHistoryToken();
+
+      if(historyToken){
+        return historyToken;
+      }
+
+      return getSavedVpnToken();
+    }
+
+    function formatExpiry(value){
+      if(
+        value===null||
+        value===undefined||
+        value===''
+      ){
+        return '—';
+      }
+
+      let date;
+
+      if(
+        typeof value==='number'||
+        /^\d+$/.test(
+          String(value)
+        )
+      ){
+        const numeric=
+          Number(value);
+
+        date=
+          new Date(
+            numeric>1e12
+              ?numeric
+              :numeric*1000
+          );
+      }else{
+        date=
+          new Date(
+            String(value)
+          );
+      }
+
+      if(
+        Number.isNaN(
+          date.getTime()
+        )
+      ){
+        return String(value);
+      }
+
+      return date.toLocaleDateString(
+        'ru-RU'
+      );
+    }
+
+    function formatBytes(value){
+      const bytes=
+        Number(value);
+
+      if(
+        !Number.isFinite(bytes)||
+        bytes<0
+      ){
         return null;
       }
 
-      return {publicKey,deviceName,joinCode};
+      const units=[
+        'B',
+        'KB',
+        'MB',
+        'GB',
+        'TB'
+      ];
+
+      if(bytes===0){
+        return '0 B';
+      }
+
+      const index=
+        Math.min(
+          Math.floor(
+            Math.log(bytes)/
+            Math.log(1024)
+          ),
+          units.length-1
+        );
+
+      return (
+        `${(
+          bytes/
+          (1024**index)
+        ).toFixed(
+          index===0
+            ?0
+            :1
+        )} ${units[index]}`
+      );
+    }
+
+    function normalizeTrafficNumber(value){
+      if(
+        value===null||
+        value===undefined||
+        value===''
+      ){
+        return null;
+      }
+
+      const numeric=
+        Number(value);
+
+      return Number.isFinite(
+        numeric
+      )
+        ?numeric
+        :null;
+    }
+
+    function formatTraffic(data){
+      const subscription=
+        data?.subscription||
+        {};
+
+      const traffic=
+        data?.traffic||
+        subscription.traffic||
+        {};
+
+      if(
+        typeof traffic==='string'&&
+        traffic.trim()
+      ){
+        const value=
+          traffic.trim();
+
+        if(
+          /^0\s*(b|kb|mb|gb|tb)?$/i.test(
+            value
+          )
+        ){
+          return '0 B / ∞';
+        }
+
+        return value;
+      }
+
+      const usedValue=
+        traffic?.used??
+        traffic?.usage??
+        data?.traffic_used??
+        data?.used_traffic??
+        data?.bytes_used??
+        subscription.traffic_used??
+        subscription.used_bytes??
+        0;
+
+      const limitValue=
+        traffic?.limit??
+        traffic?.quota??
+        data?.traffic_limit??
+        data?.traffic_total??
+        subscription.traffic_limit??
+        subscription.total_bytes;
+
+      const used=
+        normalizeTrafficNumber(
+          usedValue
+        );
+
+      const limit=
+        normalizeTrafficNumber(
+          limitValue
+        );
+
+      const upload=
+        normalizeTrafficNumber(
+          traffic?.upload??
+          traffic?.uploaded??
+          data?.upload??
+          data?.uploaded
+        );
+
+      const download=
+        normalizeTrafficNumber(
+          traffic?.download??
+          traffic?.downloaded??
+          data?.download??
+          data?.downloaded
+        );
+
+      if(
+        limit!==null&&
+        limit<=0
+      ){
+        return (
+          `${formatBytes(
+            used||0
+          )} / ∞`
+        );
+      }
+
+      if(
+        used!==null&&
+        limit!==null&&
+        limit>0
+      ){
+        const available=
+          Math.max(
+            0,
+            limit-used
+          );
+
+        return (
+          `${formatBytes(
+            used
+          )} / ${formatBytes(
+            available
+          )}`
+        );
+      }
+
+      if(
+        used!==null&&
+        limit===null&&
+        (
+          download!==null||
+          upload!==null
+        )
+      ){
+        const totalUsed=
+          (download||0)+
+          (upload||0);
+
+        return `${formatBytes(
+          totalUsed
+        )} / ∞`;
+      }
+
+      if(used!==null){
+        return `${formatBytes(
+          used
+        )} / ∞`;
+      }
+
+      return '—';
+    }
+
+    function getSubscriptionName(data){
+      return String(
+        data?.subscription_name||
+        data?.subscription?.name||
+        data?.name||
+        ''
+      ).trim();
+    }
+
+    function getNetworkDisplayName(network){
+      return String(
+        network?.name||
+        network?.network_name||
+        ''
+      ).trim();
+    }
+
+    function setVpnSubscriptionName(name){
+      const element=
+        $('vpnSubscriptionName');
+
+      if(!name){
+        element.textContent='';
+        element.classList.add(
+          'hidden'
+        );
+        return;
+      }
+
+      element.textContent=
+        name;
+
+      element.classList.remove(
+        'hidden'
+      );
+    }
+
+    function setLanNetworkName(name){
+      const element=
+        $('lanNetworkName');
+
+      if(!name){
+        element.textContent='';
+        element.classList.add(
+          'hidden'
+        );
+        return;
+      }
+
+      element.textContent=
+        name;
+
+      element.classList.remove(
+        'hidden'
+      );
+    }
+
+    function setVpnStatus(
+      state,
+      expiry='—',
+      ping='—',
+      traffic='—'
+    ){
+      $('vpnState').textContent=
+        state;
+
+      $('vpnExpiry').textContent=
+        expiry;
+
+      $('vpnPing').textContent=
+        ping;
+
+      $('vpnTraffic').textContent=
+        traffic;
+    }
+
+    function isVpnActive(data){
+      const subscription=
+        data?.subscription||
+        {};
+
+      return !(
+        data?.enabled===false||
+        data?.active===false||
+        data?.valid===false||
+        data?.subscription_active===false||
+        subscription.enabled===false||
+        subscription.active===false
+      );
+    }
+
+    function getHappUrl(){
+      const candidates=[
+        vpnData?.launch_url,
+        vpnData?.happ_url,
+        vpnData?.subscription_url,
+        vpnData?.happ,
+        vpnData?.url,
+        vpnData?.link,
+        vpnData?.subscription?.launch_url,
+        vpnData?.subscription?.happ_url,
+        vpnData?.subscription?.url
+      ];
+
+      return (
+        candidates.find(
+          value =>
+            typeof value==='string'&&
+            value.trim()
+        )||
+        ''
+      ).trim();
+    }
+
+    function isAllowedHappHttpUrl(parsed){
+      if(
+        parsed.protocol!=='https:'||
+        parsed.hostname!==ALLOWED_HAPP_HOST
+      ){
+        return false;
+      }
+
+      if(
+        parsed.pathname.startsWith(
+          ALLOWED_HAPP_SUBSCRIPTION_PATH
+        )
+      ){
+        return true;
+      }
+
+      if(
+        parsed.pathname===ALLOWED_HAPP_API_PATH
+      ){
+        const subscriptionId=
+          parsed.searchParams.get(
+            'subscription'
+          );
+
+        const signature=
+          parsed.searchParams.get(
+            'sig'
+          );
+
+        return Boolean(
+          subscriptionId&&
+          /^[a-f0-9]{8,128}$/i.test(
+            subscriptionId
+          )&&
+          signature&&
+          /^[a-f0-9]{32,128}$/i.test(
+            signature
+          )
+        );
+      }
+
+      return false;
+    }
+
+    function isAllowedHappUrl(value){
+      if(
+        typeof value!=='string'
+      ){
+        return false;
+      }
+
+      const raw=
+        value.trim();
+
+      if(!raw){
+        return false;
+      }
+
+      if(
+        /^happ:\/\/add\/https:\/\//i.test(
+          raw
+        )
+      ){
+        try{
+          const nested=
+            raw.replace(
+              /^happ:\/\/add\//i,
+              ''
+            );
+
+          const parsed=
+            new URL(
+              nested
+            );
+
+          return isAllowedHappHttpUrl(
+            parsed
+          );
+        }catch{
+          return false;
+        }
+      }
+
+      if(/^https:\/\//i.test(raw)){
+        try{
+          const parsed=
+            new URL(
+              raw
+            );
+
+          return isAllowedHappHttpUrl(
+            parsed
+          );
+        }catch{
+          return false;
+        }
+      }
+
+      try{
+        const decoded=
+          decodeURIComponent(
+            raw
+          );
+
+        if(decoded!==raw){
+          return isAllowedHappUrl(
+            decoded
+          );
+        }
+      }catch{}
+
+      return false;
+    }
+
+    function getSafeHappUrl(){
+      const url=
+        getHappUrl();
+
+      return isAllowedHappUrl(
+        url
+      )
+        ?url
+        :'';
+    }
+
+    function getHappImportUrl(){
+      const url=
+        getSafeHappUrl();
+
+      if(!url){
+        return '';
+      }
+
+      if(
+        /^happ:\/\/add\//i.test(
+          url
+        )
+      ){
+        return url;
+      }
+
+      return `happ://add/${url}`;
+    }
+
+    function updateVpnCheckButton(){
+      const token=
+        $('vpnToken')
+          .value
+          .trim();
+
+      $('vpnCheck').disabled=
+        !token||
+        token.length>
+          VPN_TOKEN_MAX_LENGTH;
+    }
+
+    function hideVpnActions(){
+      $('vpnActions')
+        .classList.add(
+          'hidden'
+        );
+    }
+
+    function renderVpnActions(){
+      const safeUrl=
+        getHappImportUrl();
+
+      if(!safeUrl){
+        hideVpnActions();
+        return;
+      }
+
+      $('vpnActions')
+        .classList.remove(
+          'hidden'
+        );
+    }
+
+    async function checkVpnToken(){
+      const token=
+        $('vpnToken')
+          .value
+          .trim();
+
+      const button=
+        $('vpnCheck');
+
+      hideVpnActions();
+
+      if(!token){
+        setVpnSubscriptionName(
+          ''
+        );
+
+        setVpnStatus(
+          'Введите токен',
+          '—',
+          '—',
+          '—'
+        );
+
+        return;
+      }
+
+      if(
+        token.length>
+        VPN_TOKEN_MAX_LENGTH
+      ){
+        setVpnSubscriptionName(
+          ''
+        );
+
+        setVpnStatus(
+          'Некорректный токен',
+          '—',
+          '—',
+          '—'
+        );
+
+        return;
+      }
+
+      button.disabled=true;
+
+      setVpnStatus(
+        'Проверка…',
+        '—',
+        '—',
+        '—'
+      );
+
+      try{
+        let data=null;
+        let elapsed=0;
+
+        try{
+          const result=
+            await vpnRequest(
+              token
+            );
+
+          elapsed=
+            result.elapsed;
+
+          const response=
+            result.response;
+
+          const responseData=
+            result.data;
+
+          if(
+            response.status===401
+          ){
+            clearVpnToken();
+
+            setVpnSubscriptionName(
+              ''
+            );
+
+            setVpnStatus(
+              'Неверный токен',
+              '—',
+              '—',
+              '—'
+            );
+
+            return;
+          }
+
+          if(
+            response.status===403
+          ){
+            setVpnSubscriptionName(
+              ''
+            );
+
+            setVpnStatus(
+              'Доступ запрещён',
+              '—',
+              '—',
+              '—'
+            );
+
+            return;
+          }
+
+          if(
+            response.status===429
+          ){
+            setVpnStatus(
+              'Слишком много запросов',
+              '—',
+              '—',
+              '—'
+            );
+
+            return;
+          }
+
+          if(
+            response.ok&&
+            responseData
+          ){
+            data=
+              responseData;
+
+          }else if(
+            response.status===400||
+            response.status===404||
+            response.status===405
+          ){
+            const fallbackStarted=
+              performance.now();
+
+            data=
+              await vpnActionFallback(
+                token
+              );
+
+            if(!elapsed){
+              elapsed=
+                performance.now()-
+                fallbackStarted;
+            }
+
+          }else if(
+            response.status>=500
+          ){
+            throw new Error(
+              'Сервер недоступен'
+            );
+
+          }else{
+            throw new Error(
+              responseData?.message||
+              responseData?.error||
+              `Ошибка API ${response.status}`
+            );
+          }
+
+        }catch(firstError){
+          if(
+            firstError?.name===
+              'AbortError'
+          ){
+            throw firstError;
+          }
+
+          if(
+            /сервер недоступен/i.test(
+              String(
+                firstError?.message||
+                ''
+              )
+            )
+          ){
+            throw firstError;
+          }
+
+          const fallbackStarted=
+            performance.now();
+
+          data=
+            await vpnActionFallback(
+              token
+            );
+
+          if(!elapsed){
+            elapsed=
+              performance.now()-
+              fallbackStarted;
+          }
+        }
+
+        if(
+          !data||
+          data.ok===false||
+          data.success===false
+        ){
+          throw new Error(
+            data?.message||
+            data?.error||
+            'Не удалось получить данные'
+          );
+        }
+
+        vpnData=
+          data;
+
+        const valid=
+          data.valid??
+          data.active??
+          data.is_active??
+          data.subscription_active??
+          isVpnActive(
+            data
+          );
+
+        if(!valid){
+          clearVpnToken();
+
+          setVpnSubscriptionName(
+            ''
+          );
+
+          setVpnStatus(
+            'Неверный токен',
+            '—',
+            '—',
+            '—'
+          );
+
+          return;
+        }
+
+        setVpnSubscriptionName(
+          getSubscriptionName(
+            data
+          )
+        );
+
+        const expiry=
+          formatExpiry(
+            data.expires_at||
+            data.expire_at||
+            data.expiry||
+            data.expires||
+            data.subscription?.expires_at||
+            data.subscription?.expire
+          );
+
+        const serverPing=
+          data.ping??
+          data.latency??
+          data.server_ping??
+          data.subscription?.ping??
+          null;
+
+        const ping=
+          serverPing!==null&&
+          Number.isFinite(
+            Number(
+              serverPing
+            )
+          )
+            ?`${Math.max(
+                1,
+                Math.round(
+                  Number(
+                    serverPing
+                  )
+                )
+              )} ms`
+            :`${Math.max(
+                1,
+                Math.round(
+                  elapsed
+                )
+              )} ms`;
+
+        const traffic=
+          formatTraffic(
+            data
+          );
+
+        if(
+          !isVpnActive(
+            data
+          )
+        ){
+          setVpnStatus(
+            'Отключена',
+            expiry,
+            ping,
+            traffic
+          );
+
+          renderVpnActions();
+
+          return;
+        }
+
+        saveVpnToken(
+          token
+        );
+
+        setVpnStatus(
+          'Активна',
+          expiry,
+          ping,
+          traffic
+        );
+
+        renderVpnActions();
+
+      }catch(error){
+        setVpnSubscriptionName(
+          ''
+        );
+
+        setVpnStatus(
+          error?.name===
+            'AbortError'
+            ?'Нет ответа'
+            :(
+                error?.message||
+                'Нет связи'
+              ),
+          '—',
+          '—',
+          '—'
+        );
+
+      }finally{
+        updateVpnCheckButton();
+      }
+    }
+
+    function restoreVpnToken(){
+      const token=
+        getInitialVpnToken();
+
+      if(token){
+        $('vpnToken').value=
+          token;
+      }
+
+      setVpnSubscriptionName(
+        ''
+      );
+
+      setVpnStatus(
+        token
+          ?'Не проверен'
+          :'Нет токена',
+        '—',
+        '—',
+        '—'
+      );
+
+      hideVpnActions();
+      updateVpnCheckButton();
+    }
+
+    function escapeHtml(value){
+      return String(
+        value??''
+      )
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+        .replaceAll(
+          "'",
+          '&#039;'
+        );
+    }
+
+    function getActiveNetwork(){
+      return readSessionJson(
+        SS_ACTIVE_NETWORK,
+        null
+      );
+    }
+
+    function saveActiveNetwork(
+      network
+    ){
+      if(!network){
+        try{
+          sessionStorage.removeItem(
+            SS_ACTIVE_NETWORK
+          );
+        }catch{}
+
+        return;
+      }
+
+      writeSessionJson(
+        SS_ACTIVE_NETWORK,
+        network
+      );
+    }
+
+    function getLanNetworks(){
+      const networks=
+        readSessionJson(
+          SS_LAN_NETWORKS,
+          []
+        );
+
+      return Array.isArray(
+        networks
+      )
+        ?networks
+        :[];
+    }
+
+    function saveLanNetworks(
+      networks
+    ){
+      writeSessionJson(
+        SS_LAN_NETWORKS,
+        Array.isArray(
+          networks
+        )
+          ?networks
+          :[]
+      );
+    }
+
+    function getJoinCodes(){
+      return readSessionJson(
+        SS_LAN_JOIN_CODES,
+        {}
+      );
+    }
+
+    function saveJoinCodes(
+      codes
+    ){
+      writeSessionJson(
+        SS_LAN_JOIN_CODES,
+        codes||{}
+      );
+    }
+
+    function getJoinCodeForNetwork(
+      networkId
+    ){
+      const codes=
+        getJoinCodes();
+
+      return codes[
+        String(networkId)
+      ]||'';
+    }
+
+    function saveJoinCode(
+      networkId,
+      code
+    ){
+      if(
+        networkId==null||
+        !code
+      ){
+        return;
+      }
+
+      const codes=
+        getJoinCodes();
+
+      codes[
+        String(networkId)
+      ]=code;
+
+      saveJoinCodes(
+        codes
+      );
+    }
+
+    function removeJoinCode(
+      networkId
+    ){
+      const codes=
+        getJoinCodes();
+
+      delete codes[
+        String(networkId)
+      ];
+
+      saveJoinCodes(
+        codes
+      );
+    }
+
+    function getPublicKey(){
+      return $('lanPublicKey')
+        .value
+        .trim();
+    }
+
+    function isValidBase64Key(
+      value
+    ){
+      if(
+        !value||
+        typeof value!=='string'
+      ){
+        return false;
+      }
+
+      const normalized=
+        value.replace(
+          /\s/g,
+          ''
+        );
+
+      if(
+        !/^[A-Za-z0-9+/]{43}=$/.test(
+          normalized
+        )
+      ){
+        return false;
+      }
+
+      try{
+        return atob(
+          normalized
+        ).length===32;
+      }catch{
+        return false;
+      }
+    }
+
+    function validateLanName(
+      value
+    ){
+      const name=
+        String(
+          value||''
+        ).trim();
+
+      return Boolean(
+        name&&
+        name.length<=
+          LAN_NAME_MAX_LENGTH
+      );
+    }
+
+    function validateJoinCode(
+      value
+    ){
+      const code=
+        String(
+          value||''
+        ).trim();
+
+      return Boolean(
+        code&&
+        code.length<=
+          LAN_JOIN_CODE_MAX_LENGTH
+      );
+    }
+
+    function requirePublicKey(){
+      const key=
+        getPublicKey();
+
+      if(!key){
+        updateLanInfo(
+          currentNetwork,
+          'Не готова'
+        );
+
+        updateLanControls();
+
+        return '';
+      }
+
+      if(
+        !isValidBase64Key(
+          key
+        )
+      ){
+        updateLanInfo(
+          currentNetwork,
+          'Неверный ключ'
+        );
+
+        updateLanControls();
+
+        return '';
+      }
+
+      return key;
+    }
+
+    function normalizeNetwork(
+      raw,
+      fallback={},
+      publicKey=''
+    ){
+      if(!raw){
+        return null;
+      }
+
+      const ownerKey=
+        raw.owner_public_key||
+        raw.ownerPublicKey||
+        fallback.ownerPublicKey||
+        '';
+
+      const id=
+        raw.network_id??
+        raw.networkId??
+        raw.id??
+        fallback.id??
+        null;
+
+      if(id==null){
+        return null;
+      }
+
+      let role=
+        raw.role||
+        fallback.role||
+        '';
+
+      if(!role){
+        role=
+          ownerKey&&
+          publicKey&&
+          ownerKey===publicKey
+            ?'owner'
+            :'member';
+      }
+
+      return {
+        id,
+
+        name:
+          raw.name??
+          raw.network_name??
+          raw.networkName??
+          fallback.name??
+          'LAN',
+
+        subnet:
+          raw.subnet??
+          raw.cidr??
+          fallback.subnet??
+          '—',
+
+        publicKey:
+          raw.public_key??
+          raw.publicKey??
+          fallback.publicKey??
+          publicKey,
+
+        ownerPublicKey:
+          ownerKey,
+
+        role,
+
+        myIp:
+          raw.my_ip??
+          raw.myIp??
+          raw.ip??
+          raw.address??
+          raw.me?.ip??
+          raw.me?.address??
+          fallback.myIp??
+          '—',
+
+        joinCode:
+          raw.join_code??
+          raw.joinCode??
+          raw.code??
+          fallback.joinCode??
+          getJoinCodeForNetwork(
+            id
+          )??
+          '',
+
+        config:
+          raw.config??
+          raw.wireguard_config??
+          raw.wireguardConfig??
+          fallback.config??
+          '',
+
+        devices:
+          Array.isArray(
+            raw.devices
+          )
+            ?raw.devices
+            :(
+                Array.isArray(
+                  fallback.devices
+                )
+                  ?fallback.devices
+                  :[]
+              ),
+
+        joined:
+          raw.joined??
+          fallback.joined??
+          true
+      };
+    }
+
+    function normalizeNetworkCollection(
+      data,
+      publicKey
+    ){
+      let rawNetworks=[];
+
+      if(
+        Array.isArray(
+          data?.networks
+        )
+      ){
+        rawNetworks=
+          data.networks;
+
+      }else if(
+        Array.isArray(
+          data?.items
+        )
+      ){
+        rawNetworks=
+          data.items;
+
+      }else if(
+        data?.network
+      ){
+        rawNetworks=[
+          data.network
+        ];
+
+      }else if(
+        data?.network_id!=null||
+        data?.networkId!=null||
+        data?.id!=null||
+        data?.name||
+        data?.config
+      ){
+        rawNetworks=[
+          data
+        ];
+      }
+
+      const existing=
+        getLanNetworks();
+
+      const result=[];
+
+      for(
+        const raw
+        of rawNetworks
+      ){
+        if(!raw){
+          continue;
+        }
+
+        const id=
+          raw.network_id??
+          raw.networkId??
+          raw.id??
+          null;
+
+        const fallback=
+          existing.find(
+            item =>
+              id!=null&&
+              String(item.id)===
+                String(id)
+          )||{};
+
+        const network=
+          normalizeNetwork(
+            raw,
+            fallback,
+            publicKey
+          );
+
+        if(network){
+          result.push(
+            network
+          );
+        }
+      }
+
+      return result;
+    }
+
+    function mergeNetworks(
+      networks
+    ){
+      const existing=
+        getLanNetworks();
+
+      const map=
+        new Map();
+
+      for(
+        const item
+        of existing
+      ){
+        if(
+          item&&
+          item.id!=null
+        ){
+          map.set(
+            String(item.id),
+            item
+          );
+        }
+      }
+
+      for(
+        const network
+        of networks
+      ){
+        if(
+          !network||
+          network.id==null
+        ){
+          continue;
+        }
+
+        const key=
+          String(
+            network.id
+          );
+
+        const previous=
+          map.get(
+            key
+          )||{};
+
+        map.set(
+          key,
+          {
+            ...previous,
+            ...network,
+            joinCode:
+              network.joinCode||
+              previous.joinCode||
+              '',
+            config:
+              network.config||
+              previous.config||
+              '',
+            devices:
+              Array.isArray(
+                network.devices
+              )&&
+              network.devices.length
+                ?network.devices
+                :(
+                    previous.devices||
+                    []
+                  )
+          }
+        );
+      }
+
+      const merged=
+        [...map.values()];
+
+      saveLanNetworks(
+        merged
+      );
+
+      return merged;
+    }
+
+    function updateLanInfo(
+      network,
+      status=''
+    ){
+      const key=
+        getPublicKey();
+
+      let resolvedStatus=
+        status;
+
+      if(!key){
+        resolvedStatus=
+          'Не готова';
+
+      }else if(
+        !isValidBase64Key(
+          key
+        )
+      ){
+        resolvedStatus=
+          'Неверный ключ';
+
+      }else if(
+        !resolvedStatus
+      ){
+        resolvedStatus=
+          network
+            ?'Подключена'
+            :'Действительный';
+      }
+
+      $('lanInfoSubnet')
+        .textContent=
+        network?.subnet||
+        '—';
+
+      $('lanInfoIp')
+        .textContent=
+        network?.myIp||
+        '—';
+
+      $('lanInfoRole')
+        .textContent=
+        network
+          ?(
+              network.role==='owner'
+                ?'Владелец'
+                :'Участник'
+            )
+          :'—';
+
+      $('lanInfoStatus')
+        .textContent=
+        resolvedStatus;
+
+      setLanNetworkName(
+        getNetworkDisplayName(
+          network
+        )
+      );
+    }
+
+    function setLanStatus(
+      message,
+      network=currentNetwork
+    ){
+      const key=
+        getPublicKey();
+
+      if(!key){
+        updateLanInfo(
+          network,
+          'Не готова'
+        );
+
+        return;
+      }
+
+      if(
+        !isValidBase64Key(
+          key
+        )
+      ){
+        updateLanInfo(
+          network,
+          'Неверный ключ'
+        );
+
+        return;
+      }
+
+      updateLanInfo(
+        network,
+        message||
+        (
+          network
+            ?'Подключена'
+            :'Действительный'
+        )
+      );
+    }
+
+    function updateLanControls(){
+      const valid=
+        isValidBase64Key(
+          getPublicKey()
+        );
+
+      $('lanCreateButton')
+        .disabled=!valid;
+
+      $('lanJoinButton')
+        .disabled=!valid;
+
+      $('refreshLan')
+        .disabled=!valid;
+    }
+
+    function renderNetworkList(
+      networks
+    ){
+      const list=
+        $('networkList');
+
+      if(
+        !Array.isArray(
+          networks
+        )||
+        !networks.length
+      ){
+        list.innerHTML=
+          '<div class="empty">Нет сетей</div>';
+
+        return;
+      }
+
+      list.innerHTML=
+        networks
+          .map(
+            network => {
+              const role=
+                network.role==='owner'
+                  ?'Владелец'
+                  :'Участник';
+
+              return `
+                <button
+                  class="network-item"
+                  type="button"
+                  data-network-id="${escapeHtml(
+                    network.id
+                  )}"
+                >
+                  <div class="network-main">
+                    <div class="network-name">
+                      ${escapeHtml(
+                        network.name
+                      )}
+                    </div>
+
+                    <div class="network-meta">
+                      ${escapeHtml(
+                        network.subnet
+                      )}
+                      ·
+                      ${escapeHtml(
+                        role
+                      )}
+                      ·
+                      ${escapeHtml(
+                        network.myIp||'—'
+                      )}
+                    </div>
+                  </div>
+
+                  <div class="network-arrow">
+                    ›
+                  </div>
+                </button>
+              `;
+            }
+          )
+          .join('');
+
+      list
+        .querySelectorAll(
+          '.network-item'
+        )
+        .forEach(
+          button => {
+            button.addEventListener(
+              'click',
+              () => {
+                const network=
+                  networks.find(
+                    item =>
+                      String(
+                        item.id
+                      )===
+                      String(
+                        button.dataset
+                          .networkId
+                      )
+                  );
+
+                if(network){
+                  openNetwork(
+                    network
+                  );
+                }
+              }
+            );
+          }
+        );
+    }
+
+    function renderDevices(
+      devices
+    ){
+      const list=
+        $('devicesList');
+
+      const safeDevices=
+        Array.isArray(
+          devices
+        )
+          ?devices
+          :[];
+
+      const count=
+        safeDevices.length;
+
+      $('devicesCount')
+        .textContent=
+        `${count} ${
+          count===1
+            ?'устройство'
+            :'устройств'
+        }`;
+
+      if(!safeDevices.length){
+        list.innerHTML=
+          '<div class="empty">Нет устройств</div>';
+        return;
+      }
+
+      const myPublicKey=
+        getPublicKey();
+
+      list.innerHTML=
+        safeDevices
+          .map(
+            device => {
+              const publicKey=
+                device.public_key||
+                device.publicKey||
+                '';
+
+              const name=
+                device.name||
+                (
+                  publicKey===myPublicKey
+                    ?'Это устройство'
+                    :'Устройство'
+                );
+
+              const ip=
+                device.ip||
+                device.address||
+                device.client_ip||
+                '—';
+
+              const online=
+                Boolean(
+                  device.online||
+                  device.is_online||
+                  device.connected
+                );
+
+              return `
+                <div class="device">
+                  <div class="device-main">
+                    <div class="device-name">
+                      ${escapeHtml(
+                        name
+                      )}
+                    </div>
+
+                    <div class="device-sub">
+                      ${escapeHtml(
+                        ip
+                      )}
+                    </div>
+                  </div>
+
+                  <div class="device-state">
+                    <span class="device-dot ${
+                      online
+                        ?'online'
+                        :''
+                    }"></span>
+
+                    <span>
+                      ${
+                        online
+                          ?'онлайн'
+                          :'офлайн'
+                      }
+                    </span>
+                  </div>
+                </div>
+              `;
+            }
+          )
+          .join('');
+    }
+
+    function renderCurrentNetwork(
+      network
+    ){
+      currentNetwork=
+        network;
+
+      saveActiveNetwork(
+        network
+      );
+
+      updateLanInfo(
+        network,
+        'Подключена'
+      );
+
+      $('currentNetworkPanel')
+        .classList.remove(
+          'hidden'
+        );
+
+      $('networkActionsPanel')
+        .classList.remove(
+          'hidden'
+        );
+
+      $('devicesPanel')
+        .classList.remove(
+          'hidden'
+        );
+
+      $('currentNetworkSubtitle')
+        .textContent=
+        network.name||
+        'LAN';
+
+      $('currentName')
+        .textContent=
+        network.name||
+        '—';
+
+      $('currentSubnet')
+        .textContent=
+        network.subnet||
+        '—';
+
+      $('currentIp')
+        .textContent=
+        network.myIp||
+        '—';
+
+      $('currentRole')
+        .textContent=
+        network.role==='owner'
+          ?'Владелец'
+          :'Участник';
+
+      const owner=
+        network.role==='owner';
+
+      const hasJoinCode=
+        Boolean(
+          network.joinCode
+        );
+
+      $('accessBox')
+        .classList.toggle(
+          'hidden',
+          !owner||
+          !hasJoinCode
+        );
+
+      $('leaveLanButton')
+        .classList.toggle(
+          'hidden',
+          owner
+        );
+
+      $('deleteLanButton')
+        .classList.toggle(
+          'hidden',
+          !owner
+        );
+
+      $('accessCode')
+        .textContent=
+        network.joinCode||
+        '—';
+
+      currentConfig=
+        typeof network.config==='string'
+          ?network.config
+          :'';
+
+      $('configText')
+        .value=
+        currentConfig;
+
+      renderDevices(
+        network.devices
+      );
+    }
+
+    function clearCurrentNetwork(){
+      currentNetwork=
+        null;
+
+      currentConfig=
+        '';
+
+      saveActiveNetwork(
+        null
+      );
+
+      setLanNetworkName(
+        ''
+      );
+
+      updateLanInfo(
+        null,
+        ''
+      );
+
+      $('currentNetworkPanel')
+        .classList.add(
+          'hidden'
+        );
+
+      $('networkActionsPanel')
+        .classList.add(
+          'hidden'
+        );
+
+      $('devicesPanel')
+        .classList.add(
+          'hidden'
+        );
+
+      $('accessBox')
+        .classList.add(
+          'hidden'
+        );
+
+      $('configText')
+        .value='';
+    }
+
+    function openNetwork(
+      network
+    ){
+      renderCurrentNetwork(
+        network
+      );
+
+      window.scrollTo({
+        top:
+          $('currentNetworkPanel')
+            .offsetTop-12,
+        behavior:
+          'smooth'
+      });
+    }
+
+    function setLanTab(
+      tab
+    ){
+      currentLanTab=
+        tab==='join'
+          ?'join'
+          :'create';
+
+      document
+        .querySelectorAll(
+          '.lan-tab'
+        )
+        .forEach(
+          button => {
+            button.classList.toggle(
+              'active',
+              button.dataset
+                .lanTab===
+                currentLanTab
+            );
+          }
+        );
+
+      $('lanCreateForm')
+        .classList.toggle(
+          'active',
+          currentLanTab==='create'
+        );
+
+      $('lanJoinForm')
+        .classList.toggle(
+          'active',
+          currentLanTab==='join'
+        );
     }
 
     async function createLan(){
-      const input=validateLanInputs('create');
-      if(!input)return;
+      const name=
+        $('lanCreateName')
+          .value
+          .trim();
 
-      saveLanIdentity();
-      $('lanCreate').disabled=true;
-      setLanStatus('wait','Создание…');
+      if(
+        !validateLanName(
+          name
+        )
+      ){
+        setLanStatus(
+          'Укажите корректное название сети'
+        );
+
+        return;
+      }
+
+      const publicKey=
+        requirePublicKey();
+
+      if(!publicKey){
+        return;
+      }
+
+      const button=
+        $('lanCreateButton');
+
+      button.disabled=true;
 
       try{
-        const data=await lanRequest('lan_create',{
-          name:input.name,
-          device_name:input.deviceName,
-          public_key:input.publicKey
-        });
+        const data=
+          await api(
+            'lan_create',
+            {
+              public_key:
+                publicKey,
 
-        upsertLan({
-          id:data.network.id,
-          name:data.network.name,
-          subnet:data.network.subnet,
-          joinCode:data.join_code,
-          publicKey:data.me.public_key,
-          deviceName:input.deviceName,
-          ip:data.me.ip,
-          role:data.me.role||'owner',
-          config:data.config,
-          devices:data.devices||[]
-        });
+              device_name:
+                DEVICE_NAME,
 
-        updateLanConnectionState(data.devices||[]);
-        showToast('LAN создана');
-        await refreshLanNetwork(false);
+              name
+            }
+          );
+
+        const rawNetwork=
+          data.network||
+          data.result||
+          data;
+
+        let network=
+          normalizeNetwork(
+            rawNetwork,
+            {},
+            publicKey
+          );
+
+        if(
+          !network&&
+          data.network_id!=null
+        ){
+          network=
+            normalizeNetwork(
+              {
+                ...data,
+                network_id:
+                  data.network_id
+              },
+              {},
+              publicKey
+            );
+        }
+
+        if(!network){
+          throw new Error(
+            'Сервер не вернул созданную сеть'
+          );
+        }
+
+        network.role=
+          'owner';
+
+        network.joinCode=
+          data.join_code||
+          data.joinCode||
+          data.code||
+          network.joinCode||
+          '';
+
+        if(
+          network.joinCode
+        ){
+          saveJoinCode(
+            network.id,
+            network.joinCode
+          );
+        }
+
+        const networks=
+          mergeNetworks([
+            network
+          ]);
+
+        renderNetworkList(
+          networks
+        );
+
+        renderCurrentNetwork(
+          network
+        );
+
+        setLanStatus(
+          'Сеть создана',
+          network
+        );
+
       }catch(error){
-        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось создать LAN.');
+        setLanStatus(
+          error?.name===
+            'AbortError'
+            ?'Нет ответа от сервера'
+            :(
+                error?.message||
+                'Не удалось создать сеть'
+              )
+        );
+
       }finally{
-        $('lanCreate').disabled=false;
+        updateLanControls();
       }
     }
 
     async function joinLan(){
-      const input=validateLanInputs('join');
-      if(!input)return;
+      const joinCode=
+        $('lanJoinCode')
+          .value
+          .trim();
 
-      saveLanIdentity();
-      $('lanJoin').disabled=true;
-      setLanStatus('wait','Подключение…');
+      if(
+        !validateJoinCode(
+          joinCode
+        )
+      ){
+        setLanStatus(
+          'Введите корректный код доступа'
+        );
+
+        return;
+      }
+
+      const publicKey=
+        requirePublicKey();
+
+      if(!publicKey){
+        return;
+      }
+
+      const button=
+        $('lanJoinButton');
+
+      button.disabled=true;
 
       try{
-        const data=await lanRequest('lan_join',{
-          join_code:input.joinCode,
-          device_name:input.deviceName,
-          public_key:input.publicKey
-        });
+        const data=
+          await api(
+            'lan_join',
+            {
+              public_key:
+                publicKey,
 
-        upsertLan({
-          id:data.network.id,
-          name:data.network.name,
-          subnet:data.network.subnet,
-          joinCode:input.joinCode,
-          publicKey:data.me.public_key,
-          deviceName:input.deviceName,
-          ip:data.me.ip,
-          role:data.me.role||'member',
-          config:data.config,
-          devices:data.devices||[]
-        });
+              device_name:
+                DEVICE_NAME,
 
-        updateLanConnectionState(data.devices||[]);
-        showToast('Устройство добавлено в LAN');
-        await refreshLanNetwork(false);
+              join_code:
+                joinCode
+            }
+          );
+
+        const rawNetwork=
+          data.network||
+          data.result||
+          data;
+
+        let network=
+          normalizeNetwork(
+            rawNetwork,
+            {},
+            publicKey
+          );
+
+        if(
+          !network&&
+          data.network_id!=null
+        ){
+          network=
+            normalizeNetwork(
+              {
+                ...data,
+                network_id:
+                  data.network_id
+              },
+              {},
+              publicKey
+            );
+        }
+
+        if(!network){
+          throw new Error(
+            'Сервер не вернул подключённую сеть'
+          );
+        }
+
+        network.role=
+          'member';
+
+        network.joinCode=
+          joinCode;
+
+        saveJoinCode(
+          network.id,
+          joinCode
+        );
+
+        const networks=
+          mergeNetworks([
+            network
+          ]);
+
+        renderNetworkList(
+          networks
+        );
+
+        renderCurrentNetwork(
+          network
+        );
+
+        $('lanJoinCode')
+          .value='';
+
+        setLanStatus(
+          'Подключена',
+          network
+        );
+
       }catch(error){
-        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось подключиться.');
+        setLanStatus(
+          error?.name===
+            'AbortError'
+            ?'Нет ответа от сервера'
+            :(
+                error?.message||
+                'Не удалось подключиться'
+              )
+        );
+
       }finally{
-        $('lanJoin').disabled=false;
+        updateLanControls();
       }
     }
 
-    async function refreshLanNetwork(showState=true){
-      const network=findActiveLan();
-      if(!network)return;
+    async function refreshLanNetwork(){
+      const publicKey=
+        requirePublicKey();
 
-      if(showState)setLanStatus('wait','Обновление…');
+      if(!publicKey){
+        const networks=
+          getLanNetworks();
+
+        renderNetworkList(
+          networks
+        );
+
+        const active=
+          getActiveNetwork();
+
+        if(active){
+          renderCurrentNetwork(
+            active
+          );
+        }else{
+          clearCurrentNetwork();
+        }
+
+        return;
+      }
+
+      const active=
+        getActiveNetwork();
+
+      const payload={
+        public_key:
+          publicKey,
+
+        device_name:
+          DEVICE_NAME
+      };
+
+      if(
+        active&&
+        active.role!=='owner'&&
+        active.id!=null
+      ){
+        const joinCode=
+          getJoinCodeForNetwork(
+            active.id
+          )||
+          active.joinCode||
+          '';
+
+        if(joinCode){
+          payload.join_code=
+            joinCode;
+        }
+      }
 
       try{
-        const data=await lanRequest('lan_status',{
-          join_code:network.joinCode,
-          public_key:network.publicKey
-        });
+        const data=
+          await api(
+            'lan_status',
+            payload
+          );
 
-        if(!data.joined){
-          removeLan(network.id);
-          setLanStatus('warn','Устройство не входит в эту LAN.');
+        if(
+          data.joined===false&&
+          active?.id!=null
+        ){
+          const remaining=
+            getLanNetworks()
+              .filter(
+                item =>
+                  String(item.id)!==
+                    String(active.id)
+              );
+
+          saveLanNetworks(
+            remaining
+          );
+
+          removeJoinCode(
+            active.id
+          );
+
+          clearCurrentNetwork();
+
+          renderNetworkList(
+            remaining
+          );
+
+          setLanStatus(
+            'Сеть больше недоступна'
+          );
+
           return;
         }
 
-        const merged={
-          ...network,
-          name:data.name,
-          subnet:data.subnet,
-          ip:data.me?.ip||network.ip,
-          role:data.me?.role||network.role,
-          config:data.config||network.config,
-          devices:data.devices||[]
-        };
+        const networks=
+          normalizeNetworkCollection(
+            data,
+            publicKey
+          );
 
-        upsertLan(merged);
-        updateLanConnectionState(data.devices||[]);
+        const merged=
+          mergeNetworks(
+            networks
+          );
+
+        renderNetworkList(
+          merged
+        );
+
+        if(!networks.length){
+          if(active){
+            renderCurrentNetwork(
+              active
+            );
+          }else{
+            clearCurrentNetwork();
+          }
+
+          return;
+        }
+
+        let selected=null;
+
+        if(active?.id!=null){
+          selected=
+            networks.find(
+              item =>
+                String(item.id)===
+                  String(active.id)
+            )||null;
+        }
+
+        if(
+          !selected&&
+          networks.length===1
+        ){
+          selected=
+            networks[0];
+        }
+
+        if(selected){
+          const oldNetwork=
+            getLanNetworks()
+              .find(
+                item =>
+                  String(item.id)===
+                    String(selected.id)
+              )||{};
+
+          const finalNetwork=
+            normalizeNetwork(
+              selected,
+              oldNetwork,
+              publicKey
+            );
+
+          mergeNetworks([
+            finalNetwork
+          ]);
+
+          renderNetworkList(
+            getLanNetworks()
+          );
+
+          renderCurrentNetwork(
+            finalNetwork
+          );
+        }
+
       }catch(error){
-        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось обновить LAN.');
+        const networks=
+          getLanNetworks();
+
+        renderNetworkList(
+          networks
+        );
+
+        if(active){
+          renderCurrentNetwork(
+            active
+          );
+        }else{
+          clearCurrentNetwork();
+        }
+
+        if(
+          error?.name==='AbortError'
+        ){
+          setLanStatus(
+            'Нет ответа от сервера'
+          );
+        }
       }
     }
 
-    async function leaveLan(){
-      const network=findActiveLan();
-      if(!network)return;
+    async function refreshSelectedNetwork(){
+      if(
+        !currentNetwork||
+        currentNetwork.id==null
+      ){
+        await refreshLanNetwork();
+        return;
+      }
 
-      $('lanLeave').disabled=true;
-      setLanStatus('wait','Выход…');
+      const publicKey=
+        requirePublicKey();
+
+      if(!publicKey){
+        return;
+      }
+
+      const payload={
+        public_key:
+          publicKey,
+
+        device_name:
+          DEVICE_NAME,
+
+        network_id:
+          currentNetwork.id
+      };
+
+      if(
+        currentNetwork.role!=='owner'
+      ){
+        const joinCode=
+          getJoinCodeForNetwork(
+            currentNetwork.id
+          )||
+          currentNetwork.joinCode||
+          '';
+
+        if(joinCode){
+          payload.join_code=
+            joinCode;
+        }
+      }
 
       try{
-        await lanRequest('lan_leave',{
-          join_code:network.joinCode,
-          public_key:network.publicKey
-        });
+        const data=
+          await api(
+            'lan_status',
+            payload
+          );
 
-        removeLan(network.id);
-        showToast('Вы вышли из LAN');
+        if(
+          data.joined===false
+        ){
+          const remaining=
+            getLanNetworks()
+              .filter(
+                item =>
+                  String(item.id)!==
+                    String(
+                      currentNetwork.id
+                    )
+              );
+
+          removeJoinCode(
+            currentNetwork.id
+          );
+
+          saveLanNetworks(
+            remaining
+          );
+
+          clearCurrentNetwork();
+
+          renderNetworkList(
+            remaining
+          );
+
+          setLanStatus(
+            'Вы больше не участник этой сети'
+          );
+
+          return;
+        }
+
+        const networks=
+          normalizeNetworkCollection(
+            data,
+            publicKey
+          );
+
+        const selected=
+          networks.find(
+            item =>
+              String(item.id)===
+                String(
+                  currentNetwork.id
+                )
+          );
+
+        if(!selected){
+          return;
+        }
+
+        const oldNetwork=
+          getLanNetworks()
+            .find(
+              item =>
+                String(item.id)===
+                  String(
+                    selected.id
+                  )
+            )||
+            currentNetwork;
+
+        const mergedNetwork=
+          normalizeNetwork(
+            selected,
+            oldNetwork,
+            publicKey
+          );
+
+        mergeNetworks([
+          mergedNetwork
+        ]);
+
+        renderNetworkList(
+          getLanNetworks()
+        );
+
+        renderCurrentNetwork(
+          mergedNetwork
+        );
+
+        setLanStatus(
+          'Обновлено',
+          mergedNetwork
+        );
+
+      }catch{}
+    }
+
+    async function leaveLan(){
+      if(
+        !currentNetwork||
+        currentNetwork.id==null
+      ){
+        return;
+      }
+
+      const publicKey=
+        requirePublicKey();
+
+      if(!publicKey){
+        return;
+      }
+
+      const joinCode=
+        getJoinCodeForNetwork(
+          currentNetwork.id
+        )||
+        currentNetwork.joinCode||
+        '';
+
+      if(!joinCode){
+        setLanStatus(
+          'Нет кода доступа для выхода из сети'
+        );
+
+        return;
+      }
+
+      const button=
+        $('leaveLanButton');
+
+      button.disabled=true;
+
+      try{
+        await api(
+          'lan_leave',
+          {
+            public_key:
+              publicKey,
+
+            device_name:
+              DEVICE_NAME,
+
+            network_id:
+              currentNetwork.id,
+
+            join_code:
+              joinCode
+          }
+        );
+
+        const removedId=
+          currentNetwork.id;
+
+        removeJoinCode(
+          removedId
+        );
+
+        const networks=
+          getLanNetworks()
+            .filter(
+              item =>
+                String(item.id)!==
+                  String(
+                    removedId
+                  )
+            );
+
+        saveLanNetworks(
+          networks
+        );
+
+        clearCurrentNetwork();
+
+        renderNetworkList(
+          networks
+        );
+
+        setLanStatus(
+          'Вы вышли из сети'
+        );
+
       }catch(error){
-        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось выйти из LAN.');
+        setLanStatus(
+          error?.name==='AbortError'
+            ?'Нет ответа от сервера'
+            :(
+                error?.message||
+                'Не удалось выйти из сети'
+              )
+        );
+
       }finally{
-        $('lanLeave').disabled=false;
+        updateLanControls();
       }
     }
 
     async function deleteLan(){
-      const network=findActiveLan();
-      if(!network)return;
+      if(
+        !currentNetwork||
+        currentNetwork.id==null
+      ){
+        return;
+      }
 
-      if(!window.confirm(`Удалить LAN «${network.name}»? Все участники будут отключены.`))return;
+      const publicKey=
+        requirePublicKey();
 
-      $('lanDelete').disabled=true;
-      setLanStatus('wait','Удаление…');
+      if(!publicKey){
+        return;
+      }
+
+      const button=
+        $('deleteLanButton');
+
+      button.disabled=true;
 
       try{
-        await lanRequest('lan_delete',{
-          join_code:network.joinCode,
-          public_key:network.publicKey
-        });
+        await api(
+          'lan_delete',
+          {
+            public_key:
+              publicKey,
 
-        removeLan(network.id);
-        showToast('LAN удалена');
+            device_name:
+              DEVICE_NAME,
+
+            network_id:
+              currentNetwork.id,
+
+            join_code:
+              currentNetwork.joinCode||
+              getJoinCodeForNetwork(
+                currentNetwork.id
+              )||
+              ''
+          }
+        );
+
+        const removedId=
+          currentNetwork.id;
+
+        removeJoinCode(
+          removedId
+        );
+
+        const networks=
+          getLanNetworks()
+            .filter(
+              item =>
+                String(item.id)!==
+                  String(
+                    removedId
+                  )
+            );
+
+        saveLanNetworks(
+          networks
+        );
+
+        clearCurrentNetwork();
+
+        renderNetworkList(
+          networks
+        );
+
+        setLanStatus(
+          'Сеть удалена'
+        );
+
       }catch(error){
-        setLanStatus('bad',error?.name==='AbortError'?'Нет ответа от сервера.':error.message||'Не удалось удалить LAN.');
+        setLanStatus(
+          error?.name==='AbortError'
+            ?'Нет ответа от сервера'
+            :(
+                error?.message||
+                'Не удалось удалить сеть'
+              )
+        );
+
       }finally{
-        $('lanDelete').disabled=false;
+        updateLanControls();
       }
     }
 
-    async function copyText(value,success){
-      if(!value)return;
+    async function copyText(
+      text,
+      button
+    ){
+      if(
+        !text||
+        text==='—'
+      ){
+        return;
+      }
 
       try{
-        await navigator.clipboard.writeText(value);
-        showToast(success||'Скопировано');
-      }catch(_){
-        showToast('Не удалось скопировать');
+        await navigator.clipboard.writeText(
+          text
+        );
+      }catch{
+        const area=
+          document.createElement(
+            'textarea'
+          );
+
+        area.value=
+          text;
+
+        area.setAttribute(
+          'readonly',
+          ''
+        );
+
+        area.style.position=
+          'fixed';
+
+        area.style.opacity=
+          '0';
+
+        document.body.appendChild(
+          area
+        );
+
+        area.select();
+
+        try{
+          document.execCommand(
+            'copy'
+          );
+        }catch{}
+
+        area.remove();
+      }
+
+      if(button){
+        const old=
+          button.textContent;
+
+        button.textContent=
+          'Готово';
+
+        setTimeout(
+          ()=>{
+            button.textContent=
+              old;
+          },
+          1200
+        );
       }
     }
 
-    function downloadText(filename,text){
-      if(!text||text==='—')return;
-
-      const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement('a');
-
-      a.href=url;
-      a.download=filename;
-
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    function sanitizeFilename(
+      value
+    ){
+      return String(
+        value||
+        'limupy'
+      )
+        .normalize(
+          'NFKC'
+        )
+        .replace(
+          /[^\p{L}\p{N}._-]+/gu,
+          '_'
+        )
+        .replace(
+          /^_+|_+$/g,
+          ''
+        )
+        .slice(
+          0,
+          80
+        )||
+        'limupy';
     }
 
-    function setMode(mode){
-      const lan=mode==='lan';
+    function downloadText(
+      filename,
+      text
+    ){
+      if(
+        typeof text!=='string'||
+        !text
+      ){
+        return;
+      }
 
-      $('modeVpn').classList.toggle('active',!lan);
-      $('modeLan').classList.toggle('active',lan);
+      const blob=
+        new Blob(
+          [text],
+          {
+            type:
+              'text/plain;charset=utf-8'
+          }
+        );
 
-      $('vpnPanel').classList.toggle('active',!lan);
-      $('lanPanel').classList.toggle('active',lan);
+      const url=
+        URL.createObjectURL(
+          blob
+        );
 
-      $('modeVpn').setAttribute('aria-selected',lan?'false':'true');
-      $('modeLan').setAttribute('aria-selected',lan?'true':'false');
+      const anchor=
+        document.createElement(
+          'a'
+        );
 
-      $('subtitle').textContent=lan?'LAN':'VPN';
+      anchor.href=
+        url;
 
-      try{localStorage.setItem(MODE_KEY,mode)}catch(_){}
+      anchor.download=
+        filename;
 
-      if(lan){
-        loadLanState();
-        const network=findActiveLan();
-        if(network)refreshLanNetwork(false);
+      anchor.rel=
+        'noopener';
+
+      document.body.appendChild(
+        anchor
+      );
+
+      anchor.click();
+      anchor.remove();
+
+      setTimeout(
+        ()=>{
+          URL.revokeObjectURL(
+            url
+          );
+        },
+        1000
+      );
+    }
+
+    function setMode(
+      mode
+    ){
+      currentMode=
+        mode==='lan'
+          ?'lan'
+          :'vpn';
+
+      $('pageVpn')
+        .classList.toggle(
+          'active',
+          currentMode==='vpn'
+        );
+
+      $('pageLan')
+        .classList.toggle(
+          'active',
+          currentMode==='lan'
+        );
+
+      $('modeButtonText')
+        .textContent=
+        currentMode==='vpn'
+          ?'VPN'
+          :'LAN';
+
+      document
+        .querySelectorAll(
+          '.mode-option'
+        )
+        .forEach(
+          button => {
+            button.classList.toggle(
+              'active',
+              button.dataset.mode===
+                currentMode
+            );
+          }
+        );
+
+      $('modeMenu')
+        .classList.remove(
+          'open'
+        );
+
+      $('modeButton')
+        .setAttribute(
+          'aria-expanded',
+          'false'
+        );
+
+      if(
+        currentMode==='lan'
+      ){
+        refreshLanNetwork();
       }
     }
 
-    $('modeVpn').addEventListener('click',()=>setMode('vpn'));
-    $('modeLan').addEventListener('click',()=>setMode('lan'));
+    $('modeButton')
+      .addEventListener(
+        'click',
+        event => {
+          event.stopPropagation();
 
-    $('lanCreate').addEventListener('click',createLan);
-    $('lanJoin').addEventListener('click',joinLan);
-    $('lanRefresh').addEventListener('click',()=>refreshLanNetwork(true));
-    $('lanLeave').addEventListener('click',leaveLan);
-    $('lanDelete').addEventListener('click',deleteLan);
+          const open=
+            !$('modeMenu')
+              .classList.contains(
+                'open'
+              );
 
-    $('lanCopyCode').addEventListener('click',()=>copyText($('lanJoinCodeView').value,'Код LAN скопирован'));
-    $('lanCopyConfig').addEventListener('click',()=>copyText($('lanConfig').textContent,'Конфигурация скопирована'));
+          $('modeMenu')
+            .classList.toggle(
+              'open',
+              open
+            );
 
-    $('lanDownloadConfig').addEventListener('click',()=>{
-      const network=findActiveLan();
-      const name=String(network?.name||'limupy-lan')
-        .replace(/[^a-zA-Z0-9а-яА-ЯёЁ._-]+/g,'-')
-        .replace(/^-+|-+$/g,'')||'limupy-lan';
-
-      downloadText(`${name}.conf`,$('lanConfig').textContent);
-    });
-
-    $('lanNetworkSelect').addEventListener('change',()=>{
-      activeLanId=$('lanNetworkSelect').value;
-      renderActiveLan();
-      refreshLanNetwork(true);
-    });
-
-    $('lanPublicKey').addEventListener('input',saveLanIdentity);
-    $('lanDeviceName').addEventListener('input',saveLanIdentity);
-
-    $('lanJoinCode').addEventListener('input',event=>{
-      event.target.value=event.target.value.toUpperCase();
-    });
-
-    $('lanJoinCode').addEventListener('keydown',event=>{
-      if(event.key==='Enter'){
-        event.preventDefault();
-        joinLan();
-      }
-    });
-
-    $('lanName').addEventListener('keydown',event=>{
-      if(event.key==='Enter'){
-        event.preventDefault();
-        createLan();
-      }
-    });
-
-    $('tokenSubmit').addEventListener('click',()=>{
-      tokenWasProvidedInUrl=false;
-      checkToken($('tokenInput').value);
-    });
-
-    $('tokenInput').addEventListener('keydown',event=>{
-      if(event.key==='Enter'){
-        event.preventDefault();
-        tokenWasProvidedInUrl=false;
-        checkToken($('tokenInput').value);
-      }
-    });
-
-    $('happConnect').addEventListener('click',event=>{
-      const href=$('happConnect').getAttribute('href');
-      if(!href||href==='#'||!isAllowedHappUrl(href))event.preventDefault();
-    });
-
-    window.addEventListener('hashchange',()=>{
-      const urlToken=getUrlToken();
-      tokenWasProvidedInUrl=Boolean(urlToken);
-
-      if(urlToken){
-        activeToken=urlToken;
-        saveTokenToHistory(activeToken);
-        hideTokenEntry();
-      }else{
-        activeToken=getHistoryToken();
-        if(!activeToken)showTokenEntry();
-      }
-
-      clearTimeout(hashTimer);
-      hashTimer=setTimeout(()=>load(),HASH_CHANGE_DELAY_MS);
-    });
-
-    window.addEventListener('popstate',()=>{
-      const urlToken=getUrlToken();
-      tokenWasProvidedInUrl=Boolean(urlToken);
-      activeToken=urlToken||getHistoryToken();
-
-      activeToken?hideTokenEntry():showTokenEntry();
-      load();
-    });
-
-    window.addEventListener('load',()=>{
-      $('happDownload').href=HAPP_DOWNLOAD_URL;
-      loadLanState();
-
-      let savedMode='vpn';
-      try{
-        savedMode=localStorage.getItem(MODE_KEY)==='lan'?'lan':'vpn';
-      }catch(_){}
-
-      setMode(savedMode);
-
-      if(savedMode!=='lan'){
-        const urlToken=getUrlToken();
-        tokenWasProvidedInUrl=Boolean(urlToken);
-
-        const token=adoptToken();
-
-        if(token){
-          hideTokenEntry();
-          setStatus('wait','Проверка…');
-          load();
-        }else{
-          showTokenEntry();
-          setStatus('bad','Нет токена подписки.');
+          $('modeButton')
+            .setAttribute(
+              'aria-expanded',
+              String(open)
+            );
         }
+      );
+
+    document.addEventListener(
+      'click',
+      ()=>{
+        $('modeMenu')
+          .classList.remove(
+            'open'
+          );
+
+        $('modeButton')
+          .setAttribute(
+            'aria-expanded',
+            'false'
+          );
       }
-    });
+    );
+
+    document
+      .querySelectorAll(
+        '.mode-option'
+      )
+      .forEach(
+        button => {
+          button.addEventListener(
+            'click',
+            event => {
+              event.stopPropagation();
+
+              setMode(
+                button.dataset.mode
+              );
+            }
+          );
+        }
+      );
+
+    document
+      .querySelectorAll(
+        '.lan-tab'
+      )
+      .forEach(
+        button => {
+          button.addEventListener(
+            'click',
+            () =>
+              setLanTab(
+                button.dataset.lanTab
+              )
+          );
+        }
+      );
+
+    $('lanPublicKey')
+      .addEventListener(
+        'input',
+        ()=>{
+          const value=
+            $('lanPublicKey')
+              .value
+              .trim();
+
+          if(!value){
+            updateLanInfo(
+              currentNetwork,
+              'Не готова'
+            );
+          }else if(
+            isValidBase64Key(
+              value
+            )
+          ){
+            updateLanInfo(
+              currentNetwork,
+              currentNetwork
+                ?'Подключена'
+                :'Действительный'
+            );
+          }else{
+            updateLanInfo(
+              currentNetwork,
+              'Неверный ключ'
+            );
+          }
+
+          updateLanControls();
+        }
+      );
+
+    $('lanCreateName')
+      .addEventListener(
+        'keydown',
+        event=>{
+          if(
+            event.key==='Enter'&&
+            !event.shiftKey&&
+            !$('lanCreateButton')
+              .disabled
+          ){
+            event.preventDefault();
+            createLan();
+          }
+        }
+      );
+
+    $('lanJoinCode')
+      .addEventListener(
+        'input',
+        event=>{
+          event.target.value=
+            event.target.value
+              .trimStart()
+              .toUpperCase();
+        }
+      );
+
+    $('lanJoinCode')
+      .addEventListener(
+        'keydown',
+        event=>{
+          if(
+            event.key==='Enter'&&
+            !event.shiftKey&&
+            !$('lanJoinButton')
+              .disabled
+          ){
+            event.preventDefault();
+            joinLan();
+          }
+        }
+      );
+
+    $('lanCreateButton')
+      .addEventListener(
+        'click',
+        createLan
+      );
+
+    $('lanJoinButton')
+      .addEventListener(
+        'click',
+        joinLan
+      );
+
+    $('refreshLan')
+      .addEventListener(
+        'click',
+        refreshSelectedNetwork
+      );
+
+    $('leaveLanButton')
+      .addEventListener(
+        'click',
+        leaveLan
+      );
+
+    $('deleteLanButton')
+      .addEventListener(
+        'click',
+        deleteLan
+      );
+
+    $('copyAccessCode')
+      .addEventListener(
+        'click',
+        ()=>
+          copyText(
+            $('accessCode')
+              .textContent,
+            $('copyAccessCode')
+          )
+      );
+
+    $('copyConfig')
+      .addEventListener(
+        'click',
+        ()=>
+          copyText(
+            currentConfig,
+            $('copyConfig')
+          )
+      );
+
+    $('downloadConfig')
+      .addEventListener(
+        'click',
+        ()=>{
+          if(
+            !currentConfig||
+            !currentNetwork
+          ){
+            return;
+          }
+
+          const safeName=
+            sanitizeFilename(
+              currentNetwork.name
+            );
+
+          downloadText(
+            `${safeName}.conf`,
+            currentConfig
+          );
+        }
+      );
+
+    $('vpnCheck')
+      .addEventListener(
+        'click',
+        checkVpnToken
+      );
+
+    $('vpnToken')
+      .addEventListener(
+        'input',
+        updateVpnCheckButton
+      );
+
+    $('vpnToken')
+      .addEventListener(
+        'keydown',
+        event=>{
+          if(
+            event.key==='Enter'&&
+            $('vpnToken')
+              .value
+              .trim()
+          ){
+            event.preventDefault();
+            checkVpnToken();
+          }
+        }
+      );
+
+    $('happOpen')
+      .addEventListener(
+        'click',
+        ()=>{
+          const url=
+            getHappImportUrl();
+
+          if(!url){
+            return;
+          }
+
+          window.location.assign(
+            url
+          );
+        }
+      );
+
+    function init(){
+      getDeviceId();
+
+      restoreVpnToken();
+
+      const networks=
+        getLanNetworks();
+
+      renderNetworkList(
+        networks
+      );
+
+      const active=
+        getActiveNetwork();
+
+      if(active){
+        currentNetwork=
+          active;
+
+        renderCurrentNetwork(
+          active
+        );
+      }else{
+        clearCurrentNetwork();
+      }
+
+      updateLanControls();
+      hideVpnActions();
+
+      setLanNetworkName(
+        active?.name||
+        ''
+      );
+    }
+
+    init();
   </script>
+
 </body>
 </html>
