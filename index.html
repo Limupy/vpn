@@ -63,62 +63,48 @@
         <article class="feature-card reveal"><div class="feature-icon icon-slate" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5m0 14h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M15 7h4v4"/></svg></div><h3 data-i18n="cardThreeTitle">Развитие по этапам</h3><p data-i18n="cardThreeDescription">Сначала надёжный каркас. Новые возможности появятся постепенно, без перегрузки.</p><span class="card-index">03</span></article>
       </div>
     </section>
-    <section class="section account-section reveal" id="account" aria-labelledby="accountTitle">
-      <div class="account-layout">
-        <div class="account-heading account-intro">
-          <span class="eyebrow" data-i18n="authEyebrow">ЛИЧНЫЙ ДОСТУП</span>
-          <h2 id="accountTitle" data-i18n="authTitle">Доступ к Limupy — без лишних шагов.</h2>
-          <p data-i18n="authDescription">Введи токен, чтобы подготовить регистрацию, или выбери вход по логину и паролю. Подключение сервера будет следующим этапом.</p>
-          <div class="account-promise"><span class="promise-mark" aria-hidden="true">✓</span><span data-i18n="authPrivacy">Пока сервер не подключён, данные формы не отправляются и не сохраняются.</span></div>
-        </div>
-
+    <section class="section account-section reveal" id="account" aria-label="Авторизация">
+      <div class="account-layout account-layout-centered">
         <div class="auth-card">
-          <div class="auth-card-head">
-            <span class="auth-card-overline" data-i18n="authCardLabel">ЛИЧНЫЙ КАБИНЕТ</span>
-            <span class="auth-card-subtitle" data-i18n="authCardDescription">Токен и доступ к аккаунту</span>
-          </div>
-
           <div class="auth-tabs" role="tablist" aria-label="Авторизация">
             <button class="auth-tab active" id="authRegisterTab" data-auth-mode="register" type="button" role="tab" aria-selected="true" aria-controls="authRegisterForm" data-i18n="authTabRegister">Регистрация</button>
             <button class="auth-tab" id="authLoginTab" data-auth-mode="login" type="button" role="tab" aria-selected="false" aria-controls="authLoginForm" data-i18n="authTabLogin">Войти</button>
           </div>
-
-          <form id="authRegisterForm" class="auth-form" novalidate>
-            <div class="auth-field">
-              <label class="auth-label" for="authToken" data-i18n="authTokenLabel">Токен подписки</label>
-              <input class="auth-input" id="authToken" name="token" type="password" maxlength="512" placeholder="Вставь токен подписки" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-i18n-placeholder="authTokenPlaceholder" aria-describedby="authTokenHint" required>
-              <div class="token-state" aria-live="polite"><span class="token-state-label" data-i18n="authStatusLabel">Статус регистрации токена</span><span class="token-state-value" id="authTokenStatus" data-i18n="authStatusUnverified">Не проверен</span></div>
-              <p class="auth-hint" id="authTokenHint" data-i18n="authTokenHint">Проверка «зарегистрирован / не зарегистрирован» появится после подключения серверного API.</p>
-            </div>
-            <div class="auth-field">
-              <label class="auth-label" for="authRegisterUsername" data-i18n="authUsernameLabel">Логин</label>
-              <input class="auth-input" id="authRegisterUsername" name="username" type="text" minlength="3" maxlength="32" placeholder="Придумай логин" data-i18n-placeholder="authUsernamePlaceholder" autocomplete="username" autocapitalize="off" spellcheck="false" required>
-            </div>
-            <div class="auth-field">
-              <label class="auth-label" for="authRegisterPassword" data-i18n="authPasswordLabel">Пароль</label>
-              <input class="auth-input" id="authRegisterPassword" name="password" type="password" minlength="8" maxlength="128" placeholder="Не менее 8 символов" data-i18n-placeholder="authPasswordPlaceholder" autocomplete="new-password" required>
-            </div>
-            <div class="auth-field">
-              <label class="auth-label" for="authRegisterConfirm" data-i18n="authConfirmLabel">Повтори пароль</label>
-              <input class="auth-input" id="authRegisterConfirm" name="password-confirm" type="password" minlength="8" maxlength="128" placeholder="Повтори пароль" data-i18n-placeholder="authConfirmPlaceholder" autocomplete="new-password" required>
-            </div>
-            <button class="button button-primary auth-submit" type="submit" data-i18n="authCreateButton">Создать аккаунт</button>
-          </form>
-
-          <form id="authLoginForm" class="auth-form hidden" novalidate>
-            <div class="auth-field">
-              <label class="auth-label" for="authLoginUsername" data-i18n="authUsernameLabel">Логин</label>
-              <input class="auth-input" id="authLoginUsername" name="username" type="text" minlength="3" maxlength="32" placeholder="Твой логин" data-i18n-placeholder="authLoginUsernamePlaceholder" autocomplete="username" autocapitalize="off" spellcheck="false" required>
-            </div>
-            <div class="auth-field">
-              <label class="auth-label" for="authLoginPassword" data-i18n="authPasswordLabel">Пароль</label>
-              <input class="auth-input" id="authLoginPassword" name="password" type="password" minlength="8" maxlength="128" placeholder="Твой пароль" data-i18n-placeholder="authLoginPasswordPlaceholder" autocomplete="current-password" required>
-            </div>
-            <button class="button button-primary auth-submit" type="submit" data-i18n="authLoginButton">Войти в аккаунт</button>
-          </form>
-
-          <p class="auth-note" id="authNote" data-i18n="authRegisterNote">Проверка токена и создание аккаунта активируются после подключения серверной части.</p>
-          <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+          <div class="auth-forms">
+            <form id="authRegisterForm" class="auth-form is-active" aria-hidden="false" novalidate>
+              <div class="auth-field">
+                <label class="auth-label" for="authToken" data-i18n="authTokenLabel">Токен подписки</label>
+                <input class="auth-input" id="authToken" name="token" type="password" maxlength="512" placeholder="Введи токен подписки" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-i18n-placeholder="authTokenPlaceholder" required>
+              </div>
+              <div class="auth-field">
+                <label class="auth-label" for="authRegisterUsername" data-i18n="authUsernameLabel">Логин</label>
+                <input class="auth-input" id="authRegisterUsername" name="username" type="text" minlength="3" maxlength="32" placeholder="Придумай логин" data-i18n-placeholder="authUsernamePlaceholder" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+              </div>
+              <div class="auth-field">
+                <label class="auth-label" for="authRegisterPassword" data-i18n="authPasswordLabel">Пароль</label>
+                <input class="auth-input" id="authRegisterPassword" name="password" type="password" minlength="8" maxlength="128" placeholder="Не менее 8 символов" data-i18n-placeholder="authPasswordPlaceholder" autocomplete="new-password" required>
+              </div>
+              <div class="auth-field">
+                <label class="auth-label" for="authRegisterConfirm" data-i18n="authConfirmLabel">Повтори пароль</label>
+                <input class="auth-input" id="authRegisterConfirm" name="password-confirm" type="password" minlength="8" maxlength="128" placeholder="Повтори пароль" data-i18n-placeholder="authConfirmPlaceholder" autocomplete="new-password" required>
+              </div>
+            </form>
+            <form id="authLoginForm" class="auth-form" aria-hidden="true" inert novalidate>
+              <div class="auth-field">
+                <label class="auth-label" for="authLoginUsername" data-i18n="authUsernameLabel">Логин</label>
+                <input class="auth-input" id="authLoginUsername" name="username" type="text" minlength="3" maxlength="32" placeholder="Твой логин" data-i18n-placeholder="authLoginUsernamePlaceholder" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+              </div>
+              <div class="auth-field">
+                <label class="auth-label" for="authLoginPassword" data-i18n="authPasswordLabel">Пароль</label>
+                <input class="auth-input" id="authLoginPassword" name="password" type="password" minlength="8" maxlength="128" placeholder="Твой пароль" data-i18n-placeholder="authLoginPasswordPlaceholder" autocomplete="current-password" required>
+              </div>
+            </form>
+          </div>
+          <div class="auth-actions">
+            <button class="button button-primary auth-submit" id="authRegisterSubmit" type="submit" form="authRegisterForm" data-submit-mode="register" data-i18n="authCreateButton">Создать аккаунт</button>
+            <button class="button button-primary auth-submit" id="authLoginSubmit" type="submit" form="authLoginForm" data-submit-mode="login" data-i18n="authLoginButton" hidden>Войти в аккаунт</button>
+            <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+          </div>
         </div>
       </div>
     </section>
