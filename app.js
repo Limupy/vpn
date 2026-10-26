@@ -1,72 +1,9 @@
 'use strict';
-
-const API_URL = 'https://78.17.112.158/api.php';
-
-function base64Url(bytes) {
-  let binary = '';
-  for (const b of bytes) binary += String.fromCharCode(b);
-  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
-}
-
-function makeDeviceId() {
-  const bytes = new Uint8Array(32);
-  crypto.getRandomValues(bytes);
-  return base64Url(bytes);
-}
-
-function getDeviceId() {
-  const key = 'limupy_device_id_v2';
-  let value = localStorage.getItem(key);
-  if (!value || !/^[A-Za-z0-9._~-]{43}$/.test(value)) {
-    value = makeDeviceId();
-    localStorage.setItem(key, value);
-  }
-  return value;
-}
-
-function readToken() {
-  const params = new URLSearchParams(location.hash.replace(/^#/, ''));
-  return (params.get('key') || '').trim();
-}
-
-async function collect() {
-  const token = readToken();
-  if (!token) {
-    throw new Error('Ключ подписки не найден');
-  }
-
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-store',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache',
-    },
-    body: JSON.stringify({ device_id: getDeviceId() }),
-  });
-
-  let payload = null;
-  try {
-    payload = await response.json();
-  } catch (_) {
-    payload = null;
-  }
-
-  if (!response.ok || !payload?.ok) {
-    throw new Error(payload?.error || `HTTP ${response.status}`);
-  }
-
-  return payload;
-}
-
-window.Limupy = {
-  collect,
-  openHapp(payload) {
-    if (!payload?.launch_url) {
-      throw new Error('launch_url отсутствует');
-    }
-    window.location.href = payload.launch_url;
-  },
-};
+const T={ru:{navFeatures:'Возможности',navPrinciples:'Принципы',navApproach:'Подход',githubLabel:'Открыть репозиторий GitHub',languageLabel:'Сменить язык',themeLabel:'Переключить тему',menuOpen:'Открыть меню',menuClose:'Закрыть меню',heroBadge:'ПРОСТРАНСТВО LIMUPY',heroLead:'Всё важное.',heroAccent:'Ничего лишнего.',heroDescription:'Чистая цифровая среда, в которой спокойно ориентироваться. Начинаем с продуманной основы — каждую следующую функцию добавим на своём месте.',heroPrimary:'Исследовать интерфейс',heroSecondary:'Наши принципы',heroFootnote:'Основа проекта · этап 01',featuresEyebrow:'ОСНОВА',featuresTitle:'Просто. Понятно. Собрано.',featuresDescription:'Три принципа, на которых строится новый интерфейс Limupy.',cardOneTitle:'Понятная структура',cardOneDescription:'Последовательная иерархия, удобная навигация и только нужные элементы на экране.',cardTwoTitle:'Внимание к деталям',cardTwoDescription:'Спокойная палитра, выверенные отступы и ненавязчивые реакции на действия.',cardThreeTitle:'Развитие по этапам',cardThreeDescription:'Сначала надёжный каркас. Новые возможности появятся постепенно, без перегрузки.',principlesEyebrow:'ДИЗАЙН-СИСТЕМА',principlesTitle:'Каждому элементу — своё место.',principlesDescription:'Интерфейс начинается с визуального порядка. Мы сохраняем достаточно воздуха, ясные состояния и одинаковую логику на любом экране.',principlesLink:'Перейти к подходу',principleOneTitle:'Содержимое прежде декора',principleOneDescription:'Визуальные эффекты поддерживают содержание, а не спорят с ним.',principleTwoTitle:'Единая логика',principleTwoDescription:'Повторяющиеся компоненты ведут себя одинаково и предсказуемо.',principleThreeTitle:'Комфорт на любом экране',principleThreeDescription:'Адаптивная сетка, доступность с клавиатуры и поддержка уменьшения движения.',approachEyebrow:'СЛЕДУЮЩИЙ ШАГ',approachTitle:'Сначала качество основы.',approachDescription:'Это чистый каркас новой версии. Подключение сервиса, аккаунты и остальные функции добавим отдельными этапами — с проверкой безопасности и удобства.',backToTop:'Вернуться наверх',footerText:'Меньше шума. Больше ясности.',footerTop:'Наверх ↑',pageTitle:'Limupy — без лишнего',pageDescription:'Limupy — чистая цифровая среда с вниманием к ясности, безопасности и деталям.'},en:{navFeatures:'Features',navPrinciples:'Principles',navApproach:'Approach',githubLabel:'Open GitHub repository',languageLabel:'Change language',themeLabel:'Toggle theme',menuOpen:'Open menu',menuClose:'Close menu',heroBadge:'THE LIMUPY SPACE',heroLead:'Everything important.',heroAccent:'Nothing extra.',heroDescription:'A clear digital space that feels natural to navigate. We start with a thoughtful foundation and add each next feature where it belongs.',heroPrimary:'Explore the interface',heroSecondary:'Our principles',heroFootnote:'Project foundation · stage 01',featuresEyebrow:'FOUNDATION',featuresTitle:'Simple. Clear. Considered.',featuresDescription:'Three principles shaping the new Limupy interface.',cardOneTitle:'A clear structure',cardOneDescription:'Consistent hierarchy, straightforward navigation, and only the elements you need on screen.',cardTwoTitle:'Attention to detail',cardTwoDescription:'A calm palette, considered spacing, and subtle feedback for interactions.',cardThreeTitle:'Built in stages',cardThreeDescription:'A reliable foundation first. New capabilities will arrive gradually, without clutter.',principlesEyebrow:'DESIGN SYSTEM',principlesTitle:'Every element has its place.',principlesDescription:'A good interface starts with visual order. We keep enough breathing room, clear states, and consistent logic across every screen.',principlesLink:'Explore our approach',principleOneTitle:'Content before decoration',principleOneDescription:'Visual effects support the content instead of competing with it.',principleTwoTitle:'One consistent logic',principleTwoDescription:'Repeated components behave in consistent and predictable ways.',principleThreeTitle:'Comfort on every screen',principleThreeDescription:'Responsive layouts, keyboard accessibility, and reduced-motion support.',approachEyebrow:'WHAT COMES NEXT',approachTitle:'Build the foundation well.',approachDescription:'This is the clean framework for the next version. Service connections, accounts, and other features will be added in separate stages, with security and usability in mind.',backToTop:'Back to top',footerText:'Less noise. More clarity.',footerTop:'Back to top ↑',pageTitle:'Limupy — nothing extra',pageDescription:'Limupy is a clean digital space designed around clarity, security, and thoughtful details.'}};
+const root=document.documentElement,menu=document.getElementById('menuToggle'),nav=document.getElementById('primaryNav'),langBtn=document.getElementById('languageToggle'),themeBtn=document.getElementById('themeToggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+function read(k){try{return localStorage.getItem(k)}catch(_){return null}}function write(k,v){try{localStorage.setItem(k,v)}catch(_){}}
+function language(l){l=l==='en'?'en':'ru';const d=T[l];root.lang=l;document.title=d.pageTitle;document.querySelector('meta[name="description"]').content=d.pageDescription;document.querySelectorAll('[data-i18n]').forEach(e=>{if(Object.hasOwn(d,e.dataset.i18n))e.textContent=d[e.dataset.i18n]});document.querySelectorAll('[data-i18n-aria]').forEach(e=>{const k=e.dataset.i18nAria;if(Object.hasOwn(d,k)){e.setAttribute('aria-label',d[k]);if(e.hasAttribute('title'))e.title=d[k]}});document.querySelectorAll('[data-language-code]').forEach(e=>{const on=e.dataset.languageCode===l;e.classList.toggle('is-active',on);if(on)e.setAttribute('aria-current','true');else e.removeAttribute('aria-current')});menu.setAttribute('aria-label',nav.classList.contains('is-open')?d.menuClose:d.menuOpen);write('limupy-language',l)}
+function theme(t){t=t==='light'?'light':'dark';root.dataset.theme=t;themeBtn.setAttribute('aria-label',T[root.lang].themeLabel);themeBtn.title=T[root.lang].themeLabel;document.querySelector('meta[name="theme-color"]').content=t==='light'?'#f5f2fa':'#17151D';write('limupy-theme',t)}
+function close(){nav.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label',T[root.lang].menuOpen)}menu.addEventListener('click',()=>{const open=!nav.classList.contains('is-open');nav.classList.toggle('is-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',T[root.lang][open?'menuClose':'menuOpen'])});langBtn.addEventListener('click',()=>language(root.lang==='ru'?'en':'ru'));themeBtn.addEventListener('click',()=>theme(root.dataset.theme==='dark'?'light':'dark'));nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!menu.contains(e.target))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});window.addEventListener('resize',()=>{if(matchMedia('(min-width: 761px)').matches)close()});
+const links=[...document.querySelectorAll('.nav-link')],sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);function active(id){links.forEach(a=>{const yes=a.hash==='#'+id;a.classList.toggle('active',yes);if(yes)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
+if('IntersectionObserver'in window&&!reduced.matches){const reveal=new IntersectionObserver((entries,obs)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');obs.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -48px 0px'});document.querySelectorAll('.reveal').forEach(e=>reveal.observe(e));document.body.classList.add('motion-ready');const spy=new IntersectionObserver(entries=>{const e=entries.filter(x=>x.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(e)active(e.target.id)},{threshold:[.2,.45,.7],rootMargin:'-18% 0px -55% 0px'});sections.forEach(s=>spy.observe(s))}else document.querySelectorAll('.reveal').forEach(e=>e.classList.add('is-visible'));language(read('limupy-language')||'ru');theme(read('limupy-theme')||'dark');
