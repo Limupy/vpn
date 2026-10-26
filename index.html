@@ -6,7 +6,7 @@
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#17151D">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://78.17.112.158; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="description" content="Limupy — чистая цифровая среда с вниманием к ясности, безопасности и деталям.">
 <title>Limupy — без лишнего</title>
 <link rel="stylesheet" href="./styles.css">
@@ -58,10 +58,29 @@
     </section>
     <section class="section features-section" id="features" aria-labelledby="featuresTitle">
       <div class="section-heading reveal"><div><span class="eyebrow" data-i18n="featuresEyebrow">ОСНОВА</span><h2 id="featuresTitle" data-i18n="featuresTitle">Просто. Понятно. Собрано.</h2></div><p data-i18n="featuresDescription">Три принципа, на которых строится новый интерфейс Limupy.</p></div>
-      <div class="feature-grid">
-        <article class="feature-card reveal"><div class="feature-icon icon-lavender" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m4.4 7.7 7.6 4.4 7.6-4.4M12 21v-8.9"/></svg></div><h3 data-i18n="cardOneTitle">Понятная структура</h3><p data-i18n="cardOneDescription">Последовательная иерархия, удобная навигация и только нужные элементы на экране.</p><span class="card-index">01</span></article>
-        <article class="feature-card reveal"><div class="feature-icon icon-violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5.5c0 4.1-2.8 7.5-7 9.5-4.2-2-7-5.4-7-9.5V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3 data-i18n="cardTwoTitle">Внимание к деталям</h3><p data-i18n="cardTwoDescription">Спокойная палитра, выверенные отступы и ненавязчивые реакции на действия.</p><span class="card-index">02</span></article>
-        <article class="feature-card reveal"><div class="feature-icon icon-slate" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5m0 14h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M15 7h4v4"/></svg></div><h3 data-i18n="cardThreeTitle">Развитие по этапам</h3><p data-i18n="cardThreeDescription">Сначала надёжный каркас. Новые возможности появятся постепенно, без перегрузки.</p><span class="card-index">03</span></article>
+      <div class="monitor-panel" id="monitorPanel">
+        <div class="monitor-topline">
+          <div><span class="monitor-kicker" data-i18n="monitorKicker">СОСТОЯНИЕ ПОДПИСКИ</span><h3 data-i18n="monitorTitle">Мониторинг подключения</h3></div>
+          <span class="monitor-status" id="monitorStatus"><span class="status-dot"></span><span data-i18n="monitorIdle">Ожидает токен</span></span>
+        </div>
+        <p class="monitor-description" data-i18n="monitorDescription">Введи токен подписки — панель запросит состояние сервера, остаток трафика и задержку.</p>
+        <form class="monitor-form" id="monitorForm">
+          <label class="sr-only" for="monitorToken" data-i18n="monitorTokenLabel">Токен подписки</label>
+          <input class="auth-input" id="monitorToken" type="password" autocomplete="off" maxlength="512" required data-i18n-placeholder="monitorTokenPlaceholder" placeholder="Токен подписки">
+          <button class="button button-primary" id="monitorSubmit" type="submit" data-i18n="monitorCheck">Проверить состояние</button>
+        </form>
+        <p class="monitor-message" id="monitorMessage" role="status" aria-live="polite"></p>
+        <div class="monitor-metrics" id="monitorMetrics" aria-live="polite">
+          <article class="monitor-metric"><span data-i18n="monitorUpstream">Сервер</span><strong id="metricUpstream">—</strong><small id="metricRtt">RTT —</small></article>
+          <article class="monitor-metric"><span data-i18n="monitorTraffic">Использовано</span><strong id="metricUsed">—</strong><small id="metricRemaining">Остаток —</small></article>
+          <article class="monitor-metric"><span data-i18n="monitorExpiry">Подписка до</span><strong id="metricExpiry">—</strong><small id="metricPlan">—</small></article>
+        </div>
+        <div class="monitor-details"><span><span data-i18n="monitorProtocols">Протоколы</span><strong id="metricProtocols">—</strong></span><span><span data-i18n="monitorDevice">Устройство</span><strong id="metricDevice">—</strong></span></div>
+        <div class="monitor-actions">
+          <button class="button button-secondary" id="monitorCopy" type="button" disabled data-i18n="monitorCopy">Копировать VPN-ссылку</button>
+          <button class="button button-primary" id="monitorOpenHapp" type="button" disabled data-i18n="monitorOpenHapp">Открыть в Happ</button>
+        </div>
+        <p class="monitor-footnote" data-i18n="monitorFootnote">Статус показывает доступность upstream и данные подписки, а не состояние VPN-туннеля на этом устройстве.</p>
       </div>
     </section>
     
@@ -118,7 +137,12 @@
     </section>
     <section class="section principles-section" id="principles" aria-labelledby="principlesTitle">
       <div class="principles-layout">
-        <div class="principles-intro reveal"><span class="eyebrow" data-i18n="principlesEyebrow">ДИЗАЙН-СИСТЕМА</span><h2 id="principlesTitle" data-i18n="principlesTitle">Каждому элементу — своё место.</h2><p data-i18n="principlesDescription">Интерфейс начинается с визуального порядка. Мы сохраняем достаточно воздуха, ясные состояния и одинаковую логику на любом экране.</p><a class="text-link" href="#approach"><span data-i18n="principlesLink">Перейти к подходу</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+        <div class="principles-intro reveal"><span class="eyebrow" data-i18n="principlesEyebrow">ДИЗАЙН-СИСТЕМА</span><h2 id="principlesTitle" data-i18n="principlesTitle">Каждому элементу — своё место.</h2><p data-i18n="principlesDescription">Интерфейс начинается с визуального порядка. Мы сохраняем достаточно воздуха, ясные состояния и одинаковую логику на любом экране.</p><a class="text-link" href="#approach"><span data-i18n="principlesLink">Перейти к подходу</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <div class="design-actions" aria-label="VPN actions">
+            <a class="button button-secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer" data-i18n="happDownload">Скачать Happ с официального сайта</a>
+            <button class="button button-secondary" id="designCopyLink" type="button" disabled data-i18n="designCopy">Копировать VPN-ссылку</button>
+            <button class="button button-primary" id="designOpenHapp" type="button" disabled data-i18n="designOpen">Открыть в Happ</button>
+          </div></div>
         <div class="principle-list">
           <article class="principle-row reveal"><span class="principle-number">01</span><div><h3 data-i18n="principleOneTitle">Содержимое прежде декора</h3><p data-i18n="principleOneDescription">Визуальные эффекты поддерживают содержание, а не спорят с ним.</p></div><span class="principle-symbol" aria-hidden="true">↗</span></article>
           <article class="principle-row reveal"><span class="principle-number">02</span><div><h3 data-i18n="principleTwoTitle">Единая логика</h3><p data-i18n="principleTwoDescription">Повторяющиеся компоненты ведут себя одинаково и предсказуемо.</p></div><span class="principle-symbol" aria-hidden="true">↗</span></article>
