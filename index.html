@@ -5396,6 +5396,24 @@
         }
       );
 
+    $('copyHappLink')
+      .addEventListener(
+        'click',
+        ()=>{
+          const url=getHappImportUrl();
+          if(!url){
+            setVpnStatus(
+              'Ссылка Happ недоступна',
+              $('vpnExpiry').textContent,
+              $('vpnPing').textContent,
+              $('vpnTraffic').textContent
+            );
+            return;
+          }
+          copyText(url,$('copyHappLink'));
+        }
+      );
+
     $('happOpen')
       .addEventListener(
         'click',
@@ -5420,8 +5438,226 @@
         }
       );
 
+    const LOCAL_ACCOUNTS_KEY='limupy_encrypted_accounts_v1';
+    let activeLocalAccount='';
+
+    function readLocalAccounts(){
+      try{
+        const parsed=JSON.parse(localStorage.getItem(LOCAL_ACCOUNTS_KEY)||'{}');
+        return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};
+      }catch{
+        return {};
+      }
+    }
+
+    function writeLocalAccounts(accounts){
+      localStorage.setItem(LOCAL_ACCOUNTS_KEY,JSON.stringify(accounts));
+    }
+
+    function accountBase64(bytes){
+      let binary='';
+      for(let i=0;i<bytes.length;i++)binary+=String.fromCharCode(bytes[i]);
+      return btoa(binary);
+    }
+
+    function accountBytes(value){
+      const binary=atob(value);
+      const bytes=new Uint8Array(binary.length);
+      for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+      return bytes;
+    }
+
+    async function deriveAccountKey(password,salt){
+      const material=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveKey']);
+      return crypto.subtle.deriveKey(
+        {name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},
+        material,
+        {name:'AES-GCM',length:256},
+        false,
+        ['encrypt','decrypt']
+      );
+    }
+
+    async function encryptAccountToken(token,password){
+      const salt=crypto.getRandomValues(new Uint8Array(16));
+      const iv=crypto.getRandomValues(new Uint8Array(12));
+      const key=await deriveAccountKey(password,salt);
+      const ciphertext=await crypto.subtle.encrypt(
+        {name:'AES-GCM',iv},
+        key,
+        new TextEncoder().encode(token)
+      );
+      return {salt:accountBase64(salt),iv:accountBase64(iv),ciphertext:accountBase64(new Uint8Array(ciphertext)),version:1};
+    }
+
+    async function decryptAccountToken(record,password){
+      if(!record||record.version!==1||!record.salt||!record.iv||!record.ciphertext)throw new Error('Данные аккаунта повреждены');
+      const key=await deriveAccountKey(password,accountBytes(record.salt));
+      const plaintext=await crypto.subtle.decrypt({name:'AES-GCM',iv:accountBytes(record.iv)},key,accountBytes(record.ciphertext));
+      return new TextDecoder().decode(plaintext);
+    }
+
+    function setAccountMessage(message,type=''){
+      const element=$('accountMessage');
+      element.textContent=message;
+      element.classList.remove('success','error','busy');
+      if(type)element.classList.add(type);
+    }
+
+    function setAccountMode(mode){
+      const selected=mode==='login'?'login':'register';
+      document.querySelectorAll('[data-account-mode]').forEach(button=>{
+        const active=button.dataset.accountMode===selected;
+        button.classList.toggle('active',active);
+        button.setAttribute('aria-selected',String(active));
+      });
+      const hasSession=Boolean(activeLocalAccount);
+      $('accountRegisterForm').classList.toggle('hidden',hasSession||selected!=='register');
+      $('accountLoginForm').classList.toggle('hidden',hasSession||selected!=='login');
+      $('accountSession').classList.toggle('hidden',!hasSession);
+      if(hasSession){
+        const accounts=readLocalAccounts();
+        $('accountSessionName').textContent='Вход выполнен: '+(accounts[activeLocalAccount]?.username||activeLocalAccount);
+      }
+    }
+
+    async function registerLocalAccount(event){
+      event.preventDefault();
+      const username=$('accountRegisterLogin').value.trim();
+      const normalized=username.toLowerCase();
+      const password=$('accountRegisterPassword').value;
+      const confirmation=$('accountRegisterConfirm').value;
+      const token=$('vpnToken').value.trim();
+      const button=$('accountRegisterButton');
+
+      if(!/^[a-zA-Z0-9._-]{3,32}$/.test(username)){
+        setAccountMessage('Логин: 3–32 символа, только латиница, цифры, точка, дефис или подчёркивание.','error');
+        return;
+      }
+      if(password.length<8||password.length>128){
+        setAccountMessage('Пароль должен содержать от 8 до 128 символов.','error');
+        return;
+      }
+      if(password!==confirmation){
+        setAccountMessage('Пароли не совпадают.','error');
+        return;
+      }
+      if(!token){
+        setAccountMessage('Сначала введи токен подписки в поле выше.','error');
+        $('vpnToken').focus();
+        return;
+      }
+      if(!window.crypto||!window.crypto.subtle){
+        setAccountMessage('Безопасное шифрование недоступно. Открой сайт по HTTPS в современном браузере.','error');
+        return;
+      }
+
+      const accounts=readLocalAccounts();
+      if(accounts[normalized]){
+        setAccountMessage('Такой логин уже создан в этом браузере. Войди в аккаунт или используй другой логин.','error');
+        return;
+      }
+
+      button.disabled=true;
+      setAccountMessage('Проверяем токен и создаём защищённый доступ…','busy');
+      try{
+        await checkVpnToken();
+        if($('vpnState').textContent!=='Активна')throw new Error('Не удалось подтвердить токен. Проверь соединение и обнови статус подписки.');
+        const encrypted=await encryptAccountToken(token,password);
+        accounts[normalized]={username,...encrypted};
+        writeLocalAccounts(accounts);
+        activeLocalAccount=normalized;
+        $('accountRegisterPassword').value='';
+        $('accountRegisterConfirm').value='';
+        setAccountMode('register');
+        setAccountMessage('Аккаунт создан. Теперь можно входить по логину и паролю без повторного ввода токена.','success');
+      }catch(error){
+        setAccountMessage(error?.message||'Не удалось создать аккаунт.','error');
+      }finally{
+        button.disabled=false;
+      }
+    }
+
+    async function loginLocalAccount(event){
+      event.preventDefault();
+      const username=$('accountLoginUsername').value.trim();
+      const normalized=username.toLowerCase();
+      const password=$('accountLoginPassword').value;
+      const button=$('accountLoginButton');
+      const record=readLocalAccounts()[normalized];
+
+      if(!/^[a-zA-Z0-9._-]{3,32}$/.test(username)){
+        setAccountMessage('Введи логин, указанный при регистрации.','error');
+        return;
+      }
+      if(!password){
+        setAccountMessage('Введи пароль.','error');
+        return;
+      }
+      if(!record){
+        setAccountMessage('Аккаунт с таким логином не найден в этом браузере.','error');
+        return;
+      }
+      if(!window.crypto||!window.crypto.subtle){
+        setAccountMessage('Безопасное шифрование недоступно.','error');
+        return;
+      }
+
+      button.disabled=true;
+      setAccountMessage('Открываем зашифрованный доступ…','busy');
+      try{
+        const token=await decryptAccountToken(record,password);
+        if(!token||token.length>VPN_TOKEN_MAX_LENGTH)throw new Error('В аккаунте нет корректного токена.');
+        activeLocalAccount=normalized;
+        $('vpnToken').value=token;
+        saveVpnToken(token);
+        $('accountLoginPassword').value='';
+        setAccountMode('login');
+        setAccountMessage('Вход выполнен. Обновляем статус подписки…','busy');
+        await checkVpnToken();
+        if($('vpnState').textContent==='Активна'){
+          setAccountMessage('Вход выполнен. Подписка активна.','success');
+        }else{
+          setAccountMessage('Вход выполнен, но статус подписки не обновился: '+$('vpnState').textContent+'.','error');
+        }
+      }catch(error){
+        setAccountMessage('Не удалось войти. Проверь логин и пароль.','error');
+      }finally{
+        button.disabled=false;
+      }
+    }
+
+    function logoutLocalAccount(){
+      activeLocalAccount='';
+      clearVpnToken();
+      saveVpnHistoryToken('');
+      vpnData=null;
+      $('vpnToken').value='';
+      $('accountLoginPassword').value='';
+      hideVpnActions();
+      setVpnSubscriptionName('');
+      setVpnStatus('Нет токена','—','—','—');
+      updateVpnCheckButton();
+      setAccountMode('login');
+      setAccountMessage('Ты вышел из аккаунта на этом устройстве.');
+    }
+
+    function initAccountControls(){
+      document.querySelectorAll('[data-account-mode]').forEach(button=>{
+        button.addEventListener('click',()=>{
+          setAccountMode(button.dataset.accountMode);
+          setAccountMessage('');
+        });
+      });
+      $('accountRegisterForm').addEventListener('submit',registerLocalAccount);
+      $('accountLoginForm').addEventListener('submit',loginLocalAccount);
+      $('accountLogout').addEventListener('click',logoutLocalAccount);
+      setAccountMode('register');
+    }
+
     function init(){
       getDeviceId();
+      initAccountControls();
 
       restoreVpnToken();
 
