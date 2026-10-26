@@ -338,3 +338,10 @@
 @media(max-width:760px){.account-section{margin-top:72px}.account-layout{grid-template-columns:minmax(0,1fr);gap:25px}.account-intro h2{max-width:560px}.account-intro>p{max-width:600px}.auth-card{justify-self:stretch;max-width:600px;margin-inline:0}}
 @media(max-width:480px){.account-section{margin-top:58px}.auth-card{padding:19px;border-radius:16px}.auth-form{grid-template-columns:minmax(0,1fr);gap:12px}.auth-field:first-child,.auth-submit{grid-column:auto}.auth-submit{width:auto}.auth-tabs{margin-bottom:18px}.account-intro h2{font-size:30px}.token-state{flex-direction:row;align-items:center}.token-state-value{text-align:left}}
 @media(prefers-reduced-motion:reduce){.auth-card,.auth-tab,.auth-input{transition:none}}
+
+
+/* Account form: reuse theme tokens and keep controls comfortable on mobile. */
+.auth-token-option{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:11px;line-height:1.5;cursor:pointer}
+.auth-token-option input{width:15px;height:15px;margin:0;accent-color:var(--accent);flex:0 0 auto}
+.auth-form[hidden],.auth-field[hidden]{display:none!important}
+@media(max-width:480px){.auth-token-option{align-items:flex-start}.account-heading>p{max-width:34ch}}
