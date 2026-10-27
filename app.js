@@ -69,9 +69,6 @@ function renderFoundation(data) {
   const timePct = lifetime && daysLeft != null ? Math.max(0, Math.min(100, (1 - (daysLeft * 86400) / lifetime) * 100)) : null;
   document.getElementById('expiryProgress').style.width = (timePct == null ? 0 : timePct) + '%';
   document.getElementById('expiryProgressLabel').textContent = timePct == null ? T[root.lang].monitorPeriod : Math.round(timePct) + '% ' + T[root.lang].monitorElapsed;
-  document.getElementById('foundationServerMeta').textContent = u.available ? '01 / ONLINE' : '01 / OFFLINE';
-  document.getElementById('foundationTrafficMeta').textContent = '02 / ' + (Array.isArray(s.protocols) && s.protocols.length ? s.protocols.join(', ') : T[root.lang].monitorNoProtocols);
-  document.getElementById('foundationExpiryMeta').textContent = '03 / ' + (data.device && data.device.name ? data.device.name : T[root.lang].monitorDevice);
   [...document.querySelectorAll('.foundation-card')].forEach(card => card.classList.add('is-account-data'));
   if (copyButton) copyButton.disabled = !data.proxy_url;
   if (openButton) openButton.disabled = !data.happ_url;
@@ -98,9 +95,13 @@ const loginPassword = document.getElementById('loginPassword');
 const loginPasswordField = document.getElementById('loginPasswordField');
 const loginIdentity = document.getElementById('loginIdentity');
 const authMessage = document.getElementById('authMessage');
+const authCard = document.querySelector('.auth-card');
 
 function setAuthTab(tab) {
   const registering = tab === 'register';
+  const currentHeight = authCard.getBoundingClientRect().height;
+  authCard.style.height = currentHeight + 'px';
+  authCard.style.overflow = 'hidden';
   registerPanel.hidden = !registering;
   loginPanel.hidden = registering;
   registerPanel.classList.toggle('hidden', !registering);
@@ -111,7 +112,15 @@ function setAuthTab(tab) {
   loginTab.setAttribute('aria-selected', String(!registering));
   authMessage.textContent = '';
   authMessage.className = 'auth-message';
+  requestAnimationFrame(() => {
+    authCard.style.height = authCard.scrollHeight + 'px';
+  });
 }
+authCard.addEventListener('transitionend', event => {
+  if (event.target !== authCard || event.propertyName !== 'height') return;
+  authCard.style.height = 'auto';
+  authCard.style.overflow = '';
+});
 registerTab.addEventListener('click', () => setAuthTab('register'));
 loginTab.addEventListener('click', () => setAuthTab('login'));
 
