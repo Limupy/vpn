@@ -42,6 +42,9 @@ function renderFoundation(data) {
   const trafficCopy = document.querySelector('#foundationTrafficCard p');
   const expiryTitle = document.querySelector('#foundationExpiryCard h3');
   const expiryCopy = document.querySelector('#foundationExpiryCard p');
+  serverTitle.removeAttribute('data-i18n'); serverCopy.removeAttribute('data-i18n');
+  trafficTitle.removeAttribute('data-i18n'); trafficCopy.removeAttribute('data-i18n');
+  expiryTitle.removeAttribute('data-i18n'); expiryCopy.removeAttribute('data-i18n');
   serverTitle.textContent = u.available ? T[root.lang].monitorConnected : T[root.lang].monitorUnavailable;
   serverCopy.textContent = (data.subscription_name || 'Limupy') + ' · RTT ' + (u.rtt_ms == null ? '—' : u.rtt_ms + ' ms');
   trafficTitle.textContent = T[root.lang].monitorTraffic;
