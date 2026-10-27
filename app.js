@@ -99,11 +99,14 @@ const authCard = document.querySelector('.auth-card');
 
 function setAuthTab(tab) {
   const registering = tab === 'register';
-  const currentHeight = authCard.getBoundingClientRect().height;
-  authCard.style.height = currentHeight + 'px';
+  if ((registering && !registerPanel.hidden) || (!registering && !loginPanel.hidden)) return;
+
+  const startHeight = authCard.getBoundingClientRect().height;
+  authCard.style.transition = 'none';
+  authCard.style.height = startHeight + 'px';
   authCard.style.overflow = 'hidden';
-  // Commit the starting height before changing which form is displayed.
   void authCard.offsetHeight;
+
   registerPanel.hidden = !registering;
   loginPanel.hidden = registering;
   registerPanel.classList.toggle('hidden', !registering);
@@ -114,18 +117,18 @@ function setAuthTab(tab) {
   loginTab.setAttribute('aria-selected', String(!registering));
   authMessage.textContent = '';
   authMessage.className = 'auth-message';
+
+  // Measure the natural height with the new panel visible, then animate from
+  // the previous fixed height to that measured height in the next frame.
+  authCard.style.height = 'auto';
+  const targetHeight = authCard.getBoundingClientRect().height;
+  authCard.style.height = startHeight + 'px';
+  void authCard.offsetHeight;
+
   requestAnimationFrame(() => {
-    const activePanel = registering ? registerPanel : loginPanel;
-    const styles = getComputedStyle(authCard);
-    const verticalPadding = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
-    const targetHeight = authCard.querySelector('.auth-card-head').offsetHeight
-      + authCard.querySelector('.auth-tabs').offsetHeight
-      + activePanel.offsetHeight
-      + authMessage.offsetHeight
-      + authCard.querySelector('.auth-note').offsetHeight
-      + verticalPadding
-      + 20;
-    authCard.style.height = Math.ceil(targetHeight) + 'px';
+    authCard.style.transition = '';
+    void authCard.offsetHeight;
+    authCard.style.height = targetHeight + 'px';
   });
 }
 authCard.addEventListener('transitionend', event => {
