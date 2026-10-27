@@ -102,6 +102,8 @@ function setAuthTab(tab) {
   const currentHeight = authCard.getBoundingClientRect().height;
   authCard.style.height = currentHeight + 'px';
   authCard.style.overflow = 'hidden';
+  // Commit the starting height before changing which form is displayed.
+  void authCard.offsetHeight;
   registerPanel.hidden = !registering;
   loginPanel.hidden = registering;
   registerPanel.classList.toggle('hidden', !registering);
@@ -113,7 +115,8 @@ function setAuthTab(tab) {
   authMessage.textContent = '';
   authMessage.className = 'auth-message';
   requestAnimationFrame(() => {
-    authCard.style.height = authCard.scrollHeight + 'px';
+    const targetHeight = authCard.scrollHeight;
+    authCard.style.height = targetHeight + 'px';
   });
 }
 authCard.addEventListener('transitionend', event => {
