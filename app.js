@@ -69,9 +69,9 @@ function renderFoundation(data) {
   const timePct = lifetime && daysLeft != null ? Math.max(0, Math.min(100, (1 - (daysLeft * 86400) / lifetime) * 100)) : null;
   document.getElementById('expiryProgress').style.width = (timePct == null ? 0 : timePct) + '%';
   document.getElementById('expiryProgressLabel').textContent = timePct == null ? T[root.lang].monitorPeriod : Math.round(timePct) + '% ' + T[root.lang].monitorElapsed;
-  document.getElementById('foundationServerMeta').textContent = u.available ? '01 / ONLINE' : '01 / OFFLINE';
-  document.getElementById('foundationTrafficMeta').textContent = '02 / ' + (Array.isArray(s.protocols) && s.protocols.length ? s.protocols.join(', ') : T[root.lang].monitorNoProtocols);
-  document.getElementById('foundationExpiryMeta').textContent = '03 / ' + (data.device && data.device.name ? data.device.name : T[root.lang].monitorDevice);
+  document.getElementById('foundationServerMeta').textContent = u.available ? 'ONLINE' : 'OFFLINE';
+  document.getElementById('foundationTrafficMeta').textContent = (Array.isArray(s.protocols) && s.protocols.length ? s.protocols.join(', ') : T[root.lang].monitorNoProtocols);
+  document.getElementById('foundationExpiryMeta').textContent = (data.device && data.device.name ? data.device.name : T[root.lang].monitorDevice);
   [...document.querySelectorAll('.foundation-card')].forEach(card => card.classList.add('is-account-data'));
   if (copyButton) copyButton.disabled = !data.proxy_url;
   if (openButton) openButton.disabled = !data.happ_url;
