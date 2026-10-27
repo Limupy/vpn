@@ -7,8 +7,8 @@
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#17151D">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://78.17.112.158; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
-<meta name="description" content="Limupy — чистая цифровая среда с вниманием к ясности, безопасности и деталям.">
-<title>Limupy — без лишнего</title>
+<meta name="description" content="Limupy VPN — проверка подписки, статистика трафика и быстрое подключение через Happ.">
+<title>Limupy VPN — подключение и подписка</title>
 <link rel="stylesheet" href="./styles.css">
 <script src="./app.js" defer></script>
 </head>
@@ -23,7 +23,6 @@
       <a class="nav-link active" href="#features" data-i18n="navFeatures">Основа</a>
       <a class="nav-link" href="#account" data-i18n="navAccount">Аккаунт</a>
       <a class="nav-link" href="#principles" data-i18n="navPrinciples">Принципы</a>
-      <a class="nav-link" href="#approach" data-i18n="navApproach">Подход</a>
     </nav>
     <div class="nav-tools">
       <a class="icon-button repo-link" href="https://github.com/Limupy/vpn" target="_blank" rel="noopener noreferrer" aria-label="Открыть репозиторий GitHub" data-i18n-aria="githubLabel" title="GitHub">
@@ -47,25 +46,25 @@
 <main id="top">
   <div class="container">
     <section class="hero" aria-labelledby="heroTitle">
-      <span class="eyebrow hero-eyebrow" data-i18n="heroBadge">ПРОСТРАНСТВО LIMUPY</span>
-      <h1 id="heroTitle"><span data-i18n="heroLead">Всё важное.</span> <span class="heading-accent" data-i18n="heroAccent">Ничего лишнего.</span></h1>
-      <p class="hero-copy" data-i18n="heroDescription">Чистая цифровая среда, в которой спокойно ориентироваться. Начинаем с продуманной основы — каждую следующую функцию добавим на своём месте.</p>
+      <span class="eyebrow hero-eyebrow" data-i18n="heroBadge">LIMUPY VPN · ЛИЧНЫЙ КАБИНЕТ</span>
+      <h1 id="heroTitle"><span data-i18n="heroLead">Связь без границ.</span> <span class="heading-accent" data-i18n="heroAccent">Твой VPN — под контролем.</span></h1>
+      <p class="hero-copy" data-i18n="heroDescription">Управляй подпиской Limupy в одном месте: проверяй доступность сервера, следи за трафиком и сроком действия, а затем подключайся через Happ.</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="#features"><span data-i18n="heroPrimary">Исследовать интерфейс</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+        <a class="button button-primary" href="#features"><span data-i18n="heroPrimary">Управлять подпиской</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
 
       </div>
-      <div class="hero-footnote"><span class="status-dot" aria-hidden="true"></span><span data-i18n="heroFootnote">Основа проекта · этап 01</span></div>
+      <div class="hero-footnote"><span class="status-dot" aria-hidden="true"></span><span data-i18n="heroFootnote">VPN · подписка · подключение</span></div>
     </section>
     <section class="section account-section reveal" id="account" aria-labelledby="accountTitle">
       <div class="account-heading">
         <span class="eyebrow" data-i18n="authEyebrow">ЛИЧНЫЙ ДОСТУП</span>
-        <h2 id="accountTitle" data-i18n="authTitle">Доступ к Limupy — без лишних шагов.</h2>
-        <p data-i18n="authDescription">Введи токен, чтобы подготовить регистрацию, или выбери вход по логину и паролю.</p>
+        <h2 id="accountTitle" data-i18n="authTitle">Управление VPN-подпиской Limupy</h2>
+        <p data-i18n="authDescription">Введи токен подписки, чтобы проверить её состояние и получить ссылку для подключения.</p>
       </div>
       <div class="auth-card">
         <div class="auth-card-head">
           <span class="auth-card-overline" data-i18n="authCardLabel">ЛИЧНЫЙ КАБИНЕТ</span>
-          <span class="auth-card-subtitle" data-i18n="authCardDescription">Токен и доступ к аккаунту</span>
+          <span class="auth-card-subtitle" data-i18n="authCardDescription">Токен подписки и данные подключения</span>
         </div>
         <div class="auth-tabs" role="tablist" aria-label="Авторизация">
           <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false" aria-controls="registerPanel" data-i18n="authTabRegister">Регистрация</button>
@@ -108,7 +107,7 @@
     </section>
 
     <section class="section features-section" id="features" aria-labelledby="featuresTitle">
-      <div class="section-heading reveal"><div><span class="eyebrow" data-i18n="featuresEyebrow">ОСНОВА</span><h2 id="featuresTitle" data-i18n="featuresTitle">Просто. Понятно. Собрано.</h2></div><p data-i18n="featuresDescription">Три принципа, на которых строится новый интерфейс Limupy.</p></div>
+      <div class="section-heading reveal"><div><span class="eyebrow" data-i18n="featuresEyebrow">ОСНОВА</span><h2 id="featuresTitle" data-i18n="featuresTitle">Просто. Понятно. Собрано.</h2></div><p data-i18n="featuresDescription">Всё необходимое для контроля подписки и подключения к VPN — в одном кабинете.</p></div>
       <div class="feature-grid" id="foundationCards" aria-live="polite">
         <article class="feature-card foundation-card" id="foundationServerCard">
           <span class="feature-icon icon-violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="2"/><rect x="4" y="14" width="16" height="6" rx="2"/><path d="M8 7h.01M8 17h.01M12 7h4M12 17h4"/></svg></span>
@@ -134,7 +133,7 @@
 
     <section class="section principles-section" id="principles" aria-labelledby="principlesTitle">
       <div class="principles-layout">
-        <div class="principles-intro reveal"><span class="eyebrow" data-i18n="principlesEyebrow">ДИЗАЙН-СИСТЕМА</span><h2 id="principlesTitle" data-i18n="principlesTitle">Каждому элементу — своё место.</h2><p data-i18n="principlesDescription">Интерфейс начинается с визуального порядка. Мы сохраняем достаточно воздуха, ясные состояния и одинаковую логику на любом экране.</p><a class="text-link" href="#approach"><span data-i18n="principlesLink">Перейти к подходу</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+        <div class="principles-intro reveal"><span class="eyebrow" data-i18n="principlesEyebrow">ПОДКЛЮЧЕНИЕ</span><h2 id="principlesTitle" data-i18n="principlesTitle">Подключись за пару шагов.</h2><p data-i18n="principlesDescription">Установи Happ, проверь подписку по токену и используй готовую VPN-ссылку для импорта конфигурации.</p></div>
         <div class="principle-list">
           <article class="principle-row principle-action-row reveal"><span class="principle-number">01</span><a class="principle-action button button-secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer"><span data-i18n="happDownload">Скачать Happ с официального сайта</span><span class="action-arrow" aria-hidden="true">↗</span></a></article>
           <article class="principle-row principle-action-row reveal"><span class="principle-number">02</span><button class="principle-action button button-secondary" id="designCopyLink" type="button" disabled><span data-i18n="designCopy">Копировать VPN-ссылку</span><span class="action-arrow" aria-hidden="true">⧉</span></button></article>
@@ -145,6 +144,6 @@
         <section class="closing-section reveal" id="approach" aria-labelledby="approachTitle"><div class="closing-orb" aria-hidden="true"></div><span class="eyebrow" data-i18n="approachEyebrow">СЛЕДУЮЩИЙ ШАГ</span><h2 id="approachTitle" data-i18n="approachTitle">Сначала качество основы.</h2><p data-i18n="approachDescription">Это чистый каркас новой версии. Подключение сервиса, аккаунты и остальные функции добавим отдельными этапами — с проверкой безопасности и удобства.</p><a class="button button-secondary" href="#top"><span data-i18n="backToTop">Вернуться наверх</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></a></section>
   </div>
 </main>
-<footer class="site-footer"><div class="container footer-inner"><a class="brand footer-brand" href="#top" aria-label="Limupy — главная"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5.5c0 4.1-2.8 7.5-7 9.5-4.2-2-7-5.4-7-9.5V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="brand-name">Limupy</span></a><p data-i18n="footerText">Меньше шума. Больше ясности.</p><a class="footer-top-link" href="#top" data-i18n="footerTop">Наверх ↑</a></div></footer>
+<footer class="site-footer"><div class="container footer-inner"><a class="brand footer-brand" href="#top" aria-label="Limupy — главная"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5.5c0 4.1-2.8 7.5-7 9.5-4.2-2-7-5.4-7-9.5V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="brand-name">Limupy</span></a><p data-i18n="footerText">Limupy VPN — подключение под контролем.</p><a class="footer-top-link" href="#top" data-i18n="footerTop">Наверх ↑</a></div></footer>
 </body>
 </html>
