@@ -419,3 +419,16 @@
 .principle-action-row .principle-action:not(:disabled):hover{transform:translateY(-2px)}
 @media(max-width:850px){.principle-row.principle-action-row{grid-template-columns:38px minmax(0,1fr);gap:13px}.principle-action-row .principle-action{grid-column:2;justify-self:stretch;margin:0}}
 @media(max-width:560px){.principle-action-row{gap:11px;padding:12px 0}.principle-action-row .principle-number{width:32px;height:32px}.principle-action-row .principle-action{min-height:50px;padding:0 13px}}
+
+
+/* Subscription analytics inside the existing foundation cards */
+.subscription-analytics{display:grid;gap:9px;margin:18px 0 8px}
+.subscription-analytics[hidden]{display:none}
+.analytics-track{height:6px;overflow:hidden;border-radius:999px;background:var(--line,rgba(128,128,128,.2))}
+.analytics-track span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent,#8171e8),var(--accent-strong,#a99aff));transition:width .45s ease}
+.analytics-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;line-height:1.45;color:var(--muted,#8b8b98)}
+.analytics-caption span:first-child{font-weight:650;color:var(--text,#f4f4f7)}
+.foundation-card.is-account-data .subscription-analytics{width:100%}
+.foundation-card.is-account-data .card-index{display:block;margin-top:16px}
+.expiry-analytics{margin-top:15px}
+@media(prefers-reduced-motion:reduce){.analytics-track span{transition:none}}
