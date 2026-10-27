@@ -432,3 +432,9 @@
 .foundation-card.is-account-data .card-index{display:block;margin-top:16px}
 .expiry-analytics{margin-top:15px}
 @media(prefers-reduced-motion:reduce){.analytics-track span{transition:none}}
+
+
+/* Add a little breathing room above the hero and remove visual step numbering. */
+.hero{margin-top:56px}
+.principle-action-row{grid-template-columns:minmax(0,1fr)}
+@media(max-width:760px){.hero{margin-top:34px}.principle-row.principle-action-row{grid-template-columns:minmax(0,1fr)}}
