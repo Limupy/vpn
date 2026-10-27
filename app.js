@@ -10,16 +10,11 @@ if('IntersectionObserver'in window&&!reduced.matches){const reveal=new Intersect
 language(read('limupy-language')||'ru');theme(read('limupy-theme')||'dark');
 
 
-// Subscription monitor: the token stays in memory and is sent only to the configured API.
+// Subscription data is loaded after token sign-in and shown in the original foundation cards.
 const API_URL = 'https://78.17.112.158/api.php';
 let monitorData = null;
-const monitorForm = document.getElementById('monitorForm');
-const monitorToken = document.getElementById('monitorToken');
-const monitorMessage = document.getElementById('monitorMessage');
-const monitorStatus = document.getElementById('monitorStatus');
-const monitorSubmit = document.getElementById('monitorSubmit');
-const copyButtons = [document.getElementById('monitorCopy'), document.getElementById('designCopyLink')];
-const openButtons = [document.getElementById('monitorOpenHapp'), document.getElementById('designOpenHapp')];
+const copyButton = document.getElementById('designCopyLink');
+const openButton = document.getElementById('designOpenHapp');
 function formatBytes(value) {
   if (value == null || !Number.isFinite(Number(value))) return '—';
   const units = ['B', 'KB', 'MB', 'GB', 'TB']; let n = Math.max(0, Number(value)), i = 0;
@@ -31,9 +26,6 @@ function formatExpiry(value) {
   const d = new Date(n * 1000);
   return Number.isFinite(d.getTime()) ? d.toLocaleDateString(root.lang === 'ru' ? 'ru-RU' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : T[root.lang].monitorNoExpiry;
 }
-function monitorMsg(message, type = '') { monitorMessage.textContent = message; monitorMessage.className = 'monitor-message' + (type ? ' ' + type : ''); }
-function monitorState(message, state) { monitorStatus.className = 'monitor-status' + (state ? ' ' + state : ''); monitorStatus.lastElementChild.textContent = message; }
-function enableLinkActions(on) { [...copyButtons, ...openButtons].forEach(b => { b.disabled = !on; }); }
 async function requestSubscription(token) {
   let device = read('limupy-device-id');
   if (!device) { device = (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36)); write('limupy-device-id', device); }
@@ -42,36 +34,38 @@ async function requestSubscription(token) {
   if (!res.ok || !data || data.ok !== true) throw new Error(data && data.error ? data.error : 'API request failed (' + res.status + ')');
   return data;
 }
-function renderMonitor(data) {
+function renderFoundation(data) {
   const s = data.subscription || {}, u = data.upstream || {};
-  document.getElementById('metricUpstream').textContent = u.available ? T[root.lang].monitorConnected : T[root.lang].monitorUnavailable;
-  document.getElementById('metricRtt').textContent = 'RTT ' + (u.rtt_ms == null ? '—' : u.rtt_ms + ' ms');
-  document.getElementById('metricUsed').textContent = formatBytes(s.used_bytes);
-  document.getElementById('metricRemaining').textContent = s.remaining_bytes == null ? T[root.lang].monitorNoLimit : T[root.lang].monitorRemaining + ': ' + formatBytes(s.remaining_bytes);
-  document.getElementById('metricExpiry').textContent = formatExpiry(s.expire);
-  document.getElementById('metricPlan').textContent = s.total_bytes == null ? T[root.lang].monitorNoLimit : formatBytes(s.total_bytes) + ' total';
-  document.getElementById('metricProtocols').textContent = Array.isArray(s.protocols) && s.protocols.length ? s.protocols.join(', ') : T[root.lang].monitorNoProtocols;
-  document.getElementById('metricDevice').textContent = data.device && data.device.name ? data.device.name : '—';
-  monitorState(u.available ? T[root.lang].monitorConnected : T[root.lang].monitorUnavailable, u.available ? 'is-online' : 'is-offline');
-  enableLinkActions(Boolean(data.proxy_url && data.happ_url));
+  const serverTitle = document.querySelector('#foundationServerCard h3');
+  const serverCopy = document.querySelector('#foundationServerCard p');
+  const trafficTitle = document.querySelector('#foundationTrafficCard h3');
+  const trafficCopy = document.querySelector('#foundationTrafficCard p');
+  const expiryTitle = document.querySelector('#foundationExpiryCard h3');
+  const expiryCopy = document.querySelector('#foundationExpiryCard p');
+  serverTitle.textContent = u.available ? T[root.lang].monitorConnected : T[root.lang].monitorUnavailable;
+  serverCopy.textContent = (data.subscription_name || 'Limupy') + ' · RTT ' + (u.rtt_ms == null ? '—' : u.rtt_ms + ' ms');
+  trafficTitle.textContent = T[root.lang].monitorTraffic;
+  trafficCopy.textContent = formatBytes(s.used_bytes) + ' · ' + (s.remaining_bytes == null ? T[root.lang].monitorNoLimit : T[root.lang].monitorRemaining + ': ' + formatBytes(s.remaining_bytes));
+  expiryTitle.textContent = T[root.lang].monitorExpiry;
+  expiryCopy.textContent = formatExpiry(s.expire) + ' · ' + (s.total_bytes == null ? T[root.lang].monitorNoLimit : formatBytes(s.total_bytes) + ' total');
+  document.getElementById('foundationServerMeta').textContent = u.available ? '01 / ONLINE' : '01 / OFFLINE';
+  document.getElementById('foundationTrafficMeta').textContent = '02 / ' + (Array.isArray(s.protocols) && s.protocols.length ? s.protocols.join(', ') : T[root.lang].monitorNoProtocols);
+  document.getElementById('foundationExpiryMeta').textContent = '03 / ' + (data.device && data.device.name ? data.device.name : T[root.lang].monitorDevice);
+  [...document.querySelectorAll('.foundation-card')].forEach(card => card.classList.add('is-account-data'));
+  if (copyButton) copyButton.disabled = !data.proxy_url;
+  if (openButton) openButton.disabled = !data.happ_url;
 }
-monitorForm.addEventListener('submit', async e => {
-  e.preventDefault(); const token = monitorToken.value.trim();
-  if (!token) { monitorMsg(T[root.lang].monitorNeedToken, 'error'); return; }
-  monitorSubmit.disabled = true; monitorSubmit.textContent = T[root.lang].monitorLoading;
-  monitorState(T[root.lang].monitorLoading, 'is-loading'); monitorMsg(''); enableLinkActions(false);
-  try { monitorData = await requestSubscription(token); renderMonitor(monitorData); monitorMsg((monitorData.subscription_name || 'Limupy') + ' · ' + (monitorData.version || ''), 'success'); }
-  catch (err) { monitorData = null; monitorState(T[root.lang].monitorUnavailable, 'is-offline'); monitorMsg(T[root.lang].monitorError + (err && err.message ? ' (' + err.message + ')' : ''), 'error'); }
-  finally { monitorSubmit.disabled = false; monitorSubmit.textContent = T[root.lang].monitorCheck; }
-});
 async function copyVpnLink() {
-  if (!monitorData || !monitorData.proxy_url) { monitorMsg(T[root.lang].monitorNoLink, 'error'); return; }
-  try { await navigator.clipboard.writeText(monitorData.proxy_url); monitorMsg(T[root.lang].monitorCopied, 'success'); }
-  catch (_) { monitorMsg(T[root.lang].monitorCopyFailed, 'error'); }
+  if (!monitorData || !monitorData.proxy_url) return showAuthMessage(T[root.lang].monitorNoLink, 'error');
+  try { await navigator.clipboard.writeText(monitorData.proxy_url); showAuthMessage(T[root.lang].monitorCopied, 'info'); }
+  catch (_) { showAuthMessage(T[root.lang].monitorCopyFailed, 'error'); }
 }
-function openHapp() { if (!monitorData || !monitorData.happ_url) { monitorMsg(T[root.lang].monitorNoLink, 'error'); return; } window.location.href = monitorData.happ_url; }
-copyButtons.forEach(b => b.addEventListener('click', copyVpnLink));
-openButtons.forEach(b => b.addEventListener('click', openHapp));
+function openHapp() {
+  if (!monitorData || !monitorData.happ_url) return showAuthMessage(T[root.lang].monitorNoLink, 'error');
+  window.location.href = monitorData.happ_url;
+}
+if (copyButton) copyButton.addEventListener('click', copyVpnLink);
+if (openButton) openButton.addEventListener('click', openHapp);
 
 // Account UI only: account registration/password login are not implemented by the supplied API.
 const registerTab = document.getElementById('registerTab');
@@ -128,12 +122,30 @@ registerPanel.addEventListener('submit', event => {
     return showAuthMessage(T[root.lang].authMsgMismatch, 'error');
   showAuthMessage(T[root.lang].authMsgNoServerRegister, 'info');
 });
-loginPanel.addEventListener('submit', event => {
+loginPanel.addEventListener('submit', async event => {
   event.preventDefault();
-  if (!loginIdentity.value.trim())
-    return showAuthMessage(T[root.lang].authMsgToken, 'error');
-  if (!loginWithToken.checked &&
-      (loginPassword.value.length < 8 || loginPassword.value.length > 128))
-    return showAuthMessage(T[root.lang].authMsgPassword, 'error');
-  showAuthMessage(T[root.lang].authMsgNoServerLogin, 'info');
+  const identity = loginIdentity.value.trim();
+  if (!identity) return showAuthMessage(T[root.lang].authMsgToken, 'error');
+  if (!loginWithToken.checked) {
+    if (loginPassword.value.length < 8 || loginPassword.value.length > 128)
+      return showAuthMessage(T[root.lang].authMsgPassword, 'error');
+    return showAuthMessage(T[root.lang].authMsgNoServerLogin, 'info');
+  }
+  const submit = loginPanel.querySelector('button[type="submit"]');
+  submit.disabled = true;
+  const originalLabel = submit.textContent;
+  submit.textContent = T[root.lang].monitorLoading;
+  showAuthMessage(T[root.lang].monitorLoading, 'info');
+  try {
+    monitorData = await requestSubscription(identity);
+    renderFoundation(monitorData);
+    showAuthMessage((monitorData.subscription_name || 'Limupy') + ' · ' + (monitorData.version || ''), 'info');
+    loginIdentity.value = '';
+  } catch (err) {
+    monitorData = null;
+    showAuthMessage(T[root.lang].monitorError + (err && err.message ? ' (' + err.message + ')' : ''), 'error');
+  } finally {
+    submit.disabled = false;
+    submit.textContent = originalLabel;
+  }
 });
