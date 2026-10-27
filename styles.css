@@ -484,3 +484,48 @@
     gap:0 !important;
   }
 }
+
+
+/* Hotfix 2026-10-27: explicit final layout and tab animations. */
+.nav-link,
+.nav-link.active,
+.nav-link.active:hover{
+  background:transparent !important;
+  color:var(--muted) !important;
+  box-shadow:none !important;
+}
+.nav-link:hover,
+.nav-link:focus-visible{
+  background:transparent !important;
+  color:var(--text) !important;
+}
+.nav-link::before,
+.nav-link::after{
+  display:none !important;
+}
+.auth-card{
+  transition:height .42s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease) !important;
+}
+.auth-form:not(.hidden){
+  animation:auth-panel-enter .28s var(--ease) both;
+}
+@keyframes auth-panel-enter{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.principle-row.principle-action-row{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) !important;
+  gap:0 !important;
+  padding:12px 0 !important;
+}
+.principle-action-row .principle-action{
+  grid-column:1 !important;
+  justify-self:stretch !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+}
+@media(prefers-reduced-motion:reduce){
+  .auth-form:not(.hidden){animation:none}
+}
