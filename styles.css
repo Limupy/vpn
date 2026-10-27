@@ -404,3 +404,18 @@
  .monitor-compact .monitor-metric strong,.monitor-compact .monitor-metric small{grid-column:2;text-align:left}
  .principle-action{max-width:100%}
 }
+
+
+/* Foundation cards keep their original layout; signed-in account data replaces only their content. */
+.foundation-card.is-account-data h3{font-size:clamp(17px,1.8vw,21px);line-height:1.35;overflow-wrap:anywhere}
+.foundation-card.is-account-data p{overflow-wrap:anywhere}
+.foundation-card.is-account-data .card-index{letter-spacing:.06em}
+.principle-action-row{grid-template-columns:42px minmax(0,1fr);align-items:center;gap:18px;padding:15px 0}
+.principle-action-row .principle-number{display:grid;width:36px;height:36px;place-items:center;border:1px solid var(--line);border-radius:12px;background:var(--raised);font-size:11px}
+.principle-action-row .principle-action{display:flex;justify-self:stretch;align-items:center;justify-content:space-between;gap:16px;width:100%;max-width:none;min-height:54px;padding:0 18px;border-radius:14px;font-size:12px;text-align:left;white-space:normal}
+.principle-action-row .principle-action:disabled{opacity:.45}
+.principle-action-row .action-arrow{display:grid;flex:0 0 28px;width:28px;height:28px;place-items:center;border:1px solid var(--line);border-radius:50%;font-size:15px}
+.principle-action-row .button-primary .action-arrow{border-color:#ffffff38}
+.principle-action-row .principle-action:not(:disabled):hover{transform:translateY(-2px)}
+@media(max-width:850px){.principle-row.principle-action-row{grid-template-columns:38px minmax(0,1fr);gap:13px}.principle-action-row .principle-action{grid-column:2;justify-self:stretch;margin:0}}
+@media(max-width:560px){.principle-action-row{gap:11px;padding:12px 0}.principle-action-row .principle-number{width:32px;height:32px}.principle-action-row .principle-action{min-height:50px;padding:0 13px}}
