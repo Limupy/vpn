@@ -5,7 +5,7 @@ function read(k){try{return localStorage.getItem(k)}catch(_){return null}}functi
 function language(l){l=l==='en'?'en':'ru';const d=T[l];root.lang=l;document.title=d.pageTitle;document.querySelector('meta[name="description"]').content=d.pageDescription;document.querySelectorAll('[data-i18n]').forEach(e=>{if(Object.hasOwn(d,e.dataset.i18n))e.textContent=d[e.dataset.i18n]});document.querySelectorAll('[data-i18n-placeholder]').forEach(e=>{const key=e.dataset.i18nPlaceholder;if(Object.prototype.hasOwnProperty.call(d,key))e.setAttribute('placeholder',d[key])});document.querySelectorAll('[data-i18n-aria]').forEach(e=>{const k=e.dataset.i18nAria;if(Object.hasOwn(d,k)){e.setAttribute('aria-label',d[k]);if(e.hasAttribute('title'))e.title=d[k]}});document.querySelectorAll('[data-language-code]').forEach(e=>{const on=e.dataset.languageCode===l;e.classList.toggle('is-active',on);if(on)e.setAttribute('aria-current','true');else e.removeAttribute('aria-current')});menu.setAttribute('aria-label',nav.classList.contains('is-open')?d.menuClose:d.menuOpen);write('limupy-language',l)}
 function theme(t){t=t==='light'?'light':'dark';root.dataset.theme=t;themeBtn.setAttribute('aria-label',T[root.lang].themeLabel);themeBtn.title=T[root.lang].themeLabel;document.querySelector('meta[name="theme-color"]').content=t==='light'?'#f5f2fa':'#17151D';write('limupy-theme',t)}
 function close(){nav.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label',T[root.lang].menuOpen)}menu.addEventListener('click',()=>{const open=!nav.classList.contains('is-open');nav.classList.toggle('is-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',T[root.lang][open?'menuClose':'menuOpen'])});langBtn.addEventListener('click',()=>language(root.lang==='ru'?'en':'ru'));themeBtn.addEventListener('click',()=>theme(root.dataset.theme==='dark'?'light':'dark'));nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!menu.contains(e.target))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});window.addEventListener('resize',()=>{if(matchMedia('(min-width: 761px)').matches)close()});
-const links=[...document.querySelectorAll('.nav-link')],sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);function active(id){links.forEach(a=>{const yes=a.hash==='#'+id;a.classList.toggle('active',yes);if(yes)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
+const links=[...document.querySelectorAll('.nav-link')],sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);function active(id){links.forEach(a=>{const yes=a.hash==='#'+id;a.classList.remove('active');if(yes)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
 if('IntersectionObserver'in window&&!reduced.matches){const reveal=new IntersectionObserver(entries=>entries.forEach(e=>e.target.classList.toggle('is-visible',e.isIntersecting)),{threshold:.08,rootMargin:'0px 0px -36px 0px'});document.querySelectorAll('.reveal').forEach(e=>reveal.observe(e));document.body.classList.add('motion-ready');const spy=new IntersectionObserver(entries=>{const e=entries.filter(x=>x.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(e)active(e.target.id)},{threshold:[.2,.45,.7],rootMargin:'-18% 0px -55% 0px'});sections.forEach(s=>spy.observe(s))}else document.querySelectorAll('.reveal').forEach(e=>e.classList.add('is-visible'));
 language(read('limupy-language')||'ru');theme(read('limupy-theme')||'dark');
 
@@ -115,8 +115,17 @@ function setAuthTab(tab) {
   authMessage.textContent = '';
   authMessage.className = 'auth-message';
   requestAnimationFrame(() => {
-    const targetHeight = authCard.scrollHeight;
-    authCard.style.height = targetHeight + 'px';
+    const activePanel = registering ? registerPanel : loginPanel;
+    const styles = getComputedStyle(authCard);
+    const verticalPadding = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+    const targetHeight = authCard.querySelector('.auth-card-head').offsetHeight
+      + authCard.querySelector('.auth-tabs').offsetHeight
+      + activePanel.offsetHeight
+      + authMessage.offsetHeight
+      + authCard.querySelector('.auth-note').offsetHeight
+      + verticalPadding
+      + 20;
+    authCard.style.height = Math.ceil(targetHeight) + 'px';
   });
 }
 authCard.addEventListener('transitionend', event => {
