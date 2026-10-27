@@ -529,3 +529,12 @@
 @media(prefers-reduced-motion:reduce){
   .auth-form:not(.hidden){animation:none}
 }
+
+
+/* Hover state wins even for the section currently in view. */
+.nav-link:hover,
+.nav-link.active:hover,
+.nav-link:focus-visible{
+  background:var(--nav-pill, var(--raised)) !important;
+  color:var(--text) !important;
+}
