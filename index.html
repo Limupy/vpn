@@ -58,24 +58,25 @@
     </section>
     <section class="section features-section" id="features" aria-labelledby="featuresTitle">
       <div class="section-heading reveal"><div><span class="eyebrow" data-i18n="featuresEyebrow">ОСНОВА</span><h2 id="featuresTitle" data-i18n="featuresTitle">Просто. Понятно. Собрано.</h2></div><p data-i18n="featuresDescription">Три принципа, на которых строится новый интерфейс Limupy.</p></div>
-      <div class="monitor-compact" id="monitorPanel">
-        <div class="monitor-compact-head">
-          <div><span class="monitor-kicker" data-i18n="monitorKicker">СОСТОЯНИЕ ПОДПИСКИ</span><span class="monitor-status" id="monitorStatus"><span class="status-dot"></span><span data-i18n="monitorIdle">Ожидает токен</span></span></div>
-          <form class="monitor-form" id="monitorForm">
-            <label class="sr-only" for="monitorToken" data-i18n="monitorTokenLabel">Токен подписки</label>
-            <input class="auth-input" id="monitorToken" type="password" autocomplete="off" maxlength="512" required data-i18n-placeholder="monitorTokenPlaceholder" placeholder="Токен подписки">
-            <button class="button button-primary" id="monitorSubmit" type="submit" data-i18n="monitorCheck">Проверить состояние</button>
-          </form>
-        </div>
-        <p class="monitor-description" data-i18n="monitorDescription">Введи токен подписки — панель запросит состояние сервера, остаток трафика и задержку.</p>
-        <p class="monitor-message" id="monitorMessage" role="status" aria-live="polite"></p>
-        <div class="feature-grid monitor-metrics" id="monitorMetrics" aria-live="polite">
-          <article class="feature-card monitor-metric"><span class="feature-number">01</span><span data-i18n="monitorUpstream">Сервер</span><strong id="metricUpstream">—</strong><small id="metricRtt">RTT —</small></article>
-          <article class="feature-card monitor-metric"><span class="feature-number">02</span><span data-i18n="monitorTraffic">Использовано</span><strong id="metricUsed">—</strong><small id="metricRemaining">Остаток —</small></article>
-          <article class="feature-card monitor-metric"><span class="feature-number">03</span><span data-i18n="monitorExpiry">Подписка до</span><strong id="metricExpiry">—</strong><small id="metricPlan">—</small></article>
-        </div>
-        <div class="monitor-details"><span><span data-i18n="monitorProtocols">Протоколы</span><strong id="metricProtocols">—</strong></span><span><span data-i18n="monitorDevice">Устройство</span><strong id="metricDevice">—</strong></span></div>
-        <p class="monitor-footnote" data-i18n="monitorFootnote">Статус показывает доступность upstream и данные подписки, а не состояние VPN-туннеля на этом устройстве.</p>
+      <div class="feature-grid" id="foundationCards" aria-live="polite">
+        <article class="feature-card foundation-card" id="foundationServerCard">
+          <span class="feature-icon icon-violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="2"/><rect x="4" y="14" width="16" height="6" rx="2"/><path d="M8 7h.01M8 17h.01M12 7h4M12 17h4"/></svg></span>
+          <h3 data-i18n="cardOneTitle">Понятная структура</h3>
+          <p data-i18n="cardOneDescription">Последовательная иерархия, удобная навигация и только нужные элементы на экране.</p>
+          <span class="card-index" id="foundationServerMeta">01 / ОСНОВА</span>
+        </article>
+        <article class="feature-card foundation-card" id="foundationTrafficCard">
+          <span class="feature-icon icon-slate" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5m0 14h16"/><path d="m7 15 4-4 3 2 5-7"/></svg></span>
+          <h3 data-i18n="cardTwoTitle">Внимание к деталям</h3>
+          <p data-i18n="cardTwoDescription">Спокойная палитра, выверенные отступы и ненавязчивые реакции на действия.</p>
+          <span class="card-index" id="foundationTrafficMeta">02 / ОСНОВА</span>
+        </article>
+        <article class="feature-card foundation-card" id="foundationExpiryCard">
+          <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <h3 data-i18n="cardThreeTitle">Развитие по этапам</h3>
+          <p data-i18n="cardThreeDescription">Сначала надёжный каркас. Новые возможности появятся постепенно, без перегрузки.</p>
+          <span class="card-index" id="foundationExpiryMeta">03 / ОСНОВА</span>
+        </article>
       </div>
     </section>
 
@@ -133,9 +134,9 @@
       <div class="principles-layout">
         <div class="principles-intro reveal"><span class="eyebrow" data-i18n="principlesEyebrow">ДИЗАЙН-СИСТЕМА</span><h2 id="principlesTitle" data-i18n="principlesTitle">Каждому элементу — своё место.</h2><p data-i18n="principlesDescription">Интерфейс начинается с визуального порядка. Мы сохраняем достаточно воздуха, ясные состояния и одинаковую логику на любом экране.</p><a class="text-link" href="#approach"><span data-i18n="principlesLink">Перейти к подходу</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
         <div class="principle-list">
-          <article class="principle-row reveal"><span class="principle-number">01</span><div><h3 data-i18n="principleOneTitle">Содержимое прежде декора</h3><p data-i18n="principleOneDescription">Визуальные эффекты поддерживают содержание, а не спорят с ним.</p></div><a class="principle-action button button-secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer" data-i18n="happDownload">Скачать Happ с официального сайта</a></article>
-          <article class="principle-row reveal"><span class="principle-number">02</span><div><h3 data-i18n="principleTwoTitle">Единая логика</h3><p data-i18n="principleTwoDescription">Повторяющиеся компоненты ведут себя одинаково и предсказуемо.</p></div><button class="principle-action button button-secondary" id="designCopyLink" type="button" disabled data-i18n="designCopy">Копировать VPN-ссылку</button></article>
-          <article class="principle-row reveal"><span class="principle-number">03</span><div><h3 data-i18n="principleThreeTitle">Комфорт на любом экране</h3><p data-i18n="principleThreeDescription">Адаптивная сетка, доступность с клавиатуры и поддержка уменьшения движения.</p></div><button class="principle-action button button-primary" id="designOpenHapp" type="button" disabled data-i18n="designOpen">Открыть в Happ</button></article>
+          <article class="principle-row principle-action-row reveal"><span class="principle-number">01</span><a class="principle-action button button-secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer"><span data-i18n="happDownload">Скачать Happ с официального сайта</span><span class="action-arrow" aria-hidden="true">↗</span></a></article>
+          <article class="principle-row principle-action-row reveal"><span class="principle-number">02</span><button class="principle-action button button-secondary" id="designCopyLink" type="button" disabled><span data-i18n="designCopy">Копировать VPN-ссылку</span><span class="action-arrow" aria-hidden="true">⧉</span></button></article>
+          <article class="principle-row principle-action-row reveal"><span class="principle-number">03</span><button class="principle-action button button-primary" id="designOpenHapp" type="button" disabled><span data-i18n="designOpen">Открыть в Happ</span><span class="action-arrow" aria-hidden="true">↗</span></button></article>
         </div>
       </div>
     </section>
