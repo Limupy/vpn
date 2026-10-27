@@ -438,3 +438,49 @@
 /* Hero starts lower to give the headline more breathing room. */
 .hero{margin-top:84px}
 @media(max-width:760px){.hero{margin-top:51px}}
+
+
+/* Final fixes: nav items only highlight on hover; auth card height animates reliably. */
+.nav-link.active,
+.nav-link.active:hover{
+  background:transparent !important;
+  color:var(--muted) !important;
+}
+.nav-link:hover{
+  background:transparent !important;
+  color:var(--text) !important;
+}
+.nav-link::after,
+.nav-link:after{
+  display:none !important;
+}
+.auth-card{
+  transition:height .42s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease) !important;
+}
+.principle-action-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) !important;
+  gap:0 !important;
+}
+.principle-action-row .principle-action{
+  grid-column:1 !important;
+  justify-self:stretch !important;
+  width:100%;
+  max-width:none;
+  margin:0 !important;
+}
+@media(max-width:850px){
+  .principle-row.principle-action-row{
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:0 !important;
+  }
+  .principle-action-row .principle-action{
+    grid-column:1 !important;
+  }
+}
+@media(max-width:560px){
+  .principle-action-row{
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:0 !important;
+  }
+}
