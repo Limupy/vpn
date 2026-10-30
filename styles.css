@@ -17,6 +17,7 @@
   --primary:var(--blue-color);
   --on-surface-variant:#bac2de;
   --surface-high:#45475a;
+  --secondary-container:#244743;
   --surface-lowest:var(--crust-color);
   --outline:#7f849c;
   --outline-variant:#ffffff1a;
@@ -40,6 +41,7 @@
   --crust-color:#dce0e8;
   --on-surface-variant:#62657b;
   --surface-high:#bcc1cd;
+  --secondary-container:#d0eeeb;
   --surface-lowest:#f8f9fc;
   --outline:#8c90a4;
   --outline-variant:#0000001a;
@@ -288,6 +290,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .auth-tab { min-height:36px; padding:0 18px; border:0; border-radius:999px; background:transparent; color:var(--on-surface-variant); font-size:13px; font-weight:650; cursor:pointer; }
 .auth-tab.active { background:var(--blue-color); color:var(--crust-color); }
 .auth-form { display:flex; flex-direction:column; gap:14px; }
+.auth-form[hidden] { display:none; }
 .auth-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
 .login-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .auth-field { display:flex; flex-direction:column; min-width:0; gap:6px; }
