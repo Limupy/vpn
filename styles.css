@@ -651,3 +651,5 @@
  .language-toggle{min-width:67px;padding:0 7px}.icon-button.theme-toggle{width:32px;height:32px}
  .dashboard-card{padding:17px}
 }
+
+.dashboard-card .auth-form[hidden]{display:none!important}
