@@ -9,8 +9,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://limupy.tail8f792b.ts.net https://[2a03:d000:4308:20bf:feaa:14ff:fe07:bcd5]; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="description" content="Limupy VPN — управляй подпиской, проверяй статус сервера и трафик, подключайся через Happ.">
 <title>Limupy VPN — управление подпиской и подключением</title>
-<link rel="stylesheet" href="./styles.css?v=20261030-dashboard1">
-<script src="./app.js?v=20261030-dashboard1" defer></script>
+<link rel="stylesheet" href="./styles.css?v=20261030-dashboard2">
+<script src="./app.js?v=20261030-dashboard2" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -20,9 +20,9 @@
       <span class="brand-name">Limupy</span>
     </a>
     <nav class="primary-nav" id="primaryNav" aria-label="Основная навигация">
-      <a class="nav-link" href="#dashboard">Главная</a>
-      <a class="nav-link" href="#account">Вход / Регистрация</a>
-      <a class="nav-link" href="#template">Шаблон</a>
+      <a class="nav-link" href="#dashboard" data-i18n="navHome">Главная</a>
+      <a class="nav-link" href="#account" data-i18n="navLogin">Вход / Регистрация</a>
+      <a class="nav-link" href="#template" data-i18n="navTemplate">Шаблон</a>
     </nav>
     <div class="nav-tools">
       <span class="header-divider" aria-hidden="true">|</span>
@@ -59,7 +59,7 @@
     <section class="dashboard-grid" id="dashboard" aria-label="Limupy VPN">
       <div class="dashboard-top">
         <article class="dashboard-card info-card reveal">
-          <div class="dashboard-card-title"><span class="dashboard-icon">i</span><h2>ВАЖНО</h2></div>
+          <div class="dashboard-card-title"><span class="dashboard-icon">i</span><h2 data-i18n="cardImportant">ВАЖНО</h2></div>
           <div class="service-notice" role="status" aria-live="polite">
             <div class="service-notice-copy">
               <p class="service-notice-title" data-i18n="maintenanceTitle">VPN временно недоступен</p>
@@ -68,21 +68,21 @@
           </div>
         </article>
         <article class="dashboard-card free-card reveal">
-          <div class="dashboard-card-title"><span class="dashboard-icon">◎</span><h2>FREE VPN</h2></div>
+          <div class="dashboard-card-title"><span class="dashboard-icon">◎</span><h2 data-i18n="freeCard">FREE VPN</h2></div>
           <div class="free-offer">
             <div class="free-offer-head">
               <div class="free-offer-title" data-i18n="freeTitle">Бесплатная подписка</div>
               <span class="free-limit" data-i18n="freeLimit">1 ГБ в день</span>
             </div>
             <p data-i18n="freeDescription">Получи бесплатный доступ к Limupy. Для выдачи подписки сначала войди или зарегистрируй аккаунт.</p>
-            <button class="button button-primary free-cta" id="freeSubscriptionButton" type="button">Получить бесплатную подписку</button>
-            <div class="free-note" id="freeSubscriptionNote">Выдача выполняется через сервер; VPN-ссылка не хранится в браузере.</div>
+            <button class="button button-primary free-cta" id="freeSubscriptionButton" type="button" data-i18n="freeAction">Получить бесплатную подписку</button>
+            <div class="free-note" id="freeSubscriptionNote" data-i18n="freeNote">Выдача выполняется через сервер; VPN-ссылка не хранится в браузере.</div>
           </div>
         </article>
       </div>
       <div class="dashboard-bottom">
         <article class="dashboard-card auth-dashboard-card reveal" id="account">
-          <div class="dashboard-card-title"><span class="dashboard-icon">♙</span><h2>Вход / Регистрация</h2></div>
+          <div class="dashboard-card-title"><span class="dashboard-icon">♙</span><h2 data-i18n="cardAuth">Вход / Регистрация</h2></div>
           <div class="auth-card">
             <div class="auth-tabs" role="tablist" aria-label="Авторизация">
               <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false" aria-controls="registerPanel">Регистрация</button>
@@ -90,44 +90,44 @@
             </div>
             <form class="auth-form" id="registerPanel" role="tabpanel" aria-labelledby="registerTab" hidden novalidate>
               <div class="auth-field">
-                <label class="auth-label" for="registerUsername">Логин</label>
-                <input class="auth-input" id="registerUsername" name="username" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" placeholder="Придумай логин">
+                <label class="auth-label" for="registerUsername" data-i18n="authUsernameLabel">Логин</label>
+                <input class="auth-input" id="registerUsername" name="username" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" placeholder="Придумай логин" data-i18n-placeholder="authUsernamePlaceholder">
               </div>
               <div class="auth-field">
-                <label class="auth-label" for="registerPassword">Пароль</label>
-                <input class="auth-input" id="registerPassword" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="Не менее 8 символов">
+                <label class="auth-label" for="registerPassword" data-i18n="authPasswordLabel">Пароль</label>
+                <input class="auth-input" id="registerPassword" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="Не менее 8 символов" data-i18n-placeholder="authPasswordPlaceholder">
               </div>
               <div class="auth-field">
-                <label class="auth-label" for="registerConfirm">Повтори пароль</label>
+                <label class="auth-label" for="registerConfirm" data-i18n="authConfirmLabel">Повтори пароль</label>
                 <input class="auth-input" id="registerConfirm" name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="Повтори пароль">
               </div>
-              <button class="button button-primary auth-submit" type="submit">Создать аккаунт</button>
+              <button class="button button-primary auth-submit" type="submit" data-i18n="authCreateButton">Создать аккаунт</button>
             </form>
             <form class="auth-form" id="loginPanel" role="tabpanel" aria-labelledby="loginTab" novalidate>
               <div class="auth-field">
                 <label class="auth-label" for="loginIdentity">Логин</label>
-                <input class="auth-input" id="loginIdentity" name="username" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" placeholder="Твой логин">
+                <input class="auth-input" id="loginIdentity" name="username" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" placeholder="Твой логин" data-i18n-placeholder="authLoginUsernamePlaceholder">
               </div>
               <div class="auth-field">
                 <label class="auth-label" for="loginPassword">Пароль</label>
-                <input class="auth-input" id="loginPassword" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Твой пароль">
+                <input class="auth-input" id="loginPassword" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Твой пароль" data-i18n-placeholder="authLoginPasswordPlaceholder">
               </div>
-              <button class="button button-primary auth-submit" type="submit">Войти в аккаунт</button>
+              <button class="button button-primary auth-submit" type="submit" data-i18n="authLoginButton">Войти в аккаунт</button>
             </form>
             <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
             <div class="account-result" id="accountResult" hidden>
               <div class="account-result-title" id="accountResultTitle">Аккаунт</div>
               <p id="accountResultText"></p>
               <div class="account-result-actions">
-                <button class="button button-secondary" id="designCopyLink" type="button" disabled>Копировать VPN-ссылку</button>
-                <button class="button button-secondary" id="designOpenHapp" type="button" disabled>Открыть в Happ</button>
+                <button class="button button-secondary" id="designCopyLink" type="button" disabled data-i18n="designCopy">Копировать VPN-ссылку</button>
+                <button class="button button-secondary" id="designOpenHapp" type="button" disabled data-i18n="designOpen">Открыть в Happ</button>
               </div>
             </div>
-            <p class="auth-note">Пароль и сессионный ключ не сохраняются в localStorage. Сессия действует только пока открыта страница.</p>
+            <p class="auth-note" data-i18n="authNoteSafe">Пароль и сессионный ключ не сохраняются в localStorage. Сессия действует только пока открыта страница.</p>
           </div>
         </article>
         <article class="dashboard-card template-card reveal" id="template">
-          <div class="dashboard-card-title"><span class="dashboard-icon">▤</span><h2>Шаблон</h2></div>
+          <div class="dashboard-card-title"><span class="dashboard-icon">▤</span><h2 data-i18n="cardTemplate">Шаблон</h2></div>
         </article>
       </div>
     </section>
