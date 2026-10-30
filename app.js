@@ -33,7 +33,7 @@ language(read('limupy-language')||'ru');theme(read('limupy-theme')||'dark');
 
 
 // Subscription data is loaded after token sign-in and shown in the original foundation cards.
-const API_URL = 'https://[2a03:d000:4301:98e6:feaa:14ff:fe07:bcd5]/api.php';
+const API_URL = 'https://[2a03:d000:4192:6d39:feaa:14ff:fe07:bcd5]/api.php';
 
 async function checkApiConnection() {
   if (document.hidden) return;
