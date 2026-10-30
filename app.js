@@ -22,6 +22,22 @@ Object.assign(T.en,{
  authServerUnavailable:'Server-side authentication is not configured yet. No data was stored.'
 });
 
+Object.assign(T.ru,{
+ navHome:'Главная',navLogin:'Вход / Регистрация',navTemplate:'Шаблон',cardImportant:'ВАЖНО',freeCard:'FREE VPN',
+ freeAction:'Получить бесплатную подписку',freeNote:'Выдача выполняется через сервер; VPN-ссылка не хранится в браузере.',
+ cardAuth:'Вход / Регистрация',cardTemplate:'Шаблон',authNoteSafe:'Пароль и сессионный ключ не сохраняются в браузере. Сессия действует только пока открыта страница.'
+});
+Object.assign(T.en,{
+ navHome:'Home',navLogin:'Sign in / Register',navTemplate:'Template',cardImportant:'IMPORTANT',freeCard:'FREE VPN',
+ freeAction:'Get a free subscription',freeNote:'The server creates the subscription; the VPN link is not stored in the browser.',
+ cardAuth:'Sign in / Register',cardTemplate:'Template',authNoteSafe:'Your password and session key are not stored in the browser. The session lasts only while this page is open.',
+ authUsernameLabel:'Username',authPasswordLabel:'Password',authConfirmLabel:'Confirm password',
+ authUsernamePlaceholder:'Choose a username',authLoginUsernamePlaceholder:'Your username',
+ authPasswordPlaceholder:'At least 8 characters',authLoginPasswordPlaceholder:'Your password',
+ authConfirmPlaceholder:'Enter password again',authCreateButton:'Create account',authLoginButton:'Sign in',
+ designCopy:'Copy VPN link',designOpen:'Open in Happ'
+});
+
 const root=document.documentElement,menu=document.getElementById('menuToggle'),nav=document.getElementById('primaryNav'),langBtn=document.getElementById('languageToggle'),themeBtn=document.getElementById('themeToggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 function read(k){try{return localStorage.getItem(k)}catch(_){return null}}function write(k,v){try{localStorage.setItem(k,v)}catch(_){}}
 
