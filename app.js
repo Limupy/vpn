@@ -33,31 +33,39 @@ language(read('limupy-language')||'ru');theme(read('limupy-theme')||'dark');
 
 
 // Subscription data is loaded after token sign-in and shown in the original foundation cards.
-const API_URL = 'https://limupy.tail8f792b.ts.net/api.php';
+const API_URLS = [
+  'https://limupy.tail8f792b.ts.net/api.php',
+  'https://[2a03:d000:4308:20bf:feaa:14ff:fe07:bcd5]/api.php'
+];
 
 async function checkApiConnection() {
   if (document.hidden) return;
-  const controller = new AbortController();
-  const started = performance.now();
-  const timeout = window.setTimeout(() => controller.abort(), 6000);
-  try {
-    const response = await fetch(API_URL, {
-      method: 'OPTIONS',
-      mode: 'cors',
-      cache: 'no-store',
-      credentials: 'omit',
-      signal: controller.signal
-    });
-    if (response.status !== 204) throw new Error('Unexpected API response');
-    apiConnectionLatency = Math.round(performance.now() - started);
-    apiConnectionState = 'online';
-  } catch (_) {
-    apiConnectionLatency = null;
-    apiConnectionState = 'offline';
-  } finally {
-    window.clearTimeout(timeout);
-    renderApiConnectionState();
+  let connected = false;
+  for (const url of API_URLS) {
+    const controller = new AbortController();
+    const started = performance.now();
+    const timeout = window.setTimeout(() => controller.abort(), 3500);
+    try {
+      const response = await fetch(url, {
+        method: 'OPTIONS',
+        mode: 'cors',
+        cache: 'no-store',
+        credentials: 'omit',
+        signal: controller.signal
+      });
+      if (response.status === 204) {
+        apiConnectionLatency = Math.round(performance.now() - started);
+        connected = true;
+        break;
+      }
+    } catch (_) {
+    } finally {
+      window.clearTimeout(timeout);
+    }
   }
+  apiConnectionState = connected ? 'online' : 'offline';
+  if (!connected) apiConnectionLatency = null;
+  renderApiConnectionState();
 }
 checkApiConnection();
 window.setInterval(checkApiConnection, 30000);
@@ -82,7 +90,27 @@ function formatExpiry(value) {
 async function requestSubscription(token) {
   let device = read('limupy-device-id');
   if (!device) { device = (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36)); write('limupy-device-id', device); }
-  const res = await fetch(API_URL, { method: 'POST', mode: 'cors', cache: 'no-store', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ action: 'subscription', device_id: 'web-' + device }) });
+  const options = { method: 'POST', mode: 'cors', cache: 'no-store', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ action: 'subscription', device_id: 'web-' + device }) };
+  let res = null;
+  let lastError = null;
+  for (const url of API_URLS) {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 5000);
+    try {
+      const response = await fetch(url, { ...options, signal: controller.signal });
+      if (response.status >= 500) {
+        lastError = new Error('API request failed (' + response.status + ')');
+        continue;
+      }
+      res = response;
+      break;
+    } catch (error) {
+      lastError = error;
+    } finally {
+      window.clearTimeout(timeout);
+    }
+  }
+  if (!res) throw lastError || new Error('API unavailable');
   let data; try { data = await res.json(); } catch (_) { throw new Error('Invalid API response'); }
   if (!res.ok || !data || data.ok !== true) throw new Error(data && data.error ? data.error : 'API request failed (' + res.status + ')');
   return data;
