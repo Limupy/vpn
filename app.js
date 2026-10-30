@@ -24,13 +24,13 @@ Object.assign(T.en,{
 
 Object.assign(T.ru,{
  navHome:'Главная',navLogin:'Вход / Регистрация',navTemplate:'Шаблон',cardImportant:'ВАЖНО',freeCard:'FREE VPN',
- freeAction:'Получить бесплатную подписку',freeNote:'Выдача выполняется через сервер; VPN-ссылка не хранится в браузере.',
- cardAuth:'Вход / Регистрация',cardTemplate:'Шаблон',authNoteSafe:'Пароль и сессионный ключ не сохраняются в браузере. Сессия действует только пока открыта страница.'
+ freeAction:'Получить бесплатную подписку',freeNote:'Серверная выдача ещё не включена. Браузер не создаёт и не хранит VPN-ссылки.',
+ cardAuth:'Вход / Регистрация',cardTemplate:'Шаблон',authNoteSafe:'Пароль и сессионный ключ не сохраняются в браузере. Серверная авторизация пока не включена.'
 });
 Object.assign(T.en,{
  navHome:'Home',navLogin:'Sign in / Register',navTemplate:'Template',cardImportant:'IMPORTANT',freeCard:'FREE VPN',
- freeAction:'Get a free subscription',freeNote:'The server creates the subscription; the VPN link is not stored in the browser.',
- cardAuth:'Sign in / Register',cardTemplate:'Template',authNoteSafe:'Your password and session key are not stored in the browser. The session lasts only while this page is open.',
+ freeAction:'Get a free subscription',freeNote:'Server-side subscription issuance is not enabled yet. The browser does not create or store VPN links.',
+ cardAuth:'Sign in / Register',cardTemplate:'Template',authNoteSafe:'Passwords and session keys are not stored in the browser. Server-side authentication is not enabled yet.',
  authUsernameLabel:'Username',authPasswordLabel:'Password',authConfirmLabel:'Confirm password',
  authUsernamePlaceholder:'Choose a username',authLoginUsernamePlaceholder:'Your username',
  authPasswordPlaceholder:'At least 8 characters',authLoginPasswordPlaceholder:'Your password',
