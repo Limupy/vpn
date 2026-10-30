@@ -296,4 +296,3 @@ freeButton.addEventListener('click',async()=>{
 });
 if (copyButton) copyButton.disabled=true;
 if (openButton) openButton.disabled=true;
-if (freeButton) freeButton.disabled=true;
