@@ -9,8 +9,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://limupy.tail8f792b.ts.net https://[2a03:d000:4308:20bf:feaa:14ff:fe07:bcd5]; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="description" content="Limupy VPN — управляй подпиской, проверяй статус сервера и трафик, подключайся через Happ.">
 <title>Limupy VPN — управление подпиской и подключением</title>
-<link rel="stylesheet" href="./styles.css?v=20261030-funnel2">
-<script src="./app.js?v=20261030-funnel2" defer></script>
+<link rel="stylesheet" href="./styles.css?v=20261030-dashboard1">
+<script src="./app.js?v=20261030-dashboard1" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -20,22 +20,23 @@
       <span class="brand-name">Limupy</span>
     </a>
     <nav class="primary-nav" id="primaryNav" aria-label="Основная навигация">
-      <a class="nav-link" href="#features" data-i18n="navFeatures">Возможности</a>
-      <a class="nav-link" href="#account" data-i18n="navAccount">Подписка</a>
-      <a class="nav-link" href="#principles" data-i18n="navPrinciples">Подключение</a>
+      <a class="nav-link" href="#dashboard">Главная</a>
+      <a class="nav-link" href="#account">Вход / Регистрация</a>
+      <a class="nav-link" href="#template">Шаблон</a>
     </nav>
     <div class="nav-tools">
-      <a class="icon-button repo-link" href="https://github.com/Limupy/vpn" target="_blank" rel="noopener noreferrer" aria-label="Открыть репозиторий GitHub" data-i18n-aria="githubLabel" title="GitHub">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.5-6-3m12 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7a5.2 5.2 0 0 0-1.4-3.6 4.8 4.8 0 0 0-.1-3.6S17.6 1.3 15 3.3a13.2 13.2 0 0 0-7 0C5.4 1.3 4.2 1.6 4.2 1.6a4.8 4.8 0 0 0-.1 3.6 5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.2 6.4 6.2 6.7A3.4 3.4 0 0 0 8 18.1V22"/></svg>
-      </a>
-      <a class="icon-button telegram-link" href="https://t.me/Limupy" target="_blank" rel="noopener noreferrer" aria-label="Открыть Telegram Limupy" data-i18n-aria="telegramLabel" title="Telegram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 3-7.1 18-4.1-7.1L3 10.1 21 3Z"/><path d="m9.8 13.9 4.3-4.4"/></svg>
-      </a>
+      <span class="header-divider" aria-hidden="true">|</span>
       <button class="language-toggle" id="languageToggle" type="button" aria-label="Сменить язык" data-i18n-aria="languageLabel"><span data-language-code="ru" class="language-code is-active">RU</span><span class="language-divider" aria-hidden="true">/</span><span data-language-code="en" class="language-code">EN</span></button>
       <button class="icon-button theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему" data-i18n-aria="themeLabel" title="Тема">
         <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.4A8.4 8.4 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>
         <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
       </button>
+      <div class="header-social" aria-label="Социальные сети"><a class="icon-button repo-link" href="https://github.com/Limupy/vpn" target="_blank" rel="noopener noreferrer" aria-label="Открыть репозиторий GitHub" data-i18n-aria="githubLabel" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.5-6-3m12 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7a5.2 5.2 0 0 0-1.4-3.6 4.8 4.8 0 0 0-.1-3.6S17.6 1.3 15 3.3a13.2 13.2 0 0 0-7 0C5.4 1.3 4.2 1.6 4.2 1.6a4.8 4.8 0 0 0-.1 3.6 5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.2 6.4 6.2 6.7A3.4 3.4 0 0 0 8 18.1V22"/></svg>
+      </a>
+      <a class="icon-button telegram-link" href="https://t.me/Limupy" target="_blank" rel="noopener noreferrer" aria-label="Открыть Telegram Limupy" data-i18n-aria="telegramLabel" title="Telegram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 3-7.1 18-4.1-7.1L3 10.1 21 3Z"/><path d="m9.8 13.9 4.3-4.4"/></svg>
+      </a></div>
       <button class="icon-button menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню" data-i18n-aria="menuOpen" aria-controls="primaryNav" aria-expanded="false">
         <svg class="menu-open-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         <svg class="menu-close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
@@ -46,109 +47,91 @@
 <main id="top">
   <div class="container">
     <section class="hero" aria-labelledby="heroTitle">
-      <aside class="service-notice" role="status" aria-live="polite">
-        <span class="service-notice-icon" aria-hidden="true">!</span>
-        <div class="service-notice-copy">
-          <p class="service-notice-title" data-i18n="maintenanceTitle">VPN временно недоступен</p>
-          <p class="service-notice-description" data-i18n="maintenanceDescription">Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.</p>
-        </div>
-      </aside>
+
       <h1 id="heroTitle"><span data-i18n="heroLead">Связь без границ.</span> <span class="heading-accent" data-i18n="heroAccent">Твой VPN — под контролем.</span></h1>
       <p class="hero-copy" data-i18n="heroDescription">Управляй подпиской Limupy в одном месте: проверяй доступность сервера, следи за трафиком и сроком действия, а затем подключайся через Happ.</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="#features"><span data-i18n="heroPrimary">Управлять подпиской</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+        <a class="button button-primary" href="#dashboard"><span data-i18n="heroPrimary">Перейти к подписке</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
 
       </div>
       <div class="hero-footnote" aria-live="polite"><span id="serverStatusDot" class="status-dot is-checking" aria-hidden="true"></span><span id="serverStatusLabel">Проверяем связь с сервером…</span></div>
     </section>
-    <section class="section account-section reveal" id="account" aria-labelledby="accountTitle">
-      <div class="account-heading">
-        <span class="eyebrow" data-i18n="authEyebrow">ЛИЧНЫЙ ДОСТУП</span>
-        <h2 id="accountTitle" data-i18n="authTitle">Управление VPN-подпиской Limupy</h2>
-        <p data-i18n="authDescription">Введи токен подписки, чтобы проверить её состояние и получить ссылку для подключения.</p>
-      </div>
-      <div class="auth-card">
-        <div class="auth-card-head">
-          <span class="auth-card-overline" data-i18n="authCardLabel">ЛИЧНЫЙ КАБИНЕТ</span>
-          <span class="auth-card-subtitle" data-i18n="authCardDescription">Токен подписки и данные подключения</span>
-        </div>
-        <div class="auth-tabs" role="tablist" aria-label="Авторизация">
-          <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false" aria-controls="registerPanel" data-i18n="authTabRegister">Регистрация</button>
-          <button class="auth-tab active" id="loginTab" type="button" role="tab" aria-selected="true" aria-controls="loginPanel" data-i18n="authTabLogin">Войти</button>
-        </div>
-        <form class="auth-form" id="registerPanel" role="tabpanel" aria-labelledby="registerTab" hidden novalidate>
-          <div class="auth-field">
-            <label class="auth-label" for="registerToken" data-i18n="authTokenLabel">Токен подписки</label>
-            <input class="auth-input" id="registerToken" name="token" type="text" autocomplete="off" required maxlength="512" data-i18n-placeholder="authTokenPlaceholder" placeholder="Введи токен подписки">
+    <section class="dashboard-grid" id="dashboard" aria-label="Limupy VPN">
+      <div class="dashboard-top">
+        <article class="dashboard-card info-card reveal">
+          <div class="dashboard-card-title"><span class="dashboard-icon">i</span><h2>ВАЖНО</h2></div>
+          <div class="service-notice" role="status" aria-live="polite">
+            <div class="service-notice-copy">
+              <p class="service-notice-title" data-i18n="maintenanceTitle">VPN временно недоступен</p>
+              <p class="service-notice-description" data-i18n="maintenanceDescription">Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.</p>
+            </div>
           </div>
-          <div class="auth-field">
-            <label class="auth-label" for="registerUsername" data-i18n="authUsernameLabel">Логин</label>
-            <input class="auth-input" id="registerUsername" name="username" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" data-i18n-placeholder="authUsernamePlaceholder" placeholder="Придумай логин">
-          </div>
-          <div class="auth-field">
-            <label class="auth-label" for="registerPassword" data-i18n="authPasswordLabel">Пароль</label>
-            <input class="auth-input" id="registerPassword" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" data-i18n-placeholder="authPasswordPlaceholder" placeholder="Не менее 8 символов">
-          </div>
-          <div class="auth-field">
-            <label class="auth-label" for="registerConfirm" data-i18n="authConfirmLabel">Повтори пароль</label>
-            <input class="auth-input" id="registerConfirm" name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="128" data-i18n-placeholder="authConfirmPlaceholder" placeholder="Повтори пароль">
-          </div>
-          <button class="button button-primary auth-submit" type="submit" data-i18n="authCreateButton">Создать аккаунт</button>
-        </form>
-        <form class="auth-form" id="loginPanel" role="tabpanel" aria-labelledby="loginTab" novalidate>
-          <div class="auth-field">
-            <label class="auth-label" for="loginIdentity" data-i18n="authIdentityLabel">Логин или токен</label>
-            <input class="auth-input" id="loginIdentity" name="identity" type="text" autocomplete="username" required maxlength="512" data-i18n-placeholder="authIdentityPlaceholder" placeholder="Введи логин или токен">
-          </div>
-          <div class="auth-field" id="loginPasswordField">
-            <label class="auth-label" for="loginPassword" data-i18n="authPasswordLabel">Пароль</label>
-            <input class="auth-input" id="loginPassword" name="password" type="password" autocomplete="current-password" maxlength="128" data-i18n-placeholder="authLoginPasswordPlaceholder" placeholder="Твой пароль">
-          </div>
-          <label class="auth-token-option"><input id="loginWithToken" type="checkbox"> <span data-i18n="authTokenOnly">Войти только по токену</span></label>
-          <button class="button button-primary auth-submit" type="submit" data-i18n="authLoginButton">Войти в аккаунт</button>
-        </form>
-        <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
-        <p class="auth-note auth-note-warning" data-i18n="authPrivacy">Регистрация и вход пока требуют подключения серверной части.</p>
-      </div>
-    </section>
-
-    <section class="section features-section" id="features" aria-labelledby="featuresTitle">
-      <div class="section-heading reveal"><div><span class="eyebrow" data-i18n="featuresEyebrow">ОСНОВА</span><h2 id="featuresTitle" data-i18n="featuresTitle">Просто. Понятно. Собрано.</h2></div><p data-i18n="featuresDescription">Всё необходимое для контроля подписки и подключения к VPN — в одном кабинете.</p></div>
-      <div class="feature-grid" id="foundationCards" aria-live="polite">
-        <article class="feature-card foundation-card reveal" id="foundationServerCard">
-          <span class="feature-icon icon-violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="2"/><rect x="4" y="14" width="16" height="6" rx="2"/><path d="M8 7h.01M8 17h.01M12 7h4M12 17h4"/></svg></span>
-          <h3 data-i18n="cardOneTitle">Понятная структура</h3>
-          <p data-i18n="cardOneDescription">Последовательная иерархия, удобная навигация и только нужные элементы на экране.</p>
-          
         </article>
-        <article class="feature-card foundation-card reveal" id="foundationTrafficCard">
-          <span class="feature-icon icon-slate" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5m0 14h16"/><path d="m7 15 4-4 3 2 5-7"/></svg></span>
-          <h3 data-i18n="cardTwoTitle">Внимание к деталям</h3>
-          <p data-i18n="cardTwoDescription">Спокойная палитра, выверенные отступы и ненавязчивые реакции на действия.</p>
-          <div class="subscription-analytics" id="trafficAnalytics" hidden><div class="analytics-track"><span id="trafficProgress"></span></div><div class="analytics-caption"><span id="trafficPercent">—</span><span id="trafficRemainingLabel">—</span></div></div>
-        </article>
-        <article class="feature-card foundation-card reveal" id="foundationExpiryCard">
-          <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-          <h3 data-i18n="cardThreeTitle">Развитие по этапам</h3>
-          <p data-i18n="cardThreeDescription">Сначала надёжный каркас. Новые возможности появятся постепенно, без перегрузки.</p>
-          <div class="subscription-analytics expiry-analytics" id="expiryAnalytics" hidden><div class="analytics-caption"><span id="expiryDays">—</span><span id="expiryProgressLabel">—</span></div><div class="analytics-track"><span id="expiryProgress"></span></div></div>
+        <article class="dashboard-card free-card reveal">
+          <div class="dashboard-card-title"><span class="dashboard-icon">◎</span><h2>FREE VPN</h2></div>
+          <div class="free-offer">
+            <div class="free-offer-head">
+              <div class="free-offer-title" data-i18n="freeTitle">Бесплатная подписка</div>
+              <span class="free-limit" data-i18n="freeLimit">1 ГБ в день</span>
+            </div>
+            <p data-i18n="freeDescription">Получи бесплатный доступ к Limupy. Для выдачи подписки сначала войди или зарегистрируй аккаунт.</p>
+            <button class="button button-primary free-cta" id="freeSubscriptionButton" type="button">Получить бесплатную подписку</button>
+            <div class="free-note" id="freeSubscriptionNote">Выдача выполняется через сервер; VPN-ссылка не хранится в браузере.</div>
+          </div>
         </article>
       </div>
-    </section>
-
-
-    <section class="section principles-section" id="principles" aria-labelledby="principlesTitle">
-      <div class="principles-layout">
-        <div class="principles-intro reveal"><span class="eyebrow" data-i18n="principlesEyebrow">ПОДКЛЮЧЕНИЕ</span><h2 id="principlesTitle" data-i18n="principlesTitle">Подключись за пару шагов.</h2><p data-i18n="principlesDescription">Установи Happ, проверь подписку по токену и используй готовую VPN-ссылку для импорта конфигурации.</p></div>
-        <div class="principle-list">
-          <article class="principle-row principle-action-row reveal"><a class="principle-action button button-secondary" href="https://happ.info/" target="_blank" rel="noopener noreferrer"><span data-i18n="happDownload">Скачать Happ с официального сайта</span><span class="action-arrow" aria-hidden="true">↗</span></a></article>
-          <article class="principle-row principle-action-row reveal"><button class="principle-action button button-secondary" id="designCopyLink" type="button" disabled><span data-i18n="designCopy">Копировать VPN-ссылку</span><span class="action-arrow" aria-hidden="true">⧉</span></button></article>
-          <article class="principle-row principle-action-row reveal"><button class="principle-action button button-primary" id="designOpenHapp" type="button" disabled><span data-i18n="designOpen">Открыть в Happ</span><span class="action-arrow" aria-hidden="true">↗</span></button></article>
-        </div>
+      <div class="dashboard-bottom">
+        <article class="dashboard-card auth-dashboard-card reveal" id="account">
+          <div class="dashboard-card-title"><span class="dashboard-icon">♙</span><h2>Вход / Регистрация</h2></div>
+          <div class="auth-card">
+            <div class="auth-tabs" role="tablist" aria-label="Авторизация">
+              <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false" aria-controls="registerPanel">Регистрация</button>
+              <button class="auth-tab active" id="loginTab" type="button" role="tab" aria-selected="true" aria-controls="loginPanel">Войти</button>
+            </div>
+            <form class="auth-form" id="registerPanel" role="tabpanel" aria-labelledby="registerTab" hidden novalidate>
+              <div class="auth-field">
+                <label class="auth-label" for="registerUsername">Логин</label>
+                <input class="auth-input" id="registerUsername" name="username" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" placeholder="Придумай логин">
+              </div>
+              <div class="auth-field">
+                <label class="auth-label" for="registerPassword">Пароль</label>
+                <input class="auth-input" id="registerPassword" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="Не менее 8 символов">
+              </div>
+              <div class="auth-field">
+                <label class="auth-label" for="registerConfirm">Повтори пароль</label>
+                <input class="auth-input" id="registerConfirm" name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="Повтори пароль">
+              </div>
+              <button class="button button-primary auth-submit" type="submit">Создать аккаунт</button>
+            </form>
+            <form class="auth-form" id="loginPanel" role="tabpanel" aria-labelledby="loginTab" novalidate>
+              <div class="auth-field">
+                <label class="auth-label" for="loginIdentity">Логин</label>
+                <input class="auth-input" id="loginIdentity" name="username" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" placeholder="Твой логин">
+              </div>
+              <div class="auth-field">
+                <label class="auth-label" for="loginPassword">Пароль</label>
+                <input class="auth-input" id="loginPassword" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Твой пароль">
+              </div>
+              <button class="button button-primary auth-submit" type="submit">Войти в аккаунт</button>
+            </form>
+            <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+            <div class="account-result" id="accountResult" hidden>
+              <div class="account-result-title" id="accountResultTitle">Аккаунт</div>
+              <p id="accountResultText"></p>
+              <div class="account-result-actions">
+                <button class="button button-secondary" id="designCopyLink" type="button" disabled>Копировать VPN-ссылку</button>
+                <button class="button button-secondary" id="designOpenHapp" type="button" disabled>Открыть в Happ</button>
+              </div>
+            </div>
+            <p class="auth-note">Пароль и сессионный ключ не сохраняются в localStorage. Сессия действует только пока открыта страница.</p>
+          </div>
+        </article>
+        <article class="dashboard-card template-card reveal" id="template">
+          <div class="dashboard-card-title"><span class="dashboard-icon">▤</span><h2>Шаблон</h2></div>
+        </article>
       </div>
     </section>
-  </div>
-</main>
+  </main>
 <footer class="site-footer"><div class="container footer-inner"><p class="footer-copyright" data-i18n="footerText">© 2026 Limupy. Все права защищены.</p><a class="footer-top-link" href="#top" data-i18n="footerTop">Наверх ↑</a></div></footer>
 </body>
 </html>
