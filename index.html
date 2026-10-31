@@ -10,7 +10,7 @@
 <meta name="description" content="Virtual Private Network Limu — управление аккаунтом и тестовой VPN-подпиской.">
 <title>Virtual Private Network Limu</title>
 <link rel="stylesheet" href="./styles.css?v=20261031-hover-5">
-<script src="./app.js?v=20261031-original-effects" defer></script>
+<script src="./app.js?v=20261031-anonymous-free-1" defer></script>
 </head>
 <body>
 <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -75,9 +75,10 @@
             <div class="free-offer-title" data-i18n="freeTitle">Бесплатная подписка</div>
             <span class="free-limit" data-i18n="freeLimit">Без лимита · тест</span>
           </div>
-          <p data-i18n="freeDescription">Получите бесплатную тестовую подписку без ограничения трафика. Для выдачи сначала войдите или зарегистрируйте аккаунт.</p>
+          <p data-i18n="freeDescription">Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.</p>
           <button class="btn free-cta" id="freeSubscriptionButton" type="button" data-i18n="freeAction">Получить бесплатную подписку</button>
-          <div class="free-placeholder" id="freeSubscriptionNote" data-i18n="freeNote">Безлимитный тестовый тариф. Выдача включится после обновления серверного API.</div>
+          <div class="free-placeholder" id="freeSubscriptionNote" data-i18n="freeNote">Безлимитный тестовый тариф. Для выдачи аккаунт не нужен.</div>
+          <p class="auth-message" id="freeSubscriptionMessage" role="status" aria-live="polite"></p>
         </div>
       </article>
     </div>
