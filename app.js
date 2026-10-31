@@ -206,7 +206,7 @@
 
   async function apiAction(action, payload, token) {
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 8000);
+    const timeout = window.setTimeout(() => controller.abort(), 20000);
     const headers = {'Content-Type':'application/json'};
     if (token) headers.Authorization = 'Bearer ' + token;
     try {
