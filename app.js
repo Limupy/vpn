@@ -23,7 +23,7 @@
       authRequestFailed:'Не удалось выполнить запрос. Проверьте подключение к серверу.',
       registerSuccess:'Аккаунт создан. Теперь можно получить бесплатную подписку.',
       loginSuccess:'Вход выполнен.',accountTitle:'Подписка Limu',
-      accountInfo:'Трафик: {used} / {total} · Подписка до: {expires}',
+      statUsed:'Использовано',statLimit:'Лимит трафика',statExpires:'Действует до',
       unlimited:'без лимита',noExpiry:'не указано',
       copySuccess:'VPN-ссылка скопирована.',copyError:'Не удалось скопировать VPN-ссылку.',
       noVpnLink:'Сначала получите подписку.',serverOnline:'Сервер доступен',
@@ -51,7 +51,7 @@
       authRequestFailed:'The request failed. Check the server connection.',
       registerSuccess:'Account created. You can now request a free subscription.',
       loginSuccess:'Signed in.',accountTitle:'Limu subscription',
-      accountInfo:'Traffic: {used} / {total} · Expires: {expires}',
+      statUsed:'Used',statLimit:'Traffic limit',statExpires:'Expires',
       unlimited:'unlimited',noExpiry:'not specified',
       copySuccess:'VPN link copied.',copyError:'Could not copy the VPN link.',
       noVpnLink:'Get a subscription first.',serverOnline:'Server reachable',
@@ -263,10 +263,24 @@
     const total = subscription.total_bytes == null ? t('unlimited') : formatBytes(subscription.total_bytes);
     const expires = formatExpiry(subscription.expire);
     document.getElementById('accountResultTitle').textContent = data.subscription_name || t('accountTitle');
-    document.getElementById('accountResultText').textContent = t('accountInfo')
-      .replace('{used}', used)
-      .replace('{total}', total)
-      .replace('{expires}', expires);
+    const stats = document.getElementById('accountResultText');
+    stats.replaceChildren();
+    [
+      [t('statUsed'), used],
+      [t('statLimit'), total],
+      [t('statExpires'), expires]
+    ].forEach(([label, value]) => {
+      const item = document.createElement('div');
+      item.className = 'subscription-stat';
+      const caption = document.createElement('span');
+      caption.className = 'subscription-stat-label';
+      caption.textContent = label;
+      const amount = document.createElement('strong');
+      amount.className = 'subscription-stat-value';
+      amount.textContent = value;
+      item.append(caption, amount);
+      stats.append(item);
+    });
     document.getElementById('accountResult').hidden = false;
     copyButton.disabled = !data.proxy_url;
     openButton.disabled = !data.happ_url;
