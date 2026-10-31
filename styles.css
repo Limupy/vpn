@@ -335,25 +335,51 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .auth-message.info,.auth-message.error { display:block; }
 .auth-message.info { background:color-mix(in srgb,var(--blue-color) 12%,var(--surface-high)); color:var(--text-color); }
 .auth-message.error { background:color-mix(in srgb,var(--red-color) 15%,var(--surface-high)); color:var(--text-color); }
-.account-result { display:flex; flex-direction:column; gap:9px; padding-top:14px; border-top:1px solid var(--outline-variant); }
+.account-result { display:flex; flex-direction:column; gap:9px; padding:0; border:0; }
 .account-result[hidden] { display:none; }
 .account-result-title { font-size:16px; font-weight:750; }
 .account-result.subscription-layout {
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(220px,auto);
+  grid-template-columns:minmax(0,1fr) minmax(250px,1fr);
   align-items:center;
-  gap:18px 28px;
-  padding-top:16px;
+  gap:18px 24px;
+  padding:0;
 }
 .account-result.subscription-layout[hidden] { display:none; }
 .subscription-main { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
 .subscription-stats {
-  max-width:100%;
+  width:100%;
+  max-width:420px;
   justify-self:end;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+.subscription-stat {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:7px;
+  padding:12px 11px;
+  border:1px solid var(--outline-variant);
+  border-radius:13px;
+  background:color-mix(in srgb,var(--surface-high) 78%,transparent);
+}
+.subscription-stat-label {
   color:var(--on-surface-variant);
+  font-size:10px;
+  font-weight:750;
+  letter-spacing:.45px;
+  line-height:1.3;
+  text-transform:uppercase;
+}
+.subscription-stat-value {
+  color:var(--text-color);
   font-size:13px;
-  line-height:1.8;
-  text-align:right;
+  font-weight:750;
+  line-height:1.35;
+  overflow-wrap:anywhere;
 }
 .button-row { display:flex; flex-wrap:wrap; gap:9px; }
 .button-row .btn { min-height:40px; padding-inline:14px; font-size:12px; }
@@ -409,7 +435,10 @@ footer.empty-footer .footer-inner { min-height:149px; }
   .header-social .icon { width:18px; height:18px; }
   .auth-grid,.login-grid { grid-template-columns:1fr; }
   .account-result.subscription-layout { grid-template-columns:minmax(0,1fr); gap:14px; }
-  .subscription-stats { justify-self:start; text-align:left; }
+  .subscription-stats { justify-self:stretch; max-width:none; grid-template-columns:repeat(3,minmax(0,1fr)); text-align:left; }
+  .subscription-stat { padding:10px 8px; }
+  .subscription-stat-label { font-size:9px; }
+  .subscription-stat-value { font-size:12px; }
   .auth-submit { width:100%; }
   .button-row .btn { flex:1 1 100%; }
   .free-cta { width:100%; }
