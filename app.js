@@ -263,7 +263,7 @@
     const used = formatBytes(subscription.used_bytes);
     const total = subscription.total_bytes == null || Number(subscription.total_bytes) <= 0 ? t('unlimited') : formatBytes(subscription.total_bytes);
     const expires = formatExpiry(subscription.expire);
-    document.getElementById('accountResultTitle').textContent = data.email || t('accountTitle');
+    document.getElementById('accountResultTitle').textContent = String(data.email || '');
     const stats = document.getElementById('accountResultText');
     stats.replaceChildren();
     [
