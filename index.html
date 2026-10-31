@@ -10,7 +10,7 @@
 <meta name="description" content="Virtual Private Network Limu — управление аккаунтом и тестовой VPN-подпиской.">
 <title>Virtual Private Network Limu</title>
 <link rel="stylesheet" href="./styles.css?v=20261031-hover-5">
-<script src="./app.js?v=20261031-anonymous-free-2" defer></script>
+<script src="./app.js?v=20261031-anonymous-free-3" defer></script>
 </head>
 <body>
 <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -78,8 +78,7 @@
           <p data-i18n="freeDescription">Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.</p>
           <button class="btn free-cta" id="freeSubscriptionButton" type="button" data-i18n="freeAction">Получить бесплатную подписку</button>
           <div class="free-placeholder" id="freeSubscriptionNote" data-i18n="freeNote">Безлимитный тестовый тариф. Для выдачи аккаунт не нужен.</div>
-          <p class="auth-message" id="freeSubscriptionMessage" role="status" aria-live="polite"></p>
-        </div>
+                  </div>
       </article>
     </div>
     <div class="lower-cards">
@@ -106,6 +105,13 @@
             <button class="btn auth-submit" type="submit" data-i18n="signIn">Войти в аккаунт</button>
           </form>
           <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+          <p class="auth-note" data-i18n="authNote">Пароль и сессионный ключ не сохраняются в браузерном хранилище. Сессия действует только пока открыта страница.</p>
+        </div>
+      </article>
+      <article class="md-card proxy-card template-card" id="template" data-reveal>
+        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-list"/></svg><h3 data-i18n="cardTemplate">Шаблон</h3></div>
+        <div class="template-content">
+<p class="auth-message" id="freeSubscriptionMessage" role="status" aria-live="polite"></p>
           <div class="account-result" id="accountResult" hidden>
             <div class="account-result-title" id="accountResultTitle">Limu</div>
             <p id="accountResultText"></p>
@@ -114,11 +120,7 @@
               <button class="btn outlined" id="designOpenHapp" type="button" disabled data-i18n="openHapp">Открыть в Happ</button>
             </div>
           </div>
-          <p class="auth-note" data-i18n="authNote">Пароль и сессионный ключ не сохраняются в браузерном хранилище. Сессия действует только пока открыта страница.</p>
         </div>
-      </article>
-      <article class="md-card proxy-card template-card" id="template" data-reveal>
-        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-list"/></svg><h3 data-i18n="cardTemplate">Шаблон</h3></div>
       </article>
     </div>
   </section>
