@@ -9,7 +9,7 @@
       freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',
       freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.',
       freeAction:'Получить подписку',
-      freeLoading:'Создаём подписку…',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
+      freeLoading:'Создаём подписку…',freeRequiresLogin:'Войди или зарегистрируй аккаунт, чтобы использовать одну подписку в разных браузерах.',sessionExpired:'Сессия завершилась. Войди снова.',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
       cardAuth:'Вход / Регистрация',cardTemplate:'Моя подписка',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
       passwordLabel:'Пароль',passwordPlaceholder:'Не менее 8 символов',loginPasswordPlaceholder:'Твой пароль',
@@ -36,7 +36,7 @@
       freeLabel:'FREE VPN',freeTitle:'Free subscription',
       freeDescription:'Get a free test subscription with unlimited traffic. No sign-in or registration required.',
       freeAction:'Get subscription',
-      freeLoading:'Creating subscription…',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
+      freeLoading:'Creating subscription…',freeRequiresLogin:'Sign in or register to use the same subscription in multiple browsers.',sessionExpired:'Your session has expired. Sign in again.',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
       cardAuth:'Sign in / Register',cardTemplate:'My subscription',registerTab:'Register',loginTab:'Sign in',
       usernameLabel:'Username',usernamePlaceholder:'Choose a username',loginUsernamePlaceholder:'Your username',
@@ -65,10 +65,10 @@
     const create = () => 'web-' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36));
     try {
       const key = 'limupy_device_id';
-      let value = sessionStorage.getItem(key);
+      let value = localStorage.getItem(key);
       if (!value || !/^web-[A-Za-z0-9-]{8,128}$/.test(value)) {
         value = create();
-        sessionStorage.setItem(key, value);
+        localStorage.setItem(key, value);
       }
       return value;
     } catch (_) {
@@ -76,7 +76,8 @@
     }
   })();
   let language = 'ru';
-  let sessionToken = null;
+  let sessionToken = (() => { try { return localStorage.getItem('limupy_account_session') || null; } catch (_) { return null; } })();
+  let sessionRestorePromise = Promise.resolve();
   let subscriptionData = null;
   let apiState = 'checking';
 
@@ -291,7 +292,24 @@
     const token = data.session_token || data.access_token || data.token;
     if (!token) throw new Error('Missing session token');
     sessionToken = token;
+    try { localStorage.setItem('limupy_account_session', token); } catch (_) {}
     if (data.proxy_url) renderAccountResult(data);
+  }
+
+  async function restoreSession() {
+    if (!sessionToken) return;
+    try {
+      const savedToken = sessionToken;
+      const data = await apiAction('session', {}, savedToken);
+      applySession({...data, session_token:savedToken});
+    } catch (error) {
+      if (error && error.status === 401) {
+        sessionToken = null;
+        try { localStorage.removeItem('limupy_account_session'); } catch (_) {}
+        setAuthTab('login');
+        setAuthMessage(t('sessionExpired'), 'info');
+      }
+    }
   }
 
   registerPanel.addEventListener('submit', async event => {
@@ -344,15 +362,30 @@
   });
 
   freeButton.addEventListener('click', async () => {
+    await sessionRestorePromise;
+    if (!sessionToken) {
+      setAuthTab('login');
+      setAuthMessage(t('freeRequiresLogin'), 'info');
+      document.querySelector('.auth-card')?.scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
     const previousLabel = freeButton.textContent;
     freeButton.disabled = true;
     freeButton.textContent = t('freeLoading');
     try {
-      const data = await apiAction('free_subscription', {}, null);
-      renderAccountResult(data);
+      const data = await apiAction('free_subscription', {}, sessionToken);
+      applySession({...data,session_token:data.session_token || sessionToken});
       document.getElementById('mySubscription').scrollIntoView({behavior:'smooth',block:'center'});
     } catch (error) {
-      showToast(apiErrorMessage(error, 'free_subscription'));
+      if (error && error.status === 401) {
+        sessionToken = null;
+        try { localStorage.removeItem('limupy_account_session'); } catch (_) {}
+        setAuthTab('login');
+        setAuthMessage(t('sessionExpired'), 'info');
+        document.querySelector('.auth-card')?.scrollIntoView({behavior:'smooth',block:'center'});
+      } else {
+        showToast(apiErrorMessage(error, 'free_subscription'));
+      }
     } finally {
       freeButton.disabled = false;
       freeButton.textContent = previousLabel;
@@ -460,6 +493,7 @@
   setTheme('dark');
   setLanguage('ru');
   checkApiConnection();
+  sessionRestorePromise = restoreSession();
   window.setInterval(checkApiConnection, 30000);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) checkApiConnection();
