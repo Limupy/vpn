@@ -24,7 +24,7 @@
       registerSuccess:'Аккаунт создан. Теперь можно получить бесплатную подписку.',
       loginSuccess:'Вход выполнен.',accountTitle:'Подписка Limu',
       statUsed:'Использовано',statLimit:'Лимит трафика',statExpires:'Действует до',
-      unlimited:'без лимита',noExpiry:'не указано',
+      unlimited:'без лимита',noExpiry:'без ограничения по сроку',
       copySuccess:'VPN-ссылка скопирована.',copyError:'Не удалось скопировать VPN-ссылку.',
       noVpnLink:'Сначала получите подписку.',serverOnline:'Сервер доступен',
       serverOffline:'Нет связи с сервером',serverChecking:'Проверяем связь с сервером…'
@@ -52,7 +52,7 @@
       registerSuccess:'Account created. You can now request a free subscription.',
       loginSuccess:'Signed in.',accountTitle:'Limu subscription',
       statUsed:'Used',statLimit:'Traffic limit',statExpires:'Expires',
-      unlimited:'unlimited',noExpiry:'not specified',
+      unlimited:'unlimited',noExpiry:'no expiry limit',
       copySuccess:'VPN link copied.',copyError:'Could not copy the VPN link.',
       noVpnLink:'Get a subscription first.',serverOnline:'Server reachable',
       serverOffline:'Server unreachable',serverChecking:'Checking server connection…'
