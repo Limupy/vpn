@@ -9,7 +9,7 @@
       freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',freeLimit:'Без лимита · тест',
       freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.',
       freeAction:'Получить бесплатную подписку',freeNote:'Безлимитный тестовый тариф. Для выдачи аккаунт не нужен.',
-      freeLoading:'Создаём подписку…',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
+      freeLoading:'Создаём подписку…',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
       freeCreated:'Бесплатная тестовая подписка создана. VPN-ссылка готова.',
       cardAuth:'Вход / Регистрация',cardTemplate:'Шаблон',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
@@ -38,7 +38,7 @@
       freeLabel:'FREE VPN',freeTitle:'Free subscription',freeLimit:'Unlimited · test',
       freeDescription:'Get a free test subscription with unlimited traffic. No sign-in or registration required.',
       freeAction:'Get a free subscription',freeNote:'Unlimited test plan. No account required.',
-      freeLoading:'Creating subscription…',
+      freeLoading:'Creating subscription…',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
       freeCreated:'Free test subscription created. Your VPN link is ready.',
       cardAuth:'Sign in / Register',cardTemplate:'Template',registerTab:'Register',loginTab:'Sign in',
@@ -235,6 +235,12 @@
   function apiErrorMessage(error, action) {
     if (error && error.message === 'Unsupported action') {
       return action === 'free_subscription' ? t('freeBackendUnavailable') : t('authBackendUnavailable');
+    }
+    if (action === 'free_subscription' && error && error.status === 429) {
+      return t('freeRateLimit');
+    }
+    if (action === 'free_subscription' && error && error.status && error.message) {
+      return t('freeApiError').replace('{error}', String(error.message));
     }
     return t('authRequestFailed');
   }
