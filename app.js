@@ -38,7 +38,7 @@
       freeLabel:'FREE VPN',freeTitle:'Free subscription',freeLimit:'Unlimited · test',
       freeDescription:'Get a free test subscription with unlimited traffic. No sign-in or registration required.',
       freeAction:'Get a free subscription',freeNote:'Unlimited test plan. No account required.',
-      freeLoading:'Creating subscription…',freeNeedLogin:'Sign in or create an account first.',
+      freeLoading:'Creating subscription…',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
       freeCreated:'Free test subscription created. Your VPN link is ready.',
       cardAuth:'Sign in / Register',cardTemplate:'Template',registerTab:'Register',loginTab:'Sign in',
@@ -351,14 +351,14 @@
 
   copyButton.addEventListener('click', async () => {
     if (!subscriptionData || !subscriptionData.proxy_url) {
-      setAuthMessage(t('noVpnLink'), 'error');
+      setFreeMessage(t('noVpnLink'), 'error');
       return;
     }
     if (await copyText(subscriptionData.proxy_url)) {
-      setAuthMessage(t('copySuccess'), 'info');
+      setFreeMessage(t('copySuccess'), 'info');
       showToast(t('copySuccess'));
     } else {
-      setAuthMessage(t('copyError'), 'error');
+      setFreeMessage(t('copyError'), 'error');
     }
   });
 
