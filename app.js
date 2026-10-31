@@ -7,10 +7,9 @@
       statusLabel:'ВАЖНО',statusTitle:'VPN временно недоступен',
       statusDescription:'Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.',
       freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',freeLimit:'Без лимита · тест',
-      freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Для выдачи сначала войдите или зарегистрируйте аккаунт.',
-      freeAction:'Получить бесплатную подписку',freeNote:'Безлимитный тестовый тариф. Выдача включится после обновления серверного API.',
-      freeLoading:'Создаём подписку…',freeNeedLogin:'Сначала войдите или зарегистрируйте аккаунт.',
-      freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
+      freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.',
+      freeAction:'Получить бесплатную подписку',freeNote:'Безлимитный тестовый тариф. Для выдачи аккаунт не нужен.',
+      freeLoading:'Создаём подписку…',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
       freeCreated:'Бесплатная тестовая подписка создана. VPN-ссылка готова.',
       cardAuth:'Вход / Регистрация',cardTemplate:'Шаблон',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
@@ -37,8 +36,8 @@
       statusLabel:'IMPORTANT',statusTitle:'VPN temporarily unavailable',
       statusDescription:'Due to new network restrictions in Russia, VPN access is temporarily unavailable. We are working to restore access.',
       freeLabel:'FREE VPN',freeTitle:'Free subscription',freeLimit:'Unlimited · test',
-      freeDescription:'Get a free test subscription with unlimited traffic. Sign in or create an account first.',
-      freeAction:'Get a free subscription',freeNote:'Unlimited test plan. Issuance will be enabled after the server API is updated.',
+      freeDescription:'Get a free test subscription with unlimited traffic. No sign-in or registration required.',
+      freeAction:'Get a free subscription',freeNote:'Unlimited test plan. No account required.',
       freeLoading:'Creating subscription…',freeNeedLogin:'Sign in or create an account first.',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
       freeCreated:'Free test subscription created. Your VPN link is ready.',
@@ -73,6 +72,7 @@
   let apiState = 'checking';
 
   const authMessage = document.getElementById('authMessage');
+  const freeMessage = document.getElementById('freeSubscriptionMessage');
   const registerTab = document.getElementById('registerTab');
   const loginTab = document.getElementById('loginTab');
   const registerPanel = document.getElementById('registerPanel');
@@ -158,6 +158,11 @@
   function setAuthMessage(message, type) {
     authMessage.textContent = message || '';
     authMessage.className = message ? 'auth-message ' + (type || 'info') : 'auth-message';
+  }
+
+  function setFreeMessage(message, type) {
+    freeMessage.textContent = message || '';
+    freeMessage.className = message ? 'auth-message ' + (type || 'info') : 'auth-message';
   }
 
   function setAuthTab(tab) {
@@ -315,20 +320,16 @@
   });
 
   freeButton.addEventListener('click', async () => {
-    if (!sessionToken) {
-      setAuthMessage(t('freeNeedLogin'), 'error');
-      document.getElementById('account').scrollIntoView({behavior:'smooth',block:'center'});
-      return;
-    }
     const previousLabel = freeButton.textContent;
     freeButton.disabled = true;
     freeButton.textContent = t('freeLoading');
+    setFreeMessage('', '');
     try {
-      const data = await apiAction('free_subscription', {}, sessionToken);
+      const data = await apiAction('free_subscription', {}, null);
       renderAccountResult(data);
-      setAuthMessage(t('freeCreated'), 'info');
+      setFreeMessage(t('freeCreated'), 'info');
     } catch (error) {
-      setAuthMessage(apiErrorMessage(error, 'free_subscription'), 'error');
+      setFreeMessage(apiErrorMessage(error, 'free_subscription'), 'error');
     } finally {
       freeButton.disabled = false;
       freeButton.textContent = previousLabel;
