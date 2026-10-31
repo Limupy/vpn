@@ -6,18 +6,16 @@
       heroSubtitle:'Ещё один VPN среди множества других решений для доступа к интернету.',
       statusLabel:'ВАЖНО',statusTitle:'VPN временно недоступен',
       statusDescription:'Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.',
-      freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',freeLimit:'Без лимита · тест',
+      freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',
       freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.',
-      freeAction:'Получить бесплатную подписку',freeNote:'Безлимитный тестовый тариф. Для выдачи аккаунт не нужен.',
+      freeAction:'Получить подписку',
       freeLoading:'Создаём подписку…',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
-      freeCreated:'Бесплатная тестовая подписка создана. VPN-ссылка готова.',
-      cardAuth:'Вход / Регистрация',cardTemplate:'Шаблон',registerTab:'Регистрация',loginTab:'Войти',
+      cardAuth:'Вход / Регистрация',cardTemplate:'Моя подписка',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
       passwordLabel:'Пароль',passwordPlaceholder:'Не менее 8 символов',loginPasswordPlaceholder:'Твой пароль',
       confirmLabel:'Повтори пароль',confirmPlaceholder:'Повтори пароль',
       createAccount:'Создать аккаунт',signIn:'Войти в аккаунт',
       copyVpn:'Копировать VPN-ссылку',openHapp:'Открыть в Happ',
-      authNote:'Пароль и сессионный ключ не сохраняются в браузерном хранилище. Сессия действует только пока открыта страница.',
       authBadLogin:'Логин должен содержать 3–32 символа: латинские буквы, цифры, точку, дефис или подчёркивание.',
       authBadPassword:'Пароль должен содержать от 8 до 128 символов.',
       authMismatch:'Пароли не совпадают.',
@@ -35,19 +33,17 @@
       heroSubtitle:'Another VPN among countless other solutions for accessing the internet.',
       statusLabel:'IMPORTANT',statusTitle:'VPN temporarily unavailable',
       statusDescription:'Due to new network restrictions in Russia, VPN access is temporarily unavailable. We are working to restore access.',
-      freeLabel:'FREE VPN',freeTitle:'Free subscription',freeLimit:'Unlimited · test',
+      freeLabel:'FREE VPN',freeTitle:'Free subscription',
       freeDescription:'Get a free test subscription with unlimited traffic. No sign-in or registration required.',
-      freeAction:'Get a free subscription',freeNote:'Unlimited test plan. No account required.',
+      freeAction:'Get subscription',
       freeLoading:'Creating subscription…',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
-      freeCreated:'Free test subscription created. Your VPN link is ready.',
-      cardAuth:'Sign in / Register',cardTemplate:'Template',registerTab:'Register',loginTab:'Sign in',
+      cardAuth:'Sign in / Register',cardTemplate:'My subscription',registerTab:'Register',loginTab:'Sign in',
       usernameLabel:'Username',usernamePlaceholder:'Choose a username',loginUsernamePlaceholder:'Your username',
       passwordLabel:'Password',passwordPlaceholder:'At least 8 characters',loginPasswordPlaceholder:'Your password',
       confirmLabel:'Confirm password',confirmPlaceholder:'Enter password again',
       createAccount:'Create account',signIn:'Sign in',
       copyVpn:'Copy VPN link',openHapp:'Open in Happ',
-      authNote:'Passwords and session keys are not saved in browser storage. The session exists only while this page is open.',
       authBadLogin:'Username must be 3–32 characters: letters, numbers, dot, dash, or underscore.',
       authBadPassword:'Password must be 8–128 characters.',
       authMismatch:'Passwords do not match.',
@@ -85,7 +81,6 @@
   let apiState = 'checking';
 
   const authMessage = document.getElementById('authMessage');
-  const freeMessage = document.getElementById('freeSubscriptionMessage');
   const registerTab = document.getElementById('registerTab');
   const loginTab = document.getElementById('loginTab');
   const registerPanel = document.getElementById('registerPanel');
@@ -171,11 +166,6 @@
   function setAuthMessage(message, type) {
     authMessage.textContent = message || '';
     authMessage.className = message ? 'auth-message ' + (type || 'info') : 'auth-message';
-  }
-
-  function setFreeMessage(message, type) {
-    freeMessage.textContent = message || '';
-    freeMessage.className = message ? 'auth-message ' + (type || 'info') : 'auth-message';
   }
 
   function setAuthTab(tab) {
@@ -342,13 +332,12 @@
     const previousLabel = freeButton.textContent;
     freeButton.disabled = true;
     freeButton.textContent = t('freeLoading');
-    setFreeMessage('', '');
     try {
       const data = await apiAction('free_subscription', {}, null);
       renderAccountResult(data);
-      setFreeMessage(t('freeCreated'), 'info');
+      document.getElementById('mySubscription').scrollIntoView({behavior:'smooth',block:'center'});
     } catch (error) {
-      setFreeMessage(apiErrorMessage(error, 'free_subscription'), 'error');
+      showToast(apiErrorMessage(error, 'free_subscription'));
     } finally {
       freeButton.disabled = false;
       freeButton.textContent = previousLabel;
@@ -357,20 +346,19 @@
 
   copyButton.addEventListener('click', async () => {
     if (!subscriptionData || !subscriptionData.proxy_url) {
-      setFreeMessage(t('noVpnLink'), 'error');
+      showToast(t('noVpnLink'));
       return;
     }
     if (await copyText(subscriptionData.proxy_url)) {
-      setFreeMessage(t('copySuccess'), 'info');
       showToast(t('copySuccess'));
     } else {
-      setFreeMessage(t('copyError'), 'error');
+      showToast(t('copyError'));
     }
   });
 
   openButton.addEventListener('click', () => {
     if (!subscriptionData || !subscriptionData.happ_url) {
-      setAuthMessage(t('noVpnLink'), 'error');
+      showToast(t('noVpnLink'));
       return;
     }
     window.location.href = subscriptionData.happ_url;
