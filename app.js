@@ -65,10 +65,10 @@
     const create = () => 'web-' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36));
     try {
       const key = 'limupy_device_id';
-      let value = localStorage.getItem(key);
+      let value = sessionStorage.getItem(key);
       if (!value || !/^web-[A-Za-z0-9-]{8,128}$/.test(value)) {
         value = create();
-        localStorage.setItem(key, value);
+        sessionStorage.setItem(key, value);
       }
       return value;
     } catch (_) {
