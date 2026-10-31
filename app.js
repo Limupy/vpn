@@ -65,7 +65,20 @@
 
   const root = document.documentElement;
   const apiUrl = 'https://limupy.tail8f792b.ts.net/api.php';
-  const deviceId = 'web-' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36));
+  const deviceId = (() => {
+    const create = () => 'web-' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36));
+    try {
+      const key = 'limupy_device_id';
+      let value = sessionStorage.getItem(key);
+      if (!value || !/^web-[A-Za-z0-9-]{8,128}$/.test(value)) {
+        value = create();
+        sessionStorage.setItem(key, value);
+      }
+      return value;
+    } catch (_) {
+      return create();
+    }
+  })();
   let language = 'ru';
   let sessionToken = null;
   let subscriptionData = null;
