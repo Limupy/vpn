@@ -106,6 +106,7 @@
       button.classList.toggle('active', active);
       button.setAttribute('aria-pressed', String(active));
     });
+    if (subscriptionData) renderAccountResult(subscriptionData);
     updateServerStatus();
   }
 
