@@ -337,8 +337,24 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .auth-message.error { background:color-mix(in srgb,var(--red-color) 15%,var(--surface-high)); color:var(--text-color); }
 .account-result { display:flex; flex-direction:column; gap:9px; padding-top:14px; border-top:1px solid var(--outline-variant); }
 .account-result[hidden] { display:none; }
-.account-result-title { font-size:15px; font-weight:750; }
-.account-result p { margin:0; color:var(--on-surface-variant); font-size:12px; line-height:1.6; }
+.account-result-title { font-size:16px; font-weight:750; }
+.account-result.subscription-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(220px,auto);
+  align-items:center;
+  gap:18px 28px;
+  padding-top:16px;
+}
+.account-result.subscription-layout[hidden] { display:none; }
+.subscription-main { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+.subscription-stats {
+  max-width:100%;
+  justify-self:end;
+  color:var(--on-surface-variant);
+  font-size:13px;
+  line-height:1.8;
+  text-align:right;
+}
 .button-row { display:flex; flex-wrap:wrap; gap:9px; }
 .button-row .btn { min-height:40px; padding-inline:14px; font-size:12px; }
 .auth-note { margin:0; color:var(--on-surface-variant); font-size:11px; line-height:1.6; opacity:.72; }
@@ -392,6 +408,8 @@ footer.empty-footer .footer-inner { min-height:149px; }
   .header-social .icon-btn { width:34px; min-width:34px; height:34px; }
   .header-social .icon { width:18px; height:18px; }
   .auth-grid,.login-grid { grid-template-columns:1fr; }
+  .account-result.subscription-layout { grid-template-columns:minmax(0,1fr); gap:14px; }
+  .subscription-stats { justify-self:start; text-align:left; }
   .auth-submit { width:100%; }
   .button-row .btn { flex:1 1 100%; }
   .free-cta { width:100%; }
