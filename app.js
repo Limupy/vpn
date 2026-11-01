@@ -258,34 +258,15 @@
       : t('noExpiry');
   }
 
-  function renderAccountResult(data) {
-    subscriptionData = data;
-    const subscription = data.subscription || {};
-    const used = formatBytes(subscription.used_bytes);
-    const total = subscription.total_bytes == null || Number(subscription.total_bytes) <= 0 ? t('unlimited') : formatBytes(subscription.total_bytes);
-    const expires = formatExpiry(subscription.expire);
-    document.getElementById('accountResultTitle').textContent = String(data.email || data.subscription_name || '');
-    const stats = document.getElementById('accountResultText');
-    stats.replaceChildren();
-    [
-      [t('statUsed'), used],
-      [t('statLimit'), total],
-      [t('statExpires'), expires]
-    ].forEach(([label, value]) => {
-      const item = document.createElement('div');
-      item.className = 'subscription-stat';
-      const caption = document.createElement('span');
-      caption.className = 'subscription-stat-label';
-      caption.textContent = label;
-      const amount = document.createElement('strong');
-      amount.className = 'subscription-stat-value';
-      amount.textContent = value;
-      item.append(caption, amount);
-      stats.append(item);
-    });
+  function renderAccountResult() {
+    subscriptionData = null;
     document.getElementById('accountResult').hidden = false;
-    copyButton.disabled = !data.proxy_url;
-    openButton.disabled = !data.happ_url;
+    document.getElementById('accountResultTitle').textContent = '';
+    document.querySelectorAll('#accountResultText .subscription-stat-value').forEach(value => {
+      value.textContent = '—';
+    });
+    copyButton.disabled = true;
+    openButton.disabled = true;
   }
 
   function applySession(data) {
