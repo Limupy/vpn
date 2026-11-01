@@ -10,8 +10,8 @@
 <meta name="description" content="Virtual Private Network Limu — управление аккаунтом и тестовой VPN-подпиской.">
 <title>Virtual Private Network Limu</title>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=20261101-lemur-logo-4">
-<link rel="stylesheet" href="./styles.css?v=20261101-auth-profile-1">
-<script src="./app.js?v=20261101-auth-profile-1" defer></script>
+<link rel="stylesheet" href="./styles.css?v=20261101-restore-subscription-1">
+<script src="./app.js?v=20261101-restore-subscription-1" defer></script>
 </head>
 <body>
 <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,7 @@
 <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></symbol>
-<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5m-5 4a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5"/></symbol>
 <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
 <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></symbol>
@@ -126,6 +126,7 @@
               </div>
             </div>
             <div class="auth-profile-actions">
+              <button class="btn auth-restore" id="restoreSubscriptionButton" type="button"><svg class="icon sm" aria-hidden="true"><use href="#i-refresh"/></svg><span class="auth-restore-label" data-i18n="profileRestore">Восстановить подписку</span></button>
               <button class="btn outlined auth-logout" id="logoutButton" type="button" data-i18n="profileLogout">Выйти</button>
             </div>
           </section>
