@@ -126,13 +126,16 @@
     setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
   });
 
-  function showToast(message) {
+  function showToast(message, type = 'info') {
+    if (!message) return;
     const host = document.getElementById('toastHost');
+    const isError = type === 'error';
     const element = document.createElement('div');
-    element.className = 'toast';
+    element.className = 'toast ' + (isError ? 'toast-error' : 'toast-info');
+    element.setAttribute('role', isError ? 'alert' : 'status');
     const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     icon.setAttribute('class', 'icon sm');
-    icon.innerHTML = '<use href="#i-check"></use>';
+    icon.innerHTML = isError ? '<use href="#i-info"></use>' : '<use href="#i-check"></use>';
     const textNode = document.createElement('span');
     textNode.textContent = message;
     element.append(icon, textNode);
@@ -141,7 +144,7 @@
       element.style.opacity = '0';
       element.style.transform = 'translateY(-8px)';
       window.setTimeout(() => element.remove(), 220);
-    }, 2400);
+    }, 3000);
   }
 
   async function copyText(value) {
