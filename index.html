@@ -10,8 +10,8 @@
 <meta name="description" content="Virtual Private Network Limu — управление аккаунтом и тестовой VPN-подпиской.">
 <title>Virtual Private Network Limu</title>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=20261101-lemur-logo-4">
-<link rel="stylesheet" href="./styles.css?v=20261101-lemur-header-4">
-<script src="./app.js?v=20261101-free-loading-label-1" defer></script>
+<link rel="stylesheet" href="./styles.css?v=20261101-header-toggle-1">
+<script src="./app.js?v=20261101-header-toggle-1" defer></script>
 </head>
 <body>
 <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@
           <a class="icon-btn" href="https://t.me/Limupy" target="_blank" rel="noopener noreferrer" aria-label="Telegram" title="Telegram"><svg class="icon"><use href="#i-telegram"/></svg></a>
         </div>
         <span class="header-divider" aria-hidden="true">|</span>
-        <div class="lang-switch" aria-label="Language">
+        <div class="lang-switch" data-language="ru" role="group" aria-label="Language">
           <button class="lang-btn active" type="button" data-lang="ru" aria-pressed="true">RU</button>
           <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
         </div>
@@ -79,18 +79,15 @@
   <section class="content-section card-layout" aria-label="Limu VPN">
     <div class="top-cards">
       <article class="md-card proxy-card" data-reveal>
-        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-info"/></svg><h3 data-i18n="statusLabel">ВАЖНО</h3></div>
+        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-info"/></svg><h3 data-i18n="statusLabel">Важно</h3></div>
         <div class="notice info status-notice" role="alert" aria-live="polite">
           <div class="notice-title" data-i18n="statusTitle">VPN временно недоступен</div>
           <p data-i18n="statusDescription">Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.</p>
         </div>
       </article>
       <article class="md-card proxy-card" data-reveal>
-        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-gift"/></svg><h3 data-i18n="freeLabel">FREE VPN</h3></div>
+        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-gift"/></svg><h3 data-i18n="freeLabel">Бесплатная подписка</h3></div>
         <div class="free-offer">
-          <div class="free-offer-head">
-            <div class="free-offer-title" data-i18n="freeTitle">Бесплатная подписка</div>
-          </div>
           <p data-i18n="freeDescription">Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.</p>
           <button class="btn free-cta" id="freeSubscriptionButton" type="button" data-i18n="freeAction">Получить подписку</button>
                   </div>
