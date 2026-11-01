@@ -92,7 +92,6 @@
   const profileAvatar = document.getElementById('profileAvatar');
   const profileUsername = document.getElementById('profileUsername');
   const logoutButton = document.getElementById('logoutButton');
-  const restoreButton = document.getElementById('restoreSubscriptionButton');
   const registerPanel = document.getElementById('registerPanel');
   const loginPanel = document.getElementById('loginPanel');
   const freeButton = document.getElementById('freeSubscriptionButton');
@@ -196,7 +195,6 @@
 
   function showAuthForms(tab = 'login') {
     authProfile.hidden = true;
-    restoreButton.hidden = true;
     authTabs.hidden = false;
     authCardTitle.textContent = t('cardAuth');
     setAuthTab(tab);
@@ -207,7 +205,6 @@
     profileUsername.textContent = accountUsername;
     profileAvatar.textContent = Array.from(accountUsername)[0]?.toUpperCase() || 'A';
     authTabs.hidden = true;
-    restoreButton.hidden = false;
     registerPanel.hidden = true;
     loginPanel.hidden = true;
     authProfile.hidden = false;
