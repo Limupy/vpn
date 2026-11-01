@@ -23,6 +23,10 @@
   --outline-variant:#ffffff1a;
   --shadow:rgba(0,0,0,.28);
   --ease:cubic-bezier(.2,0,0,1);
+  --lang-track:#211f28;
+  --lang-thumb:#4c32a5;
+  --lang-active:#c9baff;
+  --lang-idle:#a9a4b4;
 }
 [data-theme="light"] {
   color-scheme:light;
@@ -46,6 +50,10 @@
   --outline:#8c90a4;
   --outline-variant:#0000001a;
   --shadow:rgba(40,45,65,.14);
+  --lang-track:#ece8f3;
+  --lang-thumb:#d7cbed;
+  --lang-active:#4c32a5;
+  --lang-idle:#686477;
 }
 * { box-sizing:border-box; }
 html,body { min-width:320px; margin:0; background:var(--bg-container-color); color:var(--text-color); }
@@ -143,7 +151,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   overflow:hidden;
   border:0;
   border-radius:999px;
-  background:#17151d;
+  background:var(--lang-track);
 }
 .lang-switch::before {
   content:"";
@@ -154,7 +162,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   left:3px;
   width:calc(50% - 3px);
   border-radius:999px;
-  background:#34313d;
+  background:var(--lang-thumb);
   transition:transform .24s var(--ease);
 }
 .lang-switch[data-language="en"]::before { transform:translateX(100%); }
@@ -170,7 +178,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   border:0;
   border-radius:999px;
   background:transparent;
-  color:#a9a4b4;
+  color:var(--lang-idle);
   font-size:13px;
   font-weight:700;
   line-height:1;
@@ -178,7 +186,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   transition:color .2s;
 }
 .lang-btn:hover { background:transparent; }
-.lang-btn.active { color:#f0edf7; }
+.lang-btn.active { color:var(--lang-active); }
 .icon-btn {
   width:44px;
   min-width:44px;
@@ -203,7 +211,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   display:block;
   flex:none;
   width:1px;
-  height:48px;
+  height:40px;
   align-self:center;
   margin:0 8px;
   background:color-mix(in srgb,var(--text-color) 42%,transparent);
@@ -272,13 +280,13 @@ button,a { -webkit-tap-highlight-color:transparent; }
   background:transparent;
 }
 @media (min-width:769px) {
-  .free-offer { position:relative; border-left:0; }
+  .free-offer { position:relative; flex:0 1 auto; border-left:0; }
   .free-offer::before {
     content:"";
     position:absolute;
     left:0;
-    top:7px;
-    bottom:7px;
+    top:2px;
+    bottom:2px;
     width:2px;
     background:color-mix(in srgb,var(--blue-color) 72%,transparent);
   }
@@ -533,9 +541,9 @@ button,a { -webkit-tap-highlight-color:transparent; }
   .icon-btn { width:34px; min-width:34px; height:34px; border-radius:9px; }
   .icon-btn .icon,.header__theme-container .icon { width:18px; height:18px; }
   .header-divider { height:40px; margin:0 5px; }
-  .header-social { gap:9px; }
-  .header-social .icon-btn { width:32px; min-width:32px; height:34px; }
-  .header-social .icon { width:20px; height:20px; }
+  .header-social { gap:7px; }
+  .header-social .icon-btn { width:28px; min-width:28px; height:30px; }
+  .header-social .icon { width:18px; height:18px; stroke-width:1.55; }
   .hero { padding-top:38px; }
   .top-cards { grid-template-columns:1fr; }
   .card-layout { padding:28px 16px 52px; }
@@ -549,8 +557,10 @@ button,a { -webkit-tap-highlight-color:transparent; }
   .header-actions { gap:4px; }
   .lang-switch { width:64px; height:32px; }
   .icon-btn,.header-social .icon-btn { width:32px; min-width:32px; height:32px; }
+  .header-social .icon-btn { width:26px; min-width:26px; height:30px; }
   .icon-btn .icon,.header__theme-container .icon,.header-social .icon { width:17px; height:17px; }
-  .header-divider { height:34px; margin:0 3px; }
+  .header-social .icon-btn .icon { width:17px; height:17px; stroke-width:1.5; }
+  .header-divider { height:30px; margin:0 3px; }
   .header-social { gap:5px; }
   .auth-grid,.login-grid { grid-template-columns:1fr; }
   .account-result.subscription-layout { grid-template-columns:minmax(0,1fr); gap:14px; }
@@ -569,6 +579,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   .lang-switch { width:60px; height:30px; }
   .lang-btn { font-size:10px; }
   .icon-btn,.header-social .icon-btn { width:32px; min-width:32px; height:32px; }
+  .header-social .icon-btn { width:26px; min-width:26px; height:30px; }
 }
 @media (prefers-reduced-motion:reduce) {
   *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
