@@ -21,8 +21,9 @@
       authMismatch:'Пароли не совпадают.',
       authBackendUnavailable:'Серверная регистрация и вход по паролю ещё не включены. Пароль не сохранён, аккаунт не создан.',
       authRequestFailed:'Не удалось выполнить запрос. Проверьте подключение к серверу.',
-      registerSuccess:'Аккаунт создан. Теперь можно получить бесплатную подписку.',
-      loginSuccess:'Вход выполнен.',accountTitle:'Подписка Limu',
+      registerSuccess:'Аккаунт создан. Теперь можно перейти ко входу.',
+      loginSuccess:'Вход выполнен.',logoutSuccess:'Вы вышли из аккаунта на этом устройстве.',
+      profileTitle:'Профиль',profileLabel:'Ваш аккаунт',profileStatus:'Вы вошли в аккаунт',profileLogout:'Выйти',profileFallback:'Аккаунт',accountTitle:'Подписка Limu',
       statUsed:'Использовано',statLimit:'Лимит трафика',statExpires:'Действует до',
       unlimited:'без лимита',noExpiry:'без ограничения по сроку',
       copySuccess:'VPN-ссылка скопирована.',copyError:'Не удалось скопировать VPN-ссылку.',
@@ -49,8 +50,9 @@
       authMismatch:'Passwords do not match.',
       authBackendUnavailable:'Server-side registration and password sign-in are not enabled yet. The password was not saved and no account was created.',
       authRequestFailed:'The request failed. Check the server connection.',
-      registerSuccess:'Account created. You can now request a free subscription.',
-      loginSuccess:'Signed in.',accountTitle:'Limu subscription',
+      registerSuccess:'Account created. You can now sign in.',
+      loginSuccess:'Signed in.',logoutSuccess:'You are signed out on this device.',
+      profileTitle:'Profile',profileLabel:'Your account',profileStatus:'Signed in',profileLogout:'Sign out',profileFallback:'Account',accountTitle:'Limu subscription',
       statUsed:'Used',statLimit:'Traffic limit',statExpires:'Expires',
       unlimited:'unlimited',noExpiry:'no expiry limit',
       copySuccess:'VPN link copied.',copyError:'Could not copy the VPN link.',
@@ -77,12 +79,19 @@
   })();
   let language = 'ru';
   let sessionToken = (() => { try { return localStorage.getItem('limupy_account_session') || null; } catch (_) { return null; } })();
+  let accountUsername = (() => { try { return localStorage.getItem('limupy_account_username') || ''; } catch (_) { return ''; } })();
   let sessionRestorePromise = Promise.resolve();
   let subscriptionData = null;
   let apiState = 'checking';
 
   const registerTab = document.getElementById('registerTab');
   const loginTab = document.getElementById('loginTab');
+  const authTabs = document.querySelector('.auth-tabs');
+  const authCardTitle = document.getElementById('authCardTitle');
+  const authProfile = document.getElementById('authProfile');
+  const profileAvatar = document.getElementById('profileAvatar');
+  const profileUsername = document.getElementById('profileUsername');
+  const logoutButton = document.getElementById('logoutButton');
   const registerPanel = document.getElementById('registerPanel');
   const loginPanel = document.getElementById('loginPanel');
   const freeButton = document.getElementById('freeSubscriptionButton');
@@ -102,6 +111,7 @@
     document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
       element.placeholder = t(element.dataset.i18nPlaceholder);
     });
+    if (authCardTitle) authCardTitle.textContent = authProfile && !authProfile.hidden ? t('profileTitle') : t('cardAuth');
     document.querySelectorAll('.lang-btn').forEach(button => {
       const active = button.dataset.lang === language;
       button.classList.toggle('active', active);
@@ -181,6 +191,33 @@
     registerTab.setAttribute('aria-selected', String(registering));
     loginTab.setAttribute('aria-selected', String(!registering));
     setAuthMessage('', '');
+  }
+
+  function showAuthForms(tab = 'login') {
+    authProfile.hidden = true;
+    authTabs.hidden = false;
+    authCardTitle.textContent = t('cardAuth');
+    setAuthTab(tab);
+  }
+
+  function showAuthProfile(username) {
+    accountUsername = String(username || accountUsername || t('profileFallback')).trim();
+    profileUsername.textContent = accountUsername;
+    profileAvatar.textContent = Array.from(accountUsername)[0]?.toUpperCase() || 'A';
+    authTabs.hidden = true;
+    registerPanel.hidden = true;
+    loginPanel.hidden = true;
+    authProfile.hidden = false;
+    authCardTitle.textContent = t('profileTitle');
+  }
+
+  function getSessionUsername(data, fallback = '') {
+    const candidates = [
+      data?.username, data?.login, data?.user?.username, data?.user?.login,
+      data?.account?.username, data?.account?.login, data?.profile?.username
+    ];
+    const match = candidates.find(value => typeof value === 'string' && value.trim());
+    return String(match || fallback || accountUsername || t('profileFallback')).trim();
   }
 
   registerTab.addEventListener('click', () => setAuthTab('register'));
@@ -283,11 +320,16 @@
     openButton.setAttribute('aria-disabled', String(openButton.disabled));
   }
 
-  function applySession(data) {
+  function applySession(data, fallbackUsername = '') {
     const token = data.session_token || data.access_token || data.token;
     if (!token) throw new Error('Missing session token');
     sessionToken = token;
-    try { localStorage.setItem('limupy_account_session', token); } catch (_) {}
+    accountUsername = getSessionUsername(data, fallbackUsername);
+    try {
+      localStorage.setItem('limupy_account_session', token);
+      localStorage.setItem('limupy_account_username', accountUsername);
+    } catch (_) {}
+    return accountUsername;
   }
 
   async function restoreSession() {
@@ -295,12 +337,14 @@
     try {
       const savedToken = sessionToken;
       const data = await apiAction('session', {}, savedToken);
-      applySession({...data, session_token:savedToken});
+      const username = applySession({...data, session_token:savedToken}, accountUsername);
+      showAuthProfile(username);
     } catch (error) {
       if (error && error.status === 401) {
         sessionToken = null;
-        try { localStorage.removeItem('limupy_account_session'); } catch (_) {}
-        setAuthTab('login');
+        accountUsername = '';
+        try { localStorage.removeItem('limupy_account_session'); localStorage.removeItem('limupy_account_username'); } catch (_) {}
+        showAuthForms('login');
         setAuthMessage(t('sessionExpired'), 'info');
       }
     }
@@ -321,9 +365,10 @@
     submit.disabled = true;
     submit.textContent = t('freeLoading');
     try {
-      const data = await apiAction('register', {username,password}, null);
-      applySession(data);
+      await apiAction('register', {username,password}, null);
       registerPanel.reset();
+      document.getElementById('loginIdentity').value = username;
+      setAuthTab('login');
       setAuthMessage(t('registerSuccess'), 'info');
     } catch (error) {
       setAuthMessage(apiErrorMessage(error, 'register'), 'error');
@@ -331,6 +376,19 @@
       submit.disabled = false;
       submit.textContent = previousLabel;
     }
+  });
+
+  logoutButton.addEventListener('click', () => {
+    sessionToken = null;
+    accountUsername = '';
+    try {
+      localStorage.removeItem('limupy_account_session');
+      localStorage.removeItem('limupy_account_username');
+    } catch (_) {}
+    registerPanel.reset();
+    loginPanel.reset();
+    showAuthForms('login');
+    setAuthMessage(t('logoutSuccess'), 'info');
   });
 
   loginPanel.addEventListener('submit', async event => {
@@ -344,8 +402,9 @@
     submit.textContent = t('freeLoading');
     try {
       const data = await apiAction('login', {username,password}, null);
-      applySession(data);
+      const profileName = applySession(data, username);
       loginPanel.reset();
+      showAuthProfile(profileName);
       setAuthMessage(t('loginSuccess'), 'info');
     } catch (error) {
       setAuthMessage(apiErrorMessage(error, 'login'), 'error');
