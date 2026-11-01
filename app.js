@@ -23,7 +23,7 @@
       authRequestFailed:'Не удалось выполнить запрос. Проверьте подключение к серверу.',
       registerSuccess:'Аккаунт создан. Теперь можно перейти ко входу.',
       loginSuccess:'Вход выполнен.',logoutSuccess:'Вы вышли из аккаунта на этом устройстве.',
-      profileTitle:'Профиль',profileLabel:'Ваш аккаунт',profileStatus:'Вы вошли в аккаунт',profileLogout:'Выйти',profileFallback:'Аккаунт',accountTitle:'Подписка Limu',
+      profileTitle:'Профиль',profileLabel:'Ваш аккаунт',profileStatus:'Вы вошли в аккаунт',profileRestore:'Восстановить подписку',restoreLoading:'Восстанавливаем подписку…',restoreSuccess:'Подписка восстановлена.',profileLogout:'Выйти',profileFallback:'Аккаунт',accountTitle:'Подписка Limu',
       statUsed:'Использовано',statLimit:'Лимит трафика',statExpires:'Действует до',
       unlimited:'без лимита',noExpiry:'без ограничения по сроку',
       copySuccess:'VPN-ссылка скопирована.',copyError:'Не удалось скопировать VPN-ссылку.',
@@ -52,7 +52,7 @@
       authRequestFailed:'The request failed. Check the server connection.',
       registerSuccess:'Account created. You can now sign in.',
       loginSuccess:'Signed in.',logoutSuccess:'You are signed out on this device.',
-      profileTitle:'Profile',profileLabel:'Your account',profileStatus:'Signed in',profileLogout:'Sign out',profileFallback:'Account',accountTitle:'Limu subscription',
+      profileTitle:'Profile',profileLabel:'Your account',profileStatus:'Signed in',profileRestore:'Restore subscription',restoreLoading:'Restoring subscription…',restoreSuccess:'Subscription restored.',profileLogout:'Sign out',profileFallback:'Account',accountTitle:'Limu subscription',
       statUsed:'Used',statLimit:'Traffic limit',statExpires:'Expires',
       unlimited:'unlimited',noExpiry:'no expiry limit',
       copySuccess:'VPN link copied.',copyError:'Could not copy the VPN link.',
@@ -92,6 +92,7 @@
   const profileAvatar = document.getElementById('profileAvatar');
   const profileUsername = document.getElementById('profileUsername');
   const logoutButton = document.getElementById('logoutButton');
+  const restoreButton = document.getElementById('restoreSubscriptionButton');
   const registerPanel = document.getElementById('registerPanel');
   const loginPanel = document.getElementById('loginPanel');
   const freeButton = document.getElementById('freeSubscriptionButton');
@@ -375,6 +376,25 @@
     } finally {
       submit.disabled = false;
       submit.textContent = previousLabel;
+    }
+  });
+
+  restoreButton.addEventListener('click', async () => {
+    if (restoreButton.disabled) return;
+    const label = restoreButton.querySelector('.auth-restore-label');
+    const previousLabel = label.textContent;
+    restoreButton.disabled = true;
+    label.textContent = t('restoreLoading');
+    try {
+      const data = await apiAction('free_subscription', {}, null);
+      renderAccountResult(data);
+      showToast(t('restoreSuccess'));
+      document.getElementById('mySubscription').scrollIntoView({behavior:'smooth',block:'center'});
+    } catch (error) {
+      showToast(apiErrorMessage(error, 'free_subscription'), 'error');
+    } finally {
+      restoreButton.disabled = false;
+      label.textContent = previousLabel;
     }
   });
 
