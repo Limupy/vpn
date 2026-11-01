@@ -398,12 +398,8 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .auth-profile-name { color:var(--text-color); font-size:16px; font-weight:750; overflow-wrap:anywhere; }
 .auth-profile-status { display:flex; align-items:center; gap:7px; color:var(--on-surface-variant); font-size:12px; }
 .auth-profile-status::before { content:""; width:7px; height:7px; flex:0 0 7px; border-radius:50%; background:#55a878; box-shadow:0 0 0 3px color-mix(in srgb,#55a878 16%,transparent); }
-.auth-profile-actions { display:flex; align-items:center; flex-wrap:wrap; gap:9px; }
-.auth-profile-actions .btn { min-height:39px; padding:0 16px; }
+.auth-profile-actions { display:flex; align-items:center; }
 .auth-logout { min-height:39px; padding:0 16px; }
-.auth-restore { gap:8px; width:max-content; min-height:40px; padding:0 16px; }
-.subscription-empty { color:var(--on-surface-variant); font-size:13px; line-height:1.65; }
-.subscription-empty[hidden] { display:none!important; }
 .account-result { display:flex; flex-direction:column; gap:9px; padding:0; border:0; }
 .account-result[hidden] { display:none; }
 .account-result-title { font-size:16px; font-weight:750; }
