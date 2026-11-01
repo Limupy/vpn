@@ -23,7 +23,7 @@
       authRequestFailed:'Не удалось выполнить запрос. Проверьте подключение к серверу.',
       registerSuccess:'Аккаунт создан. Теперь можно перейти ко входу.',
       loginSuccess:'Вход выполнен.',logoutSuccess:'Вы вышли из аккаунта на этом устройстве.',
-      profileTitle:'Профиль',profileLabel:'Ваш аккаунт',profileStatus:'Вы вошли в аккаунт',profileRestore:'Восстановить подписку',noSubscriptions:'У вас нет подписок',profileLogout:'Выйти',profileFallback:'Аккаунт',accountTitle:'Подписка Limu',
+      profileTitle:'Профиль',profileLabel:'Ваш аккаунт',profileStatus:'Вы вошли в аккаунт',profileLogout:'Выйти',profileFallback:'Аккаунт',accountTitle:'Подписка Limu',
       statUsed:'Использовано',statLimit:'Лимит трафика',statExpires:'Действует до',
       unlimited:'без лимита',noExpiry:'без ограничения по сроку',
       copySuccess:'VPN-ссылка скопирована.',copyError:'Не удалось скопировать VPN-ссылку.',
@@ -52,7 +52,7 @@
       authRequestFailed:'The request failed. Check the server connection.',
       registerSuccess:'Account created. You can now sign in.',
       loginSuccess:'Signed in.',logoutSuccess:'You are signed out on this device.',
-      profileTitle:'Profile',profileLabel:'Your account',profileStatus:'Signed in',profileRestore:'Restore subscription',noSubscriptions:'You have no subscriptions',profileLogout:'Sign out',profileFallback:'Account',accountTitle:'Limu subscription',
+      profileTitle:'Profile',profileLabel:'Your account',profileStatus:'Signed in',profileLogout:'Sign out',profileFallback:'Account',accountTitle:'Limu subscription',
       statUsed:'Used',statLimit:'Traffic limit',statExpires:'Expires',
       unlimited:'unlimited',noExpiry:'no expiry limit',
       copySuccess:'VPN link copied.',copyError:'Could not copy the VPN link.',
@@ -313,7 +313,6 @@
       value.classList.remove('empty-value');
     });
 
-    document.getElementById('subscriptionEmpty').hidden = true;
     document.getElementById('accountResult').hidden = false;
     copyButton.disabled = !data.proxy_url;
     openButton.disabled = !data.happ_url;
