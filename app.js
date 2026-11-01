@@ -487,5 +487,3 @@
     if (event.key === 'Escape') setAuthTab('login');
   });
 })();
-
-[executed on device: DESKTOP-N2M7G4Q (d4ed78c9-5440-4f7c-8e4a-730243cc8355)]
