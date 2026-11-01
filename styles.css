@@ -389,6 +389,17 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .auth-input::placeholder { color:var(--on-surface-variant); opacity:.65; }
 .auth-input:focus { border-color:var(--blue-color); box-shadow:0 0 0 2px color-mix(in srgb,var(--blue-color) 25%,transparent); }
 .auth-submit { align-self:flex-start; min-width:175px; }
+.auth-tabs[hidden],.auth-profile[hidden] { display:none!important; }
+.auth-profile { display:flex; flex-direction:column; gap:16px; padding:5px 0 0; }
+.auth-profile-main { display:flex; align-items:center; gap:13px; min-width:0; }
+.auth-avatar { width:46px; height:46px; flex:0 0 46px; display:grid; place-items:center; border-radius:14px; background:var(--blue-color); color:var(--crust-color); font-size:19px; font-weight:800; text-transform:uppercase; }
+.auth-profile-meta { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.auth-profile-label { color:var(--on-surface-variant); font-size:10px; font-weight:750; letter-spacing:.65px; text-transform:uppercase; }
+.auth-profile-name { color:var(--text-color); font-size:16px; font-weight:750; overflow-wrap:anywhere; }
+.auth-profile-status { display:flex; align-items:center; gap:7px; color:var(--on-surface-variant); font-size:12px; }
+.auth-profile-status::before { content:""; width:7px; height:7px; flex:0 0 7px; border-radius:50%; background:#55a878; box-shadow:0 0 0 3px color-mix(in srgb,#55a878 16%,transparent); }
+.auth-profile-actions { display:flex; align-items:center; }
+.auth-logout { min-height:39px; padding:0 16px; }
 .account-result { display:flex; flex-direction:column; gap:9px; padding:0; border:0; }
 .account-result[hidden] { display:none; }
 .account-result-title { font-size:16px; font-weight:750; }
