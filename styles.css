@@ -125,7 +125,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   white-space:nowrap;
   flex-shrink:0;
 }
-.brand-mark { width:58px; height:40px; display:grid; place-items:center; color:#c9b8ff; }
+.brand-mark { width:58px; height:40px; display:grid; place-items:center; color:#f2eff8; }
 .brand-mark .icon { width:58px; height:40px; stroke-width:1; }
 .brand.header__title:hover {
   cursor:pointer;
