@@ -7,9 +7,9 @@
       statusLabel:'ВАЖНО',statusTitle:'VPN временно недоступен',
       statusDescription:'Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.',
       freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',
-      freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.',
+      freeDescription:'Одна общая бесплатная подписка для всех пользователей, без привязки к аккаунту, IP или устройству.',
       freeAction:'Получить подписку',
-      freeLoading:'Создаём подписку…',freeRequiresLogin:'Войди или зарегистрируй аккаунт, чтобы использовать одну подписку в разных браузерах.',sessionExpired:'Сессия завершилась. Войди снова.',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
+      freeLoading:'Получаем общую подписку…',freeRequiresLogin:'Войди или зарегистрируй аккаунт, чтобы использовать одну подписку в разных браузерах.',sessionExpired:'Сессия завершилась. Войди снова.',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
       cardAuth:'Вход / Регистрация',cardTemplate:'Моя подписка',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
       passwordLabel:'Пароль',passwordPlaceholder:'Не менее 8 символов',loginPasswordPlaceholder:'Твой пароль',
@@ -34,9 +34,9 @@
       statusLabel:'IMPORTANT',statusTitle:'VPN temporarily unavailable',
       statusDescription:'Due to new network restrictions in Russia, VPN access is temporarily unavailable. We are working to restore access.',
       freeLabel:'FREE VPN',freeTitle:'Free subscription',
-      freeDescription:'Get a free test subscription with unlimited traffic. No sign-in or registration required.',
+      freeDescription:'One shared free subscription for everyone, with no account, IP, device, or browser binding.',
       freeAction:'Get subscription',
-      freeLoading:'Creating subscription…',freeRequiresLogin:'Sign in or register to use the same subscription in multiple browsers.',sessionExpired:'Your session has expired. Sign in again.',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
+      freeLoading:'Getting shared subscription…',freeRequiresLogin:'Sign in or register to use the same subscription in multiple browsers.',sessionExpired:'Your session has expired. Sign in again.',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
       cardAuth:'Sign in / Register',cardTemplate:'My subscription',registerTab:'Register',loginTab:'Sign in',
       usernameLabel:'Username',usernamePlaceholder:'Choose a username',loginUsernamePlaceholder:'Your username',
@@ -208,7 +208,7 @@
         cache:'no-store',
         credentials:'omit',
         headers,
-        body:JSON.stringify({action,device_id:deviceId,...(payload || {})}),
+        body:JSON.stringify({action,...(action === 'free_subscription' ? {} : {device_id:deviceId}),...(payload || {})}),
         signal:controller.signal
       });
       let data = {};
@@ -362,30 +362,15 @@
   });
 
   freeButton.addEventListener('click', async () => {
-    await sessionRestorePromise;
-    if (!sessionToken) {
-      setAuthTab('login');
-      setAuthMessage(t('freeRequiresLogin'), 'info');
-      document.querySelector('.auth-card')?.scrollIntoView({behavior:'smooth',block:'center'});
-      return;
-    }
     const previousLabel = freeButton.textContent;
     freeButton.disabled = true;
     freeButton.textContent = t('freeLoading');
     try {
-      const data = await apiAction('free_subscription', {}, sessionToken);
-      applySession({...data,session_token:data.session_token || sessionToken});
+      const data = await apiAction('free_subscription', {}, null);
+      renderAccountResult(data);
       document.getElementById('mySubscription').scrollIntoView({behavior:'smooth',block:'center'});
     } catch (error) {
-      if (error && error.status === 401) {
-        sessionToken = null;
-        try { localStorage.removeItem('limupy_account_session'); } catch (_) {}
-        setAuthTab('login');
-        setAuthMessage(t('sessionExpired'), 'info');
-        document.querySelector('.auth-card')?.scrollIntoView({behavior:'smooth',block:'center'});
-      } else {
-        showToast(apiErrorMessage(error, 'free_subscription'));
-      }
+      showToast(apiErrorMessage(error, 'free_subscription'));
     } finally {
       freeButton.disabled = false;
       freeButton.textContent = previousLabel;
@@ -502,3 +487,5 @@
     if (event.key === 'Escape') setAuthTab('login');
   });
 })();
+
+[executed on device: DESKTOP-N2M7G4Q (d4ed78c9-5440-4f7c-8e4a-730243cc8355)]
