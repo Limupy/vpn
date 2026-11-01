@@ -10,8 +10,8 @@
 <meta name="description" content="Virtual Private Network Limu — управление аккаунтом и тестовой VPN-подпиской.">
 <title>Virtual Private Network Limu</title>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=20261101-lemur-logo-4">
-<link rel="stylesheet" href="./styles.css?v=20261101-restore-subscription-1">
-<script src="./app.js?v=20261101-restore-subscription-1" defer></script>
+<link rel="stylesheet" href="./styles.css?v=20261101-subscription-profile-2">
+<script src="./app.js?v=20261101-subscription-profile-2" defer></script>
 </head>
 <body>
 <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -126,7 +126,6 @@
               </div>
             </div>
             <div class="auth-profile-actions">
-              <button class="btn auth-restore" id="restoreSubscriptionButton" type="button"><svg class="icon sm" aria-hidden="true"><use href="#i-refresh"/></svg><span class="auth-restore-label" data-i18n="profileRestore">Восстановить подписку</span></button>
               <button class="btn outlined auth-logout" id="logoutButton" type="button" data-i18n="profileLogout">Выйти</button>
             </div>
           </section>
@@ -135,7 +134,9 @@
       <article class="md-card proxy-card template-card" id="mySubscription" data-reveal>
         <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-globe"/></svg><h3 data-i18n="cardTemplate">Моя подписка</h3></div>
         <div class="template-content">
-          <div class="account-result subscription-layout" id="accountResult">
+          <div class="subscription-empty" id="subscriptionEmpty" data-i18n="noSubscriptions">У вас нет подписок</div>
+          <button class="btn auth-restore" id="restoreSubscriptionButton" type="button" disabled aria-disabled="true" hidden><svg class="icon sm" aria-hidden="true"><use href="#i-refresh"/></svg><span data-i18n="profileRestore">Восстановить подписку</span></button>
+          <div class="account-result subscription-layout" id="accountResult" hidden>
             <div class="subscription-main">
               <div class="account-result-title" id="accountResultTitle" aria-hidden="true"></div>
               <div class="button-row">
