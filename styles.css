@@ -397,7 +397,9 @@ button,a { -webkit-tap-highlight-color:transparent; }
   border-radius:16px;
   background:color-mix(in srgb,var(--surface-high) 48%,var(--surface-color));
   box-shadow:none;
+  opacity:.68;
   cursor:default;
+  pointer-events:none;
   transition:none;
 }
 .subscription-stat-label {
