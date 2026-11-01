@@ -286,7 +286,6 @@
     if (!token) throw new Error('Missing session token');
     sessionToken = token;
     try { localStorage.setItem('limupy_account_session', token); } catch (_) {}
-    if (data.proxy_url) renderAccountResult(data);
   }
 
   async function restoreSession() {
