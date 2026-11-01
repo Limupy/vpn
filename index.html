@@ -10,8 +10,8 @@
 <meta name="description" content="Virtual Private Network Limu — управление аккаунтом и тестовой VPN-подпиской.">
 <title>Virtual Private Network Limu</title>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=20261101-lemur-logo-4">
-<link rel="stylesheet" href="./styles.css?v=20261101-auth-toast-2">
-<script src="./app.js?v=20261101-auth-toast-2" defer></script>
+<link rel="stylesheet" href="./styles.css?v=20261101-auth-profile-1">
+<script src="./app.js?v=20261101-auth-profile-1" defer></script>
 </head>
 <body>
 <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +95,7 @@
     </div>
     <div class="lower-cards">
       <article class="md-card proxy-card auth-card" id="account" data-reveal>
-        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-user"/></svg><h3 data-i18n="cardAuth">Вход / Регистрация</h3></div>
+        <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-user"/></svg><h3 id="authCardTitle" data-i18n="cardAuth">Вход / Регистрация</h3></div>
         <div class="auth-content">
           <div class="auth-tabs" role="tablist" aria-label="Авторизация">
             <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false" aria-controls="registerPanel" data-i18n="registerTab">Регистрация</button>
@@ -116,6 +116,19 @@
             </div>
             <button class="btn auth-submit" type="submit" data-i18n="signIn">Войти в аккаунт</button>
           </form>
+          <section class="auth-profile" id="authProfile" hidden>
+            <div class="auth-profile-main">
+              <div class="auth-avatar" id="profileAvatar" aria-hidden="true">A</div>
+              <div class="auth-profile-meta">
+                <span class="auth-profile-label" data-i18n="profileLabel">Ваш аккаунт</span>
+                <strong class="auth-profile-name" id="profileUsername">—</strong>
+                <span class="auth-profile-status"><span data-i18n="profileStatus">Вы вошли в аккаунт</span></span>
+              </div>
+            </div>
+            <div class="auth-profile-actions">
+              <button class="btn outlined auth-logout" id="logoutButton" type="button" data-i18n="profileLogout">Выйти</button>
+            </div>
+          </section>
         </div>
       </article>
       <article class="md-card proxy-card template-card" id="mySubscription" data-reveal>
