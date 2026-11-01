@@ -264,7 +264,8 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .notice { padding:14px 16px; border-radius:10px; background:var(--surface-high); }
 .notice.info { background:color-mix(in srgb,#2d7ff9 14%,var(--surface-high)); }
 .notice-title { margin-bottom:7px; font-size:15px; font-weight:750; }
-.notice.info.status-notice { background:var(--surface-high); border-left:4px solid #a83242; }
+.notice.info.status-notice { position:relative; padding:2px 0 2px 17px; border:0; border-radius:0; background:transparent; }
+.notice.info.status-notice::before { content:""; position:absolute; left:0; top:2px; bottom:2px; width:2px; background:#a83242; }
 .notice.info.status-notice .notice-title { color:#fff; }
 .notice p { margin:0; color:var(--on-surface-variant); font-size:13px; line-height:1.7; }
 .free-offer {
