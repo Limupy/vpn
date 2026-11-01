@@ -81,7 +81,6 @@
   let subscriptionData = null;
   let apiState = 'checking';
 
-  const authMessage = document.getElementById('authMessage');
   const registerTab = document.getElementById('registerTab');
   const loginTab = document.getElementById('loginTab');
   const registerPanel = document.getElementById('registerPanel');
@@ -167,8 +166,7 @@
   }
 
   function setAuthMessage(message, type) {
-    authMessage.textContent = message || '';
-    authMessage.className = message ? 'auth-message ' + (type || 'info') : 'auth-message';
+    if (message) showToast(message, type || 'info');
   }
 
   function setAuthTab(tab) {
