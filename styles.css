@@ -116,7 +116,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .brand {
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:6px;
   color:var(--text-color);
   text-decoration:none;
   transition:all .5s cubic-bezier(.25,1,.5,1);
