@@ -117,8 +117,8 @@ button,a { -webkit-tap-highlight-color:transparent; }
   white-space:nowrap;
   flex-shrink:0;
 }
-.brand-mark { width:52px; height:40px; display:grid; place-items:center; color:#c9b8ff; }
-.brand-mark .icon { width:52px; height:40px; stroke-width:2.6; }
+.brand-mark { width:58px; height:40px; display:grid; place-items:center; color:#c9b8ff; }
+.brand-mark .icon { width:58px; height:40px; stroke-width:1; }
 .brand.header__title:hover {
   cursor:pointer;
   filter:drop-shadow(0 10px 15px var(--surface-color)) brightness(1.1);
@@ -497,7 +497,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
   .header-row { min-height:56px; padding:8px 12px; gap:8px; }
   .brand-text { font-size:clamp(16px,4.2vw,18px); letter-spacing:-.25px; }
   .brand.header__title { gap:6px; }
-  .brand-mark,.brand-mark .icon { width:42px; height:32px; }
+  .brand-mark,.brand-mark .icon { width:48px; height:33px; }
   .header-actions { gap:5px; }
   .lang-switch { width:68px; height:34px; border-radius:9px; }
   .lang-btn { font-size:11px; }
@@ -536,7 +536,7 @@ button,a { -webkit-tap-highlight-color:transparent; }
 @media (max-width:380px) {
   .header-row { padding:8px 10px; }
   .brand-text { display:inline; font-size:15px; }
-  .brand-mark,.brand-mark .icon { width:38px; height:30px; }
+  .brand-mark,.brand-mark .icon { width:43px; height:29px; }
   .lang-switch { width:60px; height:32px; }
   .lang-btn { font-size:10px; }
   .icon-btn,.header-social .icon-btn { width:32px; min-width:32px; height:32px; }
