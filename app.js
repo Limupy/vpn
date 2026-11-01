@@ -8,7 +8,7 @@
       statusDescription:'Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.',
       freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',
       freeDescription:'Одна общая бесплатная подписка для всех пользователей, без привязки к аккаунту, IP или устройству.',
-      freeAction:'Получить подписку',
+      freeAction:'Получить подписку',freeSuccess:'Общая бесплатная подписка успешно выдана. Данные подключения скрыты в этой карточке.',
       freeLoading:'Получаем общую подписку…',freeRequiresLogin:'Войди или зарегистрируй аккаунт, чтобы использовать одну подписку в разных браузерах.',sessionExpired:'Сессия завершилась. Войди снова.',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
       cardAuth:'Вход / Регистрация',cardTemplate:'Моя подписка',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
@@ -35,7 +35,7 @@
       statusDescription:'Due to new network restrictions in Russia, VPN access is temporarily unavailable. We are working to restore access.',
       freeLabel:'FREE VPN',freeTitle:'Free subscription',
       freeDescription:'One shared free subscription for everyone, with no account, IP, device, or browser binding.',
-      freeAction:'Get subscription',
+      freeAction:'Get subscription',freeSuccess:'The shared free subscription is ready. Connection details remain hidden in this card.',
       freeLoading:'Getting shared subscription…',freeRequiresLogin:'Sign in or register to use the same subscription in multiple browsers.',sessionExpired:'Your session has expired. Sign in again.',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
       cardAuth:'Sign in / Register',cardTemplate:'My subscription',registerTab:'Register',loginTab:'Sign in',
@@ -87,6 +87,7 @@
   const registerPanel = document.getElementById('registerPanel');
   const loginPanel = document.getElementById('loginPanel');
   const freeButton = document.getElementById('freeSubscriptionButton');
+  const freeFeedback = document.getElementById('freeSubscriptionFeedback');
   const copyButton = document.getElementById('designCopyLink');
   const openButton = document.getElementById('designOpenHapp');
   const themeIcon = document.querySelector('#themeIcon use');
@@ -342,16 +343,25 @@
     }
   });
 
+  function setFreeFeedback(message, type) {
+    freeFeedback.textContent = message || '';
+    freeFeedback.className = message ? 'free-feedback ' + (type || 'info') : 'free-feedback';
+    freeFeedback.hidden = !message;
+  }
+
   freeButton.addEventListener('click', async () => {
+    if (freeButton.disabled) return;
     const previousLabel = freeButton.textContent;
+    setFreeFeedback('', '');
     freeButton.disabled = true;
     freeButton.textContent = t('freeLoading');
     try {
-      const data = await apiAction('free_subscription', {}, null);
-      renderAccountResult(data);
+      await apiAction('free_subscription', {}, null);
+      renderAccountResult();
+      setFreeFeedback(t('freeSuccess'), 'success');
       document.getElementById('mySubscription').scrollIntoView({behavior:'smooth',block:'center'});
     } catch (error) {
-      showToast(apiErrorMessage(error, 'free_subscription'));
+      setFreeFeedback(apiErrorMessage(error, 'free_subscription'), 'error');
     } finally {
       freeButton.disabled = false;
       freeButton.textContent = previousLabel;
