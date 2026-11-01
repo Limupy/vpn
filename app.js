@@ -4,9 +4,9 @@
   const translations = {
     ru: {
       heroSubtitle:'Ещё один VPN среди множества других решений для доступа к интернету.',
-      statusLabel:'ВАЖНО',statusTitle:'VPN временно недоступен',
+      statusLabel:'Важно',statusTitle:'VPN временно недоступен',
       statusDescription:'Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.',
-      freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',
+      freeLabel:'Бесплатная подписка',
       freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.',
       freeAction:'Получить подписку',
       freeLoading:'Получаем подписку…',freeRequiresLogin:'Войди или зарегистрируй аккаунт, чтобы использовать одну подписку в разных браузерах.',sessionExpired:'Сессия завершилась. Войди снова.',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
@@ -31,9 +31,9 @@
     },
     en: {
       heroSubtitle:'Another VPN among countless other solutions for accessing the internet.',
-      statusLabel:'IMPORTANT',statusTitle:'VPN temporarily unavailable',
+      statusLabel:'Important',statusTitle:'VPN temporarily unavailable',
       statusDescription:'Due to new network restrictions in Russia, VPN access is temporarily unavailable. We are working to restore access.',
-      freeLabel:'FREE VPN',freeTitle:'Free subscription',
+      freeLabel:'Free subscription',
       freeDescription:'Get a free test subscription with unlimited traffic. No sign-in or registration required.',
       freeAction:'Get subscription',
       freeLoading:'Getting subscription…',freeRequiresLogin:'Sign in or register to use the same subscription in multiple browsers.',sessionExpired:'Your session has expired. Sign in again.',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
@@ -96,6 +96,7 @@
   function setLanguage(nextLanguage) {
     language = nextLanguage === 'en' ? 'en' : 'ru';
     root.lang = language;
+    document.querySelector('.lang-switch')?.setAttribute('data-language', language);
     document.querySelectorAll('[data-i18n]').forEach(element => {
       element.textContent = t(element.dataset.i18n);
     });
