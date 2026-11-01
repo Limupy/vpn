@@ -8,7 +8,7 @@
       statusDescription:'Ввиду новых сетевых ограничений в РФ подключение к VPN временно не работает. Мы работаем над восстановлением доступа.',
       freeLabel:'FREE VPN',freeTitle:'Бесплатная подписка',
       freeDescription:'Одна общая бесплатная подписка для всех пользователей, без привязки к аккаунту, IP или устройству.',
-      freeAction:'Получить подписку',freeSuccess:'Общая бесплатная подписка успешно выдана. Данные подключения скрыты в этой карточке.',
+      freeAction:'Получить подписку',
       freeLoading:'Получаем общую подписку…',freeRequiresLogin:'Войди или зарегистрируй аккаунт, чтобы использовать одну подписку в разных браузерах.',sessionExpired:'Сессия завершилась. Войди снова.',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
       cardAuth:'Вход / Регистрация',cardTemplate:'Моя подписка',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
@@ -35,7 +35,7 @@
       statusDescription:'Due to new network restrictions in Russia, VPN access is temporarily unavailable. We are working to restore access.',
       freeLabel:'FREE VPN',freeTitle:'Free subscription',
       freeDescription:'One shared free subscription for everyone, with no account, IP, device, or browser binding.',
-      freeAction:'Get subscription',freeSuccess:'The shared free subscription is ready. Connection details remain hidden in this card.',
+      freeAction:'Get subscription',
       freeLoading:'Getting shared subscription…',freeRequiresLogin:'Sign in or register to use the same subscription in multiple browsers.',sessionExpired:'Your session has expired. Sign in again.',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
       cardAuth:'Sign in / Register',cardTemplate:'My subscription',registerTab:'Register',loginTab:'Sign in',
@@ -87,7 +87,6 @@
   const registerPanel = document.getElementById('registerPanel');
   const loginPanel = document.getElementById('loginPanel');
   const freeButton = document.getElementById('freeSubscriptionButton');
-  const freeFeedback = document.getElementById('freeSubscriptionFeedback');
   const copyButton = document.getElementById('designCopyLink');
   const openButton = document.getElementById('designOpenHapp');
   const themeIcon = document.querySelector('#themeIcon use');
@@ -259,15 +258,27 @@
       : t('noExpiry');
   }
 
-  function renderAccountResult() {
-    subscriptionData = null;
-    document.getElementById('accountResult').hidden = false;
-    document.getElementById('accountResultTitle').textContent = '';
-    document.querySelectorAll('#accountResultText .subscription-stat-value').forEach(value => {
-      value.textContent = '—';
+  function renderAccountResult(data) {
+    subscriptionData = data;
+    const subscription = data.subscription || {};
+    const used = formatBytes(subscription.used_bytes);
+    const total = subscription.total_bytes == null || Number(subscription.total_bytes) <= 0 ? t('unlimited') : formatBytes(subscription.total_bytes);
+    const expires = formatExpiry(subscription.expire);
+    const title = document.getElementById('accountResultTitle');
+    title.textContent = String(data.email || data.subscription_name || '');
+    title.removeAttribute('aria-hidden');
+
+    const values = [used, total, expires];
+    document.querySelectorAll('#accountResultText .subscription-stat-value').forEach((value, index) => {
+      value.textContent = values[index] ?? '—';
+      value.classList.remove('empty-value');
     });
-    copyButton.disabled = true;
-    openButton.disabled = true;
+
+    document.getElementById('accountResult').hidden = false;
+    copyButton.disabled = !data.proxy_url;
+    openButton.disabled = !data.happ_url;
+    copyButton.setAttribute('aria-disabled', String(copyButton.disabled));
+    openButton.setAttribute('aria-disabled', String(openButton.disabled));
   }
 
   function applySession(data) {
@@ -343,25 +354,17 @@
     }
   });
 
-  function setFreeFeedback(message, type) {
-    freeFeedback.textContent = message || '';
-    freeFeedback.className = message ? 'free-feedback ' + (type || 'info') : 'free-feedback';
-    freeFeedback.hidden = !message;
-  }
-
   freeButton.addEventListener('click', async () => {
     if (freeButton.disabled) return;
     const previousLabel = freeButton.textContent;
-    setFreeFeedback('', '');
     freeButton.disabled = true;
     freeButton.textContent = t('freeLoading');
     try {
-      await apiAction('free_subscription', {}, null);
-      renderAccountResult();
-      setFreeFeedback(t('freeSuccess'), 'success');
+      const data = await apiAction('free_subscription', {}, null);
+      renderAccountResult(data);
       document.getElementById('mySubscription').scrollIntoView({behavior:'smooth',block:'center'});
     } catch (error) {
-      setFreeFeedback(apiErrorMessage(error, 'free_subscription'), 'error');
+      showToast(apiErrorMessage(error, 'free_subscription'));
     } finally {
       freeButton.disabled = false;
       freeButton.textContent = previousLabel;
