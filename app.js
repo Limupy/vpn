@@ -10,7 +10,7 @@
       freeDescription:'Получите бесплатную тестовую подписку без ограничения трафика. Вход и регистрация не требуются.',
       freeAction:'Получить подписку',
       freeLoading:'Получаем подписку…',freeRequiresLogin:'Войди или зарегистрируй аккаунт, чтобы использовать одну подписку в разных браузерах.',sessionExpired:'Сессия завершилась. Войди снова.',freeRateLimit:'Слишком много запросов. Подожди минуту и попробуй снова.',freeApiError:'Ошибка API подписки: {error}',freeBackendUnavailable:'Серверная выдача бесплатной подписки ещё не включена. Подписка не была создана.',
-      cardAuth:'Вход / Регистрация',cardTemplate:'Моя подписка',registerTab:'Регистрация',loginTab:'Войти',
+      cardAuth:'Вход / Регистрация',cardTemplate:'Моя подписка',recoveryCodeLabel:'Код восстановления подписки',recoveryCodePlaceholder:'Введите код восстановления',recoveryAction:'Восстановить подписку',registerTab:'Регистрация',loginTab:'Войти',
       usernameLabel:'Логин',usernamePlaceholder:'Придумай логин',loginUsernamePlaceholder:'Твой логин',
       passwordLabel:'Пароль',passwordPlaceholder:'Не менее 8 символов',loginPasswordPlaceholder:'Твой пароль',
       confirmLabel:'Повтори пароль',confirmPlaceholder:'Повтори пароль',
@@ -39,7 +39,7 @@
       freeAction:'Get subscription',
       freeLoading:'Getting subscription…',freeRequiresLogin:'Sign in or register to use the same subscription in multiple browsers.',sessionExpired:'Your session has expired. Sign in again.',freeRateLimit:'Too many requests. Wait one minute and try again.',freeApiError:'Subscription API error: {error}',
       freeBackendUnavailable:'Server-side free subscription issuance is not enabled yet. No subscription was created.',
-      cardAuth:'Sign in / Register',cardTemplate:'My subscription',registerTab:'Register',loginTab:'Sign in',
+      cardAuth:'Sign in / Register',cardTemplate:'My subscription',recoveryCodeLabel:'Subscription recovery code',recoveryCodePlaceholder:'Enter recovery code',recoveryAction:'Restore subscription',registerTab:'Register',loginTab:'Sign in',
       usernameLabel:'Username',usernamePlaceholder:'Choose a username',loginUsernamePlaceholder:'Your username',
       passwordLabel:'Password',passwordPlaceholder:'At least 8 characters',loginPasswordPlaceholder:'Your password',
       confirmLabel:'Confirm password',confirmPlaceholder:'Enter password again',
@@ -194,6 +194,7 @@
   }
 
   function showAuthForms(tab = 'login') {
+    document.getElementById('subscriptionRecovery').hidden = true;
     authProfile.hidden = true;
     authTabs.hidden = false;
     authCardTitle.textContent = t('cardAuth');
@@ -201,6 +202,7 @@
   }
 
   function showAuthProfile(username) {
+    document.getElementById('subscriptionRecovery').hidden = false;
     accountUsername = String(username || accountUsername || t('profileFallback')).trim();
     profileUsername.textContent = accountUsername;
     profileAvatar.textContent = Array.from(accountUsername)[0]?.toUpperCase() || 'A';
