@@ -491,6 +491,10 @@ button,a { -webkit-tap-highlight-color:transparent; }
   place-items:center;
   align-self:stretch;
   text-align:center;
+  font-size:clamp(36px,4vw,48px);
+  font-weight:600;
+  line-height:1;
+  letter-spacing:-2px;
 }
 .button-row { display:flex; flex-wrap:wrap; gap:9px; }
 .button-row .btn { min-height:40px; padding-inline:14px; font-size:12px; }
