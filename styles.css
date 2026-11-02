@@ -485,16 +485,13 @@ button,a { -webkit-tap-highlight-color:transparent; }
   line-height:1;
   letter-spacing:-2px;
 }
-#accountResultText .subscription-stat:first-child .subscription-stat-value {
+#accountResultText .subscription-stat:first-child .subscription-stat-value:not(.empty-value) {
   flex:1 1 auto;
   display:grid;
   place-items:center;
   align-self:stretch;
   text-align:center;
-  font-size:clamp(36px,4vw,48px);
-  font-weight:600;
-  line-height:1;
-  letter-spacing:-2px;
+  font-size:clamp(18px,1.8vw,22px);
 }
 .button-row { display:flex; flex-wrap:wrap; gap:9px; }
 .button-row .btn { min-height:40px; padding-inline:14px; font-size:12px; }
