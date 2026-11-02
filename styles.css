@@ -477,6 +477,13 @@ button,a { -webkit-tap-highlight-color:transparent; }
   line-height:1;
   letter-spacing:-2px;
 }
+#accountResultText .subscription-stat:first-child .subscription-stat-value {
+  flex:1 1 auto;
+  display:grid;
+  place-items:center;
+  align-self:stretch;
+  text-align:center;
+}
 .button-row { display:flex; flex-wrap:wrap; gap:9px; }
 .button-row .btn { min-height:40px; padding-inline:14px; font-size:12px; }
 .auth-note { margin:0; color:var(--on-surface-variant); font-size:11px; line-height:1.6; opacity:.72; }
