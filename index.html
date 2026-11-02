@@ -133,6 +133,11 @@
       </article>
       <article class="md-card proxy-card template-card" id="mySubscription" data-reveal>
         <div class="card-title-row"><svg class="icon primary-icon"><use href="#i-globe"/></svg><h3 data-i18n="cardTemplate">Моя подписка</h3></div>
+        <div class="subscription-recovery" id="subscriptionRecovery" hidden>
+          <label class="visually-hidden" for="subscriptionRecoveryCode" data-i18n="recoveryCodeLabel">Код восстановления подписки</label>
+          <input class="auth-input subscription-recovery-input" id="subscriptionRecoveryCode" type="text" autocomplete="off" spellcheck="false" placeholder="Введите код восстановления" data-i18n-placeholder="recoveryCodePlaceholder">
+          <button class="btn outlined subscription-recovery-button" id="subscriptionRecoveryButton" type="button" data-i18n="recoveryAction" disabled>Восстановить подписку</button>
+        </div>
         <div class="template-content">
           <div class="account-result subscription-layout" id="accountResult">
             <div class="subscription-main">
