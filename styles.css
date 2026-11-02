@@ -411,6 +411,14 @@ button,a { -webkit-tap-highlight-color:transparent; }
   opacity:.58;
 }
 .subscription-stat-value.empty-value { color:var(--on-surface-variant); opacity:.58; font-weight:650; }
+.subscription-stat-value.empty-value {
+  flex:1 1 auto;
+  display:grid;
+  place-items:center;
+  align-self:stretch;
+  width:100%;
+  text-align:center;
+}
 .account-result.subscription-layout {
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(250px,1fr);
