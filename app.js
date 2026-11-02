@@ -303,16 +303,23 @@
     subscriptionData = data;
     const subscription = data.subscription || {};
     const used = formatBytes(subscription.used_bytes);
-    const total = subscription.total_bytes == null || Number(subscription.total_bytes) <= 0 ? t('unlimited') : formatBytes(subscription.total_bytes);
+    const unlimitedTraffic = subscription.total_bytes == null || Number(subscription.total_bytes) <= 0;
+    const total = unlimitedTraffic ? t('unlimited') : formatBytes(subscription.total_bytes);
+    const unlimitedExpiry = !Number(subscription.expire);
     const expires = formatExpiry(subscription.expire);
     const title = document.getElementById('accountResultTitle');
     title.textContent = String(data.email || data.subscription_name || '');
     title.removeAttribute('aria-hidden');
 
     const values = [used, total, expires];
+    const infinityValues = [false, unlimitedTraffic, unlimitedExpiry];
     document.querySelectorAll('#accountResultText .subscription-stat-value').forEach((value, index) => {
-      value.textContent = values[index] ?? '—';
+      const showInfinity = Boolean(infinityValues[index]);
+      value.textContent = showInfinity ? '∞' : (values[index] ?? '—');
+      value.classList.toggle('infinity-value', showInfinity);
       value.classList.remove('empty-value');
+      if (showInfinity) value.setAttribute('aria-label', values[index]);
+      else value.removeAttribute('aria-label');
     });
 
     document.getElementById('accountResult').hidden = false;
