@@ -228,6 +228,7 @@ public final class ClientEvents {
                     if (server == null) {
                         DIRECTORY_CHECKED = true;
                         DIRECTORY_CONNECTED = false;
+                        DIRECTORY_CONFIRMED_OFFLINE = false;
                         LOGGER.warn(
                                 "[Limu Connect] Directory data is invalid; keeping the last known server address"
                         );
