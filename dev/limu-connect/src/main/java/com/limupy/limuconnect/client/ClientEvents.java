@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.limupy.limuconnect.LimuConnectMod;
 import com.mojang.logging.LogUtils;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -15,6 +16,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.multiplayer.ServerSelectionList;
@@ -40,6 +42,15 @@ public final class ClientEvents {
      * directory responds, the current address replaces it automatically.
      */
     private static final String FALLBACK_SERVER_ADDRESS = "d-op3qhdxcx76-1.steam";
+    private static volatile String CURRENT_SERVER_ADDRESS = FALLBACK_SERVER_ADDRESS;
+    private static volatile boolean DIRECTORY_CONNECTED = false;
+    private static volatile boolean DIRECTORY_CHECKED = false;
+
+    private static Field ROW_STATUS_ICON;
+    private static Field ROW_STATUS_TOOLTIP;
+    private static Object ONLINE_ICON;
+    private static Object OFFLINE_ICON;
+    private static boolean ROW_FIELDS_LOOKED_UP = false;
     private static final URI STATUS_URI = URI.create(
             "https://limupy.github.io/vpn/limu/connect.json"
     );
@@ -60,6 +71,92 @@ public final class ClientEvents {
             Collections.newSetFromMap(new WeakHashMap<>());
 
     private ClientEvents() {}
+
+    /*
+     * e4steam uses a P2P join transport, not the vanilla Java Status Ping
+     * protocol. The latter can fail while e4steam still accepts logins.
+     * Update the visible row from the public directory before it is rendered.
+     * The server's actual address and normal Join action are left untouched.
+     */
+    @SubscribeEvent
+    public static void onScreenRender(ScreenEvent.Render.Pre event) {
+        if (!(event.getScreen() instanceof JoinMultiplayerScreen screen)) {
+            return;
+        }
+
+        for (GuiEventListener child : screen.children()) {
+            if (!(child instanceof ServerSelectionList list)) {
+                continue;
+            }
+
+            for (ServerSelectionList.Entry row : list.children()) {
+                if (!(row instanceof ServerSelectionList.OnlineServerEntry onlineRow)) {
+                    continue;
+                }
+
+                ServerData server = onlineRow.getServerData();
+                if (!SERVER_NAME.equals(server.name)) {
+                    continue;
+                }
+
+                decorateLimuServer(server);
+                setRowStatusIcon(onlineRow, DIRECTORY_CONNECTED);
+            }
+        }
+    }
+
+    private static void decorateLimuServer(ServerData server) {
+        server.motd = Component.literal("Адрес e4steam: " + CURRENT_SERVER_ADDRESS);
+        server.version = Component.literal("Limu Connect · e4steam P2P");
+        server.status = Component.literal(
+                DIRECTORY_CONNECTED ? "e4steam подключён" :
+                        (DIRECTORY_CHECKED ? "Статус e4steam неизвестен" : "Проверка e4steam…")
+        );
+
+        if (DIRECTORY_CONNECTED) {
+            // Display-only ping: a vanilla status ping is not a valid health
+            // check for an e4steam P2P endpoint.
+            server.ping = 35L;
+            server.setState(ServerData.State.SUCCESSFUL);
+        } else {
+            server.ping = -1L;
+            server.setState(ServerData.State.UNREACHABLE);
+        }
+    }
+
+    private static void setRowStatusIcon(
+            ServerSelectionList.OnlineServerEntry row,
+            boolean connected
+    ) {
+        try {
+            if (!ROW_FIELDS_LOOKED_UP) {
+                ROW_STATUS_ICON = row.getClass().getDeclaredField("statusIcon");
+                ROW_STATUS_TOOLTIP = row.getClass().getDeclaredField("statusIconTooltip");
+                ROW_STATUS_ICON.setAccessible(true);
+                ROW_STATUS_TOOLTIP.setAccessible(true);
+
+                Field online = ServerSelectionList.class.getDeclaredField("PING_5_SPRITE");
+                Field offline = ServerSelectionList.class.getDeclaredField("UNREACHABLE_SPRITE");
+                online.setAccessible(true);
+                offline.setAccessible(true);
+                ONLINE_ICON = online.get(null);
+                OFFLINE_ICON = offline.get(null);
+                ROW_FIELDS_LOOKED_UP = true;
+            }
+
+            ROW_STATUS_ICON.set(row, connected ? ONLINE_ICON : OFFLINE_ICON);
+            ROW_STATUS_TOOLTIP.set(
+                    row,
+                    Component.literal(
+                            connected
+                                    ? "Доступность подтверждена каталогом e4steam"
+                                    : "Каталог e4steam не подтвердил подключение"
+                    )
+            );
+        } catch (ReflectiveOperationException | RuntimeException error) {
+            LOGGER.debug("[Limu Connect] Could not update vanilla row status icon", error);
+        }
+    }
 
     @SubscribeEvent
     public static void onScreenInit(ScreenEvent.Init.Post event) {
@@ -102,6 +199,8 @@ public final class ClientEvents {
                 })
                 .whenComplete((server, error) -> minecraft.execute(() -> {
                     if (error != null) {
+                        DIRECTORY_CHECKED = true;
+                        DIRECTORY_CONNECTED = false;
                         LOGGER.warn(
                                 "[Limu Connect] Directory refresh failed; keeping the last known server address",
                                 error
@@ -109,13 +208,21 @@ public final class ClientEvents {
                         return;
                     }
                     if (server == null) {
+                        DIRECTORY_CHECKED = true;
+                        DIRECTORY_CONNECTED = false;
                         LOGGER.warn(
-                                "[Limu Connect] Directory has no fresh connected address; keeping the last known server address"
+                                "[Limu Connect] Directory data is invalid; keeping the last known server address"
                         );
                         return;
                     }
 
-                    setLimuAddress(servers, server.address());
+                    DIRECTORY_CHECKED = true;
+                    DIRECTORY_CONNECTED = server.connected();
+                    if (server.fresh()) {
+                        CURRENT_SERVER_ADDRESS = server.address();
+                    }
+
+                    setLimuAddress(servers, CURRENT_SERVER_ADDRESS);
                     servers.save();
 
                     if (minecraft.screen == screen) {
@@ -123,7 +230,7 @@ public final class ClientEvents {
                     }
                     LOGGER.info(
                             "[Limu Connect] Server entry updated: {}",
-                            server.address()
+                            CURRENT_SERVER_ADDRESS
                     );
                 }));
     }
@@ -210,21 +317,22 @@ public final class ClientEvents {
                     getString(object, "updated_at", "")
             );
 
-            boolean connected = ("online".equalsIgnoreCase(state)
-                    || "connected".equalsIgnoreCase(state))
-                    && getBoolean(object, "connected", true);
-            if (!connected || !E4STEAM_ADDRESS.matcher(address).matches()) {
+            if (!E4STEAM_ADDRESS.matcher(address).matches()) {
                 return null;
             }
 
             Instant updated = Instant.parse(timestamp);
             long ageSeconds = Duration.between(updated, Instant.now()).toSeconds();
-            // Tolerate modest clock skew, but never replace a good entry with stale data.
-            if (ageSeconds < -600 || ageSeconds > 900) {
-                return null;
-            }
+            boolean fresh = ageSeconds >= -600 && ageSeconds <= 900;
+            boolean serverRunning = getBoolean(object, "server_running", true);
+            boolean transportConnected = getBoolean(object, "connected", false);
+            boolean connected = fresh
+                    && serverRunning
+                    && transportConnected
+                    && ("online".equalsIgnoreCase(state)
+                        || "connected".equalsIgnoreCase(state));
 
-            return new ServerEndpoint(address);
+            return new ServerEndpoint(address, connected, fresh);
         } catch (Exception ignored) {
             return null;
         }
@@ -258,5 +366,5 @@ public final class ClientEvents {
         }
     }
 
-    private record ServerEndpoint(String address) {}
+    private record ServerEndpoint(String address, boolean connected, boolean fresh) {}
 }
