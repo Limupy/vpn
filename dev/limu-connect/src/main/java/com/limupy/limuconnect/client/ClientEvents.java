@@ -45,11 +45,13 @@ public final class ClientEvents {
     private static volatile String CURRENT_SERVER_ADDRESS = FALLBACK_SERVER_ADDRESS;
     private static volatile boolean DIRECTORY_CONNECTED = false;
     private static volatile boolean DIRECTORY_CHECKED = false;
+    private static volatile boolean DIRECTORY_CONFIRMED_OFFLINE = false;
 
     private static Field ROW_STATUS_ICON;
     private static Field ROW_STATUS_TOOLTIP;
     private static Object ONLINE_ICON;
     private static Object OFFLINE_ICON;
+    private static Object UNKNOWN_ICON;
     private static boolean ROW_FIELDS_LOOKED_UP = false;
     private static final URI STATUS_URI = URI.create(
             "https://limupy.github.io/vpn/limu/connect.json"
@@ -100,7 +102,7 @@ public final class ClientEvents {
                 }
 
                 decorateLimuServer(server);
-                setRowStatusIcon(onlineRow, DIRECTORY_CONNECTED);
+                setRowStatusIcon(onlineRow, DIRECTORY_CONNECTED, DIRECTORY_CONFIRMED_OFFLINE);
             }
         }
     }
@@ -109,8 +111,9 @@ public final class ClientEvents {
         server.motd = Component.literal("Адрес e4steam: " + CURRENT_SERVER_ADDRESS);
         server.version = Component.literal("Limu Connect · e4steam P2P");
         server.status = Component.literal(
-                DIRECTORY_CONNECTED ? "e4steam подключён" :
-                        (DIRECTORY_CHECKED ? "Статус e4steam неизвестен" : "Проверка e4steam…")
+                DIRECTORY_CONNECTED ? "e4steam подтвердил подключение" :
+                        (DIRECTORY_CONFIRMED_OFFLINE ? "e4steam сейчас отключён" :
+                                (DIRECTORY_CHECKED ? "Статус сервера не проверен" : "Проверка e4steam…"))
         );
 
         if (DIRECTORY_CONNECTED) {
@@ -118,15 +121,22 @@ public final class ClientEvents {
             // check for an e4steam P2P endpoint.
             server.ping = 35L;
             server.setState(ServerData.State.SUCCESSFUL);
-        } else {
+        } else if (DIRECTORY_CONFIRMED_OFFLINE) {
             server.ping = -1L;
             server.setState(ServerData.State.UNREACHABLE);
+        } else {
+            // Neutral/pinging state is intentional when the directory is
+            // stale or unreachable: vanilla's failed status ping is not proof
+            // that the e4steam join transport is offline.
+            server.ping = -2L;
+            server.setState(ServerData.State.PINGING);
         }
     }
 
     private static void setRowStatusIcon(
             ServerSelectionList.OnlineServerEntry row,
-            boolean connected
+            boolean connected,
+            boolean confirmedOffline
     ) {
         try {
             if (!ROW_FIELDS_LOOKED_UP) {
@@ -137,20 +147,27 @@ public final class ClientEvents {
 
                 Field online = ServerSelectionList.class.getDeclaredField("PING_5_SPRITE");
                 Field offline = ServerSelectionList.class.getDeclaredField("UNREACHABLE_SPRITE");
+                Field unknown = ServerSelectionList.class.getDeclaredField("PINGING_1_SPRITE");
                 online.setAccessible(true);
                 offline.setAccessible(true);
+                unknown.setAccessible(true);
                 ONLINE_ICON = online.get(null);
                 OFFLINE_ICON = offline.get(null);
+                UNKNOWN_ICON = unknown.get(null);
                 ROW_FIELDS_LOOKED_UP = true;
             }
 
-            ROW_STATUS_ICON.set(row, connected ? ONLINE_ICON : OFFLINE_ICON);
+            Object icon = connected ? ONLINE_ICON :
+                    (confirmedOffline ? OFFLINE_ICON : UNKNOWN_ICON);
+            ROW_STATUS_ICON.set(row, icon);
             ROW_STATUS_TOOLTIP.set(
                     row,
                     Component.literal(
                             connected
                                     ? "Доступность подтверждена каталогом e4steam"
-                                    : "Каталог e4steam не подтвердил подключение"
+                                    : (confirmedOffline
+                                            ? "Каталог e4steam подтвердил, что транспорт отключён"
+                                            : "Статус не подтверждён; стандартный Minecraft ping для e4steam неприменим")
                     )
             );
         } catch (ReflectiveOperationException | RuntimeException error) {
@@ -184,7 +201,7 @@ public final class ClientEvents {
                 .timeout(Duration.ofSeconds(8))
                 .header("Accept", "application/json")
                 .header("Cache-Control", "no-cache")
-                .header("User-Agent", "LimuConnect/1.1.1 Minecraft/1.21.1")
+                .header("User-Agent", "LimuConnect/1.1.3 Minecraft/1.21.1")
                 .GET()
                 .build();
 
@@ -201,6 +218,7 @@ public final class ClientEvents {
                     if (error != null) {
                         DIRECTORY_CHECKED = true;
                         DIRECTORY_CONNECTED = false;
+                        DIRECTORY_CONFIRMED_OFFLINE = false;
                         LOGGER.warn(
                                 "[Limu Connect] Directory refresh failed; keeping the last known server address",
                                 error
@@ -218,6 +236,7 @@ public final class ClientEvents {
 
                     DIRECTORY_CHECKED = true;
                     DIRECTORY_CONNECTED = server.connected();
+                    DIRECTORY_CONFIRMED_OFFLINE = server.fresh() && !server.connected();
                     if (server.fresh()) {
                         CURRENT_SERVER_ADDRESS = server.address();
                     }
