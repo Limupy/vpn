@@ -262,7 +262,10 @@ public final class ClientEvents {
                     DIRECTORY_CHECKED = true;
                     DIRECTORY_CONNECTED = server.connected();
                     DIRECTORY_CONFIRMED_OFFLINE = server.fresh() && !server.connected();
-                    if (server.fresh()) CURRENT_SERVER_ADDRESS = server.address();
+                    // Address validity and heartbeat freshness are independent.
+                    // Keep the join address synchronized even when the status timestamp
+                    // is stale; freshness only controls the online/offline indicator.
+                    CURRENT_SERVER_ADDRESS = server.address();
                     setLimuAddress(servers, CURRENT_SERVER_ADDRESS);
                     servers.save();
                     if (minecraft.screen == screen) refreshVisibleList(screen, servers);
