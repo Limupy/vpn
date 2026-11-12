@@ -36,8 +36,8 @@ public final class LimuConnectScreen extends Screen {
     private String detailText = "Получаю актуальный адрес подключения";
     private String serverAddress;
     private String updatedText = "—";
-    private int playersOnline;
-    private int playersMax = 20;
+    private int playersOnline = -1;
+    private int playersMax = -1;
     private boolean loading;
     private Button connectButton;
 
@@ -130,7 +130,7 @@ public final class LimuConnectScreen extends Screen {
         try {
             Instant updated = Instant.parse(timestamp);
             long ageSeconds = Duration.between(updated, Instant.now()).toSeconds();
-            fresh = ageSeconds >= -60 && ageSeconds <= 900;
+            fresh = ageSeconds >= -600 && ageSeconds <= 900;
         } catch (Exception ignored) {
             // An invalid timestamp is treated as stale.
         }
@@ -140,8 +140,8 @@ public final class LimuConnectScreen extends Screen {
                 && getBoolean(object, "connected", true)
                 && fresh && validAddress;
 
-        int online = getInt(object, "players_online", 0);
-        int max = getInt(object, "players_max", 20);
+        int online = getInt(object, "players_online", -1);
+        int max = getInt(object, "players_max", -1);
 
         return new StatusResult(
                 connected ? address : null,
@@ -217,7 +217,9 @@ public final class LimuConnectScreen extends Screen {
         );
         graphics.drawCenteredString(
                 this.font,
-                "Игроки: " + playersOnline + " / " + playersMax,
+                playersOnline >= 0 && playersMax > 0
+                        ? "Игроки: " + playersOnline + " / " + playersMax
+                        : "Игроки: нет данных",
                 center,
                 this.height / 2 + 4,
                 0xC8C8C8
