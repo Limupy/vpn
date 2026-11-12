@@ -11,11 +11,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Base64;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
@@ -35,7 +38,11 @@ import org.slf4j.Logger;
 )
 public final class ClientEvents {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final String SERVER_NAME = "Limu Minecraft";
+    private static final String SERVER_NAME = "LimuServer";
+    private static final String LEGACY_SERVER_NAME = "Limu Minecraft";
+    private static final byte[] LIMU_ICON = Base64.getDecoder().decode(
+            "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAeElEQVR42u3aoREAIAwEQWQqSP9NRsPQAQy4rLiXEaszMnN2buyJiJYBAAAAAAAAAAAAAADg7VBVHQcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADoA/A4AAAAAAAAAAAAAAJ+iAAAAAAAAAAAA9wCdW3hJ4lrWB7gTAAAAAElFTkSuQmCC"
+    );
 
     /*
      * Last verified address is only a bootstrap fallback. Once the public
@@ -108,6 +115,8 @@ public final class ClientEvents {
     }
 
     private static void decorateLimuServer(ServerData server) {
+        server.name = SERVER_NAME;
+        server.setIconBytes(LIMU_ICON.clone());
         server.motd = Component.literal("Адрес e4steam: " + CURRENT_SERVER_ADDRESS);
         server.version = Component.literal("Limu Connect · e4steam P2P");
         server.status = Component.literal(
@@ -197,61 +206,67 @@ public final class ClientEvents {
         servers.save();
         refreshVisibleList(screen, servers);
 
+        requestDirectoryRefresh(screen);
+    }
+
+    @SubscribeEvent
+    public static void onRefreshButtonPressed(ScreenEvent.MouseButtonPressed.Pre event) {
+        if (event.getButton() != 0 || !(event.getScreen() instanceof JoinMultiplayerScreen screen)) return;
+        double mouseX = event.getMouseX();
+        double mouseY = event.getMouseY();
+        for (GuiEventListener child : screen.children()) {
+            if (!(child instanceof AbstractButton button)) continue;
+            if (mouseX < button.getX() || mouseX >= button.getX() + button.getWidth()
+                    || mouseY < button.getY() || mouseY >= button.getY() + button.getHeight()) continue;
+            String label = button.getMessage().getString().toLowerCase(Locale.ROOT);
+            if (label.equals("refresh") || label.equals("обновить") || label.equals("aktualisieren")
+                    || label.equals("actualizar") || label.equals("rafraîchir")) {
+                requestDirectoryRefresh(screen);
+                return;
+            }
+        }
+    }
+
+    private static void requestDirectoryRefresh(JoinMultiplayerScreen screen) {
+        Minecraft minecraft = Minecraft.getInstance();
+        ServerList servers = screen.getServers();
+        ensureLimuEntry(servers);
+        servers.save();
+        refreshVisibleList(screen, servers);
+
         HttpRequest request = HttpRequest.newBuilder(STATUS_URI)
                 .timeout(Duration.ofSeconds(8))
                 .header("Accept", "application/json")
-                .header("Cache-Control", "no-cache")
-                .header("User-Agent", "LimuConnect/1.1.4 Minecraft/1.21.1")
+                .header("Cache-Control", "no-cache, no-store")
+                .header("Pragma", "no-cache")
+                .header("User-Agent", "LimuConnect/1.1.5 Minecraft/1.21.1")
                 .GET()
                 .build();
 
         HTTP.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     if (response.statusCode() != 200) {
-                        throw new IllegalStateException(
-                                "Limu directory HTTP " + response.statusCode()
-                        );
+                        throw new IllegalStateException("Limu directory HTTP " + response.statusCode());
                     }
                     return parseCurrentServer(response.body());
                 })
                 .whenComplete((server, error) -> minecraft.execute(() -> {
-                    if (error != null) {
+                    if (error != null || server == null) {
                         DIRECTORY_CHECKED = true;
                         DIRECTORY_CONNECTED = false;
                         DIRECTORY_CONFIRMED_OFFLINE = false;
-                        LOGGER.warn(
-                                "[Limu Connect] Directory refresh failed; keeping the last known server address",
-                                error
-                        );
+                        LOGGER.warn("[Limu Connect] Directory refresh failed; keeping last known address", error);
+                        if (minecraft.screen == screen) refreshVisibleList(screen, servers);
                         return;
                     }
-                    if (server == null) {
-                        DIRECTORY_CHECKED = true;
-                        DIRECTORY_CONNECTED = false;
-                        DIRECTORY_CONFIRMED_OFFLINE = false;
-                        LOGGER.warn(
-                                "[Limu Connect] Directory data is invalid; keeping the last known server address"
-                        );
-                        return;
-                    }
-
                     DIRECTORY_CHECKED = true;
                     DIRECTORY_CONNECTED = server.connected();
                     DIRECTORY_CONFIRMED_OFFLINE = server.fresh() && !server.connected();
-                    if (server.fresh()) {
-                        CURRENT_SERVER_ADDRESS = server.address();
-                    }
-
+                    if (server.fresh()) CURRENT_SERVER_ADDRESS = server.address();
                     setLimuAddress(servers, CURRENT_SERVER_ADDRESS);
                     servers.save();
-
-                    if (minecraft.screen == screen) {
-                        refreshVisibleList(screen, servers);
-                    }
-                    LOGGER.info(
-                            "[Limu Connect] Server entry updated: {}",
-                            CURRENT_SERVER_ADDRESS
-                    );
+                    if (minecraft.screen == screen) refreshVisibleList(screen, servers);
+                    LOGGER.info("[Limu Connect] Server entry refreshed: {}", CURRENT_SERVER_ADDRESS);
                 }));
     }
 
@@ -261,7 +276,7 @@ public final class ClientEvents {
         // Keep one existing entry, removing duplicates only.
         for (int i = servers.size() - 1; i >= 0; i--) {
             ServerData entry = servers.get(i);
-            if (!SERVER_NAME.equals(entry.name)) {
+            if (!isLimuEntry(entry)) {
                 continue;
             }
             if (retained == null) {
@@ -281,6 +296,8 @@ public final class ClientEvents {
             servers.add(retained, false);
         }
 
+        retained.name = SERVER_NAME;
+        retained.setIconBytes(LIMU_ICON.clone());
         moveToTop(servers, retained);
     }
 
@@ -291,6 +308,7 @@ public final class ClientEvents {
                 address,
                 ServerData.Type.OTHER
         );
+        entry.setIconBytes(LIMU_ICON.clone());
         servers.add(entry, false);
         moveToTop(servers, entry);
     }
@@ -306,9 +324,13 @@ public final class ClientEvents {
         }
     }
 
+    private static boolean isLimuEntry(ServerData server) {
+        return SERVER_NAME.equals(server.name) || LEGACY_SERVER_NAME.equals(server.name);
+    }
+
     private static void removeLimuEntries(ServerList servers) {
         for (int i = servers.size() - 1; i >= 0; i--) {
-            if (SERVER_NAME.equals(servers.get(i).name)) {
+            if (isLimuEntry(servers.get(i))) {
                 servers.remove(servers.get(i));
             }
         }
