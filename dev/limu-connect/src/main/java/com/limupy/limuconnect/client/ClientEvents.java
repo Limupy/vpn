@@ -239,7 +239,7 @@ public final class ClientEvents {
                 .header("Accept", "application/json")
                 .header("Cache-Control", "no-cache, no-store")
                 .header("Pragma", "no-cache")
-                .header("User-Agent", "LimuConnect/1.1.5 Minecraft/1.21.1")
+                .header("User-Agent", "LimuConnect/1.1.6 Minecraft/1.21.1")
                 .GET()
                 .build();
 
