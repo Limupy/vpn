@@ -78,7 +78,12 @@ public final class ClientEvents {
                 .build();
 
         HTTP.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(ClientEvents::parseCurrentServer)
+                .thenApply(response -> {
+                    if (response.statusCode() != 200) {
+                        throw new IllegalStateException("Limu directory HTTP " + response.statusCode());
+                    }
+                    return parseCurrentServer(response.body());
+                })
                 .whenComplete((server, error) -> minecraft.execute(() -> {
                     if (error != null || server == null) {
                         return;
