@@ -41,7 +41,7 @@ public final class ClientEvents {
      * Last verified address is only a bootstrap fallback. Once the public
      * directory responds, the current address replaces it automatically.
      */
-    private static final String FALLBACK_SERVER_ADDRESS = "d-op3qhdxcx76-1.steam";
+    private static final String FALLBACK_SERVER_ADDRESS = "d-op3qnbmifbm-1.steam";
     private static volatile String CURRENT_SERVER_ADDRESS = FALLBACK_SERVER_ADDRESS;
     private static volatile boolean DIRECTORY_CONNECTED = false;
     private static volatile boolean DIRECTORY_CHECKED = false;
@@ -54,7 +54,7 @@ public final class ClientEvents {
     private static Object UNKNOWN_ICON;
     private static boolean ROW_FIELDS_LOOKED_UP = false;
     private static final URI STATUS_URI = URI.create(
-            "https://limupy.github.io/vpn/limu/connect.json"
+            "https://raw.githubusercontent.com/Limupy/vpn/main/limu/connect.json"
     );
     private static final Pattern E4STEAM_ADDRESS = Pattern.compile(
             "^(?:d-[a-z0-9-]+|[a-z0-9-]+)\\.steam$",
@@ -201,7 +201,7 @@ public final class ClientEvents {
                 .timeout(Duration.ofSeconds(8))
                 .header("Accept", "application/json")
                 .header("Cache-Control", "no-cache")
-                .header("User-Agent", "LimuConnect/1.1.3 Minecraft/1.21.1")
+                .header("User-Agent", "LimuConnect/1.1.4 Minecraft/1.21.1")
                 .GET()
                 .build();
 
