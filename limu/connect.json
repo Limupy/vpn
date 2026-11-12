@@ -4,9 +4,9 @@
   "state": "connected",
   "connected": true,
   "server_running": true,
-  "address": "d-op3qhdxcx76-1.steam",
-  "generated_at": "2026-11-12T16:27:19Z",
-  "updated_at": "2026-11-12T16:27:19Z",
+  "address": "d-op3qnkjvsb6-1.steam",
+  "generated_at": "2026-11-12T20:37:58Z",
+  "updated_at": "2026-11-12T20:37:58Z",
   "minecraft_version": "1.21.1",
   "build": "main",
   "message": "e4steam P2P transport is accepting authenticated peers"
