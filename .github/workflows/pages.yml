@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "limu/connect.json"
 
   workflow_dispatch:
 
