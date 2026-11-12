@@ -123,8 +123,8 @@ public final class LimuConnectScreen extends Screen {
         JsonObject object = JsonParser.parseString(json).getAsJsonObject();
         String state = getString(object, "state", "offline");
         String address = getString(object, "address", "");
-        String timestamp = getString(object, "updated_at", "");
-        String message = getString(object, "message", "Сервер временно недоступен");
+        String timestamp = getString(object, "updated_at", getString(object, "generated_at", ""));
+        String message = getString(object, "message", getString(object, "reason", "Сервер временно недоступен"));
 
         boolean fresh = false;
         try {
@@ -136,7 +136,7 @@ public final class LimuConnectScreen extends Screen {
         }
 
         boolean validAddress = E4STEAM_ADDRESS.matcher(address).matches();
-        boolean connected = "online".equalsIgnoreCase(state) && fresh && validAddress;
+        boolean connected = ("online".equalsIgnoreCase(state) || "connected".equalsIgnoreCase(state))\n                && getBoolean(object, "connected", true)\n                && fresh && validAddress;
 
         int online = getInt(object, "players_online", 0);
         int max = getInt(object, "players_max", 20);
@@ -155,6 +155,16 @@ public final class LimuConnectScreen extends Screen {
         try {
             return object.has(name) && !object.get(name).isJsonNull()
                     ? object.get(name).getAsString()
+                    : fallback;
+        } catch (Exception ignored) {
+            return fallback;
+        }
+    }
+
+    private static boolean getBoolean(JsonObject object, String name, boolean fallback) {
+        try {
+            return object.has(name) && !object.get(name).isJsonNull()
+                    ? object.get(name).getAsBoolean()
                     : fallback;
         } catch (Exception ignored) {
             return fallback;
