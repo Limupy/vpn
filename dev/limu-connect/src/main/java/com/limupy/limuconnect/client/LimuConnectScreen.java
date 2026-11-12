@@ -136,7 +136,9 @@ public final class LimuConnectScreen extends Screen {
         }
 
         boolean validAddress = E4STEAM_ADDRESS.matcher(address).matches();
-        boolean connected = ("online".equalsIgnoreCase(state) || "connected".equalsIgnoreCase(state))\n                && getBoolean(object, "connected", true)\n                && fresh && validAddress;
+        boolean connected = ("online".equalsIgnoreCase(state) || "connected".equalsIgnoreCase(state))
+                && getBoolean(object, "connected", true)
+                && fresh && validAddress;
 
         int online = getInt(object, "players_online", 0);
         int max = getInt(object, "players_max", 20);
